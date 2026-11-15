@@ -64,6 +64,8 @@ Các công cụ maintenance không chạy khi cài app hoặc chạy test. Công
 
 Backup PostgreSQL dùng `scripts/infra/backup.sh`, `restore.sh` và helper `backup-common.sh`, tách khỏi backup VHD ở `scripts/maintenance`. Role Ansible cài đủ helper theo đường dẫn mới `scripts/infra/{{ item }}`. CI kiểm source copy/template có thật và parse Bash đệ quy, mỗi file một lần; không dùng glob chỉ quét thư mục root. [Drill dev](../runbooks/restore.md) chạy bằng `python scripts/dev/check-backup-restore.py`, giữ dump tại `.infra-local/db-backups`, chỉ tạo/xóa DB thử thuộc lượt đó. Metadata ghi hash source và phạm vi, không suy thành VM/cluster hoặc timer đã chạy.
 
+[Kiểm tra Linux source 0bd3fb3](../evidence/linux-paths-20261115T141048Z/README.md) đã chạy18 test liên quan, kiểm7source Ansible và6file Bash trong thư mục có khoảng trắng trên agent non-root. [Full unit trên Linux](../evidence/linux-unit-20261115T141826Z/README.md) cũng có110 đạt/8 bỏ qua. Đây là kiểm tra trực tiếp bằng môi trường agent đang có, chưa phải full Jenkins build của commit mới.
+
 ## Kiểm chứng
 
 Xem báo cáo `docs/evidence/source-restructure-*/metadata.json` của lần kiểm tra mới nhất. Baseline Jenkins #8/SHA 5bf6734 là kết quả trước refactor. Chỉ ghi một build Jenkins mới đã đạt khi đúng source sau thay đổi đã thực sự chạy qua pipeline. Docker chuyển sang D đã có bằng chứng lịch sử; dung lượng Windows C vẫn phải được đo riêng trước build lớn.

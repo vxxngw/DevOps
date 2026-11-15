@@ -1,0 +1,13 @@
+Running: /usr/bin/bash -n /home/jenkins/agent/manual verification/0bd3fb3-d4bd9afa3ce7/scripts/infra/backup-common.sh
+Exit0; log:ci-out/infra/bash/scripts__infra__backup-common.sh.log
+Running: /usr/bin/bash -n /home/jenkins/agent/manual verification/0bd3fb3-d4bd9afa3ce7/scripts/infra/backup.sh
+Exit0; log:ci-out/infra/bash/scripts__infra__backup.sh.log
+Running: /usr/bin/bash -n /home/jenkins/agent/manual verification/0bd3fb3-d4bd9afa3ce7/scripts/infra/check-infra-control.sh
+Exit0; log:ci-out/infra/bash/scripts__infra__check-infra-control.sh.log
+Running: /usr/bin/bash -n /home/jenkins/agent/manual verification/0bd3fb3-d4bd9afa3ce7/scripts/infra/host-health.sh
+Exit0; log:ci-out/infra/bash/scripts__infra__host-health.sh.log
+Running: /usr/bin/bash -n /home/jenkins/agent/manual verification/0bd3fb3-d4bd9afa3ce7/scripts/infra/restore.sh
+Exit0; log:ci-out/infra/bash/scripts__infra__restore.sh.log
+Running: /usr/bin/bash -n /home/jenkins/agent/manual verification/0bd3fb3-d4bd9afa3ce7/scripts/infra/setup-infra-control.sh
+Exit0; log:ci-out/infra/bash/scripts__infra__setup-infra-control.sh.log
+{"ansible_sources": 7, "bash_scripts": 6, "root": "/home/jenkins/agent/manual verification/0bd3fb3-d4bd9afa3ce7"}

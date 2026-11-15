@@ -34,4 +34,9 @@ Browser trên stack Compose thật: từ frontend, build bằng `npm run build`,
 
 Nhắc lịch: mặc định60phút, cấu hình `REMINDER_LEAD_MINUTES`; giá trị hợp lệ1–1440. API và publisher phải cùng giá trị; sau đổi env phải recreate service để nạp. Công tắc có trong bước Xem lại và Lịch hẹn của tôi; khi đã qua hạn bật nhắc, email xác nhận vẫn có. Tác vụ đã lưu không tự đổi `due_at` khi sửa cấu hình. Client API cũ không gửi tùy chọn thì mặc định tắt; migration không tự bật nhắc cho dữ liệu cũ. Xem [luồng và bằng chứng](soft-minimal.md).
 
-Nginx dev dùng resolver Docker127.0.0.11 để không giữ IP API cũ khi recreate. Cấu hình Kubernetes sau này phải dùng DNS/resolver của cluster, không copy nguyên IP này. Nếu Git báo dubious ownership do repo được init bằng tài khoản sandbox, sau khi xác nhận đúng workspace có thể chạy lệnh với phạm vi duy nhất: `git -c safe.directory=D:/CODE/OOPs/Do_An status`; không thêm wildcard trust toàn bộ máy.
+Nginx dev dùng resolver Docker127.0.0.11 để không giữ IP API cũ khi recreate. Cấu hình Kubernetes phải dùng DNS/resolver của cluster. Nếu Git báo dubious ownership, xác nhận đúng checkout và chủ sở hữu trước. Từ root repo, chỉ áp dụng ngoại lệ cho lệnh hiện tại bằng PowerShell, không thêm wildcard trust toàn bộ máy:
+
+```powershell
+$repoPath = (Get-Location).Path.Replace('\', '/')
+git -c "safe.directory=$repoPath" status
+```

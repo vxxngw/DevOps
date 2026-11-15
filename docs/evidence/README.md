@@ -2,6 +2,10 @@
 
 [Backup/restore dev thật](backup-restore-20261115T134405Z/README.md): dump/checksum/retention, 9 bảng và46schema definitions khớp, API/outbox qua, nguồn không đổi, DB thử đã dọn. [CI native mới](backup-ci-checks-20261115T134558Z/README.md) có lint/110unit+8skip và kiểm hạ tầng tĩnh; chưa phải Jenkins build mới hay timer/VM/cluster runtime. Các snapshot lịch sử bên dưới không bị viết lại.
 
+[Linux source0bd3fb3](linux-paths-20261115T141048Z/README.md): 18 test liên quan qua trên agent UID1000, checkout riêng có khoảng trắng; source7file Ansible/Bash6file qua. Không build image hoặc khởi động pipeline.
+
+[Full unit Linux source 0bd3fb3](linux-unit-20261115T141826Z/README.md): 110 đạt/8 bỏ qua, agent non-root và checkout riêng có khoảng trắng. Không thay integration hoặc full Jenkins build mới.
+
 ## Hiện trạng và bằng chứng mới
 
 [CI runtime](ci-runtime-latest.json) và [CI/SHA bundle](ci-agent-20261115T064424Z/README.md) ghi nhận baseline CI thật. Các phần dưới là snapshot lịch sử. Sau tái cấu trúc, xem [bố cục source](../guides/source-structure.md) và báo cáo kiểm chứng riêng, không coi baseline là build của source mới.

@@ -2,7 +2,7 @@
 
 Ngày 14/11/2026. Đã đọc lại toàn bộ brief (464 dòng) và PDF (7 trang), đối chiếu repo, công cụ và runtime. **Chưa hoàn thành yêu cầu DevOps; chưa sẵn sàng nộp/bảo vệ đủ đề bài.** Mốc1 đã có luồng ứng dụng/sự kiện được kiểm chứng; Mốc2 mới một phần, Mốc3–4 chưa triển khai đầy đủ. Không lấy kết quả giao diện hoặc số test ứng dụng thay tiêu chí hạ tầng.
 
-Nguồn rubric: [PDF gốc](<C:/Users/Acer/Downloads/Đề tài đồ án môn DevOps.pdf>), trang1–3,5–7. [Brief](C:/Users/Acer/Downloads/CODEX_BRIEF_Dat_lich_kham_DevOps.txt) là kế hoạch triển khai người dùng yêu cầu áp dụng. Phân loại từng dòng và cách kiểm chứng ở [compliance-matrix.md](../compliance-matrix.md).
+Nguồn rubric: `Đề tài đồ án môn DevOps.pdf`, trang 1–3,5–7. `CODEX_BRIEF_Dat_lich_kham_DevOps.txt` là kế hoạch triển khai người dùng yêu cầu áp dụng. Hai tài liệu gốc do người dùng cung cấp, không được đóng gói trong repo. Khi thu bằng chứng mới, truyền vị trí file trên máy hiện tại qua `scripts/dev/collect-runtime.py --assignment-pdf <PDF> --brief <BRIEF>`; không phụ thuộc thư mục Downloads của một tài khoản. Phân loại từng dòng và cách kiểm chứng ở [ma trận](../compliance-matrix.md). Báo cáo này giữ snapshot 14/11; cập nhật mới xem ma trận và evidence có thời điểm.
 
 ## Đối chiếu 12 nhóm bắt buộc
 
