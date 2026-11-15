@@ -62,6 +62,8 @@ Trên Windows, kiểm tra control host dùng `wslpath` để đổi đường d�
 
 Các công cụ maintenance không chạy khi cài app hoặc chạy test. Công cụ backup nhận `-DockerSource`, `-BackupRoot`, tùy chọn `-SourceSettings`; công cụ inspect nhận `-TargetDisk`, tùy chọn `-SourceDisk`; công cụ chuẩn bị thư mục nhận `-DataRoot`, `-BackupRoot`. Tham số phải được người vận hành kiểm tra và duyệt theo runbook. Không dùng tái cấu trúc source để tự chuyển/xóa VHD hoặc sửa ACL/pagefile trên máy chung. Lần refactor này chỉ sửa mã của chúng, không thực thi các tác vụ bảo trì đó.
 
+Backup PostgreSQL dùng `scripts/infra/backup.sh`, `restore.sh` và helper `backup-common.sh`, tách khỏi backup VHD ở `scripts/maintenance`. Role Ansible cài đủ helper theo đường dẫn mới `scripts/infra/{{ item }}`. CI kiểm source copy/template có thật và parse Bash đệ quy, mỗi file một lần; không dùng glob chỉ quét thư mục root. [Drill dev](../runbooks/restore.md) chạy bằng `python scripts/dev/check-backup-restore.py`, giữ dump tại `.infra-local/db-backups`, chỉ tạo/xóa DB thử thuộc lượt đó. Metadata ghi hash source và phạm vi, không suy thành VM/cluster hoặc timer đã chạy.
+
 ## Kiểm chứng
 
 Xem báo cáo `docs/evidence/source-restructure-*/metadata.json` của lần kiểm tra mới nhất. Baseline Jenkins #8/SHA 5bf6734 là kết quả trước refactor. Chỉ ghi một build Jenkins mới đã đạt khi đúng source sau thay đổi đã thực sự chạy qua pipeline. Docker chuyển sang D đã có bằng chứng lịch sử; dung lượng Windows C vẫn phải được đo riêng trước build lớn.

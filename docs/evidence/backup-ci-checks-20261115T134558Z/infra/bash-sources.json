@@ -1,0 +1,26 @@
+[
+  {
+    "path": "scripts/infra/backup-common.sh",
+    "exit_code": 0
+  },
+  {
+    "path": "scripts/infra/backup.sh",
+    "exit_code": 0
+  },
+  {
+    "path": "scripts/infra/check-infra-control.sh",
+    "exit_code": 0
+  },
+  {
+    "path": "scripts/infra/host-health.sh",
+    "exit_code": 0
+  },
+  {
+    "path": "scripts/infra/restore.sh",
+    "exit_code": 0
+  },
+  {
+    "path": "scripts/infra/setup-infra-control.sh",
+    "exit_code": 0
+  }
+]

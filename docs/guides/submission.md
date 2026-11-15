@@ -6,7 +6,7 @@
 |---|---|---|
 | Link repo và README dựng lại từ máy trắng | Repo vxxngw/DevOps, nhánh/PR thật; README, hướng dẫn M1–M4, Terraform/Ansible/CI/K8s | Review thật, branch protection phù hợp gói GitHub, dựng máy trắng/pipeline/runtime và release tag đã nghiệm thu |
 | Báo cáo kiến trúc/pipeline/lý do/tải/phân công/postmortem | architecture.md, ci-cd.md, decisions.md, project-report.md, postmortem kỹ thuật có bằng chứng | Kết quả tải thật, tên thành viên/commit/review thật và nhóm xác nhận postmortem; không gán tác giả giả |
-| Runbook deploy/rollback/khôi phục DB/từng alert | docs/runbooks với quy trình và kiểm chứng cụ thể | Diễn tập cluster/backup/restore/rollback và nhận cảnh báo thật |
+| Runbook deploy/rollback/khôi phục DB/từng alert | docs/runbooks; [restore dev thực tế](../evidence/backup-restore-20261115T134405Z/README.md) đã kiểm dữ liệu/schema/API và cleanup | Timer/host/cluster, offsite/RPO/RTO sự cố, deploy/rollback và nhận cảnh báo thật; dev drill chưa thay toàn bộ nghiệm thu production |
 | Video tối đa10 phút | Kịch bản8 bước và kế hoạch quay trong demo-script.md | Chưa quay, chưa có file hoặc URL; không tạo link giả |
 | Grafana dashboard export và alert rules | observability/grafana/dashboards/operations.json (37 panel), rules vận hành/demo, 14 ca promtool | Import/UI/export từ Grafana đang chạy, metric thật, Alertmanager FIRING/RESOLVED phía nhận |
 

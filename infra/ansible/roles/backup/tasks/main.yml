@@ -6,10 +6,10 @@
       ansible.builtin.file: {path: "{{ clinic_backup_root }}", state: directory, mode: '0700'}
     - name: Install operational scripts
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/../../scripts/{{ item }}"
+        src: "{{ playbook_dir }}/../../scripts/infra/{{ item }}"
         dest: "/usr/local/sbin/clinic-{{ item }}"
         mode: '0750'
-      loop: [backup.sh, restore.sh, host-health.sh]
+      loop: [backup.sh, restore.sh, host-health.sh, backup-common.sh]
     - name: Install backup service
       ansible.builtin.template:
         src: clinic-backup@.service.j2

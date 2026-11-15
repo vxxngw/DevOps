@@ -12,3 +12,6 @@ Jenkinsfile text eol=lf
 docs/evidence/ci-agent-20261115T064424Z/** -text
 docs/evidence/source-restructure-20261115T104329Z/** -text
 docs/evidence/ui-20261115T105819Z/** -text
+
+docs/evidence/backup-restore-20261115T*/** -text
+docs/evidence/backup-ci-checks-20261115T*/** -text

@@ -10,6 +10,8 @@ Nhóm 3 thành viên bắt đầu từ [checklist onboarding và phân công tas
 
 **Mốc 3:** [cấu hình và kiểm chứng chuẩn bị](docs/guides/milestone-3.md) đã có Terraform/Ansible/Kubernetes/HPA/KEDA/TLS/RBAC/backup/rollback. Người dùng chọn chuẩn bị trên máy hiện tại; chưa tạo VM/cluster. [Runbook lab](docs/runbooks/infra-lab.md) và [evidence](docs/evidence/m3-latest.json) phân biệt kiểm tra local với runtime còn bị chặn.
 
+**Bổ sung sau refactor:** đã sửa source động của Ansible backup role và kiểm Bash đệ quy từng file. [Backup/restore dev thật](docs/evidence/backup-restore-20261115T134405Z/README.md) xác nhận 9 bảng/46 định nghĩa schema khớp, API đặt/hủy/idempotency/outbox qua, DB nguồn giữ nguyên và DB thử đã dọn. [CI native](docs/evidence/backup-ci-checks-20261115T134558Z/README.md) có 110 test đạt/8 bỏ qua, lint và hạ tầng tĩnh; chưa có Jenkins build mới cho phần bổ sung này. Timer/VM/cluster và GHCR chưa hoàn tất.
+
 ## Bố cục repo
 
 [Mục lục tài liệu](docs/README.md) và [bố cục source](docs/guides/source-structure.md) là điểm bắt đầu cho thành viên mới.

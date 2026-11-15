@@ -1,5 +1,7 @@
 # Mốc 3 – chuẩn bị IaC và Kubernetes
 
+**Cập nhật sau refactor 15/11:** [DB backup/restore dev đã chạy thật](../evidence/backup-restore-20261115T134405Z/README.md), đối chiếu 9 bảng/46 schema definitions và smoke API/outbox, dọn DB thử thành công. Ansible backup role đã sửa source động sang `scripts/infra` và cài đủ helper; CI kiểm source và Bash từng file. [CI native mới](../evidence/backup-ci-checks-20261115T134558Z/README.md) có110 test đạt/8 bỏ qua cùng Terraform/schema/policy. Timer/host health Linux, VM/Ansible lần2, cluster/TLS/HPA/KEDA vẫn chưa chạy. Các kết quả chuẩn bị cũ bên dưới giữ phạm vi lịch sử; Docker move/webhook push đã có bằng chứng ở báo cáo refactor.
+
 Phạm vi người dùng chọn: **chuẩn bị trên máy hiện tại**. Đã chuẩn bị mã, cấu hình, công cụ và kiểm chứng local; **chưa nghiệm thu Mốc 3 chạy thực tế**. Mốc 2 còn bị chặn ở Docker, registry và webhook. Xem [bằng chứng mới nhất](../evidence/m3-latest.json), [hướng dẫn dựng lab](../runbooks/infra-lab.md), [deploy](../runbooks/deploy.md), [rollback](../runbooks/rollback.md) và [restore](../runbooks/restore.md).
 
 | Hạng mục | Sản phẩm đã chuẩn bị | Kiểm chứng đã thực hiện | Phần chưa chạy |

@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 umask 077
-namespace="${1:?Usage: backup.sh staging|production}"
-[[ "$namespace" == staging || "$namespace" == production ]] || exit 2
-backup_root="${CLINIC_BACKUP_ROOT:-/srv/clinic-backups}"
-[[ "$backup_root" == /srv/clinic-backups ]] || { echo 'Unexpected backup root' >&2; exit 2; }
+namespace="${1:?Usage: backup.sh dev|staging|production}"
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+helper="$script_dir/backup-common.sh"
+[[ -f "$helper" ]] || helper="$script_dir/clinic-backup-common.sh"
+# shellcheck source=backup-common.sh
+source "$helper"
+configure_backup_paths "$namespace"
 retention="${CLINIC_BACKUP_RETENTION_DAYS:-7}"
 [[ "$retention" =~ ^[1-9][0-9]?$ ]] || exit 2
-metric_dir=/var/lib/node_exporter/textfile
 write_status() {
   [[ -d "$metric_dir" ]] || return 0
   local status_file="$metric_dir/clinic-backup-last-run-$namespace.prom"
@@ -17,13 +19,15 @@ write_status() {
 }
 trap 'status=$?; write_status 0 || true; exit "$status"' ERR
 mkdir -p "$backup_root/$namespace"
-destination="$(realpath "$backup_root/$namespace")"
+[[ "$transport" != docker-dev ]] || mkdir -p "$metric_dir"
+validate_pg_transport
+destination="$(canonical_backup_path "$backup_root/$namespace")"
 [[ "$destination" == "$backup_root/$namespace" ]] || exit 2
 stamp="$(date -u +%Y%m%dT%H%M%SZ)"
 artifact="$destination/clinic-$namespace-$stamp.dump"
 [[ ! -e "$artifact" && ! -e "$artifact.tmp" ]] || exit 2
 trap 'rm -f -- "$artifact.tmp"' EXIT
-kubectl -n "$namespace" exec postgres-0 -- sh -ec \
+pg_exec plain sh -ec \
   'export PGPASSWORD="$POSTGRES_PASSWORD"; exec pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB" -Fc' > "$artifact.tmp"
 [[ -s "$artifact.tmp" ]] || { echo 'Empty backup' >&2; exit 1; }
 mv -- "$artifact.tmp" "$artifact"
@@ -35,4 +39,4 @@ if [[ -d "$metric_dir" ]]; then
   mv -- "$metric_dir/clinic-backup-$namespace.prom.tmp" "$metric_dir/clinic-backup-$namespace.prom"
 fi
 write_status 1
-printf '{"event":"backup_complete","namespace":"%s","artifact":"%s"}\n' "$namespace" "$artifact"
+printf '{"event":"backup_complete","namespace":"%s","transport":"%s","artifact":"%s"}\n' "$namespace" "$transport" "$artifact"
