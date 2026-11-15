@@ -1,0 +1,96 @@
+{
+  "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+  "actions": [
+    {
+      "_class": "hudson.model.ParametersAction",
+      "parameters": [
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "SOURCE_REF",
+          "value": "32f4343f8bb800053faf81bfce1d171b3fcbf697"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "SOURCE_BRANCH",
+          "value": "codex/source-structure"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "CLUSTER_SERVER_URL",
+          "value": "https://192.168.150.11:6443"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "STAGING_URL",
+          "value": "https://staging.anuyen.test"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "PRODUCTION_URL",
+          "value": "https://hospital.anuyen.test"
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "IS_PR",
+          "value": false
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "PUBLISH_IMAGES",
+          "value": false
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "DEPLOY",
+          "value": false
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "SECURITY_DEMO",
+          "value": "none"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "PRODUCTION_APPROVERS",
+          "value": "clinic-admin"
+        }
+      ]
+    },
+    {
+      "_class": "hudson.model.CauseAction"
+    },
+    {},
+    {
+      "_class": "hudson.plugins.git.util.BuildData"
+    },
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.workflow.libs.LibrariesAction"
+    },
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.workflow.cps.EnvActionImpl"
+    },
+    {
+      "_class": "hudson.tasks.junit.TestResultAction"
+    },
+    {},
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.displayurlapi.actions.RunDisplayAction"
+    },
+    {
+      "_class": "org.jenkinsci.plugins.pipeline.modeldefinition.actions.RestartDeclarativePipelineAction"
+    },
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.views.FlowGraphAction"
+    },
+    {},
+    {}
+  ],
+  "building": false,
+  "number": 11,
+  "result": "SUCCESS",
+  "url": "http://localhost:18090/job/an-uyen/job/clinic-pipeline/11/"
+}

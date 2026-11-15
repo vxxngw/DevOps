@@ -71,3 +71,5 @@ Xem báo cáo `docs/evidence/source-restructure-*/metadata.json` của lần ki�
 GitHub redirect từ vxxngw/DevOps đến vuongvo2207-gmail-com/DevOps, cùng repository ID 1457478642; repo vẫn private. Cấu hình hiện tại dùng URL canonical. Webhook đọc ci/webhook/repository.json, đối chiếu cả tên và ID của repository/head PR, giữ HMAC và từ chối fork. Namespace image dự kiến là ghcr.io/vuongvo2207-gmail-com; chưa có bằng chứng publish GHCR.
 
 Chuỗi OWNER trong bootstrap Jenkins là marker ownership đã lưu trên controller cũ. Nó cố ý giữ giá trị lịch sử dù file script đã chuyển chỗ, để guard nhận đúng item thuộc dự án. Không đổi marker theo tên file hoặc tài khoản. Hai regression test kiểm tra cập nhật item cũ hợp lệ và từ chối item của dự án khác.
+
+Kết quả sau thay đổi: [final summary](../evidence/source-restructure-20261115T104329Z/final-summary.json), Jenkins11SUCCESS92unit/8skip và33integration/0skip,5image0CRITICAL, browser10checks và SHAstack cleanup0. Không suy thành GHCR publication hoặc K8s runtime.

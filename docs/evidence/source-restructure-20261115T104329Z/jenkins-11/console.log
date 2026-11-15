@@ -1,0 +1,242 @@
+Started by user clinic-webhook
+Checking out git https://github.com/vuongvo2207-gmail-com/DevOps.git into /var/jenkins_home/workspace/an-uyen/clinic-pipeline@script/381bf11cb5b4ae95017f1cfc1041534c31b6e754008ce637ce2fdd3cfcb69100 to read Jenkinsfile
+The recommended git tool is: NONE
+using credential clinic-github
+Cloning the remote Git repository
+Cloning repository https://github.com/vuongvo2207-gmail-com/DevOps.git
+ > git init /var/jenkins_home/workspace/an-uyen/clinic-pipeline@script/381bf11cb5b4ae95017f1cfc1041534c31b6e754008ce637ce2fdd3cfcb69100 # timeout=10
+Fetching upstream changes from https://github.com/vuongvo2207-gmail-com/DevOps.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials Managed by scripts/bootstrap-ci.py for vxxngw/DevOps
+ > git fetch --tags --force --progress -- https://github.com/vuongvo2207-gmail-com/DevOps.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/vuongvo2207-gmail-com/DevOps.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/vuongvo2207-gmail-com/DevOps.git # timeout=10
+Fetching upstream changes from https://github.com/vuongvo2207-gmail-com/DevOps.git
+using GIT_ASKPASS to set credentials Managed by scripts/bootstrap-ci.py for vxxngw/DevOps
+ > git fetch --tags --force --progress -- https://github.com/vuongvo2207-gmail-com/DevOps.git +refs/heads/*:refs/remotes/origin/* +refs/pull/*/head:refs/remotes/origin/pr/* # timeout=10
+ > git rev-parse 32f4343f8bb800053faf81bfce1d171b3fcbf697^{commit} # timeout=10
+Checking out Revision 32f4343f8bb800053faf81bfce1d171b3fcbf697 (detached)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 32f4343f8bb800053faf81bfce1d171b3fcbf697 # timeout=10
+Commit message: "fix(ci): retain Jenkins ownership across source and repository moves"
+First time build. Skipping changelog.
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on clinic-ci-linux in /home/jenkins/agent/workspace/an-uyen/clinic-pipeline
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timeout
+Timeout set to expire in 1 hr 0 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] deleteDir
+[Pipeline] checkout
+The recommended git tool is: NONE
+using credential clinic-github
+Cloning the remote Git repository
+Cloning repository https://github.com/vuongvo2207-gmail-com/DevOps.git
+ > git init /home/jenkins/agent/workspace/an-uyen/clinic-pipeline # timeout=10
+Fetching upstream changes from https://github.com/vuongvo2207-gmail-com/DevOps.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials Managed by scripts/bootstrap-ci.py for vxxngw/DevOps
+ > git fetch --tags --force --progress -- https://github.com/vuongvo2207-gmail-com/DevOps.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/vuongvo2207-gmail-com/DevOps.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/vuongvo2207-gmail-com/DevOps.git # timeout=10
+Fetching upstream changes from https://github.com/vuongvo2207-gmail-com/DevOps.git
+using GIT_ASKPASS to set credentials Managed by scripts/bootstrap-ci.py for vxxngw/DevOps
+ > git fetch --tags --force --progress -- https://github.com/vuongvo2207-gmail-com/DevOps.git +refs/heads/*:refs/remotes/origin/* +refs/pull/*/head:refs/remotes/origin/pr/* # timeout=10
+Checking out Revision 32f4343f8bb800053faf81bfce1d171b3fcbf697 (detached)
+ > git rev-parse 32f4343f8bb800053faf81bfce1d171b3fcbf697^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 32f4343f8bb800053faf81bfce1d171b3fcbf697 # timeout=10
+Commit message: "fix(ci): retain Jenkins ownership across source and repository moves"
+[Pipeline] sh
++ git rev-parse HEAD
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Secret scan)
+[Pipeline] sh
++ python3 -m ci.security secrets
+Running: /usr/local/bin/gitleaks version
+Running: /usr/local/bin/gitleaks git /home/jenkins/agent/workspace/an-uyen/clinic-pipeline --log-opts=--all --config /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.gitleaks.toml --redact --no-banner --report-format json --report-path /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci-out/security/gitleaks.json
+Exit0; log:ci-out/security/gitleaks.log
+Running: git -c safe.directory=/home/jenkins/agent/workspace/an-uyen/clinic-pipeline rev-parse HEAD
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Security failure demonstration)
+Stage "Security failure demonstration" skipped due to when conditional
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Lint and typecheck)
+[Pipeline] sh
++ python3 -m ci.pipeline prepare
+Running: /usr/local/bin/python3 -m venv /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/venv
+Running: /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/venv/bin/python -m pip install --cache-dir /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/pip-cache -r requirements.lock
+Exit0; log:ci-out/install-python.log
+Running: /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/venv/bin/python -m pip install --cache-dir /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/pip-cache -r infra/requirements-static.txt
+Exit0; log:ci-out/install-infra-python.log
+Running: npm ci --cache /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/npm-cache --ignore-scripts --no-fund --no-audit
+Exit0; log:ci-out/install-node.log
++ python3 -m ci.pipeline lint
+Running: /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/venv/bin/python -m ruff check services tests scripts ci observability
+Exit0; log:ci-out/ruff.log
+Running: /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/venv/bin/python -m ruff format --check services tests scripts ci observability
+Exit0; log:ci-out/format.log
+Running: npm run lint
+Exit0; log:ci-out/eslint.log
+Running: npm run format:check
+Exit0; log:ci-out/frontend-format.log
+Running: npm run build
+Exit0; log:ci-out/frontend-build.log
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Unit tests)
+[Pipeline] sh
++ python3 -m ci.pipeline unit
+Running: /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/venv/bin/python -m pytest -q tests ci/tests --tb=short --junitxml=/home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci-out/junit-unit.xml
+Exit0; log:ci-out/unit.log
+Running: git -c safe.directory=/home/jenkins/agent/workspace/an-uyen/clinic-pipeline rev-parse HEAD
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Infrastructure configuration checks)
+[Pipeline] sh
++ python3 -m ci.pipeline infrastructure
+Running: /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/venv/bin/python -m ci.infrastructure
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Observability configuration checks)
+[Pipeline] sh
++ python3 -m ci.pipeline observability
+Running: /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/venv/bin/python -m ci.observability
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build images)
+[Pipeline] sh
++ python3 -m ci.pipeline build
+Running: git -c safe.directory=/home/jenkins/agent/workspace/an-uyen/clinic-pipeline rev-parse HEAD
+Running: git -c safe.directory=/home/jenkins/agent/workspace/an-uyen/clinic-pipeline status --porcelain --untracked-files=all
+Running: docker build --label org.opencontainers.image.source=https://github.com/vuongvo2207-gmail-com/DevOps --label org.opencontainers.image.revision=32f4343f8bb800053faf81bfce1d171b3fcbf697 --label org.opencontainers.image.created=2026-11-15T11:22:47.969816+00:00 -f /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/services/Dockerfile -t ghcr.io/vuongvo2207-gmail-com/devops-app:32f4343f8bb800053faf81bfce1d171b3fcbf697 /home/jenkins/agent/workspace/an-uyen/clinic-pipeline
+Exit0; log:ci-out/build/app.log
+Running: docker image inspect ghcr.io/vuongvo2207-gmail-com/devops-app:32f4343f8bb800053faf81bfce1d171b3fcbf697 --format {{.Id}}
+Running: docker build --label org.opencontainers.image.source=https://github.com/vuongvo2207-gmail-com/DevOps --label org.opencontainers.image.revision=32f4343f8bb800053faf81bfce1d171b3fcbf697 --label org.opencontainers.image.created=2026-11-15T11:22:52.097573+00:00 -f /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/frontend/Dockerfile -t ghcr.io/vuongvo2207-gmail-com/devops-frontend:32f4343f8bb800053faf81bfce1d171b3fcbf697 /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/frontend
+Exit0; log:ci-out/build/frontend.log
+Running: docker image inspect ghcr.io/vuongvo2207-gmail-com/devops-frontend:32f4343f8bb800053faf81bfce1d171b3fcbf697 --format {{.Id}}
+Running: git -c safe.directory=/home/jenkins/agent/workspace/an-uyen/clinic-pipeline log -1 --format=%H%n%ct%n%cI -- images/postgres
+Running: docker build --label org.opencontainers.image.source=https://github.com/vuongvo2207-gmail-com/DevOps --label org.opencontainers.image.revision=4a6e05647044ad8722771eb0ba8bbe763b2133b1 --label org.opencontainers.image.created=2026-11-14T16:03:51+07:00 --build-arg SOURCE_DATE_EPOCH=1794647031 -f /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/images/postgres/Dockerfile -t ghcr.io/vuongvo2207-gmail-com/devops-postgres:32f4343f8bb800053faf81bfce1d171b3fcbf697 /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/images/postgres
+Exit0; log:ci-out/build/postgres.log
+Running: docker image inspect ghcr.io/vuongvo2207-gmail-com/devops-postgres:32f4343f8bb800053faf81bfce1d171b3fcbf697 --format {{.Id}}
+Running: git -c safe.directory=/home/jenkins/agent/workspace/an-uyen/clinic-pipeline log -1 --format=%H%n%ct%n%cI -- images/rabbitmq
+Running: docker build --label org.opencontainers.image.source=https://github.com/vuongvo2207-gmail-com/DevOps --label org.opencontainers.image.revision=4a6e05647044ad8722771eb0ba8bbe763b2133b1 --label org.opencontainers.image.created=2026-11-14T16:03:51+07:00 --build-arg SOURCE_DATE_EPOCH=1794647031 -f /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/images/rabbitmq/Dockerfile -t ghcr.io/vuongvo2207-gmail-com/devops-rabbitmq:32f4343f8bb800053faf81bfce1d171b3fcbf697 /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/images/rabbitmq
+Exit0; log:ci-out/build/rabbitmq.log
+Running: docker image inspect ghcr.io/vuongvo2207-gmail-com/devops-rabbitmq:32f4343f8bb800053faf81bfce1d171b3fcbf697 --format {{.Id}}
+Running: git -c safe.directory=/home/jenkins/agent/workspace/an-uyen/clinic-pipeline log -1 --format=%H%n%ct%n%cI -- images/mailpit
+Running: docker build --label org.opencontainers.image.source=https://github.com/vuongvo2207-gmail-com/DevOps --label org.opencontainers.image.revision=4a6e05647044ad8722771eb0ba8bbe763b2133b1 --label org.opencontainers.image.created=2026-11-14T16:03:51+07:00 --build-arg SOURCE_DATE_EPOCH=1794647031 -f /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/images/mailpit/Dockerfile -t ghcr.io/vuongvo2207-gmail-com/devops-mailpit:32f4343f8bb800053faf81bfce1d171b3fcbf697 /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/images/mailpit
+Exit0; log:ci-out/build/mailpit.log
+Running: docker image inspect ghcr.io/vuongvo2207-gmail-com/devops-mailpit:32f4343f8bb800053faf81bfce1d171b3fcbf697 --format {{.Id}}
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Integration tests)
+[Pipeline] sh
++ python3 -m ci.pipeline integration
+Running: git -c safe.directory=/home/jenkins/agent/workspace/an-uyen/clinic-pipeline rev-parse HEAD
+Running: docker compose --env-file /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/clinic-ci-32f4343f8bb8-9696ed8c.env -f /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci/compose.test.yaml -p clinic-ci-32f4343f8bb8-9696ed8c up -d --wait postgres rabbitmq mailpit
+Exit0; log:ci-out/integration-up.log
+Running: docker compose --env-file /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/clinic-ci-32f4343f8bb8-9696ed8c.env -f /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci/compose.test.yaml -p clinic-ci-32f4343f8bb8-9696ed8c run --name clinic-ci-32f4343f8bb8-9696ed8c-test --no-deps test
+Exit0; log:ci-out/integration.log
+Running: docker cp clinic-ci-32f4343f8bb8-9696ed8c-test:/tmp/junit.xml /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci-out/junit-integration.xml
+Exit0; log:ci-out/integration-copy.log
+Running: docker rm -f clinic-ci-32f4343f8bb8-9696ed8c-test
+Exit0; log:ci-out/integration-remove-test.log
+Running: docker compose --env-file /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/clinic-ci-32f4343f8bb8-9696ed8c.env -f /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci/compose.test.yaml -p clinic-ci-32f4343f8bb8-9696ed8c down --volumes --remove-orphans
+Exit0; log:ci-out/integration-cleanup.log
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Image and dependency security scan)
+[Pipeline] sh
++ python3 -m ci.security images
+Running: git -c safe.directory=/home/jenkins/agent/workspace/an-uyen/clinic-pipeline rev-parse HEAD
+Running: /usr/local/bin/trivy --version
+Running: /usr/local/bin/trivy image --cache-dir /home/jenkins/.cache/trivy --scanners vuln --severity CRITICAL --exit-code 1 --ignorefile /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/empty-trivy-ignore --format json --output /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci-out/security/trivy-app.json ghcr.io/vuongvo2207-gmail-com/devops-app:32f4343f8bb800053faf81bfce1d171b3fcbf697
+Exit0; log:ci-out/security/trivy-app.log
+Running: /usr/local/bin/trivy --version
+Running: /usr/local/bin/trivy image --cache-dir /home/jenkins/.cache/trivy --scanners vuln --severity CRITICAL --exit-code 1 --ignorefile /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/empty-trivy-ignore --format json --output /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci-out/security/trivy-frontend.json ghcr.io/vuongvo2207-gmail-com/devops-frontend:32f4343f8bb800053faf81bfce1d171b3fcbf697
+Exit0; log:ci-out/security/trivy-frontend.log
+Running: /usr/local/bin/trivy --version
+Running: /usr/local/bin/trivy image --cache-dir /home/jenkins/.cache/trivy --scanners vuln --severity CRITICAL --exit-code 1 --ignorefile /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/empty-trivy-ignore --format json --output /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci-out/security/trivy-postgres.json ghcr.io/vuongvo2207-gmail-com/devops-postgres:32f4343f8bb800053faf81bfce1d171b3fcbf697
+Exit0; log:ci-out/security/trivy-postgres.log
+Running: /usr/local/bin/trivy --version
+Running: /usr/local/bin/trivy image --cache-dir /home/jenkins/.cache/trivy --scanners vuln --severity CRITICAL --exit-code 1 --ignorefile /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/empty-trivy-ignore --format json --output /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci-out/security/trivy-rabbitmq.json ghcr.io/vuongvo2207-gmail-com/devops-rabbitmq:32f4343f8bb800053faf81bfce1d171b3fcbf697
+Exit0; log:ci-out/security/trivy-rabbitmq.log
+Running: /usr/local/bin/trivy --version
+Running: /usr/local/bin/trivy image --cache-dir /home/jenkins/.cache/trivy --scanners vuln --severity CRITICAL --exit-code 1 --ignorefile /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/empty-trivy-ignore --format json --output /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci-out/security/trivy-mailpit.json ghcr.io/vuongvo2207-gmail-com/devops-mailpit:32f4343f8bb800053faf81bfce1d171b3fcbf697
+Exit0; log:ci-out/security/trivy-mailpit.log
+Running: /usr/local/bin/trivy --version
+Running: /usr/local/bin/trivy fs --cache-dir /home/jenkins/.cache/trivy --scanners vuln --severity CRITICAL --exit-code 1 --ignorefile /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/empty-trivy-ignore --format json --output /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci-out/security/trivy-dependencies.json --include-dev-deps --skip-dirs /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.git --skip-dirs /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local --skip-dirs /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.infra-local --skip-dirs /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci-out --skip-dirs /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/tmp --skip-dirs /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/outputs --skip-dirs /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.venv --skip-dirs /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/frontend/node_modules --skip-dirs /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/frontend/dist /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/dependency-input
+Exit0; log:ci-out/security/trivy-dependencies.log
+Running: git -c safe.directory=/home/jenkins/agent/workspace/an-uyen/clinic-pipeline rev-parse HEAD
+Python/Node dependency scan passed, including dev dependencies; image scans are separate
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push SHA images and record digests)
+Stage "Push SHA images and record digests" skipped due to when conditional
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy staging)
+Stage "Deploy staging" skipped due to when conditional
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Approve production)
+Stage "Approve production" skipped due to when conditional
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy production)
+Stage "Deploy production" skipped due to when conditional
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] archiveArtifacts
+Archiving artifacts
+[Pipeline] sh
++ python3 -m ci.release cleanup
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

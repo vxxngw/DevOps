@@ -1,3 +1,5 @@
+[Refactor đã kiểm chứng](source-restructure-20261115T104329Z/README.md): source32f4343, Jenkins11SUCCESS,92unit/8skip,33integration/0skip,10browserchecks,5image0CRITICAL và SHAstack/email/cleanup0.
+
 ## Hiện trạng và bằng chứng mới
 
 [CI runtime](ci-runtime-latest.json) và [CI/SHA bundle](ci-agent-20261115T064424Z/README.md) ghi nhận baseline CI thật. Các phần dưới là snapshot lịch sử. Sau tái cấu trúc, xem [bố cục source](../guides/source-structure.md) và báo cáo kiểm chứng riêng, không coi baseline là build của source mới.

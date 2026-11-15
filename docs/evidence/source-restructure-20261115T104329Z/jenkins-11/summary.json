@@ -1,0 +1,54 @@
+{
+  "at_utc": "2026-11-15T11:26:33.561221+00:00",
+  "source_commit": "32f4343f8bb800053faf81bfce1d171b3fcbf697",
+  "build": 11,
+  "result": "SUCCESS",
+  "building": false,
+  "url": "http://localhost:18090/job/an-uyen/job/clinic-pipeline/11/",
+  "stage": "Declarative: Post Actions",
+  "publish": false,
+  "deploy": false,
+  "c_free_gib": 1.51,
+  "d_free_gib": 9.6,
+  "junit": {
+    "junit-unit.xml": {
+      "cases": 100,
+      "passed": 92,
+      "skipped": 8,
+      "failed": 0
+    },
+    "junit-integration.xml": {
+      "cases": 33,
+      "passed": 33,
+      "skipped": 0,
+      "failed": 0
+    }
+  },
+  "images": {
+    "app": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-app:32f4343f8bb800053faf81bfce1d171b3fcbf697",
+      "critical": 0,
+      "image_id": "sha256:7e331a74c6eccb0be4d8fcbd88bc3d62d463f198c4cf74bda36c7fb12761961c"
+    },
+    "frontend": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-frontend:32f4343f8bb800053faf81bfce1d171b3fcbf697",
+      "critical": 0,
+      "image_id": "sha256:938491cc1438c44dea7461e50169db25dab5a66dc8e57667181ebdf48abfaf1b"
+    },
+    "postgres": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-postgres:32f4343f8bb800053faf81bfce1d171b3fcbf697",
+      "critical": 0,
+      "image_id": "sha256:0f74739546bfb5a5b98304174c33133f30f332588612e7f5b6566dd26dfc5a30"
+    },
+    "rabbitmq": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-rabbitmq:32f4343f8bb800053faf81bfce1d171b3fcbf697",
+      "critical": 0,
+      "image_id": "sha256:afd2bac4974c44be4cd1eed26bbe64bbc22126e249a19915bf9532b2bc4cd0fe"
+    },
+    "mailpit": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-mailpit:32f4343f8bb800053faf81bfce1d171b3fcbf697",
+      "critical": 0,
+      "image_id": "sha256:4e257bb12b287dec65209da2c31c1182a0b5f43d92d7cf41be7395cd133791a6"
+    }
+  }
+}

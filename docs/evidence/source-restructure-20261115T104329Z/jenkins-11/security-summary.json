@@ -1,0 +1,55 @@
+{
+  "commit": "32f4343f8bb800053faf81bfce1d171b3fcbf697",
+  "at_utc": "2026-11-15T11:24:38.391787+00:00",
+  "scanner": {
+    "version": "0.76.2",
+    "image": "aquasec/trivy:0.76.2"
+  },
+  "ignore_unfixed": false,
+  "ignorefile": "empty",
+  "images": {
+    "app": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-app:32f4343f8bb800053faf81bfce1d171b3fcbf697",
+      "image_id": "sha256:7e331a74c6eccb0be4d8fcbd88bc3d62d463f198c4cf74bda36c7fb12761961c",
+      "source_revision": "32f4343f8bb800053faf81bfce1d171b3fcbf697",
+      "critical": 0,
+      "report_sha256": "172241fe24894b2015a1d586b4e72958f908012920018cc6581b21a04db0e21d"
+    },
+    "frontend": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-frontend:32f4343f8bb800053faf81bfce1d171b3fcbf697",
+      "image_id": "sha256:938491cc1438c44dea7461e50169db25dab5a66dc8e57667181ebdf48abfaf1b",
+      "source_revision": "32f4343f8bb800053faf81bfce1d171b3fcbf697",
+      "critical": 0,
+      "report_sha256": "d3b35a344d99c432b4b408a31dcfdf830db4a3ca7207eea3a98d19e258ddb399"
+    },
+    "postgres": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-postgres:32f4343f8bb800053faf81bfce1d171b3fcbf697",
+      "image_id": "sha256:0f74739546bfb5a5b98304174c33133f30f332588612e7f5b6566dd26dfc5a30",
+      "source_revision": "4a6e05647044ad8722771eb0ba8bbe763b2133b1",
+      "critical": 0,
+      "report_sha256": "9e5363f25999fe5a38a8ef7467f975f546547b9ff47670e381af19be0b8798e0"
+    },
+    "rabbitmq": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-rabbitmq:32f4343f8bb800053faf81bfce1d171b3fcbf697",
+      "image_id": "sha256:afd2bac4974c44be4cd1eed26bbe64bbc22126e249a19915bf9532b2bc4cd0fe",
+      "source_revision": "4a6e05647044ad8722771eb0ba8bbe763b2133b1",
+      "critical": 0,
+      "report_sha256": "29a6772c1b50557e1df19d547af2f139e706b126af066f265dd6ce485029318d"
+    },
+    "mailpit": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-mailpit:32f4343f8bb800053faf81bfce1d171b3fcbf697",
+      "image_id": "sha256:4e257bb12b287dec65209da2c31c1182a0b5f43d92d7cf41be7395cd133791a6",
+      "source_revision": "4a6e05647044ad8722771eb0ba8bbe763b2133b1",
+      "critical": 0,
+      "report_sha256": "2f8057366cb8dc0b64f560e1537e9a5c9fb2b7316345a443908c6dddbefbfc38"
+    }
+  },
+  "dependency_report_sha256": "d85ce3b41fe918c40dbc9e60cedeeff16d3827e800aca6ceeb6255f606bcb2c2",
+  "dependency_inputs": {
+    "requirements.lock": "b8412e1784181d9b33e17ed9bd4d3c496fe01fd0dfc64b43ed293efbe5c04228",
+    "frontend/package.json": "a6a54cf018321f8864ccededa1f6b53c52b2824eb029e8fcd5beb48914c7214d",
+    "frontend/package-lock.json": "2c8c2a0f715d30000e3cfe40ffb30c771c7144a525bb2c4a9f4e68a5cb6f0b39",
+    "infra/requirements-ansible.lock": "06d169a3ec7b7dae779aeedf5b5e8430013dd7a57044973c947f1229ee1cf3b1",
+    "infra/requirements-static.txt": "0b0709dc3105d98b29f4fc6a870c15c0cf42191498384ef8a2a32d3fcf5f34ed"
+  }
+}
