@@ -1,5 +1,7 @@
 # Ngân sách tài nguyên – thiết kế, chưa đo workload
 
+PDF trang 1 yêu cầu **3 VM nếu chọn local** (1 Jenkins, 2 k3s). Provider libvirt, dung lượng/RAM/vCPU dưới đây là thiết kế nhóm; không áp 32GiB/160GiB thành cấu hình phần cứng bắt buộc. Long phụ trách host/Terraform/Ansible, Thien nhận cluster sau khi node Ready. [Đọc lại 16/11/2026](../evidence/team-four-handoff-20261115T201450Z/README.md): C còn khoảng 0,20GiB, D 9,09GiB, chưa đủ để chạy build lớn/provision lab; chưa có benchmark VM mới.
+
 Host khảo sát Windows11Home RAM16,87GB; WSL khoảng8GiB, D khoảng49GiB ở đầuM3. KVM có nhưng user chưa có quyền, libvirt/QEMU chưa cài. Preflight thực tại evidenceM3, không coi các giá trị dưới là benchmark.
 
 Profile duy nhất trong infra/lab-budget.json được Terraform/preflight cùng đọc:

@@ -1,5 +1,23 @@
 # Mốc 2 – Container và CI
 
+## Trạng thái đọc lại 16/11/2026
+
+[Snapshot chỉ đọc lúc 03:14–03:16 Việt Nam](../evidence/team-four-handoff-20261115T201450Z/README.md) xác nhận Jenkins gần nhất **#14 SUCCESS**, source `adb5dbd`, publish/deploy=false; Docker dev/CI healthy và 11 endpoint HTTP trả 200. Đây là đọc lại build có sẵn, không chạy build mới cho cập nhật tài liệu nhóm 4 người. Bộ kiểm thử/scan/runtime đầy đủ vẫn ở [Jenkins #13](../evidence/backup-ci-runtime-20261115T142446Z/README.md), source code không đổi ở bản tài liệu kế tiếp.
+
+| Phần | Đã có bằng chứng | Còn thiếu / chặn |
+|---|---|---|
+| Docker/Compose | 5 image SHA đã build/scan; stack 7 service healthy/non-root và 2 job exit 0, booking/hủy/email qua, cleanup 0 | Registry upload chưa chạy; kết quả local không chứng minh production |
+| Jenkins validation | 110 unit đạt/8 bỏ qua; 33 integration đạt/0 bỏ qua; 5 image/dependency 0 CRITICAL, push webhook thật | PR phù hợp main/review và chuỗi publish/staging/approval/production còn thiếu |
+| Security gate | Gitleaks/Trivy có build âm fail thật, push/deploy bị chặn; build dương xanh | Demo commit nhánh thử/đối chiếu deployment còn cần cluster |
+| Registry | Mã push/manifest/pull digest đã có, không tự tạo digest | `.registry-token` vẫn chưa tồn tại; cần quyền publish namespace đã chọn |
+| Git | Repo Organization private; nhánh và draft PR thật | Main protected=false, protection/rulesets HTTP403; chưa tag semver và chưa kiểm đủ commit/review của 4 người |
+| Host | Docker data trên D, container healthy lúc đo | C khoảng 0,20GiB, D 9,09GiB; chưa chạy build lớn hoặc provision 3 VM |
+| Bàn giao nhóm | [Vuong, Hoang, Long, Thien](team-onboarding.md), 50 task với owner/reviewer và tiêu chí chứng minh | GitHub/kênh/đăng ký lớp/đóng góp thật chưa được xác nhận thay thành viên |
+
+**Mốc 2 chưa nghiệm thu.** File cấu hình, build validation xanh hoặc phân công mới không thay GHCR receipt và PR/review thật. Không push nhánh tài liệu trong phiên này khi push sẽ tự kích build lớn trên host gần đầy.
+
+## Lịch sử kiểm chứng 14–15/11/2026
+
 Cập nhật **15/11/2026**: [source d2ba14c/Jenkins13 SUCCESS](../evidence/backup-ci-runtime-20261115T142446Z/README.md),110unit/8skip,33integration/0skip,5image/dependency0CRITICAL, webhook push202 tự kích đúngSHA. Stack imageSHA riêng có7healthy/non-root, jobs0 và email đặt/hủy qua, cleanup0. Mốc2 vẫn thiếu GHCR publish/pull digest và PRmain phù hợp/review thật; chuỗi staging/approval/production còn chưa chạy. Các bảng/đoạn snapshot14/11 dưới đây là lịch sử, không thay kết quả mới hoặc ngụ ý source hiện còn thiếu IaC/monitoring code.
 
 Trạng thái ngày 14/11/2026: **chưa nghiệm thu Mốc 2**. Mã CI đã triển khai; kết quả local và phần runtime bị chặn được tách dưới đây. Không suy việc Jenkinsfile hợp lệ thành pipeline chạy thành công.

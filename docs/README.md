@@ -4,7 +4,7 @@ Bắt đầu với [bố cục source](guides/source-structure.md), [chạy loca
 
 | Mục đích | Tài liệu |
 |---|---|
-| Chia việc cho Vuong, Hoang, Long | [Onboarding](guides/team-onboarding.md), [quy trình nhóm](guides/team-workflow.md), [đóng góp](../CONTRIBUTING.md) |
+| Chia việc cho Vuong, Hoang, Long, Thien | [Onboarding 4 người](guides/team-onboarding.md), [bảng 50 task](https://docs.google.com/spreadsheets/d/1py3DJf2rO_x2zK0-LcE8tERMtrn2S5lINx7nbnM8-48/edit), [quy trình nhóm](guides/team-workflow.md), [đóng góp](../CONTRIBUTING.md) |
 | Kiến trúc và quyết định | [Kiến trúc](guides/architecture.md), [ADR](guides/decisions.md), [phiên bản](guides/versions.md), [nguồn OSS](../THIRD_PARTY.md) |
 | Ứng dụng và giao diện | [Local setup](guides/local-setup.md), [Soft Minimal](guides/soft-minimal.md), [branding](guides/branding.md), [notification runbook](runbooks/notifications.md) |
 | CI/CD và bảo mật | [CI/CD](guides/ci-cd.md), [security](guides/security.md), [webhook](runbooks/github-webhook.md), [deploy](runbooks/deploy.md), [rollback](runbooks/rollback.md) |
