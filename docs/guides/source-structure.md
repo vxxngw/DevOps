@@ -64,7 +64,7 @@ Các công cụ maintenance không chạy khi cài app hoặc chạy test. Công
 
 Backup PostgreSQL dùng `scripts/infra/backup.sh`, `restore.sh` và helper `backup-common.sh`, tách khỏi backup VHD ở `scripts/maintenance`. Role Ansible cài đủ helper theo đường dẫn mới `scripts/infra/{{ item }}`. CI kiểm source copy/template có thật và parse Bash đệ quy, mỗi file một lần; không dùng glob chỉ quét thư mục root. [Drill dev](../runbooks/restore.md) chạy bằng `python scripts/dev/check-backup-restore.py`, giữ dump tại `.infra-local/db-backups`, chỉ tạo/xóa DB thử thuộc lượt đó. Metadata ghi hash source và phạm vi, không suy thành VM/cluster hoặc timer đã chạy.
 
-[Kiểm tra Linux source 0bd3fb3](../evidence/linux-paths-20261115T141048Z/README.md) đã chạy18 test liên quan, kiểm7source Ansible và6file Bash trong thư mục có khoảng trắng trên agent non-root. [Full unit trên Linux](../evidence/linux-unit-20261115T141826Z/README.md) cũng có110 đạt/8 bỏ qua. Đây là kiểm tra trực tiếp bằng môi trường agent đang có, chưa phải full Jenkins build của commit mới.
+[Linux source0bd3fb3](../evidence/linux-paths-20261115T141048Z/README.md) có18test liên quan,7source Ansible/6Bash trong checkout có khoảng trắng; [full unit Linux](../evidence/linux-unit-20261115T141826Z/README.md) có110đạt/8bỏ qua. Sau đó [source d2ba14c/Jenkins13](../evidence/backup-ci-runtime-20261115T142446Z/README.md) đã chạy full pipeline và stack imageSHA/email thực thành công.
 
 ## Kiểm chứng
 
@@ -76,4 +76,4 @@ GitHub redirect từ vxxngw/DevOps đến vuongvo2207-gmail-com/DevOps, cùng re
 
 Chuỗi OWNER trong bootstrap Jenkins là marker ownership đã lưu trên controller cũ. Nó cố ý giữ giá trị lịch sử dù file script đã chuyển chỗ, để guard nhận đúng item thuộc dự án. Không đổi marker theo tên file hoặc tài khoản. Hai regression test kiểm tra cập nhật item cũ hợp lệ và từ chối item của dự án khác.
 
-Kết quả sau thay đổi: [final summary](../evidence/source-restructure-20261115T104329Z/final-summary.json), Jenkins11SUCCESS92unit/8skip và33integration/0skip,5image0CRITICAL, browser10checks và SHAstack cleanup0. Không suy thành GHCR publication hoặc K8s runtime.
+Kết quả hiện tại: [Jenkins13/source d2ba14c](../evidence/backup-ci-runtime-20261115T142446Z/README.md),110unit/8skip,33integration/0skip,5image0CRITICAL, SHAstack/email/cleanup0. [Jenkins11 và browser10checks](../evidence/source-restructure-20261115T104329Z/final-summary.json) giữ phạm vi mốc refactor trước. Chưa GHCR publication hoặc K8s runtime.

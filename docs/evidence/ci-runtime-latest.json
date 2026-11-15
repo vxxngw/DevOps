@@ -1,19 +1,19 @@
 {
-  "at_utc": "2026-11-15T11:35:02.789170+00:00",
-  "path": "docs/evidence/source-restructure-20261115T104329Z",
-  "summary": "final-summary.json",
-  "previous_path": "docs/evidence/ci-agent-20261115T064424Z",
-  "source_commit": "32f4343f8bb800053faf81bfce1d171b3fcbf697",
-  "normal_build": 11,
-  "pipeline": "VALIDATION_SUCCESS_BUILD11_PUBLISH_AND_DEPLOY_FALSE",
+  "at_utc": "2026-11-15T14:30:57.283412+00:00",
+  "path": "docs/evidence/backup-ci-runtime-20261115T142446Z",
+  "summary": "metadata.json",
+  "previous_path": "docs/evidence/source-restructure-20261115T104329Z",
+  "source_commit": "d2ba14ceea8d99802db438351d6c6e96e88dca9b",
+  "normal_build": 13,
+  "pipeline": "VALIDATION_SUCCESS_BUILD13_PUBLISH_AND_DEPLOY_FALSE",
   "controller": "RUNNING_AUTHENTICATED",
   "agent": "ONLINE",
-  "webhook_push": "VERIFIED_GITHUB202_RESTRICTED_USER_BUILD11_SUCCESS",
+  "webhook_push": "VERIFIED_GITHUB202_RESTRICTED_USER_BUILD13_SUCCESS",
   "webhook_eligible_main_pr": "NOT_RUN_YET",
   "sha_runtime": "VERIFIED_7_HEALTHY_NON_ROOT_SERVICES_AND_2_JOBS_EXIT0",
   "ghcr": "BLOCKED_MISSING_CREDENTIAL",
   "registry_namespace": "ghcr.io/vuongvo2207-gmail-com",
   "repository": "https://github.com/vuongvo2207-gmail-com/DevOps",
   "repository_id": 1457478642,
-  "scope": "Dated verified snapshot for refactored source; see reports for exact source, test skips, runtime and remaining rubric limits."
+  "scope": "Verified Jenkins/source-SHA snapshot; raw previous evidence preserved; configs/static checks do not imply VM/cluster/monitoring runtime"
 }

@@ -1,6 +1,6 @@
 # Mốc 2 – Container và CI
 
-Cập nhật **15/11/2026**: [CI và image SHA đã chạy thật](../evidence/ci-runtime-latest.json). Jenkins4/5SUCCESS, unit81passed/8skip; integration33passed/0skip; build/scan đủ5imageSHA và dependency không CRITICAL. Agent online/non-root, Docker rootless qua mutualTLS đã sửa SAN. Full-stack SHA riêng:7healthy/non-root, migration/seed0, health/ready/metrics/JSON và đặt/hủy lịch/email qua. GitHub push202 tự kích Jenkins5SUCCESS; gate âm1secret và4CRITICAL có FAILURE/push-deploy skipped thật. GHCR chưa có credential, PRmain phù hợp chưa chạy ở snapshot này; không staging/production/VM/cluster. Các đoạn ngày14/11 bên dưới là lịch sử, không phải trạng thái mới nhất.
+Cập nhật **15/11/2026**: [source d2ba14c/Jenkins13 SUCCESS](../evidence/backup-ci-runtime-20261115T142446Z/README.md),110unit/8skip,33integration/0skip,5image/dependency0CRITICAL, webhook push202 tự kích đúngSHA. Stack imageSHA riêng có7healthy/non-root, jobs0 và email đặt/hủy qua, cleanup0. Mốc2 vẫn thiếu GHCR publish/pull digest và PRmain phù hợp/review thật; chuỗi staging/approval/production còn chưa chạy. Các bảng/đoạn snapshot14/11 dưới đây là lịch sử, không thay kết quả mới hoặc ngụ ý source hiện còn thiếu IaC/monitoring code.
 
 Trạng thái ngày 14/11/2026: **chưa nghiệm thu Mốc 2**. Mã CI đã triển khai; kết quả local và phần runtime bị chặn được tách dưới đây. Không suy việc Jenkinsfile hợp lệ thành pipeline chạy thành công.
 

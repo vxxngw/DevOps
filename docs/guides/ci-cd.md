@@ -1,6 +1,6 @@
 # CI/CD local và bằng chứng cần thu
 
-Đối chiếu yêu cầu tại [ma trận](../compliance-matrix.md). Jenkins riêng ở `http://localhost:18090`, controller cũ `http://localhost:8080` được giữ nguyên. [Source32f4343/Jenkins11](../evidence/source-restructure-20261115T104329Z/README.md) đã build/test/scan thành công. Sau đó source `0bd3fb3` có [CI native110 test đạt/8 bỏ qua](../evidence/backup-ci-checks-20261115T134558Z/README.md), [full unit Linux110 đạt/8 bỏ qua](../evidence/linux-unit-20261115T141826Z/README.md) và [kiểm tra đường dẫn Linux](../evidence/linux-paths-20261115T141048Z/README.md), chưa có full Jenkins build của phần bổ sung này. Hướng dẫn bên dưới phân biệt thao tác chuẩn bị với nghiệm thu thực.
+Đối chiếu yêu cầu tại [ma trận](../compliance-matrix.md). Jenkins riêng ở `http://localhost:18090`, controller cũ `http://localhost:8080` giữ nguyên. [Source d2ba14c/Jenkins13](../evidence/backup-ci-runtime-20261115T142446Z/README.md) đã build/test/scan qua webhook thực:110unit/8skip,33integration/0skip,5image/dependency0CRITICAL và SHA stack/email/cleanup qua. Các lượt native/Linux trước đó giữ phạm vi riêng; không lấy chúng thay full pipeline. Publish/deploy của build13 đều tắt, GHCR còn thiếu credential.
 
 ## Kiểm tra độc lập Docker
 
@@ -80,7 +80,7 @@ Mốc 3 bổ sung overlay/migration Job/kubeconfig namespace, trusted HTTPS smok
 Controller bật security, anonymous403/0executor; agent online/non-root và dùng Docker rootless qua mutual TLS. [Docker data đã chuyểnD và kiểm chứng](../evidence/docker-storage-latest.json). Tùy chọn timestamps() đã bỏ vì plugin set không có Timestamper; timeout và artifact timestamps vẫn giữ. [CI recovery](ci-recovery.md) giữ diễn biến lịch sử, gồm thời điểm agent còn offline; không dùng trạng thái cũ đó thay trạng thái hiện tại.
 
 
-[Jenkins11 sau refactor](../evidence/source-restructure-20261115T104329Z/README.md) có92unit/8skip,33integration/0skip,5imageSHA/dependency0CRITICAL; GitHub push202 thực, SHA stack7healthy/non-root, jobs0 và email đặt/hủy qua. Các bản mới chỉ ghi VERIFIED khi đúng source đã thực sự chạy. GHCR còn thiếu quyền publish, PRmain phù hợp/review thật và staging/production/VM/cluster chưa nghiệm thu. Git credential hiện tại không có write:packages; không lấy quyền push Git thay quyền publish GHCR.
+[Jenkins13](../evidence/backup-ci-runtime-20261115T142446Z/README.md) có đầy đủ JUnit, gate summary và kiểm hash7raw security report; runtime dùng image ID trùng report scan. [Jenkins11](../evidence/source-restructure-20261115T104329Z/README.md) là mốc refactor trước đó. GHCR, PRmain phù hợp/review thật và staging/production/VM/cluster chưa nghiệm thu. Git credential hiện tại không có write:packages; quyền push Git không thay quyền publish registry.
 
 Engine phải có `DOCKER_TLS_SAN: DNS:engine` để chứng chỉ khớp `DOCKER_HOST=tcp://engine:2376`; kiểm thực sau recreate riêng engine đã qua, không tắt verify. [Webhook HTTPS local](../runbooks/github-webhook.md) có phiên bản tunnel/SHA256 ghim trong ci/cloudflared.json.
 

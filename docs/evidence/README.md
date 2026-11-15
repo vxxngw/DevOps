@@ -1,3 +1,5 @@
+[CI mới nhất đã lưu bằng chứng](backup-ci-runtime-20261115T142446Z/README.md): Jenkins13/source d2ba14c,110unit/8skip,33integration/0skip,5image0CRITICAL, GitHub202 và SHAstack/email/cleanup0. Publish/deploy=false; GHCR thiếu token.
+
 [Refactor đã kiểm chứng](source-restructure-20261115T104329Z/README.md): source32f4343, Jenkins11SUCCESS,92unit/8skip,33integration/0skip,10browserchecks,5image0CRITICAL và SHAstack/email/cleanup0.
 
 [Backup/restore dev thật](backup-restore-20261115T134405Z/README.md): dump/checksum/retention, 9 bảng và46schema definitions khớp, API/outbox qua, nguồn không đổi, DB thử đã dọn. [CI native mới](backup-ci-checks-20261115T134558Z/README.md) có lint/110unit+8skip và kiểm hạ tầng tĩnh; chưa phải Jenkins build mới hay timer/VM/cluster runtime. Các snapshot lịch sử bên dưới không bị viết lại.
