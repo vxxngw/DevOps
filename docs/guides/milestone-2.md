@@ -2,6 +2,8 @@
 
 ## Trạng thái đọc lại 16/11/2026
 
+Cập nhật **04:01–04:03 Việt Nam**: đã push thật commit tài liệu `75406f8` sau khi tạm giữ scheduler trên Jenkins riêng do C gần hết dung lượng. [Webhook202 và queue29](../evidence/ci-queue-hold-20261115T210140Z/README.md) đúng SHA, publish/deploy=false; chưa có build mới đã chạy. [Runbook mở lại CI](../runbooks/ci-low-disk.md) yêu cầu đo đủ dung lượng, đúng reason và agent online. Snapshot 03:14–03:16 và việc chưa push ở phần dưới là lịch sử của phiên trước.
+
 [Snapshot chỉ đọc lúc 03:14–03:16 Việt Nam](../evidence/team-four-handoff-20261115T201450Z/README.md) xác nhận Jenkins gần nhất **#14 SUCCESS**, source `adb5dbd`, publish/deploy=false; Docker dev/CI healthy và 11 endpoint HTTP trả 200. Đây là đọc lại build có sẵn, không chạy build mới cho cập nhật tài liệu nhóm 4 người. Bộ kiểm thử/scan/runtime đầy đủ vẫn ở [Jenkins #13](../evidence/backup-ci-runtime-20261115T142446Z/README.md), source code không đổi ở bản tài liệu kế tiếp.
 
 | Phần | Đã có bằng chứng | Còn thiếu / chặn |

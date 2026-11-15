@@ -7,7 +7,7 @@ Bắt đầu với [bố cục source](guides/source-structure.md), [chạy loca
 | Chia việc cho Vuong, Hoang, Long, Thien | [Onboarding 4 người](guides/team-onboarding.md), [bảng 50 task](https://docs.google.com/spreadsheets/d/1py3DJf2rO_x2zK0-LcE8tERMtrn2S5lINx7nbnM8-48/edit), [quy trình nhóm](guides/team-workflow.md), [đóng góp](../CONTRIBUTING.md) |
 | Kiến trúc và quyết định | [Kiến trúc](guides/architecture.md), [ADR](guides/decisions.md), [phiên bản](guides/versions.md), [nguồn OSS](../THIRD_PARTY.md) |
 | Ứng dụng và giao diện | [Local setup](guides/local-setup.md), [Soft Minimal](guides/soft-minimal.md), [branding](guides/branding.md), [notification runbook](runbooks/notifications.md) |
-| CI/CD và bảo mật | [CI/CD](guides/ci-cd.md), [security](guides/security.md), [webhook](runbooks/github-webhook.md), [deploy](runbooks/deploy.md), [rollback](runbooks/rollback.md) |
+| CI/CD và bảo mật | [CI/CD](guides/ci-cd.md), [giữ/mở CI khi đĩa gần đầy](runbooks/ci-low-disk.md), [security](guides/security.md), [webhook](runbooks/github-webhook.md), [deploy](runbooks/deploy.md), [rollback](runbooks/rollback.md) |
 | Hạ tầng và vận hành | [Lab](runbooks/infra-lab.md), [tài nguyên](guides/resource-budget.md), [restore DB](runbooks/restore.md), [observability](runbooks/observability.md), [cảnh báo](runbooks/alerts.md) |
 | Các mốc | [Mốc 1](guides/milestone-1.md), [Mốc 2](guides/milestone-2.md), [Mốc 3](guides/milestone-3.md), [Mốc 4](guides/milestone-4.md) |
 | Demo và sản phẩm nộp | [8 bước demo](guides/demo-script.md), [checklist nộp](guides/submission.md), [báo cáo](guides/project-report.md), [vấn đáp](guides/viva-preparation.md), [postmortem](guides/postmortem.md), [chi phí](guides/cloud-cost-estimate.md) |

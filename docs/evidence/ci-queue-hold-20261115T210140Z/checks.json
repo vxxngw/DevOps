@@ -1,0 +1,39 @@
+{
+  "at_utc": "2026-11-15T21:10:32.527757+00:00",
+  "parent_source": "75406f886530eb07877135da2241c279b9b9534b",
+  "changed_files_scanned": [
+    ".gitattributes",
+    "docs/README.md",
+    "docs/guides/milestone-2.md",
+    "docs/runbooks/ci-low-disk.md",
+    "docs/evidence/ci-queue-hold-20261115T210140Z/before.json",
+    "docs/evidence/ci-queue-hold-20261115T210140Z/hold.json",
+    "docs/evidence/ci-queue-hold-20261115T210140Z/metadata.json",
+    "docs/evidence/ci-queue-hold-20261115T210140Z/README.md"
+  ],
+  "local_markdown_links_checked": 61,
+  "broken_links": 0,
+  "resume_snippet_compiles": true,
+  "resume_executed": false,
+  "runtime_code_unchanged": true,
+  "verified_remote_commit": "75406f886530eb07877135da2241c279b9b9534b",
+  "verified_webhook_status": 202,
+  "verified_queue_id": 29,
+  "new_build_executed": false,
+  "gitleaks": {
+    "exit_code": 0,
+    "findings": 0,
+    "report_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  "input_file_sha256": {
+    ".gitattributes": "cc38e1102fa109fa6e92152b38f316b59747168a5b395bf6de9cd0b89fc9a974",
+    "docs/README.md": "f1147c781238a2cb77e6378c7e222009f8542c1cf3346ed27871de87abdbe6f8",
+    "docs/guides/milestone-2.md": "e4c32b6650aa2d2f5f77ec989f5a3b6349ad1bd72433a4b6bcb2bb714d0389f7",
+    "docs/runbooks/ci-low-disk.md": "f7feae8ea949563fc8b26628f0c875a92d292d0160db3b5d686ea72cee05edb8",
+    "docs/evidence/ci-queue-hold-20261115T210140Z/before.json": "c5f981994bdbe66191ac9db90623f6dd3bcc5e9fc980b06dd54d67d1c9967abd",
+    "docs/evidence/ci-queue-hold-20261115T210140Z/hold.json": "f78aa0f8f0e47c40a354105c44c8692bafb1561c204175b1b81ccb857e27f86a",
+    "docs/evidence/ci-queue-hold-20261115T210140Z/metadata.json": "709ceb0e2953043261f79bbf9d15bb506e8c3f451efcd7630a4609f8a58e63da",
+    "docs/evidence/ci-queue-hold-20261115T210140Z/README.md": "5e29e1c29b0d1c5bbf9190ced4d69c7aefa85faa993591b373d7084b785e21dd"
+  },
+  "scope": "Documentation checks and source75406f8 push/queue receipt; not CI validation of the next documentation commit"
+}
