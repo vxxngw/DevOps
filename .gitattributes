@@ -10,3 +10,5 @@ Jenkinsfile text eol=lf
 
 # Evidence hashes refer to original bytes; prevent CRLF conversion on checkout.
 docs/evidence/ci-agent-20261115T064424Z/** -text
+docs/evidence/source-restructure-20261115T104329Z/** -text
+docs/evidence/ui-20261115T105819Z/** -text

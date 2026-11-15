@@ -1,6 +1,6 @@
 # Backup/restore – có script, chưa có artifact/drill runtime
 
-PDFtrang6 yêu cầu runbookrestore. scripts/backup.sh, restore.sh, host-health.sh và Ansiblebackuprole/systemdtimer đã chuẩn bị; Bashsyntaxcheck không thay pg_dump/restorethật.
+PDFtrang6 yêu cầu runbookrestore. scripts/infra/backup.sh, restore.sh, host-health.sh và Ansiblebackuprole/systemdtimer đã chuẩn bị; Bashsyntaxcheck không thay pg_dump/restorethật.
 
 Timer trên k3sserver chạy daily, customdump vào /srv/clinic-backups/NAMESPACE ngoài DBpod/storageagent, mode0600/checksum. Retention7ngày chỉ filenameđúngprefix trongdirđãkiểm; lỗi phải nonzero. Nodeexportertextfile ghi lastsuccesstimestamp, Mốc 4cần alertage/failure. Hai namespace táchdir; kiểm timezoneVM/UTC của timertrước demo.
 

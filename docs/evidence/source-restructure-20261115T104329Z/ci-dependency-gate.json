@@ -1,0 +1,12 @@
+{
+  "commit": "5bf673411fa75b726832d1363cb7d147bbceadcd",
+  "at_utc": "2026-11-15T10:44:32.999203+00:00",
+  "inputs": {
+    "requirements.lock": "8cea72b78c7859369891cfc856b5363cddd583606e5f973a7089b336651e7f93",
+    "frontend/package.json": "f38aef4b22ab93fc96b979f20c36e9656282ad2bc92d2329f24f340982047a36",
+    "frontend/package-lock.json": "2c8c2a0f715d30000e3cfe40ffb30c771c7144a525bb2c4a9f4e68a5cb6f0b39",
+    "infra/requirements-ansible.lock": "06d169a3ec7b7dae779aeedf5b5e8430013dd7a57044973c947f1229ee1cf3b1",
+    "infra/requirements-static.txt": "0b0709dc3105d98b29f4fc6a870c15c0cf42191498384ef8a2a32d3fcf5f34ed"
+  },
+  "report_sha256": "f38ac419b55cc78f1515193f479efc967a56c748998eb8b3183e9f9a771dc7c7"
+}

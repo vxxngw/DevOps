@@ -1,8 +1,12 @@
+## Hiện trạng và bằng chứng mới
+
+[CI runtime](ci-runtime-latest.json) và [CI/SHA bundle](ci-agent-20261115T064424Z/README.md) ghi nhận baseline CI thật. Các phần dưới là snapshot lịch sử. Sau tái cấu trúc, xem [bố cục source](../guides/source-structure.md) và báo cáo kiểm chứng riêng, không coi baseline là build của source mới.
+
 # Evidence index
 
 ## Mốc3 – chuẩn bị local
 
-[Bằng chứng mới nhất](m3-latest.json), [báo cáo](../milestone-3.md). Có Terraform/provider/schema/unit/scanner/controlchecks theo metadata; giữ lỗi WSL và phạm vi từng lượt. Chưa VMapply, máy trắng/idempotency, clusterdeploy, TLStrust, autoscale, backup/restore/rollbackruntime.
+[Bằng chứng mới nhất](m3-latest.json), [báo cáo](../guides/milestone-3.md). Có Terraform/provider/schema/unit/scanner/controlchecks theo metadata; giữ lỗi WSL và phạm vi từng lượt. Chưa VMapply, máy trắng/idempotency, clusterdeploy, TLStrust, autoscale, backup/restore/rollbackruntime.
 
 ## Mốc 2 – phạm vi local, chưa runtime CI
 
@@ -20,8 +24,8 @@ Suite mới30test: 8API/DB,1schema,6unit reliability có fake channel/sender,10t
 
 | Bằng chứng | Lệnh / môi trường | Kết quả và giới hạn |
 |---|---|---|
-| [Rà soát DevOps và phục hồi local](devops-review-20261114T063937Z/metadata.json) | PDF/brief, repo/Git/tool inventory, runtime read-only; phục hồi engine và2container cổng host của clinic-dev | Chưa đủ12bài/8demo/sản phẩm nộp; [báo cáo](../devops-review.md). Snapshot cuối7healthy/11HTTP200, [browser11checks](ui-devops-recovery-20261114T063956Z/metadata.json). Git0tracked/0remote/0tag; thiếu Jenkinsfile/IaC/K8s/observability. Không suy thành CI/IaC/security pass |
-| [Double check UI](ui-requirements-final-20261114T054356Z/metadata.json) | API bootstrap thật; lỗi mạng/HTTP và reminder status giả lập trong browser, không ghi appointment | 15/15checks pass, có responsive history/admin ở320/390/768/1440. [Báo cáo từng yêu cầu](../ui-requirements-review.md); [trước sửa8pass/5fail](ui-requirements-before-20261114T053603Z/metadata.json), [sau sửa13pass](ui-requirements-after-20261114T053824Z/metadata.json) giữ riêng |
+| [Rà soát DevOps và phục hồi local](devops-review-20261114T063937Z/metadata.json) | PDF/brief, repo/Git/tool inventory, runtime read-only; phục hồi engine và2container cổng host của clinic-dev | Chưa đủ12bài/8demo/sản phẩm nộp; [báo cáo](../guides/devops-review.md). Snapshot cuối7healthy/11HTTP200, [browser11checks](ui-devops-recovery-20261114T063956Z/metadata.json). Git0tracked/0remote/0tag; thiếu Jenkinsfile/IaC/K8s/observability. Không suy thành CI/IaC/security pass |
+| [Double check UI](ui-requirements-final-20261114T054356Z/metadata.json) | API bootstrap thật; lỗi mạng/HTTP và reminder status giả lập trong browser, không ghi appointment | 15/15checks pass, có responsive history/admin ở320/390/768/1440. [Báo cáo từng yêu cầu](../guides/ui-requirements-review.md); [trước sửa8pass/5fail](ui-requirements-before-20261114T053603Z/metadata.json), [sau sửa13pass](ui-requirements-after-20261114T053824Z/metadata.json) giữ riêng |
 | [Smoke sau double check](ui-double-check-20261114T054401Z/metadata.json) | Browser → Compose/PostgreSQL/RabbitMQ/Mailpit thật | 11/11checks pass sau sửa, không gọi15test UI giả lập là15test gửi SMTP thật |
 | [Inspection sau double check](soft-minimal-inspection-20261114T054357Z/metadata.json) | CSS/font/asset và12layout probes | Màu/font/radius đúng, không tràn ngang, served JS/CSS khớp dist. Kèm log Vite/Docker, live status và source hashes |
 | [Soft Minimal UI mới](ui-soft-minimal-20261113T193104Z/metadata.json) | Edge → Nginx/API/PostgreSQL/RabbitMQ/Mailpit, `frontend/tests/smoke.cjs` | 11checks pass:3bước, giờ bận, pending, lỗi503 giữ dữ liệu/key, email SENT, công tắc lưu thực, hủy, quyền patient/admin. [Ảnh desktop](soft-minimal-inspection-20261113T193126Z/slots-desktop.png), [mobile](ui-soft-minimal-20261113T193104Z/review-mobile.png) |
@@ -29,7 +33,7 @@ Suite mới30test: 8API/DB,1schema,6unit reliability có fake channel/sender,10t
 | [Suite mới30/JUnit](integration-20261113T192650Z/metadata.json) | Linux/PostgreSQL/RabbitMQ/Mailpit, `check-integration.ps1` | 30pass trong12.35s; nhắc lịch kiểm thử bằng đồng hồ truyền vào scheduler, gửi SMTP thật và dedupe; không tuyên bố chờ1giờ thực.1warning TestClient/httpx |
 | [Native mới22pass/8skip](20261113T193126Z/metadata.json) | Windows,SQLite, `scripts/verify.py` | Lint/format/pip check exit0; pytest22pass/8skip; skip được chạy bằng Linux suite riêng;1warning TestClient/httpx |
 | [Logo xanh #103783](logo-blue-20261113T185004Z/metadata.json) | Vite/Docker frontend build, logo/favicon SVG, render desktop/mobile | HTTP200/hash khớp, ảnh nguồn nhúng nguyên byte;3pixel đặc đo đượcff103783; không tràn ngang. Không suy thành test DB/broker mới |
-| [An Uyên Hospital branding](branding-20261113T183956Z/metadata.json) | Logo gốc nguyên byte, primary#103783, ảnh desktop/mobile, tên OpenAPI/email thực | Build Docker/dev healthy; [UI6checks](ui-an-uyen-20261113T183851Z/metadata.json), [suiteLinux19/19](integration-20261113T183741Z/metadata.json), [native13pass/6skip](20261113T183544Z/metadata.json). Scope/chi tiết ở[branding](../branding.md); không thay evidence các mốc DevOps còn thiếu |
+| [An Uyên Hospital branding](branding-20261113T183956Z/metadata.json) | Logo gốc nguyên byte, primary#103783, ảnh desktop/mobile, tên OpenAPI/email thực | Build Docker/dev healthy; [UI6checks](ui-an-uyen-20261113T183851Z/metadata.json), [suiteLinux19/19](integration-20261113T183741Z/metadata.json), [native13pass/6skip](20261113T183544Z/metadata.json). Scope/chi tiết ở[branding](../guides/branding.md); không thay evidence các mốc DevOps còn thiếu |
 | [Inspection cuối](inspection-20261113T175719Z/metadata.json) + [audit bàn giao](final-audit.json) | Sửa template đọc field User upstream vắng mặt; kiểm tra link/ma trận/metric parser/local env secret copy | Tất cả command exit0/HTTP200; JSON stdout145/145dòng, metrics parse được; ma trận70dòng đủ12nhóm/8demo/16AC. Đây không thay gitleaks/Trivy |
 | [Integration cuối19/JUnit/JSON stdout](integration-20261113T174626Z/metadata.json) | scripts/check-integration.ps1, broker plugin đã sửa, Linux/PostgreSQL/RabbitMQ/Mailpit | 19/19 pass trong10.51s,1warning httpx deprecation; [raw JSON/test log](integration-20261113T174626Z/pytest.log), [JUnit](integration-20261113T174626Z/junit.xml). Cache dùng/tmp, không che test lỗi |
 | [Integration19/JUnit/log](integration-20261113T171959Z/metadata.json) | scripts/check-integration.ps1, Linux app image, DB clinic_test_UUID + queue prefix riêng, RabbitMQ/SMTP Mailpit thật | 19/19 pass; [raw](integration-20261113T171959Z/pytest.log), [JUnit](integration-20261113T171959Z/junit.xml). Có cảnh báo httpx deprecation/cache permission ở lượt đầu, không che cảnh báo |

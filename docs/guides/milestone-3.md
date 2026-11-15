@@ -1,0 +1,26 @@
+# Mốc 3 – chuẩn bị IaC và Kubernetes
+
+Phạm vi người dùng chọn: **chuẩn bị trên máy hiện tại**. Đã chuẩn bị mã, cấu hình, công cụ và kiểm chứng local; **chưa nghiệm thu Mốc 3 chạy thực tế**. Mốc 2 còn bị chặn ở Docker, registry và webhook. Xem [bằng chứng mới nhất](../evidence/m3-latest.json), [hướng dẫn dựng lab](../runbooks/infra-lab.md), [deploy](../runbooks/deploy.md), [rollback](../runbooks/rollback.md) và [restore](../runbooks/restore.md).
+
+| Hạng mục | Sản phẩm đã chuẩn bị | Kiểm chứng đã thực hiện | Phần chưa chạy |
+|---|---|---|---|
+| Terraform cho 3 VM, mạng và module riêng | infra/terraform/; libvirt 0.9.9, NAT/DHCP/DNS, cloud-init, checksum image, outputs/inventory, lock cho Windows/Linux | fmt/init/validate với provider thật | plan/apply/destroy, VM và SSH thật |
+| Ansible trên máy trắng | Các role common/docker/jenkins/k3s/node_exporter/backup; Vault input và các tag OS/CI/cluster | Syntax-check bằng Ansible-core 2.22.0/Python 3.13.18 và collections đã ghim; thử Vault bằng dữ liệu giả | Chạy trên VM, recap lần hai changed=0, kiểm tra SSH/UFW |
+| Kubernetes với 2 namespace | Base và staging/production overlays, ServiceAccount không tự mount token, PVC/StatefulSet, probes, requests/limits, Ingress/TLS, NetworkPolicy | Render 28 đối tượng mỗi môi trường; kiểm schema Kubernetes 1.36.6/CRD chính thức và policy | apply/readiness, PVC, tách dữ liệu và HTTPS được client tin cậy |
+| HPA cho API, KEDA cho worker | API min=2/max=5/CPU=60%; KEDA min=1/max=5/QueueLength=20, HTTP tính cả ready và unacked, Secret references | Schema, queue/vhost theo namespace; kiểm thử chặn HPA thứ hai trên worker | Đo CPU/backlog/replica theo thời gian để chứng minh tăng giảm |
+| Pipeline chuyển bản phát hành | Foundation → migration Job → rollout → certificate → booking/SMTP receipt; duyệt thủ công có thời hạn và link bằng chứng; production dùng cùng digest | Unit/config checks; parser Jenkinsfile mới đang BLOCKED vì không kết nối được Jenkins | Build Jenkins, staging/approval/production thật và đo gián đoạn |
+| Backup, restore và rollback | Script backup/checksum/retention, systemd timer, restore vào DB staging mới, snapshot release/rollback | Bash syntax và unit checks cho thứ tự, giới hạn quyền | File pg_dump thật, diễn tập restore, RPO/RTO và rollback ≤120 giây |
+
+Đây là **[THIẾT KẾ]** để triển khai các yêu cầu PDF Bài 3/6/7/8/9/11 và thử thách KEDA của đề tài 8. Terraform/libvirt, Kustomize, bố trí 3 VM và CA riêng là lựa chọn thiết kế. Các ngưỡng CPU/queue và ngân sách máy là giá trị khởi đầu, chưa benchmark. Đối chiếu từng yêu cầu bắt buộc, 8 bước demo và sản phẩm nộp tại [ma trận](../compliance-matrix.md).
+
+Máy khảo sát là Windows 11 Home, RAM vật lý khoảng 16,87 GB; WSL Ubuntu 22.04 có /dev/kvm nhưng user chưa có quyền và chưa có libvirt/QEMU. WSL giới hạn khoảng 8 GiB. Kiểm tra cuối phiên ghi ổ D còn khoảng 51,69 GB và RAM vật lý sử dụng khoảng 91%. [Profile lab](../../infra/lab-budget.json) dự trù tổng 18 GiB RAM/128 GiB đĩa ảo cho VM, host khoảng 32 GiB RAM và 160 GiB dung lượng trống. Đây là **ước lượng thiết kế**, không phải phần cứng bắt buộc trong PDF. Preflight thực trả BLOCKED. Phiên này không cấp quyền nhóm/sudo, cài hypervisor, sửa hạn mức WSL hoặc tạo VM.
+
+Thiết kế sử dụng một cụm gồm 1 server và 1 agent; staging/production là hai namespace của cùng cụm. PostgreSQL/RabbitMQ mỗi môi trường có PVC, broker, vhost và credential riêng, chạy trên node lưu trữ. Backup dự kiến ở server, ngoài pod và ngoài node DB; cần xuất thêm ra ngoài cả lab trước teardown. Một control plane và một node lưu trữ không bảo đảm HA. Dữ liệu thử dùng địa chỉ .test; SMTP dùng Mailpit nội bộ, chưa chứng minh nhận thư bên ngoài hay Alertmanager.
+
+Để tránh thay DB/broker chỉ vì metadata của mỗi app commit, build middleware dùng revision/time của component và SOURCE_DATE_EPOCH; cache engine được giữ. Cold rebuild, đổi base hoặc middleware vẫn cần bảo trì và đo thời gian gián đoạn. Chưa có bằng chứng image ID ổn định hoặc rollout liên tục sau thay đổi này.
+
+CLI tạo tài khoản .test chỉ tạo user mới, không reset mật khẩu hay nâng quyền user cũ; production seed vẫn bị cấm. Operator cần tạo account, bác sĩ và khung giờ trước business smoke. DB trống sẽ làm smoke thất bại; không bỏ qua bước này để công bố pipeline đạt.
+
+Kết quả local: **68 bài kiểm thử đạt, 8 bài integration bỏ qua** vì chưa có các dịch vụ cần thiết. Terraform fmt/init/validate, render/schema/policy hai namespace và quét phụ thuộc đã qua; Gitleaks trên nội dung chuẩn bị commit không có phát hiện. WSL từng lỗi E_UNEXPECTED; lượt thử lại cùng mã nguồn đã qua Ansible/Bash syntax và Vault với dữ liệu giả: file mã hóa đọc được, file plaintext bị từ chối. Giữ bằng chứng cả lượt lỗi và lượt thử lại. Parser Jenkinsfile Mốc 3 vẫn BLOCKED do không kết nối được cổng 8080; kết quả parser Mốc 2 không chứng minh bản mới hợp lệ.
+
+Chỉ chuyển Mốc 3 sang VERIFIED sau khi có đủ bằng chứng: Terraform dựng và thu hồi đúng 3 VM; Ansible chạy hai lần; 2 node Ready; namespace/RBAC/PVC/probes thực; TLS được client tin cậy; smoke tìm đúng email; HPA/KEDA tăng giảm thật; backup/restore/rollback có thời gian đo; Jenkins chờ người duyệt và production chạy đúng digest staging. Prometheus/Grafana/Alertmanager/EFK và demo đầy đủ tiếp tục ở Mốc 4.
