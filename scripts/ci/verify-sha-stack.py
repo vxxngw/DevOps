@@ -70,12 +70,15 @@ print(json.dumps({'http_checks':health,'frontend_status':page[0],'appointment_id
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--revision", required=True)
+    parser.add_argument("--registry", required=True)
     parser.add_argument("--compose-base64", required=True)
     parser.add_argument("--images-base64", required=True)
     parser.add_argument("--verifier-sha256", required=True)
     args = parser.parse_args()
     if not re.fullmatch("[a-f0-9]{40}", args.revision):
         raise ValueError("Require a full commit SHA")
+    if not re.fullmatch(r"ghcr\.io/[a-z0-9][a-z0-9_-]*", args.registry):
+        raise ValueError("Invalid expected registry namespace")
     expected = json.loads(base64.b64decode(args.images_base64))
     if expected["commit"] != args.revision:
         raise ValueError("Image receipt belongs to another commit")
@@ -165,7 +168,7 @@ def main():
         mapping.update({name: name for name in ["frontend", "postgres", "rabbitmq", "mailpit"]})
         for service, configuration in plan["services"].items():
             kind = mapping[service]
-            tag = f"ghcr.io/vxxngw/devops-{kind}:{args.revision}"
+            tag = f"{args.registry}/devops-{kind}:{args.revision}"
             if expected["images"][kind]["tag"] != tag:
                 raise ValueError("Image tag does not match source SHA")
             configuration["image"] = tag

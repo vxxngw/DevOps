@@ -1,5 +1,7 @@
 # An Uyên Hospital · Đặt lịch khám có thông báo
 
+Repo private hiện tại: [vuongvo2207-gmail-com/DevOps](https://github.com/vuongvo2207-gmail-com/DevOps), cùng repo ID sau khi GitHub đổi địa chỉ.
+
 Nhóm 3 thành viên bắt đầu từ [checklist onboarding và phân công task](docs/guides/team-onboarding.md). Phân công tên/GitHub thật tại [quy trình nhóm](docs/guides/team-workflow.md); trạng thái kiểm chứng mới nhất xem [ma trận](docs/compliance-matrix.md) và [CI evidence](docs/evidence/ci-runtime-latest.json).
 
 Đồ án DevOps đề tài số 8: React/TypeScript → FastAPI → PostgreSQL/outbox → RabbitMQ → worker email. API, publisher và worker là ba tiến trình riêng; có health, readiness, Prometheus metrics và JSON logs. Chỉ sử dụng dữ liệu giả lập.

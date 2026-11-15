@@ -73,7 +73,7 @@ def publish():
         raise ValueError("PR builds cannot access publication credentials")
     revision = commit()
     built = verified_gates(revision)
-    username = os.environ.get("CLINIC_REGISTRY_USER", "vxxngw")
+    username = os.environ.get("CLINIC_REGISTRY_USER", TOOLS["registry"].split("/", 1)[1])
     token = os.environ.get("CLINIC_REGISTRY_TOKEN")
     if not token and (ROOT / ".registry-token").is_file():
         token = (ROOT / ".registry-token").read_text(encoding="utf-8-sig").strip()

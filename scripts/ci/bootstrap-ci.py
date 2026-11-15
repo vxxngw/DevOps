@@ -23,7 +23,13 @@ SETTINGS = ROOT / ".env.ci"
 URL = "http://127.0.0.1:18090"
 FOLDER = "an-uyen"
 JOB = "clinic-pipeline"
-OWNER = "Managed by scripts/ci/bootstrap-ci.py for vxxngw/DevOps"
+# Immutable ownership marker already stored on this controller. Moving a script
+# or renaming GitHub must not invalidate the guard for existing project items.
+OWNER = "Managed by scripts/bootstrap-ci.py for vxxngw/DevOps"
+REPOSITORY = json.loads((ROOT / "ci/webhook/repository.json").read_text(encoding="utf-8"))[
+    "full_name"
+]
+REPOSITORY_OWNER = REPOSITORY.split("/", 1)[0]
 
 
 def read_settings():
@@ -132,10 +138,12 @@ class Controller:
 
 def github_credential():
     if os.environ.get("CLINIC_GITHUB_TOKEN"):
-        return os.environ.get("CLINIC_GITHUB_USER", "vxxngw"), os.environ["CLINIC_GITHUB_TOKEN"]
+        return os.environ.get("CLINIC_GITHUB_USER", REPOSITORY_OWNER), os.environ[
+            "CLINIC_GITHUB_TOKEN"
+        ]
     result = subprocess.run(
         ["git", "credential", "fill"],
-        input="protocol=https\nhost=github.com\npath=vxxngw/DevOps.git\n\n",
+        input=f"protocol=https\nhost=github.com\npath={REPOSITORY}.git\n\n",
         capture_output=True,
         text=True,
         timeout=30,
@@ -145,7 +153,7 @@ def github_credential():
         raise RuntimeError(
             "No Git credential available; authenticate Git without pasting tokens into chat"
         )
-    return values.get("username", "vxxngw"), values["password"]
+    return values.get("username", REPOSITORY_OWNER), values["password"]
 
 
 def job_xml():
@@ -185,7 +193,7 @@ def job_xml():
     remote = ET.SubElement(
         ET.SubElement(scm, "userRemoteConfigs"), "hudson.plugins.git.UserRemoteConfig"
     )
-    ET.SubElement(remote, "url").text = "https://github.com/vxxngw/DevOps.git"
+    ET.SubElement(remote, "url").text = f"https://github.com/{REPOSITORY}.git"
     ET.SubElement(remote, "credentialsId").text = "clinic-github"
     ET.SubElement(
         remote, "refspec"
@@ -210,7 +218,7 @@ def configure():
     registry_token = ROOT / ".registry-token"
     if registry_token.is_file() and registry_token.read_text(encoding="utf-8-sig").strip():
         controller.credential(
-            "clinic-ghcr", "vxxngw", registry_token.read_text(encoding="utf-8-sig").strip()
+            "clinic-ghcr", REPOSITORY_OWNER, registry_token.read_text(encoding="utf-8-sig").strip()
         )
     else:
         print("GHCR credential not available yet; publish remains blocked")
@@ -325,7 +333,7 @@ def github_webhook(public_url):
         raise ValueError("Missing local webhook secret; run configure-webhook first")
     username, token = github_credential()
     headers = {"Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28"}
-    base = "https://api.github.com/repos/vxxngw/DevOps"
+    base = f"https://api.github.com/repos/{REPOSITORY}"
     endpoint = public_url.rstrip("/") + "/github"
     with httpx.Client(auth=(username, token), headers=headers, timeout=30) as client:
         hooks = client.get(base + "/hooks").raise_for_status().json()

@@ -45,6 +45,8 @@ def main():
         "-",
         "--revision",
         revision,
+        "--registry",
+        json.loads((root / "ci/tools.json").read_text(encoding="utf-8"))["registry"],
         "--compose-base64",
         base64.b64encode(compose).decode(),
         "--images-base64",
