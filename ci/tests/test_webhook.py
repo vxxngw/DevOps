@@ -24,18 +24,28 @@ def test_signature_covers_exact_bytes():
     assert not validate_signature(secret, body, None)
 
 
-def test_push_pins_exact_commit_but_never_auto_deploys():
+def test_main_push_pins_exact_commit_and_requests_release():
     result = parameters("push", push())
     assert result["SOURCE_REF"] == "a" * 40
     assert result["SOURCE_BRANCH"] == "main"
+    assert result["IS_PR"] == "false"
     assert result["PUBLISH_IMAGES"] == "true"
+    # Staging deploys automatically; production still waits for the Jenkins input approval.
+    assert result["DEPLOY"] == "true"
+
+
+def test_feature_push_does_not_receive_publication_or_deployment():
+    event = push()
+    event["ref"] = "refs/heads/codex/milestone-2"
+    result = parameters("push", event)
+    assert result["PUBLISH_IMAGES"] == "false"
     assert result["DEPLOY"] == "false"
 
 
-def test_feature_push_does_not_receive_publication():
+def test_branch_named_like_main_is_not_a_release():
     event = push()
-    event["ref"] = "refs/heads/codex/milestone-2"
-    assert parameters("push", event)["PUBLISH_IMAGES"] == "false"
+    event["ref"] = "refs/heads/main-hotfix"
+    assert parameters("push", event)["DEPLOY"] == "false"
 
 
 def test_deleted_branch_has_no_build():

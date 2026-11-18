@@ -5,6 +5,9 @@ advertise-address: {{ node_ip }}
 flannel-iface: {{ k3s_iface }}
 tls-san:
   - {{ node_ip }}
+{% for san in k3s_tls_san_extra %}
+  - {{ san }}
+{% endfor %}
 token: {{ k3s_token }}
 {% if k3s_etcd %}
 cluster-init: true

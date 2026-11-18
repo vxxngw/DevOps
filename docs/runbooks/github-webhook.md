@@ -37,7 +37,7 @@ Bootstrap chỉ tạo/cập nhật hook trùng endpoint, events push/pull_reques
 
 ## Push, PR và bản ghi thực
 
-Push nhánh tính năng phải tạo build đúng SOURCE_REF=SHA, SOURCE_BRANCH; PUBLISH_IMAGES=false/DEPLOY=false. Main push có thể yêu cầu publish sau gate; không dùng main làm nhánh thử khi chưa đủ credential/review. PR phải cùng repo, không draft và base=main mới chạy IS_PR=true, publish/deploy=false. Draft hoặc base khác main được nhận200 rồi bỏ qua theo policy; delivery200 loại này không chứng minh PR build đã chạy.
+Push nhánh tính năng phải tạo build đúng SOURCE_REF=SHA, SOURCE_BRANCH; PUBLISH_IMAGES=false/DEPLOY=false. Main push yêu cầu PUBLISH_IMAGES=true/DEPLOY=true: sau gate sẽ push GHCR, deploy staging và chờ duyệt thủ công trước production. Thiếu credential `clinic-ghcr`/kubeconfig thì build FAILURE tại stage push/deploy, không bỏ qua gate. PR phải cùng repo, không draft và base=main mới chạy IS_PR=true, publish/deploy=false. Draft hoặc base khác main được nhận200 rồi bỏ qua theo policy; delivery200 loại này không chứng minh PR build đã chạy.
 
 CI hiện đã có ping200, push202 và build5SUCCESS đúng SHA. Source/header payload không được lưu công khai. Bản ghi gốc và các lượt lỗi ở [CI evidence](../evidence/ci-agent-20261115T064424Z/README.md). Các PRmain phù hợp hoặc release registry chỉ được đánh dấu khi có receipt thật.
 

@@ -7,9 +7,9 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '20', artifactNumToKeepStr: '10'))
     }
     parameters {
-        string(name: 'SOURCE_REF', defaultValue: 'codex/milestone-4', description: 'Branch/ref of vxxngw/DevOps; never a repository URL')
-        string(name: 'SOURCE_BRANCH', defaultValue: 'codex/milestone-4', description: 'Webhook branch for provenance; deployment additionally checks origin/main')
-        string(name: 'CLUSTER_SERVER_URL', defaultValue: 'https://192.168.150.11:6443', description: 'Must match the actual dedicated Terraform k3s server and trusted kubeconfig')
+        string(name: 'SOURCE_REF', defaultValue: 'main', description: 'Branch/ref of vxxngw/DevOps; never a repository URL')
+        string(name: 'SOURCE_BRANCH', defaultValue: 'main', description: 'Webhook branch for provenance; deployment additionally checks origin/main')
+        string(name: 'CLUSTER_SERVER_URL', defaultValue: 'https://192.168.56.11:6443', description: 'Must match the actual dedicated Terraform k3s server and trusted kubeconfig')
         string(name: 'STAGING_URL', defaultValue: 'https://staging.anuyen.test', description: 'Trusted HTTPS URL with DNS/hosts configured')
         string(name: 'PRODUCTION_URL', defaultValue: 'https://hospital.anuyen.test', description: 'Trusted HTTPS URL with DNS/hosts configured')
         booleanParam(name: 'IS_PR', defaultValue: false, description: 'PR verification: no registry or deployment credentials')
