@@ -1,5 +1,5 @@
 ---
-# Defaults: staging/production via kubectl on the k3s server. cloud-lab.yml overrides with the dev profile.
+# Defaults: staging/production via kubectl on the k3s server. linux-lab.yml overrides with the dev profile.
 - name: Create backup root
   ansible.builtin.file: {path: "{{ clinic_backup_root }}", state: directory, mode: '0700'}
 - name: Install operational scripts

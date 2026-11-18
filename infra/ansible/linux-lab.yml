@@ -1,7 +1,8 @@
-# Bai 3 on ONE cloud VM: hardened Linux baseline (user, SSH key, no root, UFW), host health timer,
-# Compose PostgreSQL with synthetic data and a scheduled backup. The k3s cluster stays in site.yml.
-- name: Linux baseline, dev database and scheduled backup on the cloud lab VM
-  hosts: cloud
+# Bai 3 on ONE VirtualBox VM (scripts/infra/vbox-lab.py): hardened Linux baseline (user, SSH key,
+# no root, UFW), host health timer, Compose PostgreSQL with synthetic data and a scheduled backup.
+# The k3s cluster stays in site.yml.
+- name: Linux baseline, dev database and scheduled backup on the lab VM
+  hosts: linux_lab
   become: true
   environment:
     LC_ALL: C
