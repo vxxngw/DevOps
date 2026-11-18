@@ -1,0 +1,85 @@
+
+PLAY [Base cho mọi máy] ********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [anuyen-server]
+
+TASK [common : Cập nhật apt cache (tối đa 1 lần/giờ)] **************************
+ok: [anuyen-server]
+
+TASK [common : Cài gói cơ bản] *************************************************
+ok: [anuyen-server]
+
+TASK [node_exporter : Cài node exporter] ***************************************
+ok: [anuyen-server]
+
+TASK [node_exporter : Bật node exporter] ***************************************
+ok: [anuyen-server]
+
+TASK [node_exporter : Chờ cổng metrics] ****************************************
+ok: [anuyen-server]
+
+PLAY [K3s server] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [anuyen-server]
+
+TASK [k3s_server : Tạo thư mục cấu hình k3s] ***********************************
+ok: [anuyen-server]
+
+TASK [k3s_server : Ghi cấu hình k3s server (chứa token từ Vault)] **************
+changed: [anuyen-server]
+
+TASK [k3s_server : Tải script cài k3s] *****************************************
+ok: [anuyen-server]
+
+TASK [k3s_server : Cài k3s server (chỉ chạy khi chưa có binary)] ***************
+ok: [anuyen-server]
+
+TASK [k3s_server : Áp dụng thay đổi cấu hình (restart k3s nếu cần)] ************
+
+RUNNING HANDLER [k3s_server : Restart k3s] *************************************
+changed: [anuyen-server]
+
+TASK [k3s_server : Bật service k3s] ********************************************
+ok: [anuyen-server]
+
+TASK [k3s_server : Chờ API server] *********************************************
+ok: [anuyen-server]
+
+TASK [k3s_server : Chờ node Ready] *********************************************
+ok: [anuyen-server]
+
+TASK [k3s_server : Tạo thư mục backup] *****************************************
+changed: [anuyen-server]
+
+TASK [k3s_server : Script backup] **********************************************
+changed: [anuyen-server]
+
+TASK [k3s_server : Unit service + timer backup] ********************************
+changed: [anuyen-server] => (item=k3s-backup.service)
+changed: [anuyen-server] => (item=k3s-backup.timer)
+
+TASK [k3s_server : Nạp unit mới] ***********************************************
+
+RUNNING HANDLER [k3s_server : Reload systemd] **********************************
+ok: [anuyen-server]
+
+TASK [k3s_server : Bật timer backup] *******************************************
+changed: [anuyen-server]
+
+TASK [k3s_server : Đọc kubeconfig] *********************************************
+ok: [anuyen-server]
+
+TASK [k3s_server : Tạo thư mục artifacts trên máy chạy Ansible] ****************
+changed: [anuyen-server -> localhost]
+
+TASK [k3s_server : Lưu kubeconfig (đổi 127.0.0.1 thành IP server)] *************
+changed: [anuyen-server -> localhost]
+
+PLAY [K3s agent + Docker + Jenkins agent] **************************************
+skipping: no hosts matched
+
+PLAY RECAP *********************************************************************
+anuyen-server              : ok=23   changed=8    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

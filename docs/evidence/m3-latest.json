@@ -1,6 +1,7 @@
 {
-  "latest": "m3-preparation-20261114T151538Z/metadata.json",
+  "latest": "m3-k3s-server-vbox-20261118T200352Z/metadata.json",
+  "previous": "m3-preparation-20261114T151538Z/metadata.json",
   "local_checks_passed": true,
-  "scope": "Preparation only; VM preflight and Jenkins parser remain blocked",
-  "runtime_status": "NOT_RUN"
+  "scope": "k3s server prototype on one VirtualBox VM with standalone Ansible; not repo infra/ansible roles, no Terraform; jenkins/agent not run",
+  "runtime_status": "PARTIAL"
 }
