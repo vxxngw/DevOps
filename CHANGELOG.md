@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/vxxngw/DevOps/compare/v0.1.0...v0.2.0) (2026-11-18)
+
+
+### Features
+
+* **observability:** run monitoring stack and deliver alerts to Discord ([#12](https://github.com/vxxngw/DevOps/issues/12)) ([ac69934](https://github.com/vxxngw/DevOps/commit/ac6993402395b313effcda926a3c71e302c96a41))
+
 ## 0.1.0 (2026-11-18)
 
 
