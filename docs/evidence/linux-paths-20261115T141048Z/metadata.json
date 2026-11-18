@@ -1,0 +1,92 @@
+{
+  "started_at_utc": "2026-11-15T14:10:48.377132+00:00",
+  "source_commit": "0bd3fb303f50999a54d08648f2c7d9a83edc6188",
+  "agent": "clinic-ci-agent-1",
+  "scope": "Direct exec of targeted tests on idle existing Linux Jenkins agent as UID 1000; isolated checkout with spaces, exact Git archive; not Jenkins build, image build, provisioning or registry publish",
+  "checks": [
+    {
+      "check": "existing-python",
+      "command": [
+        "docker",
+        "exec",
+        "--user",
+        "1000",
+        "clinic-ci-agent-1",
+        "/home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/venv/bin/python",
+        "-c",
+        "import os,pytest,yaml; print(\"uid=\"+str(os.getuid())); print(\"pytest=\"+pytest.__version__)"
+      ],
+      "exit_code": 0
+    },
+    {
+      "check": "extract-source",
+      "command": [
+        "docker",
+        "exec",
+        "-i",
+        "--user",
+        "1000",
+        "clinic-ci-agent-1",
+        "/home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/venv/bin/python",
+        "-c",
+        "import pathlib,sys,tarfile; p=pathlib.Path(sys.argv[1]); p.mkdir(parents=True,exist_ok=False); tarfile.open(fileobj=sys.stdin.buffer,mode=\"r|\").extractall(path=p,filter=\"data\"); print(\"Extracted exact Git snapshot to separate directory\")",
+        "/home/jenkins/agent/manual verification/0bd3fb3-d4bd9afa3ce7"
+      ],
+      "exit_code": 0
+    },
+    {
+      "check": "unit-targeted",
+      "command": [
+        "docker",
+        "exec",
+        "--user",
+        "1000",
+        "--workdir",
+        "/home/jenkins/agent/manual verification/0bd3fb3-d4bd9afa3ce7",
+        "clinic-ci-agent-1",
+        "/home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "ci/tests/test_source_paths.py",
+        "ci/tests/test_backup_guards.py",
+        "ci/tests/test_backup_schema.py",
+        "--tb=short",
+        "--junitxml=/tmp/linux-paths-d4bd9afa3ce7.xml"
+      ],
+      "exit_code": 0
+    },
+    {
+      "check": "actual-source-paths",
+      "command": [
+        "docker",
+        "exec",
+        "--user",
+        "1000",
+        "--workdir",
+        "/home/jenkins/agent/manual verification/0bd3fb3-d4bd9afa3ce7",
+        "clinic-ci-agent-1",
+        "/home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/venv/bin/python",
+        "-c",
+        "import json; from ci.ansible_sources import check_local_sources; from ci.bash_sources import check_bash_sources; from ci.common import ROOT; a=check_local_sources(ROOT); b=check_bash_sources(ROOT); print(json.dumps({\"ansible_sources\":len(a[\"checked\"]),\"bash_scripts\":len(b),\"root\":str(ROOT)}))"
+      ],
+      "exit_code": 0
+    },
+    {
+      "check": "copy-junit",
+      "command": [
+        "docker",
+        "cp",
+        "clinic-ci-agent-1:/tmp/linux-paths-d4bd9afa3ce7.xml",
+        "D:\\CODE\\OOPs\\Do_An\\docs\\evidence\\linux-paths-20261115T141048Z\\junit.xml"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "private_source_directory": "/home/jenkins/agent/manual verification/0bd3fb3-d4bd9afa3ce7",
+  "source_archive_sha256": "03f00ab2501f71e998e4c6f3bdd646084e0266da017644aed5813eb5f0d950c6",
+  "source_archive_bytes": 450560,
+  "status": "PASS",
+  "finished_at_utc": "2026-11-15T14:10:51.447250+00:00",
+  "agent_source_retained": true
+}

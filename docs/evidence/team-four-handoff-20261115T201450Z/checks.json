@@ -1,0 +1,154 @@
+{
+  "at_utc": "2026-11-15T20:27:53.172271+00:00",
+  "source_commit_before_documentation_edits": "adb5dbdc692a0aaa6d4e710c5143f223abb4c032",
+  "branch": "codex/team-four-handoff",
+  "git_diff_check": {
+    "exit_code": 0
+  },
+  "markdown_links": {
+    "files": 12,
+    "local_links_checked": 219,
+    "broken": []
+  },
+  "source_paths_unchanged": {
+    "paths": [
+      "ci",
+      "services",
+      "frontend",
+      "contracts",
+      "deploy",
+      "infra",
+      "observability",
+      "scripts",
+      "Jenkinsfile",
+      "compose.yaml",
+      "compose.ci.yaml",
+      "compose.ci.vm.yaml",
+      "pyproject.toml",
+      "requirements.in",
+      "requirements.lock"
+    ],
+    "since_build14_source": true,
+    "between_verified_build13_and_build14": true
+  },
+  "sheet_readback": {
+    "counts": {
+      "Hoang": 11,
+      "Vuong": 14,
+      "Long": 13,
+      "Thien": 12
+    },
+    "closed_tasks": 0,
+    "review_cycle": {
+      "Hoang": "Long",
+      "Vuong": "Hoang",
+      "Long": "Thien",
+      "Thien": "Vuong"
+    }
+  },
+  "document_task_ids": {
+    "unique": 50,
+    "common": 24,
+    "private": 16,
+    "backlog": 10
+  },
+  "demo_owners": [
+    {
+      "demo": 1,
+      "owner": "Long"
+    },
+    {
+      "demo": 2,
+      "owner": "Vuong"
+    },
+    {
+      "demo": 3,
+      "owner": "Vuong"
+    },
+    {
+      "demo": 4,
+      "owner": "Thien"
+    },
+    {
+      "demo": 5,
+      "owner": "Hoang"
+    },
+    {
+      "demo": 6,
+      "owner": "Thien"
+    },
+    {
+      "demo": 7,
+      "owner": "Hoang"
+    },
+    {
+      "demo": 8,
+      "owner": "Thien"
+    }
+  ],
+  "pdf_review": {
+    "filename": "Đề tài đồ án môn DevOps.pdf",
+    "sha256": "f6feae5c9c2f67afe571e52e25dd64a52b24ee9854f09c5aae9fe42bfd685bf1",
+    "text_pages_read": [
+      1,
+      2,
+      3
+    ],
+    "local_three_vms": "PDF page 1",
+    "host_32gib_160gib": "Design estimate, not PDF minimum",
+    "restore_drill": "Advanced lesson 3"
+  },
+  "working_copy_file_sha256": {
+    "README.md": "d7e39b0ba86e10c1c14c5f58d8b1af72063fafea4dee959e2bb826a2f95668d4",
+    "docs/README.md": "d588be727589066e4d023d77aff9aa821b679d5fcd97906ed0c9496d3e205ef0",
+    "docs/compliance-matrix.md": "80904729ce600bd33659858c4c31c6d07191edece6b14dae97b10c3958516ba9",
+    "docs/guides/demo-script.md": "57c4599e7e7bc3a86a683a914e6fd72a521c6bf1fbcd97bb11358d2a83a7f1de",
+    "docs/guides/milestone-2.md": "b36be8bf189c5c3c3a93113c20fbc63efceaf5b58176a0af9af1667f011f0f7e",
+    "docs/guides/milestone-3.md": "d9984889309e3d62608e74e8a513ddd7a4db23d50cc74bbb48fc8a30558c6526",
+    "docs/guides/project-report.md": "d5f32bef1b49b86e8daad512fcf82ff33df652e65709ed45e10863ccfad7eaa9",
+    "docs/guides/resource-budget.md": "f1b8ec0791866d98c235a7198da19f291aeb6116a255d2e2a4033660e7777936",
+    "docs/guides/submission.md": "bb65cea322901456c2e30db280453295055b337e7303897828937f04cc8e4e24",
+    "docs/guides/team-onboarding.md": "e269c62a5ac69bf59ff98eeb242cb3fefb404d72e54df389b5b720132f1f1bbe",
+    "docs/guides/team-workflow.md": "f3504f6363a1ddf27557c8cfe5970431c88fbbbe31974bb12a06fe8204309709",
+    "docs/evidence/team-four-handoff-20261115T201450Z/README.md": "3c6dd8503648788017dd7970bbf2ba2904992c9769984db9a41280bf932fb2eb"
+  },
+  "new_build_executed": false,
+  "new_unit_tests_executed": false,
+  "new_integration_tests_executed": false,
+  "new_deploy_executed": false,
+  "scope": "Documentation links/roster/demo/task coverage and unchanged source verification; previous build results are historical, HTTP probe is read-only",
+  "new_content_secret_scan": {
+    "at_utc": "2026-11-15T20:29:53.629808+00:00",
+    "scanner_version": "8.30.1",
+    "mode": "dir",
+    "files": 16,
+    "exit_code": 0,
+    "findings": 0,
+    "redacted": true,
+    "report_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "input_file_sha256": {
+      ".gitattributes": "b3df210dcb912b37031b3ddf14ef015875076525de5a3c78f10c121c393cac35",
+      "README.md": "d7e39b0ba86e10c1c14c5f58d8b1af72063fafea4dee959e2bb826a2f95668d4",
+      "docs/README.md": "d588be727589066e4d023d77aff9aa821b679d5fcd97906ed0c9496d3e205ef0",
+      "docs/compliance-matrix.md": "80904729ce600bd33659858c4c31c6d07191edece6b14dae97b10c3958516ba9",
+      "docs/evidence/team-four-handoff-20261115T201450Z/README.md": "3c6dd8503648788017dd7970bbf2ba2904992c9769984db9a41280bf932fb2eb",
+      "docs/evidence/team-four-handoff-20261115T201450Z/checks.json": "98f8443b438c7e2d7a0e8406cadfa5329f07b1d887f788bc845d1885dc652d6b",
+      "docs/evidence/team-four-handoff-20261115T201450Z/metadata.json": "22d391f9b7bbef7c15d4dfdb03b7462a6ef68e788d183532a8fab8c118b2c63f",
+      "docs/evidence/team-handoff-latest.json": "0bda86684fc19b6899944dc37769617e9a5bd3b90d5bee1c0e813410201802ad",
+      "docs/guides/demo-script.md": "57c4599e7e7bc3a86a683a914e6fd72a521c6bf1fbcd97bb11358d2a83a7f1de",
+      "docs/guides/milestone-2.md": "b36be8bf189c5c3c3a93113c20fbc63efceaf5b58176a0af9af1667f011f0f7e",
+      "docs/guides/milestone-3.md": "d9984889309e3d62608e74e8a513ddd7a4db23d50cc74bbb48fc8a30558c6526",
+      "docs/guides/project-report.md": "d5f32bef1b49b86e8daad512fcf82ff33df652e65709ed45e10863ccfad7eaa9",
+      "docs/guides/resource-budget.md": "f1b8ec0791866d98c235a7198da19f291aeb6116a255d2e2a4033660e7777936",
+      "docs/guides/submission.md": "bb65cea322901456c2e30db280453295055b337e7303897828937f04cc8e4e24",
+      "docs/guides/team-onboarding.md": "e269c62a5ac69bf59ff98eeb242cb3fefb404d72e54df389b5b720132f1f1bbe",
+      "docs/guides/team-workflow.md": "f3504f6363a1ddf27557c8cfe5970431c88fbbbe31974bb12a06fe8204309709"
+    },
+    "scope": "New/changed files copied before commit; independent from historical full Git scan and CI publish gate"
+  },
+  "staged_git_diff_check": {
+    "exit_code": 0,
+    "core_whitespace": "blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol",
+    "note": "Per-command CR-at-EOL recognition for Windows raw evidence preserved with -text; real trailing spaces, blank EOF and space-before-tab remain checked. No global Git setting changed."
+  }
+}

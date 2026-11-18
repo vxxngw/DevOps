@@ -1,0 +1,91 @@
+{
+  "status": "PASS_FOR_NATIVE_CHECKS",
+  "at_utc": "2026-11-15T13:56:15.885890+00:00",
+  "git_base": "008183a20e47d567ecd9af687b0fb0d351a97c36",
+  "working_tree_uncommitted": true,
+  "scope": "Native CI lint/unit/infrastructure on current source; existing dev HTTP recovered after API/publisher restart. No new Jenkins/image build/publish/deploy.",
+  "unit": {
+    "passed": 110,
+    "skipped": 8,
+    "failures": 0,
+    "errors": 0
+  },
+  "lint": {
+    "exit_code": 0,
+    "log": "lint.log"
+  },
+  "infrastructure": {
+    "exit_code": 0,
+    "resource_counts": {
+      "staging": 28,
+      "production": 28
+    },
+    "ansible_sources": 7,
+    "bash_scripts": 6
+  },
+  "initial_scanner": {
+    "status": "ABORTED",
+    "exit_code": 4294967295,
+    "reason": "Replaced unscoped checkout/cache walk with exact Git-index blob snapshot scan"
+  },
+  "runtime_initial": "runtime-probes.json",
+  "runtime_recovery": "runtime-probes-after-restart.json",
+  "changed_source_files": [
+    {
+      "path": "ci/ansible_sources.py",
+      "sha256": "60d77a19f171dd21418f0b6f3d5b4646a7a461b0d4099120e3d4ab0e5c6fdf1e"
+    },
+    {
+      "path": "ci/backup_schema.py",
+      "sha256": "1e0c55172beb5bac589d3f9bad080542385aee0cf2461bef5b595a2cda75c389"
+    },
+    {
+      "path": "ci/bash_sources.py",
+      "sha256": "acd1d30876e357aa494111c46c6f7dea959261d850c5399f8895fc45000beac3"
+    },
+    {
+      "path": "ci/infrastructure.py",
+      "sha256": "7f2ce6b8c4f90e08e860fe0105346e68c7eb52faf70c0e7b1946f7a26469c899"
+    },
+    {
+      "path": "ci/tests/test_backup_guards.py",
+      "sha256": "78f79d851971a7857d3a8a43c843a252bd8665e36fa4b9dccf02a4cddcd4ed6f"
+    },
+    {
+      "path": "ci/tests/test_backup_schema.py",
+      "sha256": "fcff35ba8e805039eb0fe0d4e352bd510ee16bdfc5deba4aaf87ff986048b3ab"
+    },
+    {
+      "path": "ci/tests/test_source_paths.py",
+      "sha256": "19f4ea09f722fa4dc1689ef015fb6a3d33b0f613e718a4c7a56fc76a8b777e9f"
+    },
+    {
+      "path": "infra/ansible/roles/backup/tasks/main.yml",
+      "sha256": "d6f9ae68bc08c3b357c270ded8f214293eff51f59ba5509fe0c2c9fbfa07e910"
+    },
+    {
+      "path": "scripts/dev/backup-fingerprint.sql",
+      "sha256": "f1b2bb5d1901e621e9853901148725beba983e20994079c40162325cc9128f63"
+    },
+    {
+      "path": "scripts/dev/check-backup-restore.py",
+      "sha256": "d2a42b5b6e8a94ca2a18c21c53df274ac2a60f2ce082172661d863027f9afea7"
+    },
+    {
+      "path": "scripts/dev/restore-db-smoke.py",
+      "sha256": "2c61bf3ebd2b7f9c3b23f6b341df65ab6005f5407d0aed550b4c290aea4109fe"
+    },
+    {
+      "path": "scripts/infra/backup-common.sh",
+      "sha256": "c243cba58d18e240ddff17d46bae56ee4d2c5128e5ce9baf57993f84d680c9f9"
+    },
+    {
+      "path": "scripts/infra/backup.sh",
+      "sha256": "a42b5a7784e38dbb70d4233a28346aa515f09165fd941b28ae59830c66f6e95b"
+    },
+    {
+      "path": "scripts/infra/restore.sh",
+      "sha256": "c739118951fb0e754f5b61cd2c8d497f4ec0db19fbb26b610e275e2c6a520e17"
+    }
+  ]
+}

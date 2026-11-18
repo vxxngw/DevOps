@@ -70,7 +70,7 @@
   register: clinic_bootstrap_marker
 - name: Configure controller, SCM credentials and agent when source changed
   ansible.builtin.command:
-    argv: [/opt/clinic-bootstrap-venv/bin/python, scripts/bootstrap-ci.py, configure]
+    argv: [/opt/clinic-bootstrap-venv/bin/python, scripts/ci/bootstrap-ci.py, configure]
     chdir: "{{ clinic_repo_dir }}"
   environment:
     CLINIC_GITHUB_TOKEN: "{{ vault_github_read_token }}"

@@ -1,0 +1,17 @@
+# Mỗi lần main có commit mới: mở/cập nhật "Release PR" chứa CHANGELOG.md và version mới.
+# Merge Release PR => tạo tag semver vX.Y.Z và GitHub Release.
+name: release-please
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4

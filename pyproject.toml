@@ -1,6 +1,6 @@
 [tool.pytest.ini_options]
 pythonpath = ["services"]
-testpaths = ["tests"]
+testpaths = ["tests", "ci/tests"]
 markers = ["integration: requires PostgreSQL, RabbitMQ and Mailpit"]
 
 [tool.ruff]

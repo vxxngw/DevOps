@@ -1,0 +1,69 @@
+{
+  "started_at_utc": "2026-11-15T14:18:26.861859+00:00",
+  "source_commit": "0bd3fb303f50999a54d08648f2c7d9a83edc6188",
+  "source_archive_sha256": "b1ac4cfa4e4532baed63d2a229ef18bfeb96dd87739b34c3d7ca3229190b8dae",
+  "source_archive_bytes": 1116160,
+  "scope": "Full application and CI unit suite, direct execution on idle non-root existing Linux agent with installed dependencies; isolated Git-archive checkout containing spaces, SQLite/fakes; no Jenkins build/image build/integration/registry/provisioning",
+  "checks": [
+    {
+      "check": "extract-source",
+      "command": [
+        "docker",
+        "exec",
+        "-i",
+        "--user",
+        "1000",
+        "clinic-ci-agent-1",
+        "/home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/venv/bin/python",
+        "-c",
+        "import pathlib,sys,tarfile; p=pathlib.Path(sys.argv[1]); p.mkdir(parents=True,exist_ok=False); tarfile.open(fileobj=sys.stdin.buffer,mode=\"r|\").extractall(path=p,filter=\"data\"); print(\"uid1000 source archive extracted; no env/private files\")",
+        "/home/jenkins/agent/manual verification/full-unit-0bd3fb3-86fc019acb74"
+      ],
+      "exit_code": 0
+    },
+    {
+      "check": "full-unit",
+      "command": [
+        "docker",
+        "exec",
+        "--user",
+        "1000",
+        "--workdir",
+        "/home/jenkins/agent/manual verification/full-unit-0bd3fb3-86fc019acb74",
+        "--env",
+        "GOMAXPROCS=2",
+        "--env",
+        "RAYON_NUM_THREADS=1",
+        "clinic-ci-agent-1",
+        "/home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests",
+        "ci/tests",
+        "--tb=short",
+        "--junitxml=/tmp/linux-full-unit-86fc019acb74.xml"
+      ],
+      "exit_code": 0
+    },
+    {
+      "check": "copy-junit",
+      "command": [
+        "docker",
+        "cp",
+        "clinic-ci-agent-1:/tmp/linux-full-unit-86fc019acb74.xml",
+        "D:\\CODE\\OOPs\\Do_An\\docs\\evidence\\linux-unit-20261115T141826Z\\junit.xml"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "private_source_directory": "/home/jenkins/agent/manual verification/full-unit-0bd3fb3-86fc019acb74",
+  "source_snapshot_retained": true,
+  "junit": {
+    "passed": 110,
+    "skipped": 8,
+    "failed": 0
+  },
+  "status": "PASS",
+  "finished_at_utc": "2026-11-15T14:18:35.040023+00:00"
+}

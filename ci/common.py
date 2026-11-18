@@ -60,7 +60,9 @@ def tool(name):
     local = PRIVATE / "bin" / (name + (".exe" if os.name == "nt" else ""))
     executable = str(local) if local.is_file() else shutil.which(name)
     if not executable:
-        raise RuntimeError(f"Missing {name}; run scripts/install-ci-tools.py or use the CI agent")
+        raise RuntimeError(
+            f"Missing {name}; run scripts/ci/install-ci-tools.py or use the CI agent"
+        )
     return executable
 
 

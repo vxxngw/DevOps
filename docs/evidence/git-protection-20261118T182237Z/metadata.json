@@ -1,0 +1,118 @@
+{
+  "at_utc": "2026-11-18T18:22:37.930180+00:00",
+  "operation": "Read repository rulesets via unauthenticated public GitHub REST API",
+  "repository": {
+    "full_name": "vxxngw/DevOps",
+    "visibility": "public",
+    "default_branch": "main"
+  },
+  "rulesets": [
+    {
+      "id": 27571046,
+      "name": "protect-main",
+      "target": "branch",
+      "enforcement": "active",
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "~DEFAULT_BRANCH"
+          ]
+        }
+      },
+      "rules": [
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        },
+        {
+          "type": "pull_request",
+          "parameters": {
+            "required_approving_review_count": 1,
+            "dismiss_stale_reviews_on_push": false,
+            "required_reviewers": [],
+            "require_code_owner_review": false,
+            "require_last_push_approval": false,
+            "required_review_thread_resolution": true,
+            "require_extra_approval_for_unattributed_changes": true,
+            "allowed_merge_methods": [
+              "squash"
+            ]
+          }
+        },
+        {
+          "type": "required_linear_history"
+        }
+      ],
+      "updated_at": "2026-11-18T18:11:12.205Z"
+    },
+    {
+      "id": 27571187,
+      "name": "protect-release-tags",
+      "target": "tag",
+      "enforcement": "active",
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/tags/v*"
+          ]
+        }
+      },
+      "rules": [
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        },
+        {
+          "type": "update"
+        }
+      ],
+      "updated_at": "2026-11-18T18:13:04.496Z"
+    }
+  ],
+  "effective_rules_main": [
+    {
+      "type": "deletion",
+      "ruleset_source_type": "Repository",
+      "ruleset_source": "vxxngw/DevOps",
+      "ruleset_id": 27571046
+    },
+    {
+      "type": "non_fast_forward",
+      "ruleset_source_type": "Repository",
+      "ruleset_source": "vxxngw/DevOps",
+      "ruleset_id": 27571046
+    },
+    {
+      "type": "pull_request",
+      "parameters": {
+        "required_approving_review_count": 1,
+        "dismiss_stale_reviews_on_push": false,
+        "required_reviewers": [],
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "required_review_thread_resolution": true,
+        "require_extra_approval_for_unattributed_changes": true,
+        "allowed_merge_methods": [
+          "squash"
+        ]
+      },
+      "ruleset_source_type": "Repository",
+      "ruleset_source": "vxxngw/DevOps",
+      "ruleset_id": 27571046
+    },
+    {
+      "type": "required_linear_history",
+      "ruleset_source_type": "Repository",
+      "ruleset_source": "vxxngw/DevOps",
+      "ruleset_id": 27571046
+    }
+  ],
+  "result": "VERIFIED",
+  "limits": "Public API does not expose bypass_actors; UI check by repo owner required. PR #12 UI showed 'Review required' and only 'Squash and merge'."
+}

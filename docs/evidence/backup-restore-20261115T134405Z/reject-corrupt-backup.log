@@ -1,0 +1,5 @@
+clinic-dev-20000102T000000Z.dump: FAILED open or read
+
+STDERR:
+sha256sum: 'clinic-dev-20000102T000000Z.dump'$'\r': No such file or directory
+sha256sum: WARNING: 1 listed file could not be read

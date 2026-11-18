@@ -1,0 +1,172 @@
+{
+  "status": "FAIL",
+  "started_at": "2026-11-15T13:40:49.923066+00:00",
+  "scope": "Local existing Docker dev PostgreSQL; separate restored DB; current source API via native Python TestClient",
+  "not_verified": [
+    "systemd/cron timer execution",
+    "VM/Ansible convergence or idempotency",
+    "Kubernetes/staging/production restore",
+    "offsite backup and disaster RPO/RTO",
+    "RabbitMQ/worker/SMTP notification delivery in this drill"
+  ],
+  "source_database": "clinic",
+  "postgres_version": "17.12",
+  "source_database_bytes": 8517299,
+  "backup_drive_free_bytes": 10106368000,
+  "git_base": "008183a20e47d567ecd9af687b0fb0d351a97c36",
+  "working_tree_uncommitted": true,
+  "backup": {
+    "filename": "clinic-dev-20261115T134051Z.dump",
+    "bytes": 35589,
+    "sha256": "e1769ace054445eca020a5adefcc7e742adeb53ebdaa996132b7115ac64ed369"
+  },
+  "retention": "PASS: stale scoped dump/checksum removed; unrelated and fresh files retained",
+  "error": "Restored row counts/data/constraints/index fingerprints differ",
+  "source_unchanged": true,
+  "cleanup": "PASS: only this run's newly created restore database dropped; private dumps retained",
+  "finished_at": "2026-11-15T13:40:56.922603+00:00",
+  "commands": [
+    {
+      "check": "private-backup-acl",
+      "command": "icacls D:\\CODE\\OOPs\\Do_An\\.infra-local\\db-backups\\0b06e0d2fd884ba4bfd3 /inheritance:r /grant:r *S-1-5-21-3845628558-444475808-3761942357-1004:(OI)(CI)F *S-1-5-18:(OI)(CI)F",
+      "exit_code": 0,
+      "duration_seconds": 0.011,
+      "log": "private-backup-acl.log"
+    },
+    {
+      "check": "docker-endpoint",
+      "command": "docker context inspect --format {{.Endpoints.docker.Host}}",
+      "exit_code": 0,
+      "duration_seconds": 0.086,
+      "log": "docker-endpoint.log"
+    },
+    {
+      "check": "postgres-identity",
+      "command": "docker inspect --format \"{{index .Config.Labels \\\"com.docker.compose.project\\\"}}|{{index .Config.Labels \\\"com.docker.compose.service\\\"}}|{{.State.Running}}\" clinic-dev-postgres-1",
+      "exit_code": 0,
+      "duration_seconds": 0.088,
+      "log": "postgres-identity.log"
+    },
+    {
+      "check": "postgres-version",
+      "command": "docker exec -i --user postgres clinic-dev-postgres-1 sh -ec \"export PGPASSWORD=\\\"$POSTGRES_PASSWORD\\\"; exec psql -X -qAt -U \\\"$POSTGRES_USER\\\" -d \\\"$1\\\" -v ON_ERROR_STOP=1\" sh postgres",
+      "exit_code": 0,
+      "duration_seconds": 0.112,
+      "log": "postgres-version.log"
+    },
+    {
+      "check": "source-database-name",
+      "command": "docker exec clinic-dev-postgres-1 printenv POSTGRES_DB",
+      "exit_code": 0,
+      "duration_seconds": 0.099,
+      "log": "source-database-name.log"
+    },
+    {
+      "check": "source-size",
+      "command": "docker exec -i --user postgres clinic-dev-postgres-1 sh -ec \"export PGPASSWORD=\\\"$POSTGRES_PASSWORD\\\"; exec psql -X -qAt -U \\\"$POSTGRES_USER\\\" -d \\\"$1\\\" -v ON_ERROR_STOP=1\" sh clinic",
+      "exit_code": 0,
+      "duration_seconds": 0.105,
+      "log": "source-size.log"
+    },
+    {
+      "check": "git-base",
+      "command": "git -c safe.directory=D:/CODE/OOPs/Do_An rev-parse HEAD",
+      "exit_code": 0,
+      "duration_seconds": 0.037,
+      "log": "git-base.log"
+    },
+    {
+      "check": "target-absent-before",
+      "command": "docker exec -i --user postgres clinic-dev-postgres-1 sh -ec \"export PGPASSWORD=\\\"$POSTGRES_PASSWORD\\\"; exec psql -X -qAt -U \\\"$POSTGRES_USER\\\" -d \\\"$1\\\" -v ON_ERROR_STOP=1\" sh postgres",
+      "exit_code": 0,
+      "duration_seconds": 0.116,
+      "log": "target-absent-before.log"
+    },
+    {
+      "check": "source-fingerprint-before",
+      "command": "docker exec -i --user postgres clinic-dev-postgres-1 sh -ec \"export PGPASSWORD=\\\"$POSTGRES_PASSWORD\\\"; exec psql -X -qAt -U \\\"$POSTGRES_USER\\\" -d \\\"$1\\\" -v ON_ERROR_STOP=1\" sh clinic",
+      "exit_code": 0,
+      "duration_seconds": 0.142,
+      "log": "source-fingerprint-before.log"
+    },
+    {
+      "check": "backup-first",
+      "command": "\"C:\\Program Files\\Git\\bin\\bash.exe\" D:/CODE/OOPs/Do_An/scripts/infra/backup.sh dev",
+      "exit_code": 0,
+      "duration_seconds": 1.368,
+      "log": "backup-first.log"
+    },
+    {
+      "check": "backup-retention",
+      "command": "\"C:\\Program Files\\Git\\bin\\bash.exe\" D:/CODE/OOPs/Do_An/scripts/infra/backup.sh dev",
+      "exit_code": 0,
+      "duration_seconds": 1.229,
+      "log": "backup-retention.log"
+    },
+    {
+      "check": "source-fingerprint-after-backups",
+      "command": "docker exec -i --user postgres clinic-dev-postgres-1 sh -ec \"export PGPASSWORD=\\\"$POSTGRES_PASSWORD\\\"; exec psql -X -qAt -U \\\"$POSTGRES_USER\\\" -d \\\"$1\\\" -v ON_ERROR_STOP=1\" sh clinic",
+      "exit_code": 0,
+      "duration_seconds": 0.118,
+      "log": "source-fingerprint-after-backups.log"
+    },
+    {
+      "check": "restore-new-database",
+      "command": "\"C:\\Program Files\\Git\\bin\\bash.exe\" D:/CODE/OOPs/Do_An/scripts/infra/restore.sh dev D:/CODE/OOPs/Do_An/.infra-local/db-backups/0b06e0d2fd884ba4bfd3/dev/clinic-dev-20261115T134051Z.dump clinic_restore_0b06e0d2fd884ba4bfd3",
+      "exit_code": 0,
+      "duration_seconds": 1.505,
+      "log": "restore-new-database.log"
+    },
+    {
+      "check": "restored-fingerprint",
+      "command": "docker exec -i --user postgres clinic-dev-postgres-1 sh -ec \"export PGPASSWORD=\\\"$POSTGRES_PASSWORD\\\"; exec psql -X -qAt -U \\\"$POSTGRES_USER\\\" -d \\\"$1\\\" -v ON_ERROR_STOP=1\" sh clinic_restore_0b06e0d2fd884ba4bfd3",
+      "exit_code": 0,
+      "duration_seconds": 0.146,
+      "log": "restored-fingerprint.log"
+    },
+    {
+      "check": "source-schema-diagnostic",
+      "command": "docker exec -i --user postgres clinic-dev-postgres-1 sh -ec \"export PGPASSWORD=\\\"$POSTGRES_PASSWORD\\\"; exec psql -X -qAt -U \\\"$POSTGRES_USER\\\" -d \\\"$1\\\" -v ON_ERROR_STOP=1\" sh clinic",
+      "exit_code": 0,
+      "duration_seconds": 0.148,
+      "log": "source-schema-diagnostic.log"
+    },
+    {
+      "check": "restore-schema-diagnostic",
+      "command": "docker exec -i --user postgres clinic-dev-postgres-1 sh -ec \"export PGPASSWORD=\\\"$POSTGRES_PASSWORD\\\"; exec psql -X -qAt -U \\\"$POSTGRES_USER\\\" -d \\\"$1\\\" -v ON_ERROR_STOP=1\" sh clinic_restore_0b06e0d2fd884ba4bfd3",
+      "exit_code": 0,
+      "duration_seconds": 0.131,
+      "log": "restore-schema-diagnostic.log"
+    },
+    {
+      "check": "source-fingerprint-final",
+      "command": "docker exec -i --user postgres clinic-dev-postgres-1 sh -ec \"export PGPASSWORD=\\\"$POSTGRES_PASSWORD\\\"; exec psql -X -qAt -U \\\"$POSTGRES_USER\\\" -d \\\"$1\\\" -v ON_ERROR_STOP=1\" sh clinic",
+      "exit_code": 0,
+      "duration_seconds": 0.156,
+      "log": "source-fingerprint-final.log"
+    },
+    {
+      "check": "drop-owned-restore-database",
+      "command": "docker exec --user postgres clinic-dev-postgres-1 sh -ec \"export PGPASSWORD=\\\"$POSTGRES_PASSWORD\\\"; exec dropdb -U \\\"$POSTGRES_USER\\\" --force \\\"$1\\\"\" sh clinic_restore_0b06e0d2fd884ba4bfd3",
+      "exit_code": 0,
+      "duration_seconds": 0.138,
+      "log": "drop-owned-restore-database.log"
+    },
+    {
+      "check": "owned-target-absent-after-cleanup",
+      "command": "docker exec -i --user postgres clinic-dev-postgres-1 sh -ec \"export PGPASSWORD=\\\"$POSTGRES_PASSWORD\\\"; exec psql -X -qAt -U \\\"$POSTGRES_USER\\\" -d \\\"$1\\\" -v ON_ERROR_STOP=1\" sh postgres",
+      "exit_code": 0,
+      "duration_seconds": 0.117,
+      "log": "owned-target-absent-after-cleanup.log"
+    }
+  ],
+  "private_artifact_directory": ".infra-local/db-backups/0b06e0d2fd884ba4bfd3",
+  "source_files": {
+    "scripts/dev/check-backup-restore.py": "92eecfea1daa55df9efffcb3c4848775a9d8c909505155d1c0794f758c620995",
+    "scripts/dev/restore-db-smoke.py": "2c61bf3ebd2b7f9c3b23f6b341df65ab6005f5407d0aed550b4c290aea4109fe",
+    "scripts/dev/backup-fingerprint.sql": "7902ee98d9122d55c9f49a2f97c010cbae178651da434366bc8b074ff9b3303e",
+    "scripts/infra/backup.sh": "a42b5a7784e38dbb70d4233a28346aa515f09165fd941b28ae59830c66f6e95b",
+    "scripts/infra/restore.sh": "c739118951fb0e754f5b61cd2c8d497f4ec0db19fbb26b610e275e2c6a520e17",
+    "scripts/infra/backup-common.sh": "c243cba58d18e240ddff17d46bae56ee4d2c5128e5ce9baf57993f84d680c9f9"
+  }
+}

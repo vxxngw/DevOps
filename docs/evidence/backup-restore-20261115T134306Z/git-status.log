@@ -1,0 +1,17 @@
+ M ci/infrastructure.py
+ M infra/ansible/roles/backup/tasks/main.yml
+ M scripts/infra/backup.sh
+ M scripts/infra/restore.sh
+?? ci/ansible_sources.py
+?? ci/backup_schema.py
+?? ci/bash_sources.py
+?? ci/tests/test_backup_guards.py
+?? ci/tests/test_backup_schema.py
+?? ci/tests/test_source_paths.py
+?? docs/evidence/backup-restore-20261115T133946Z/
+?? docs/evidence/backup-restore-20261115T134049Z/
+?? docs/evidence/backup-restore-20261115T134306Z/
+?? scripts/dev/backup-fingerprint.sql
+?? scripts/dev/check-backup-restore.py
+?? scripts/dev/restore-db-smoke.py
+?? scripts/infra/backup-common.sh

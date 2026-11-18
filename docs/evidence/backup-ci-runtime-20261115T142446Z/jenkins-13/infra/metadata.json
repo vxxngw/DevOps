@@ -1,0 +1,94 @@
+{
+  "at_utc": "2026-11-15T14:25:43.610307+00:00",
+  "head_commit": "d2ba14ceea8d99802db438351d6c6e96e88dca9b",
+  "files": [
+    {
+      "path": "deploy/k8s/base/account.yaml",
+      "sha256": "752bda770cecd77aae6fc1a7271b8ed91babf5c459ba87d8b7c505e35564c5ed"
+    },
+    {
+      "path": "deploy/k8s/base/autoscaling.yaml",
+      "sha256": "4e87dc175c14dcf0b46f6b71951ceddec5b7356bc2ea08874cc3b03ea1e17d6e"
+    },
+    {
+      "path": "deploy/k8s/base/deployments.yaml",
+      "sha256": "408a2122a67db797ef0bb9d982ba82bf19c6eefd18f887fb996bf3317739d3da"
+    },
+    {
+      "path": "deploy/k8s/base/ingress.yaml",
+      "sha256": "cb78b45b2548e42274187621b701a8c5fcd5d39284c88a2cca68dd69514072b2"
+    },
+    {
+      "path": "deploy/k8s/base/kustomization.yaml",
+      "sha256": "1f0566678a258fb7e4913eace99517d765200ea94ec0f07d0281d17908a35b36"
+    },
+    {
+      "path": "deploy/k8s/base/migration.yaml",
+      "sha256": "c32016ec972c49d0976e96ef8192e515e564ce2802271445ead949a460733bb4"
+    },
+    {
+      "path": "deploy/k8s/base/networkpolicy.yaml",
+      "sha256": "c6e2043f0fae4a26a2746234127023496dc00d28448c58855352c30c68008f98"
+    },
+    {
+      "path": "deploy/k8s/base/services.yaml",
+      "sha256": "c8c2cb24eb62357f023b84765251bdc373736c2dff3da1248b872226880e1b7a"
+    },
+    {
+      "path": "deploy/k8s/base/statefulsets.yaml",
+      "sha256": "146ca37a241be2838957f13e08b0aeb1f466671587d5a2abb8253a8c6865c807"
+    },
+    {
+      "path": "deploy/k8s/bootstrap/local-ca.yaml",
+      "sha256": "d5d8291b39f337640c8c87197e7885371c51b17c2eac96adf12ae67242b5eed6"
+    },
+    {
+      "path": "deploy/k8s/bootstrap/namespaces-rbac.yaml",
+      "sha256": "a9ec97ecee68966bd09f551088f00f53f3516eb4add52f70541b0bb6d96e6533"
+    },
+    {
+      "path": "deploy/k8s/overlays/production/kustomization.yaml",
+      "sha256": "f1048cd12a5d6a2345b0851227a53cad763fd15b2bc8803918553cb6b9eb915f"
+    },
+    {
+      "path": "deploy/k8s/overlays/staging/kustomization.yaml",
+      "sha256": "fcef2646db352a3a9ec32192eb5533391394a17495b7828eb3e9c696ff52a05d"
+    },
+    {
+      "path": "infra/lab-budget.json",
+      "sha256": "d0f53370fbea3c36d3979a3e148ce3c8202d566cabafc0a92eeaa477d3cfaef7"
+    },
+    {
+      "path": "infra/terraform/main.tf",
+      "sha256": "6e0b2303baa27ce79eeaafd681552a8abd692b09167ef0f9f398dbdc9a246bab"
+    },
+    {
+      "path": "infra/terraform/modules/vm/main.tf",
+      "sha256": "5b2525ac58f7740cf05dcd66b24503a02d006a71ab033cf2abe768e4cbf28571"
+    },
+    {
+      "path": "infra/terraform/outputs.tf",
+      "sha256": "c1c680d3bc5c16392f9abfac1cf57f6fd76ea676f35bee0919396d5916c88b14"
+    },
+    {
+      "path": "infra/terraform/variables.tf",
+      "sha256": "c796bc792e537ef15722a340a2e6344879f0e53c6cd32c26719352023d553c03"
+    },
+    {
+      "path": "infra/terraform/versions.tf",
+      "sha256": "b8c37ba9842d912a881dd66373fa1221984452edc7aef173b4cdf7708082fa23"
+    },
+    {
+      "path": "infra/versions.json",
+      "sha256": "8a63487f0ef4b2427575177e576161b8283c058137122f4a327680fd0b73b6ee"
+    }
+  ],
+  "scope": "Terraform validate and Kubernetes schema/policy/render only; no VM, Ansible convergence, cluster, TLS trust or scaling claim",
+  "counts": {
+    "staging": 28,
+    "production": 28
+  },
+  "terraform": "1.17.2",
+  "ansible_controller_sources": 7,
+  "bash_scripts": 6
+}
