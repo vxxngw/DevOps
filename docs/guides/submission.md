@@ -6,7 +6,7 @@ Owner bàn giao đồng bộ [nhóm 4 người](team-onboarding.md): Vuong tập
 
 | Sản phẩm | Đã có | Còn thiếu |
 |---|---|---|
-| Link repo và README dựng lại từ máy trắng | Repo vuongvo2207-gmail-com/DevOps, nhánh/PR thật; README, hướng dẫn M1–M4, Terraform/Ansible/CI/K8s | Review thật, branch protection phù hợp gói GitHub, dựng máy trắng/pipeline/runtime và release tag đã nghiệm thu |
+| Link repo và README dựng lại từ máy trắng | Repo vxxngw/DevOps, nhánh/PR thật; README, hướng dẫn M1–M4, Terraform/Ansible/CI/K8s | Review thật, branch protection phù hợp gói GitHub, dựng máy trắng/pipeline/runtime và release tag đã nghiệm thu |
 | Báo cáo kiến trúc/pipeline/lý do/tải/phân công/postmortem | architecture.md, ci-cd.md, decisions.md, project-report.md, postmortem kỹ thuật có bằng chứng | Kết quả tải thật, tên thành viên/commit/review thật và nhóm xác nhận postmortem; không gán tác giả giả |
 | Runbook deploy/rollback/khôi phục DB/từng alert | docs/runbooks; [restore dev thực tế](../evidence/backup-restore-20261115T134405Z/README.md) đã kiểm dữ liệu/schema/API và cleanup | Timer/host/cluster, offsite/RPO/RTO sự cố, deploy/rollback và nhận cảnh báo thật; dev drill chưa thay toàn bộ nghiệm thu production |
 | Video tối đa10 phút | Kịch bản8 bước và kế hoạch quay trong demo-script.md | Chưa quay, chưa có file hoặc URL; không tạo link giả |
