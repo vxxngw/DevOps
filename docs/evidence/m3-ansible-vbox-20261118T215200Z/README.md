@@ -18,10 +18,16 @@ Code: [infra/ansible-lab](../../../infra/ansible-lab/README.md) (`site.yml`, 6 r
 
 ## Môi trường
 - Control node: WSL Ubuntu, ansible-core 2.20.1.
-- `anuyen-server`: 2 vCPU/4 GB, card 1 bridged Wi-Fi (DHCP 192.168.1.77, để thành viên khác truy cập), card 2 host-only 192.168.56.11.
+- `anuyen-server`: 2 vCPU/4 GB, card 1 NAT (SSH 127.0.0.1:2222; lần 1–2 card 1 là bridged Wi-Fi 192.168.1.77), card 2 host-only 192.168.56.11.
 - `anuyen-agent`: 2 vCPU/2 GB, card 1 NAT (SSH 127.0.0.1:2223), card 2 host-only 192.168.56.12.
 - k3s v1.37.2+k3s1 (kênh stable, chưa pin theo `infra/versions.json`).
 
 ## Chưa chứng minh
 - Staging trên máy thật; Terraform; restore etcd snapshot.
 - Bộ `infra/ansible` (thiết kế libvirt/Terraform) chưa áp lên VM; bộ chạy thật là `infra/ansible-lab`.
+
+## Lần chạy 3 – Ansible vào server qua NAT 127.0.0.1:2222 (22:10 UTC)
+Card 1 của server đổi từ bridged Wi-Fi về NAT (port forward 2222→22) để Ansible không phụ thuộc mạng Wi-Fi/hotspot; mạng k3s vẫn là host-only 192.168.56.0/24.
+- Ping 2 VM, `--syntax-check` cho `dev` và `staging`, `ansible-vault view` đều OK.
+- [run3-nat2222.log](run3-nat2222.log) (`--diff`): `anuyen-agent changed=0`, `anuyen-server changed=0`, `failed=0`.
+- [check-cluster-nat2222.txt](check-cluster-nat2222.txt): 2 node Ready; docker, k3s, k3s-agent, node exporter, k3s-backup.timer active. Jenkins node `anuyen-agent` online.
