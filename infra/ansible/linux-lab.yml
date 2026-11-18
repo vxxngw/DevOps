@@ -36,16 +36,27 @@
       community.docker.docker_compose_v2:
         project_src: "{{ clinic_repo_dir }}"
         services: [postgres]
+        pull: never  # images are built from this checkout, never pulled
         wait: true
+    # alembic.ini has no logging config, so compare `alembic current` before/after to report a change.
     - name: Apply database migrations
       ansible.builtin.command:
-        cmd: docker compose run --rm -T migrate
+        cmd: >-
+          docker compose run --rm -T migrate sh -c
+          'before=$(alembic current) && alembic upgrade head && after=$(alembic current)
+          && { [ "$before" = "$after" ] || echo SCHEMA_CHANGED; }'
         chdir: "{{ clinic_repo_dir }}"
       register: clinic_migrate
-      changed_when: "'Running upgrade' in (clinic_migrate.stdout + clinic_migrate.stderr)"
-    # Seed prints nothing, so it only runs right after a fresh schema to keep reruns idempotent.
-    - name: Load synthetic seed data into a fresh schema
+      changed_when: "'SCHEMA_CHANGED' in clinic_migrate.stdout"
+    - name: Count synthetic doctors
+      ansible.builtin.command:
+        cmd: docker compose exec -T postgres psql -U clinic -d clinic -Atc 'select count(*) from doctors'
+        chdir: "{{ clinic_repo_dir }}"
+      register: clinic_doctor_count
+      changed_when: false  # read-only query
+    # Seed prints nothing; it is idempotent but only needed while the database is empty.
+    - name: Load synthetic seed data into an empty database
       ansible.builtin.command:
         cmd: docker compose run --rm -T seed
         chdir: "{{ clinic_repo_dir }}"
-      when: clinic_migrate is changed
+      when: clinic_doctor_count.stdout == '0'
