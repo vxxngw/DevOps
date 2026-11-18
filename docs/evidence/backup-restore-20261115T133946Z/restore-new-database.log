@@ -1,0 +1,13 @@
+clinic-dev-20261115T133947Z.dump: OK
+{"event":"restore_database_created","database":"clinic_restore_626de787eea848f39eb1"}
+ version_num 
+-------------
+ 20261114_01
+(1 row)
+
+ appointments 
+--------------
+           22
+(1 row)
+
+{"event":"restore_drill_complete","database":"clinic_restore_626de787eea848f39eb1","seconds":1,"transport":"docker-dev","scope":"New dev/staging database; no live cutover"}

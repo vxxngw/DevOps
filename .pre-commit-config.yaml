@@ -1,0 +1,26 @@
+# Cài một lần: pip install pre-commit && pre-commit install
+# Hook chạy trên file đã stage; commit-msg chặn message không theo Conventional Commits.
+default_install_hook_types: [pre-commit, commit-msg]
+exclude: ^docs/evidence/
+
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.5 # khớp ruff trong requirements.lock
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=1024]
+
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.5.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        args: [--strict, feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert]

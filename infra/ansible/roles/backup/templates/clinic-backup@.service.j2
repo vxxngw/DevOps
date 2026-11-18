@@ -1,0 +1,11 @@
+[Unit]
+Description=Clinic PostgreSQL backup %i
+After=k3s.service
+Requires=k3s.service
+[Service]
+Type=oneshot
+Environment=KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+Environment=CLINIC_BACKUP_ROOT={{ clinic_backup_root }}
+Environment=CLINIC_BACKUP_RETENTION_DAYS={{ clinic_backup_retention_days }}
+ExecStart=/usr/local/sbin/clinic-backup.sh %i
+UMask=0077

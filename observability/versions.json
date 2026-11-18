@@ -1,0 +1,76 @@
+{
+  "resolved_at_utc": "2026-11-14T15:44:50.768985+00:00",
+  "scope": "Upstream metadata, checksums and OCI manifest digests only; images not built, scanned or run.",
+  "tools": {
+    "prometheus": {
+      "version": "3.16.0",
+      "source": "https://github.com/prometheus/prometheus/releases/tag/v3.16.0",
+      "assets": {
+        "windows": {
+          "url": "https://github.com/prometheus/prometheus/releases/download/v3.16.0/prometheus-3.16.0.windows-amd64.zip",
+          "sha256": "89c03c2f24400fb58668440b6d7226f68564acda27d657e77acfbda42be32cb3"
+        },
+        "linux": {
+          "url": "https://github.com/prometheus/prometheus/releases/download/v3.16.0/prometheus-3.16.0.linux-amd64.tar.gz",
+          "sha256": "68727009472a2c02e1ff7f062fd5b3e637285bffc8fc2d340c76fb449d6e0f34"
+        }
+      }
+    },
+    "alertmanager": {
+      "version": "0.35.0",
+      "source": "https://github.com/prometheus/alertmanager/releases/tag/v0.35.0",
+      "assets": {
+        "windows": {
+          "url": "https://github.com/prometheus/alertmanager/releases/download/v0.35.0/alertmanager-0.35.0.windows-amd64.zip",
+          "sha256": "cdf8cd664889bf3f27771881e10814f3d5916310aba90717b4424deb358b0fa3"
+        },
+        "linux": {
+          "url": "https://github.com/prometheus/alertmanager/releases/download/v0.35.0/alertmanager-0.35.0.linux-amd64.tar.gz",
+          "sha256": "6c7752a903c40c8a749e0b29df9240437e4fbb8228068d0af8807377db32addd"
+        }
+      }
+    }
+  },
+  "images": {
+    "prometheus": {
+      "tag": "quay.io/prometheus/prometheus:v3.16.0",
+      "reference": "quay.io/prometheus/prometheus@sha256:9332054523223e2ddc18d8101799d54a4a8d823b030c53216f063a6c117773cd",
+      "manifest_sha256": "9332054523223e2ddc18d8101799d54a4a8d823b030c53216f063a6c117773cd"
+    },
+    "alertmanager": {
+      "tag": "quay.io/prometheus/alertmanager:v0.35.0",
+      "reference": "quay.io/prometheus/alertmanager@sha256:5f6e66c01bd610aef6dd671642a52eee775fd3a89bd8788ebada33efaf373d10",
+      "manifest_sha256": "5f6e66c01bd610aef6dd671642a52eee775fd3a89bd8788ebada33efaf373d10"
+    },
+    "grafana": {
+      "tag": "docker.io/grafana/grafana:13.3.1",
+      "reference": "docker.io/grafana/grafana@sha256:0615ec4fbd4072004b7d86b46ded63013a74b7d6eb1119273dd89e8fa25c13cf",
+      "manifest_sha256": "0615ec4fbd4072004b7d86b46ded63013a74b7d6eb1119273dd89e8fa25c13cf"
+    },
+    "kube-state-metrics": {
+      "tag": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.20.0",
+      "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics@sha256:42cfe3723a5f058171c627537fb57a3ea0f26e4380fa18555a95cb1a1b4cfc5b",
+      "manifest_sha256": "42cfe3723a5f058171c627537fb57a3ea0f26e4380fa18555a95cb1a1b4cfc5b"
+    },
+    "postgres-exporter": {
+      "tag": "quay.io/prometheuscommunity/postgres-exporter:v0.20.1",
+      "reference": "quay.io/prometheuscommunity/postgres-exporter@sha256:ac5ec343104fae0e2d84a27bb8d69b38430a11910c5382cad85d478d2bab713e",
+      "manifest_sha256": "ac5ec343104fae0e2d84a27bb8d69b38430a11910c5382cad85d478d2bab713e"
+    },
+    "elasticsearch": {
+      "tag": "docker.elastic.co/elasticsearch/elasticsearch:9.5.6",
+      "reference": "docker.elastic.co/elasticsearch/elasticsearch@sha256:79b4f1de4c15e6eca824723086a51e5934406d614d410cc11be77748cafac537",
+      "manifest_sha256": "79b4f1de4c15e6eca824723086a51e5934406d614d410cc11be77748cafac537"
+    },
+    "kibana": {
+      "tag": "docker.elastic.co/kibana/kibana:9.5.6",
+      "reference": "docker.elastic.co/kibana/kibana@sha256:c7ed45da5c3cfea020fc6c99ce027f4d21d19dab330379c5115d5eb95f6ecebc",
+      "manifest_sha256": "c7ed45da5c3cfea020fc6c99ce027f4d21d19dab330379c5115d5eb95f6ecebc"
+    },
+    "fluentd": {
+      "tag": "docker.io/fluent/fluentd-kubernetes-daemonset:v1.20.1-debian-elasticsearch9-1.0",
+      "reference": "docker.io/fluent/fluentd-kubernetes-daemonset@sha256:11e174a0a158d4a575a948921a89cbd1bd292277f23948bbfaba3bb2e7304d04",
+      "manifest_sha256": "11e174a0a158d4a575a948921a89cbd1bd292277f23948bbfaba3bb2e7304d04"
+    }
+  }
+}

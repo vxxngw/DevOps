@@ -1,8 +1,8 @@
 # Nguồn và giấy phép
 
-Mã ứng dụng được viết cho đồ án trong workspace; không lấy nguyên ứng dụng mẫu khác. AI hỗ trợ sinh mã/cấu hình; nhóm vẫn cần review và giải thích theo PDF trang 1. Hướng dẫn kỹ thuật tham chiếu trong docs/versions.md; không xem tham khảo pattern outbox là bằng chứng runtime.
+Mã ứng dụng được viết cho đồ án trong workspace; không lấy nguyên ứng dụng mẫu khác. AI hỗ trợ sinh mã/cấu hình; nhóm vẫn cần review và giải thích theo PDF trang 1. Hướng dẫn kỹ thuật tham chiếu trong docs/guides/versions.md; không xem tham khảo pattern outbox là bằng chứng runtime.
 
-Logo An Uyên Hospital do chủ dự án cung cấp, giữ nguyên trong frontend/public/brand/an-uyen-logo.jpg. Nguồn/checksum và quy tắc nhận diện ở docs/branding.md; đây là tài sản dự án, không phải logo do AI tạo.
+Logo An Uyên Hospital do chủ dự án cung cấp, giữ nguyên trong frontend/public/brand/an-uyen-logo.jpg. Nguồn/checksum và quy tắc nhận diện ở docs/guides/branding.md; đây là tài sản dự án, không phải logo do AI tạo.
 
 | Thành phần | Nguồn gốc | License upstream cần giữ khi phân phối |
 |---|---|---|
@@ -23,4 +23,4 @@ Logo An Uyên Hospital do chủ dự án cung cấp, giữ nguyên trong fronten
 
 Danh sách trên là hướng dẫn kiểm kê, chưa phải SBOM/license audit đầy đủ. Không xóa LICENSE/NOTICE bundled của phụ thuộc/image. Lockfile ghi phiên bản, npm lock ghi integrity; build/scan/SBOM và xác minh license artifact thực phải bổ sung trước phát hành. Chưa chọn license cho mã riêng của nhóm thay người sở hữu.
 
-Mốc4 bổ sung Prometheus/Alertmanager, Grafana, kube-state-metrics, postgres_exporter, Elasticsearch/Kibana và Fluentd/plugins. Nguồn/tag/digest ở observability/versions.json và docs/versions.md; giữ LICENSE/NOTICE từ đúng artifact, gồm phụ thuộc/plugin và điều khoản phân phối Elastic/Grafana. Chưa có SBOM/license audit đầy đủ cho8image này và chưa coi image ghim digest là đã quét CVE.
+Mốc4 bổ sung Prometheus/Alertmanager, Grafana, kube-state-metrics, postgres_exporter, Elasticsearch/Kibana và Fluentd/plugins. Nguồn/tag/digest ở observability/versions.json và docs/guides/versions.md; giữ LICENSE/NOTICE từ đúng artifact, gồm phụ thuộc/plugin và điều khoản phân phối Elastic/Grafana. Chưa có SBOM/license audit đầy đủ cho8image này và chưa coi image ghim digest là đã quét CVE.

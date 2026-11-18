@@ -1,0 +1,31 @@
+{
+  "old_url": "https://api.github.com/repos/vxxngw/DevOps",
+  "old_response_status": 301,
+  "redirect_location": "https://api.github.com/repositories/1457478642",
+  "canonical": {
+    "id": 1457478642,
+    "full_name": "vuongvo2207-gmail-com/DevOps",
+    "html_url": "https://github.com/vuongvo2207-gmail-com/DevOps",
+    "private": true
+  },
+  "same_repository_id_confirmed": true,
+  "permissions": {
+    "admin": true,
+    "maintain": true,
+    "push": true,
+    "triage": true,
+    "pull": true
+  },
+  "hooks": [
+    {
+      "id": 712106312,
+      "active": true,
+      "events": [
+        "pull_request",
+        "push"
+      ],
+      "url": "https://universities-attorneys-dollar-button.trycloudflare.com/github",
+      "insecure_ssl": "0"
+    }
+  ]
+}

@@ -164,12 +164,16 @@ def validate_policy(resources, namespace):
 
 def main():
     (OUTPUT / "infra/metadata.json").unlink(missing_ok=True)
+    from ci.ansible_sources import check_local_sources
+    from ci.bash_sources import check_bash_sources
+
+    ansible_sources = check_local_sources(ROOT)
+    if not ansible_sources["checked"]:
+        raise ValueError("No controller-side Ansible sources were checked")
+    write_json(OUTPUT / "infra/ansible-sources.json", ansible_sources)
+    bash_sources = check_bash_sources(ROOT)
+    write_json(OUTPUT / "infra/bash-sources.json", bash_sources)
     versions = json.loads((ROOT / "infra/versions.json").read_text(encoding="utf-8"))
-    if os.name != "nt":
-        run(
-            ["bash", "-n", *sorted((ROOT / "scripts").glob("*.sh"))],
-            log=OUTPUT / "infra/bash-syntax.log",
-        )
     binary = (
         ROOT
         / ".infra-local/bin"
@@ -229,9 +233,11 @@ def main():
                 )
                 if ".terraform" not in path.parts
             ],
-            "scope": "Terraform validate and Kubernetes schema/policy/render only; no VM, host convergence, cluster, TLS trust or scaling claim",
+            "scope": "Terraform validate and Kubernetes schema/policy/render only; no VM, Ansible convergence, cluster, TLS trust or scaling claim",
             "counts": counts,
             "terraform": actual,
+            "ansible_controller_sources": len(ansible_sources["checked"]),
+            "bash_scripts": len(bash_sources),
         },
     )
     print("Infrastructure static checks passed; runtime remains separate")

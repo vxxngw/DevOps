@@ -1,4 +1,4 @@
-> **2026-11-19: Terraform-only migration.** Ansible source/control dependencies retired at operator request; historical evidence below is not current execution guidance. See runbooks/terraform-only.md. VM/key/Vault/state preserved. Jenkins/K3s/backup replacement automation remains incomplete; mandatory Ansible requirement is not satisfied.
+> **Merge integration:** Ansible/observability are retained from main and owned by other members. Terraform-only describes personal execution scope, not removal of shared automation. Earlier status entries below are historical.
 
 # Đối chiếu Bài 3, 7, 8, 12
 

@@ -1,0 +1,48 @@
+---
+- name: Create exporter user
+  ansible.builtin.user: {name: node-exporter, system: true, shell: /usr/sbin/nologin, create_home: false}
+- name: Download pinned node exporter
+  ansible.builtin.get_url:
+    url: "https://github.com/prometheus/node_exporter/releases/download/v{{ clinic_versions.node_exporter }}/node_exporter-{{ clinic_versions.node_exporter }}.linux-amd64.tar.gz"
+    checksum: "sha256:https://github.com/prometheus/node_exporter/releases/download/v{{ clinic_versions.node_exporter }}/sha256sums.txt"
+    dest: "/var/tmp/node_exporter-{{ clinic_versions.node_exporter }}.tar.gz"
+    mode: '0644'
+- name: Unpack exporter once per version
+  ansible.builtin.unarchive:
+    src: "/var/tmp/node_exporter-{{ clinic_versions.node_exporter }}.tar.gz"
+    dest: /opt
+    remote_src: true
+    creates: "/opt/node_exporter-{{ clinic_versions.node_exporter }}.linux-amd64/node_exporter"
+- name: Select exporter version
+  ansible.builtin.file:
+    src: "/opt/node_exporter-{{ clinic_versions.node_exporter }}.linux-amd64/node_exporter"
+    dest: /usr/local/bin/node_exporter
+    state: link
+  notify: Restart node exporter
+- name: Prepare textfile directory
+  ansible.builtin.file:
+    path: /var/lib/node_exporter/textfile
+    state: directory
+    owner: node-exporter
+    mode: '0755'
+- name: Install exporter service
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/node-exporter.service
+    mode: '0644'
+    content: |
+      [Unit]
+      Description=Prometheus node exporter
+      After=network-online.target
+      [Service]
+      User=node-exporter
+      ExecStart=/usr/local/bin/node_exporter --web.listen-address=:9100 --collector.textfile.directory=/var/lib/node_exporter/textfile
+      Restart=on-failure
+      NoNewPrivileges=true
+      ProtectSystem=strict
+      ProtectHome=true
+      PrivateTmp=true
+      [Install]
+      WantedBy=multi-user.target
+  notify: Restart node exporter
+- name: Enable node exporter
+  ansible.builtin.systemd_service: {name: node-exporter, enabled: true, state: started, daemon_reload: true}

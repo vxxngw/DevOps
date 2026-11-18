@@ -7,6 +7,9 @@ FROM python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194
 COPY infra/versions.json /tmp/versions.json
 COPY ci/install-agent-tools.py /tmp/install.py
 RUN python /tmp/install.py
+COPY observability/versions.json /tmp/observability-versions.json
+COPY scripts/infra/install-observability-tools.py /tmp/install-obs.py
+RUN python /tmp/install-obs.py --versions /tmp/observability-versions.json --destination /out --cache /tmp/obs-downloads --tools-only
 
 FROM python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
 RUN apt-get update && apt-get install -y --no-install-recommends git curl openssh-client libstdc++6 \

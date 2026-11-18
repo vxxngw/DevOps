@@ -225,4 +225,3 @@ E   FileNotFoundError: [Errno 2] No such file or directory: '/app/observability/
 FAILED tests/test_local_monitoring.py::test_local_credential_initialization_does_not_rotate_or_print
 FAILED tests/test_local_monitoring.py::test_local_dashboard_is_explicit_about_process_scope
 2 failed, 33 passed, 1 warning in 32.59s
-

@@ -80,6 +80,7 @@ def lint():
             "tests",
             "scripts",
             "ci",
+            "observability",
         ],
         log=OUTPUT / "ruff.log",
     )
@@ -94,11 +95,13 @@ def lint():
             "tests",
             "scripts",
             "ci",
+            "observability",
         ],
         log=OUTPUT / "format.log",
     )
     npm = "npm.cmd" if os.name == "nt" else "npm"
     run([npm, "run", "lint"], cwd=ROOT / "frontend", log=OUTPUT / "eslint.log")
+    run([npm, "run", "format:check"], cwd=ROOT / "frontend", log=OUTPUT / "frontend-format.log")
     run([npm, "run", "build"], cwd=ROOT / "frontend", log=OUTPUT / "frontend-build.log")
 
 
@@ -300,6 +303,7 @@ def main():
             "build",
             "integration",
             "infrastructure",
+            "observability",
             "deploy-staging",
             "deploy-production",
         ],
@@ -312,6 +316,7 @@ def main():
         "build": build,
         "integration": integration,
         "infrastructure": lambda: run([python_executable(), "-m", "ci.infrastructure"]),
+        "observability": lambda: run([python_executable(), "-m", "ci.observability"]),
         "deploy-staging": lambda: run([python_executable(), "-m", "ci.deploy", "staging"]),
         "deploy-production": lambda: run([python_executable(), "-m", "ci.deploy", "production"]),
     }[args.action]()

@@ -1,7 +1,7 @@
 FROM python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b AS dependencies
 WORKDIR /build
 COPY requirements.lock .
-RUN pip wheel --timeout 120 --retries 8 --no-cache-dir --wheel-dir /wheels -r requirements.lock
+RUN pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.lock
 
 FROM python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b AS runtime
 ENV PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=/app/services

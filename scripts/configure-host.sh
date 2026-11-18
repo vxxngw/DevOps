@@ -3,7 +3,7 @@
 set -euo pipefail
 [[ "$EUID" == 0 ]] || { echo 'Run as root on the target VM' >&2; exit 1; }
 project_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-install -m 0750 "$project_root/scripts/host-health.sh" /usr/local/sbin/clinic-host-health.sh
+install -m 0750 "$project_root/scripts/infra/host-health.sh" /usr/local/sbin/clinic-host-health.sh
 cat > /etc/systemd/system/clinic-host-health.service <<'UNIT'
 [Unit]
 Description=Clinic host RAM, disk and load health check

@@ -1,0 +1,20 @@
+ansible-core==2.22.0
+    # via -r infra/requirements-ansible.txt
+cffi==2.1.1
+    # via cryptography
+cryptography==50.0.2
+    # via ansible-core
+jinja2==3.1.6
+    # via ansible-core
+markupsafe==3.0.4
+    # via jinja2
+packaging==26.3
+    # via ansible-core
+pycparser==3.12
+    # via cffi
+pyyaml==6.0.3
+    # via
+    #   -r infra/requirements-ansible.txt
+    #   ansible-core
+resolvelib==1.2.1
+    # via ansible-core

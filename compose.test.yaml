@@ -12,8 +12,10 @@ services:
       MAILPIT_API_URL: http://mailpit:8025
       RUN_BROKER_TESTS: '1'
       ENVIRONMENT: test
-    command: [python, -m, pytest, -q, -s, --tb=short, -o, faulthandler_timeout=30, -o, cache_dir=/tmp/pytest_cache, --junitxml=/evidence/junit.xml]
+    command: [python, -m, pytest, tests, -q, -s, --tb=short, -o, faulthandler_timeout=30, -o, cache_dir=/tmp/pytest_cache, --junitxml=/evidence/junit.xml]
     volumes:
+      - ./services:/app/services:ro
+      - ./contracts:/app/contracts:ro
       - ./tests:/app/tests:ro
       - ./pyproject.toml:/app/pyproject.toml:ro
       - ${EVIDENCE_DIR:-./docs/evidence/integration-container}:/evidence

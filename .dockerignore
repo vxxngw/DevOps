@@ -16,3 +16,6 @@ ci-out
 infra/**
 !infra/versions.json
 deploy
+observability/**
+!observability/versions.json
+outputs

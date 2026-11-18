@@ -28,5 +28,4 @@ infra/ansible/inventories/**/vault.yml
 infra/ansible/inventories/**/hosts.yml
 !infra/ansible/inventories/**/hosts.example.yml
 *.tfplan
-terraform.tfstate.d/
-*.vault-pass
+outputs/

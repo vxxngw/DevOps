@@ -1,0 +1,134 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: anuyen-lab
+rule_files:
+- /etc/prometheus/rules/*.yml
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - alertmanager.monitoring.svc:9093
+scrape_configs:
+- job_name: prometheus
+  static_configs:
+  - targets:
+    - localhost:9090
+- job_name: clinic
+  kubernetes_sd_configs:
+  - role: pod
+    namespaces:
+      names:
+      - staging
+      - production
+  relabel_configs:
+  - source_labels:
+    - __meta_kubernetes_pod_label_app_kubernetes_io_name
+    regex: api|publisher|worker
+    action: keep
+  - source_labels:
+    - __meta_kubernetes_pod_container_port_number
+    regex: 8000|8001|8002
+    action: keep
+  - source_labels:
+    - __meta_kubernetes_namespace
+    target_label: namespace
+  - source_labels:
+    - __meta_kubernetes_pod_name
+    target_label: pod
+  - source_labels:
+    - __meta_kubernetes_pod_label_app_kubernetes_io_name
+    target_label: service
+  metric_relabel_configs:
+  - regex: event_id|request_id|correlation_id|email|appointment_id
+    action: labeldrop
+  honor_labels: true
+- job_name: rabbitmq-staging
+  metrics_path: /metrics/per-object
+  static_configs:
+  - targets:
+    - rabbitmq.staging.svc:15692
+    labels:
+      namespace: staging
+      service: rabbitmq
+- job_name: postgres-staging
+  static_configs:
+  - targets:
+    - postgres-exporter.staging.svc:9187
+    labels:
+      namespace: staging
+      service: postgres
+- job_name: rabbitmq-production
+  metrics_path: /metrics/per-object
+  static_configs:
+  - targets:
+    - rabbitmq.production.svc:15692
+    labels:
+      namespace: production
+      service: rabbitmq
+- job_name: postgres-production
+  static_configs:
+  - targets:
+    - postgres-exporter.production.svc:9187
+    labels:
+      namespace: production
+      service: postgres
+- job_name: node
+  static_configs:
+  - targets:
+    - 192.168.150.10:9100
+    labels:
+      node: anuyen-jenkins
+  - targets:
+    - 192.168.150.11:9100
+    labels:
+      node: anuyen-k3s-server
+  - targets:
+    - 192.168.150.12:9100
+    labels:
+      node: anuyen-k3s-agent
+- job_name: kube-state-metrics
+  static_configs:
+  - targets:
+    - kube-state-metrics.monitoring.svc:8080
+- job_name: kubelet
+  scheme: https
+  authorization:
+    credentials_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+  tls_config:
+    ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+  metrics_path: /metrics/cadvisor
+  kubernetes_sd_configs:
+  - role: node
+  relabel_configs:
+  - source_labels:
+    - __meta_kubernetes_node_address_InternalIP
+    regex: (.+)
+    target_label: __address__
+    replacement: ${1}:10250
+  - source_labels:
+    - __meta_kubernetes_node_name
+    target_label: node
+- job_name: fluentd
+  kubernetes_sd_configs:
+  - role: pod
+    namespaces:
+      names:
+      - logging
+  relabel_configs:
+  - source_labels:
+    - __meta_kubernetes_pod_label_app_kubernetes_io_name
+    regex: fluentd
+    action: keep
+  - source_labels:
+    - __meta_kubernetes_pod_container_port_number
+    regex: '24231'
+    action: keep
+  - source_labels:
+    - __meta_kubernetes_pod_node_name
+    target_label: node
+- job_name: alertmanager
+  static_configs:
+  - targets:
+    - alertmanager.monitoring.svc:9093

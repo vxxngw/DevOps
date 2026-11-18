@@ -7,7 +7,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '20', artifactNumToKeepStr: '10'))
     }
     parameters {
-        string(name: 'SOURCE_REF', defaultValue: 'codex/milestone-4', description: 'Branch/ref of vxxngw/DevOps; never a repository URL')
+        string(name: 'SOURCE_REF', defaultValue: 'codex/milestone-4', description: 'Branch/ref of vuongvo2207-gmail-com/DevOps; never a repository URL')
         string(name: 'SOURCE_BRANCH', defaultValue: 'codex/milestone-4', description: 'Webhook branch for provenance; deployment additionally checks origin/main')
         string(name: 'CLUSTER_SERVER_URL', defaultValue: 'https://192.168.150.11:6443', description: 'Must match the actual dedicated Terraform k3s server and trusted kubeconfig')
         string(name: 'STAGING_URL', defaultValue: 'https://staging.anuyen.test', description: 'Trusted HTTPS URL with DNS/hosts configured')
@@ -17,10 +17,9 @@ pipeline {
         booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Mốc3: requires Kubernetes overlays, namespace credentials and smoke accounts')
         choice(name: 'SECURITY_DEMO', choices: ['none', 'secret', 'critical'], description: 'Intentional negative gate; must fail before push/deploy')
         string(name: 'PRODUCTION_APPROVERS', defaultValue: 'clinic-admin', description: 'Real Jenkins users permitted to approve production')
-        string(name: 'REGISTRY_NAMESPACE', defaultValue: 'ghcr.io/vxxngw', description: 'GHCR namespace owned by the registry credential account')
     }
     environment {
-        CLINIC_REGISTRY = "${params.REGISTRY_NAMESPACE}"
+        CLINIC_REGISTRY = 'ghcr.io/vuongvo2207-gmail-com'
         TRIVY_CACHE_DIR = '/home/jenkins/.cache/trivy'
         PIP_INDEX_URL = 'https://pypi.org/simple'
         PIP_DISABLE_PIP_VERSION_CHECK = '1'
@@ -29,9 +28,6 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    if (!(params.REGISTRY_NAMESPACE ==~ /ghcr\.io\/[a-z0-9][a-z0-9-]{0,38}/)) {
-                        error('Invalid GHCR namespace')
-                    }
                     if (!(params.SOURCE_REF ==~ /[a-zA-Z0-9][a-zA-Z0-9._\/-]{0,160}/)) {
                         error('Invalid SOURCE_REF')
                     }
@@ -76,6 +72,9 @@ pipeline {
         }
         stage('Infrastructure configuration checks') {
             steps { sh 'python3 -m ci.pipeline infrastructure' }
+        }
+        stage('Observability configuration checks') {
+            steps { sh 'python3 -m ci.pipeline observability' }
         }
         stage('Build images') {
             steps { sh 'python3 -m ci.pipeline build' }

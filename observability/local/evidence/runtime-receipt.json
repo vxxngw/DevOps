@@ -1,0 +1,1214 @@
+{
+  "generated_at": "2026-11-18T12:42:38.204887+00:00",
+  "compose_file": "observability/local/compose.yaml",
+  "steps": {
+    "derive_rules": {
+      "source": "observability/prometheus/rules/clinic.yml",
+      "source_sha256": "b5414506195957bb790be32ae3abe9caf90985646106e52659055a336f688c5d",
+      "derived": "observability/local/prometheus/rules/clinic.local.yml",
+      "derived_sha256": "a05945c7488e0d7cfa69ea9f5e982190cd276136dd144236154eb5989c1d48ad",
+      "dropped_recording_rules": [
+        "clinic:backup_expected",
+        "clinic:container_cpu_cores5m",
+        "clinic:container_memory_bytes",
+        "clinic:service_expected"
+      ],
+      "dropped_alerts": [
+        "ClinicBackupFailed",
+        "ClinicBackupStale",
+        "ClinicHighNodeCpu",
+        "ClinicHighNodeMemory",
+        "ClinicServiceDown"
+      ],
+      "kept_alerts": [
+        "ClinicDatabaseDown",
+        "ClinicDependencyDown",
+        "ClinicDlqNotEmpty",
+        "ClinicHighHttpErrors",
+        "ClinicHighHttpLatency",
+        "ClinicOutboxOld",
+        "ClinicQueueBacklog",
+        "ClinicQueueNoConsumer",
+        "ClinicScrapeFailed"
+      ]
+    },
+    "components_ready": {
+      "at": "2026-11-18T12:42:38.313601+00:00"
+    },
+    "targets": {
+      "count": 8,
+      "targets": [
+        {
+          "scrapeUrl": "http://alertmanager:9093/metrics",
+          "health": "up",
+          "job": "alertmanager",
+          "namespace": null,
+          "service": null
+        },
+        {
+          "scrapeUrl": "http://api:8000/metrics",
+          "health": "up",
+          "job": "clinic",
+          "namespace": "staging",
+          "service": "api"
+        },
+        {
+          "scrapeUrl": "http://publisher:8001/metrics",
+          "health": "up",
+          "job": "clinic",
+          "namespace": "staging",
+          "service": "publisher"
+        },
+        {
+          "scrapeUrl": "http://worker:8002/metrics",
+          "health": "up",
+          "job": "clinic",
+          "namespace": "staging",
+          "service": "worker"
+        },
+        {
+          "scrapeUrl": "http://fluentd:24231/metrics",
+          "health": "up",
+          "job": "fluentd",
+          "namespace": "logging",
+          "service": "fluentd"
+        },
+        {
+          "scrapeUrl": "http://postgres-exporter:9187/metrics",
+          "health": "up",
+          "job": "postgres-staging",
+          "namespace": "staging",
+          "service": "postgres"
+        },
+        {
+          "scrapeUrl": "http://localhost:9090/metrics",
+          "health": "up",
+          "job": "prometheus",
+          "namespace": null,
+          "service": null
+        },
+        {
+          "scrapeUrl": "http://rabbitmq:15692/metrics/per-object",
+          "health": "up",
+          "job": "rabbitmq-staging",
+          "namespace": "staging",
+          "service": "rabbitmq"
+        }
+      ]
+    },
+    "grafana_dashboards": {
+      "status": 200,
+      "dashboards": [
+        {
+          "id": 1,
+          "uid": "eg4nitzerlkw0b",
+          "title": "An Uyên Hospital",
+          "uri": "db/an-uyen-hospital",
+          "url": "/dashboards/f/eg4nitzerlkw0b/an-uyen-hospital",
+          "slug": "",
+          "type": "dash-folder",
+          "tags": [],
+          "isStarred": false,
+          "sortMeta": 0,
+          "isDeleted": false
+        },
+        {
+          "id": 2,
+          "uid": "anuyen-operations",
+          "title": "An Uyên Hospital · Vận hành",
+          "uri": "db/an-uyen-hospital-c2b7-van-hanh",
+          "url": "/d/anuyen-operations/an-uyen-hospital-c2b7-van-hanh",
+          "slug": "",
+          "type": "dash-db",
+          "tags": [
+            "anuyen",
+            "preparation-not-runtime-proof"
+          ],
+          "isStarred": false,
+          "folderId": 1,
+          "folderUid": "eg4nitzerlkw0b",
+          "folderTitle": "An Uyên Hospital",
+          "folderUrl": "/dashboards/f/eg4nitzerlkw0b/An Uyên Hospital",
+          "sortMeta": 0,
+          "isDeleted": false
+        }
+      ]
+    },
+    "grafana_datasources": {
+      "status": 200,
+      "names": [
+        "Elasticsearch",
+        "Prometheus"
+      ]
+    },
+    "dependency_before": {
+      "samples": [
+        {
+          "metric": {
+            "__name__": "clinic_dependency_ready",
+            "dependency": "rabbitmq",
+            "instance": "worker:8002",
+            "job": "clinic",
+            "namespace": "staging",
+            "service": "worker"
+          },
+          "value": [
+            1795005758.386,
+            "1"
+          ]
+        },
+        {
+          "metric": {
+            "__name__": "clinic_dependency_ready",
+            "dependency": "rabbitmq",
+            "instance": "publisher:8001",
+            "job": "clinic",
+            "namespace": "staging",
+            "service": "publisher"
+          },
+          "value": [
+            1795005758.386,
+            "1"
+          ]
+        }
+      ]
+    },
+    "rabbitmq_stopped": {
+      "returncode": 0,
+      "stderr": " Container clinic-dev-rabbitmq-1 Stopping \n Container clinic-dev-rabbitmq-1 Stopped \n"
+    },
+    "alertmanager_firing": {
+      "alerts": [
+        {
+          "annotations": {
+            "description": "namespace=staging dependency=rabbitmq",
+            "runbook_url": "https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#service-down",
+            "summary": "Dependency của backend chưa sẵn sàng"
+          },
+          "endsAt": "2026-11-18T12:47:13.233Z",
+          "fingerprint": "35ccb9b31ce96261",
+          "receivers": [
+            {
+              "name": "local-receipt"
+            }
+          ],
+          "startsAt": "2026-11-18T12:43:13.233Z",
+          "status": {
+            "inhibitedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-18T12:43:18.233Z",
+          "generatorURL": "http://c52f10ca0c12:9090/graph?g0.expr=clinic_dependency_ready+%3D%3D+0&g0.tab=1",
+          "labels": {
+            "alertname": "ClinicDependencyDown",
+            "cluster": "anuyen-local",
+            "dependency": "rabbitmq",
+            "instance": "publisher:8001",
+            "job": "clinic",
+            "namespace": "staging",
+            "runtime": "docker-compose",
+            "service": "backend",
+            "severity": "critical"
+          }
+        },
+        {
+          "annotations": {
+            "description": "namespace=staging dependency=rabbitmq",
+            "runbook_url": "https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#service-down",
+            "summary": "Dependency của backend chưa sẵn sàng"
+          },
+          "endsAt": "2026-11-18T12:47:13.233Z",
+          "fingerprint": "91184a10bcd6129c",
+          "receivers": [
+            {
+              "name": "local-receipt"
+            }
+          ],
+          "startsAt": "2026-11-18T12:43:13.233Z",
+          "status": {
+            "inhibitedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-18T12:43:18.233Z",
+          "generatorURL": "http://c52f10ca0c12:9090/graph?g0.expr=clinic_dependency_ready+%3D%3D+0&g0.tab=1",
+          "labels": {
+            "alertname": "ClinicDependencyDown",
+            "cluster": "anuyen-local",
+            "dependency": "rabbitmq",
+            "instance": "worker:8002",
+            "job": "clinic",
+            "namespace": "staging",
+            "runtime": "docker-compose",
+            "service": "backend",
+            "severity": "critical"
+          }
+        }
+      ]
+    },
+    "webhook_firing": {
+      "receipts": [
+        {
+          "received_at": "2026-11-18T12:43:18.237739+00:00",
+          "status": "firing",
+          "alertname": "ClinicDependencyDown",
+          "labels": {
+            "alertname": "ClinicDependencyDown",
+            "cluster": "anuyen-local",
+            "dependency": "rabbitmq",
+            "instance": "publisher:8001",
+            "job": "clinic",
+            "namespace": "staging",
+            "runtime": "docker-compose",
+            "service": "backend",
+            "severity": "critical"
+          },
+          "annotations": {
+            "description": "namespace=staging dependency=rabbitmq",
+            "runbook_url": "https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#service-down",
+            "summary": "Dependency của backend chưa sẵn sàng"
+          },
+          "startsAt": "2026-11-18T12:43:13.233Z",
+          "endsAt": "0001-01-01T00:00:00Z",
+          "fingerprint": "35ccb9b31ce96261",
+          "groupKey": "{}/{severity=\"critical\"}:{alertname=\"ClinicDependencyDown\", namespace=\"staging\", service=\"backend\"}"
+        },
+        {
+          "received_at": "2026-11-18T12:43:18.237739+00:00",
+          "status": "firing",
+          "alertname": "ClinicDependencyDown",
+          "labels": {
+            "alertname": "ClinicDependencyDown",
+            "cluster": "anuyen-local",
+            "dependency": "rabbitmq",
+            "instance": "worker:8002",
+            "job": "clinic",
+            "namespace": "staging",
+            "runtime": "docker-compose",
+            "service": "backend",
+            "severity": "critical"
+          },
+          "annotations": {
+            "description": "namespace=staging dependency=rabbitmq",
+            "runbook_url": "https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#service-down",
+            "summary": "Dependency của backend chưa sẵn sàng"
+          },
+          "startsAt": "2026-11-18T12:43:13.233Z",
+          "endsAt": "0001-01-01T00:00:00Z",
+          "fingerprint": "91184a10bcd6129c",
+          "groupKey": "{}/{severity=\"critical\"}:{alertname=\"ClinicDependencyDown\", namespace=\"staging\", service=\"backend\"}"
+        }
+      ]
+    },
+    "rabbitmq_started": {
+      "returncode": 0,
+      "stderr": " Container clinic-dev-rabbitmq-1 Starting \n Container clinic-dev-rabbitmq-1 Started \n"
+    },
+    "webhook_resolved": {
+      "receipts": [
+        {
+          "received_at": "2026-11-18T12:43:38.232262+00:00",
+          "status": "resolved",
+          "alertname": "ClinicDependencyDown",
+          "labels": {
+            "alertname": "ClinicDependencyDown",
+            "cluster": "anuyen-local",
+            "dependency": "rabbitmq",
+            "instance": "publisher:8001",
+            "job": "clinic",
+            "namespace": "staging",
+            "runtime": "docker-compose",
+            "service": "backend",
+            "severity": "critical"
+          },
+          "annotations": {
+            "description": "namespace=staging dependency=rabbitmq",
+            "runbook_url": "https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#service-down",
+            "summary": "Dependency của backend chưa sẵn sàng"
+          },
+          "startsAt": "2026-11-18T12:43:13.233Z",
+          "endsAt": "2026-11-18T12:43:28.233Z",
+          "fingerprint": "35ccb9b31ce96261",
+          "groupKey": "{}/{severity=\"critical\"}:{alertname=\"ClinicDependencyDown\", namespace=\"staging\", service=\"backend\"}"
+        },
+        {
+          "received_at": "2026-11-18T12:43:38.232262+00:00",
+          "status": "resolved",
+          "alertname": "ClinicDependencyDown",
+          "labels": {
+            "alertname": "ClinicDependencyDown",
+            "cluster": "anuyen-local",
+            "dependency": "rabbitmq",
+            "instance": "worker:8002",
+            "job": "clinic",
+            "namespace": "staging",
+            "runtime": "docker-compose",
+            "service": "backend",
+            "severity": "critical"
+          },
+          "annotations": {
+            "description": "namespace=staging dependency=rabbitmq",
+            "runbook_url": "https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#service-down",
+            "summary": "Dependency của backend chưa sẵn sàng"
+          },
+          "startsAt": "2026-11-18T12:43:13.233Z",
+          "endsAt": "2026-11-18T12:43:28.233Z",
+          "fingerprint": "91184a10bcd6129c",
+          "groupKey": "{}/{severity=\"critical\"}:{alertname=\"ClinicDependencyDown\", namespace=\"staging\", service=\"backend\"}"
+        }
+      ]
+    },
+    "elasticsearch_log_count": {
+      "status": 200,
+      "count": 572
+    },
+    "elasticsearch_sample": {
+      "hits": [
+        {
+          "timestamp": "2026-11-18T12:43:21.695054+00:00",
+          "level": "ERROR",
+          "service": "runtime",
+          "message": "pika.adapters.utils.connection_workflow",
+          "error_type": null,
+          "namespace": "staging",
+          "pod": "a9564d5f0295",
+          "container": "runtime",
+          "environment": "staging",
+          "@timestamp": "2026-11-18T12:43:21.695054000+00:00"
+        },
+        {
+          "timestamp": "2026-11-18T12:43:21.695092+00:00",
+          "level": "ERROR",
+          "service": "runtime",
+          "message": "pika.adapters.utils.connection_workflow",
+          "error_type": null,
+          "namespace": "staging",
+          "pod": "a9564d5f0295",
+          "container": "runtime",
+          "environment": "staging",
+          "@timestamp": "2026-11-18T12:43:21.695092000+00:00"
+        },
+        {
+          "timestamp": "2026-11-18T12:43:21.695154+00:00",
+          "level": "ERROR",
+          "service": "runtime",
+          "message": "pika.adapters.utils.connection_workflow",
+          "error_type": null,
+          "namespace": "staging",
+          "pod": "a9564d5f0295",
+          "container": "runtime",
+          "environment": "staging",
+          "@timestamp": "2026-11-18T12:43:21.695154000+00:00"
+        }
+      ]
+    },
+    "kibana_status": {
+      "status": 200,
+      "level": "available"
+    },
+    "kibana_data_view": {
+      "status": 200,
+      "body": {
+        "data_view": {
+          "id": "b24522ce-82c0-4ea2-9d0d-9bdefcbb7c90",
+          "version": "WzcsMl0=",
+          "title": "clinic-logs-*",
+          "timeFieldName": "@timestamp",
+          "sourceFilters": [],
+          "fieldFormats": {},
+          "runtimeFieldMap": {},
+          "fieldAttrs": {},
+          "allowNoIndex": false,
+          "name": "Clinic logs",
+          "allowHidden": false,
+          "fields": {
+            "@timestamp": {
+              "count": 0,
+              "name": "@timestamp",
+              "type": "date",
+              "esTypes": [
+                "date"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": true,
+              "readFromDocValues": true,
+              "format": {
+                "id": "date"
+              },
+              "shortDotsEnable": false
+            },
+            "_id": {
+              "count": 0,
+              "name": "_id",
+              "type": "string",
+              "esTypes": [
+                "_id"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": false,
+              "readFromDocValues": false,
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "_ignored": {
+              "count": 0,
+              "name": "_ignored",
+              "type": "string",
+              "esTypes": [
+                "_ignored"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": true,
+              "readFromDocValues": false,
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "_index": {
+              "count": 0,
+              "name": "_index",
+              "type": "string",
+              "esTypes": [
+                "_index"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": true,
+              "readFromDocValues": false,
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "_score": {
+              "count": 0,
+              "name": "_score",
+              "type": "number",
+              "scripted": false,
+              "searchable": false,
+              "aggregatable": false,
+              "readFromDocValues": false,
+              "format": {
+                "id": "number"
+              },
+              "shortDotsEnable": false
+            },
+            "_source": {
+              "count": 0,
+              "name": "_source",
+              "type": "_source",
+              "esTypes": [
+                "_source"
+              ],
+              "scripted": false,
+              "searchable": false,
+              "aggregatable": false,
+              "readFromDocValues": false,
+              "format": {
+                "id": "_source"
+              },
+              "shortDotsEnable": false
+            },
+            "container": {
+              "count": 0,
+              "name": "container",
+              "type": "string",
+              "esTypes": [
+                "text"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": false,
+              "readFromDocValues": false,
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "container.keyword": {
+              "count": 0,
+              "name": "container.keyword",
+              "type": "string",
+              "esTypes": [
+                "keyword"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": true,
+              "readFromDocValues": true,
+              "subType": {
+                "multi": {
+                  "parent": "container"
+                }
+              },
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "environment": {
+              "count": 0,
+              "name": "environment",
+              "type": "string",
+              "esTypes": [
+                "text"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": false,
+              "readFromDocValues": false,
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "environment.keyword": {
+              "count": 0,
+              "name": "environment.keyword",
+              "type": "string",
+              "esTypes": [
+                "keyword"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": true,
+              "readFromDocValues": true,
+              "subType": {
+                "multi": {
+                  "parent": "environment"
+                }
+              },
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "error_type": {
+              "count": 0,
+              "name": "error_type",
+              "type": "string",
+              "esTypes": [
+                "text"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": false,
+              "readFromDocValues": false,
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "error_type.keyword": {
+              "count": 0,
+              "name": "error_type.keyword",
+              "type": "string",
+              "esTypes": [
+                "keyword"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": true,
+              "readFromDocValues": true,
+              "subType": {
+                "multi": {
+                  "parent": "error_type"
+                }
+              },
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "level": {
+              "count": 0,
+              "name": "level",
+              "type": "string",
+              "esTypes": [
+                "text"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": false,
+              "readFromDocValues": false,
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "level.keyword": {
+              "count": 0,
+              "name": "level.keyword",
+              "type": "string",
+              "esTypes": [
+                "keyword"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": true,
+              "readFromDocValues": true,
+              "subType": {
+                "multi": {
+                  "parent": "level"
+                }
+              },
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "message": {
+              "count": 0,
+              "name": "message",
+              "type": "string",
+              "esTypes": [
+                "text"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": false,
+              "readFromDocValues": false,
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "message.keyword": {
+              "count": 0,
+              "name": "message.keyword",
+              "type": "string",
+              "esTypes": [
+                "keyword"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": true,
+              "readFromDocValues": true,
+              "subType": {
+                "multi": {
+                  "parent": "message"
+                }
+              },
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "namespace": {
+              "count": 0,
+              "name": "namespace",
+              "type": "string",
+              "esTypes": [
+                "text"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": false,
+              "readFromDocValues": false,
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "namespace.keyword": {
+              "count": 0,
+              "name": "namespace.keyword",
+              "type": "string",
+              "esTypes": [
+                "keyword"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": true,
+              "readFromDocValues": true,
+              "subType": {
+                "multi": {
+                  "parent": "namespace"
+                }
+              },
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "pod": {
+              "count": 0,
+              "name": "pod",
+              "type": "string",
+              "esTypes": [
+                "text"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": false,
+              "readFromDocValues": false,
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "pod.keyword": {
+              "count": 0,
+              "name": "pod.keyword",
+              "type": "string",
+              "esTypes": [
+                "keyword"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": true,
+              "readFromDocValues": true,
+              "subType": {
+                "multi": {
+                  "parent": "pod"
+                }
+              },
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "service": {
+              "count": 0,
+              "name": "service",
+              "type": "string",
+              "esTypes": [
+                "text"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": false,
+              "readFromDocValues": false,
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "service.keyword": {
+              "count": 0,
+              "name": "service.keyword",
+              "type": "string",
+              "esTypes": [
+                "keyword"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": true,
+              "readFromDocValues": true,
+              "subType": {
+                "multi": {
+                  "parent": "service"
+                }
+              },
+              "format": {
+                "id": "string"
+              },
+              "shortDotsEnable": false
+            },
+            "timestamp": {
+              "count": 0,
+              "name": "timestamp",
+              "type": "date",
+              "esTypes": [
+                "date"
+              ],
+              "scripted": false,
+              "searchable": true,
+              "aggregatable": true,
+              "readFromDocValues": true,
+              "format": {
+                "id": "date"
+              },
+              "shortDotsEnable": false
+            }
+          },
+          "namespaces": [
+            "default"
+          ]
+        }
+      }
+    },
+    "kibana_data_views": {
+      "status": 200,
+      "titles": [
+        "clinic-logs-*"
+      ]
+    }
+  },
+  "checks": {
+    "all_targets_up": {
+      "ok": true,
+      "detail": [
+        {
+          "scrapeUrl": "http://alertmanager:9093/metrics",
+          "health": "up",
+          "job": "alertmanager",
+          "namespace": null,
+          "service": null
+        },
+        {
+          "scrapeUrl": "http://api:8000/metrics",
+          "health": "up",
+          "job": "clinic",
+          "namespace": "staging",
+          "service": "api"
+        },
+        {
+          "scrapeUrl": "http://publisher:8001/metrics",
+          "health": "up",
+          "job": "clinic",
+          "namespace": "staging",
+          "service": "publisher"
+        },
+        {
+          "scrapeUrl": "http://worker:8002/metrics",
+          "health": "up",
+          "job": "clinic",
+          "namespace": "staging",
+          "service": "worker"
+        },
+        {
+          "scrapeUrl": "http://fluentd:24231/metrics",
+          "health": "up",
+          "job": "fluentd",
+          "namespace": "logging",
+          "service": "fluentd"
+        },
+        {
+          "scrapeUrl": "http://postgres-exporter:9187/metrics",
+          "health": "up",
+          "job": "postgres-staging",
+          "namespace": "staging",
+          "service": "postgres"
+        },
+        {
+          "scrapeUrl": "http://localhost:9090/metrics",
+          "health": "up",
+          "job": "prometheus",
+          "namespace": null,
+          "service": null
+        },
+        {
+          "scrapeUrl": "http://rabbitmq:15692/metrics/per-object",
+          "health": "up",
+          "job": "rabbitmq-staging",
+          "namespace": "staging",
+          "service": "rabbitmq"
+        }
+      ]
+    },
+    "clinic_targets_present": {
+      "ok": true,
+      "detail": [
+        "http://api:8000/metrics",
+        "http://publisher:8001/metrics",
+        "http://worker:8002/metrics"
+      ]
+    },
+    "grafana_dashboard_provisioned": {
+      "ok": true,
+      "detail": [
+        {
+          "id": 1,
+          "uid": "eg4nitzerlkw0b",
+          "title": "An Uyên Hospital",
+          "uri": "db/an-uyen-hospital",
+          "url": "/dashboards/f/eg4nitzerlkw0b/an-uyen-hospital",
+          "slug": "",
+          "type": "dash-folder",
+          "tags": [],
+          "isStarred": false,
+          "sortMeta": 0,
+          "isDeleted": false
+        },
+        {
+          "id": 2,
+          "uid": "anuyen-operations",
+          "title": "An Uyên Hospital · Vận hành",
+          "uri": "db/an-uyen-hospital-c2b7-van-hanh",
+          "url": "/d/anuyen-operations/an-uyen-hospital-c2b7-van-hanh",
+          "slug": "",
+          "type": "dash-db",
+          "tags": [
+            "anuyen",
+            "preparation-not-runtime-proof"
+          ],
+          "isStarred": false,
+          "folderId": 1,
+          "folderUid": "eg4nitzerlkw0b",
+          "folderTitle": "An Uyên Hospital",
+          "folderUrl": "/dashboards/f/eg4nitzerlkw0b/An Uyên Hospital",
+          "sortMeta": 0,
+          "isDeleted": false
+        }
+      ]
+    },
+    "grafana_datasources_provisioned": {
+      "ok": true,
+      "detail": [
+        "Elasticsearch",
+        "Prometheus"
+      ]
+    },
+    "alertmanager_received_firing": {
+      "ok": true,
+      "detail": [
+        {
+          "annotations": {
+            "description": "namespace=staging dependency=rabbitmq",
+            "runbook_url": "https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#service-down",
+            "summary": "Dependency của backend chưa sẵn sàng"
+          },
+          "endsAt": "2026-11-18T12:47:13.233Z",
+          "fingerprint": "35ccb9b31ce96261",
+          "receivers": [
+            {
+              "name": "local-receipt"
+            }
+          ],
+          "startsAt": "2026-11-18T12:43:13.233Z",
+          "status": {
+            "inhibitedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-18T12:43:18.233Z",
+          "generatorURL": "http://c52f10ca0c12:9090/graph?g0.expr=clinic_dependency_ready+%3D%3D+0&g0.tab=1",
+          "labels": {
+            "alertname": "ClinicDependencyDown",
+            "cluster": "anuyen-local",
+            "dependency": "rabbitmq",
+            "instance": "publisher:8001",
+            "job": "clinic",
+            "namespace": "staging",
+            "runtime": "docker-compose",
+            "service": "backend",
+            "severity": "critical"
+          }
+        },
+        {
+          "annotations": {
+            "description": "namespace=staging dependency=rabbitmq",
+            "runbook_url": "https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#service-down",
+            "summary": "Dependency của backend chưa sẵn sàng"
+          },
+          "endsAt": "2026-11-18T12:47:13.233Z",
+          "fingerprint": "91184a10bcd6129c",
+          "receivers": [
+            {
+              "name": "local-receipt"
+            }
+          ],
+          "startsAt": "2026-11-18T12:43:13.233Z",
+          "status": {
+            "inhibitedBy": [],
+            "silencedBy": [],
+            "state": "active"
+          },
+          "updatedAt": "2026-11-18T12:43:18.233Z",
+          "generatorURL": "http://c52f10ca0c12:9090/graph?g0.expr=clinic_dependency_ready+%3D%3D+0&g0.tab=1",
+          "labels": {
+            "alertname": "ClinicDependencyDown",
+            "cluster": "anuyen-local",
+            "dependency": "rabbitmq",
+            "instance": "worker:8002",
+            "job": "clinic",
+            "namespace": "staging",
+            "runtime": "docker-compose",
+            "service": "backend",
+            "severity": "critical"
+          }
+        }
+      ]
+    },
+    "webhook_delivered_firing": {
+      "ok": true,
+      "detail": [
+        {
+          "received_at": "2026-11-18T12:43:18.237739+00:00",
+          "status": "firing",
+          "alertname": "ClinicDependencyDown",
+          "labels": {
+            "alertname": "ClinicDependencyDown",
+            "cluster": "anuyen-local",
+            "dependency": "rabbitmq",
+            "instance": "publisher:8001",
+            "job": "clinic",
+            "namespace": "staging",
+            "runtime": "docker-compose",
+            "service": "backend",
+            "severity": "critical"
+          },
+          "annotations": {
+            "description": "namespace=staging dependency=rabbitmq",
+            "runbook_url": "https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#service-down",
+            "summary": "Dependency của backend chưa sẵn sàng"
+          },
+          "startsAt": "2026-11-18T12:43:13.233Z",
+          "endsAt": "0001-01-01T00:00:00Z",
+          "fingerprint": "35ccb9b31ce96261",
+          "groupKey": "{}/{severity=\"critical\"}:{alertname=\"ClinicDependencyDown\", namespace=\"staging\", service=\"backend\"}"
+        },
+        {
+          "received_at": "2026-11-18T12:43:18.237739+00:00",
+          "status": "firing",
+          "alertname": "ClinicDependencyDown",
+          "labels": {
+            "alertname": "ClinicDependencyDown",
+            "cluster": "anuyen-local",
+            "dependency": "rabbitmq",
+            "instance": "worker:8002",
+            "job": "clinic",
+            "namespace": "staging",
+            "runtime": "docker-compose",
+            "service": "backend",
+            "severity": "critical"
+          },
+          "annotations": {
+            "description": "namespace=staging dependency=rabbitmq",
+            "runbook_url": "https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#service-down",
+            "summary": "Dependency của backend chưa sẵn sàng"
+          },
+          "startsAt": "2026-11-18T12:43:13.233Z",
+          "endsAt": "0001-01-01T00:00:00Z",
+          "fingerprint": "91184a10bcd6129c",
+          "groupKey": "{}/{severity=\"critical\"}:{alertname=\"ClinicDependencyDown\", namespace=\"staging\", service=\"backend\"}"
+        }
+      ]
+    },
+    "webhook_delivered_resolved": {
+      "ok": true,
+      "detail": [
+        {
+          "received_at": "2026-11-18T12:43:38.232262+00:00",
+          "status": "resolved",
+          "alertname": "ClinicDependencyDown",
+          "labels": {
+            "alertname": "ClinicDependencyDown",
+            "cluster": "anuyen-local",
+            "dependency": "rabbitmq",
+            "instance": "publisher:8001",
+            "job": "clinic",
+            "namespace": "staging",
+            "runtime": "docker-compose",
+            "service": "backend",
+            "severity": "critical"
+          },
+          "annotations": {
+            "description": "namespace=staging dependency=rabbitmq",
+            "runbook_url": "https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#service-down",
+            "summary": "Dependency của backend chưa sẵn sàng"
+          },
+          "startsAt": "2026-11-18T12:43:13.233Z",
+          "endsAt": "2026-11-18T12:43:28.233Z",
+          "fingerprint": "35ccb9b31ce96261",
+          "groupKey": "{}/{severity=\"critical\"}:{alertname=\"ClinicDependencyDown\", namespace=\"staging\", service=\"backend\"}"
+        },
+        {
+          "received_at": "2026-11-18T12:43:38.232262+00:00",
+          "status": "resolved",
+          "alertname": "ClinicDependencyDown",
+          "labels": {
+            "alertname": "ClinicDependencyDown",
+            "cluster": "anuyen-local",
+            "dependency": "rabbitmq",
+            "instance": "worker:8002",
+            "job": "clinic",
+            "namespace": "staging",
+            "runtime": "docker-compose",
+            "service": "backend",
+            "severity": "critical"
+          },
+          "annotations": {
+            "description": "namespace=staging dependency=rabbitmq",
+            "runbook_url": "https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#service-down",
+            "summary": "Dependency của backend chưa sẵn sàng"
+          },
+          "startsAt": "2026-11-18T12:43:13.233Z",
+          "endsAt": "2026-11-18T12:43:28.233Z",
+          "fingerprint": "91184a10bcd6129c",
+          "groupKey": "{}/{severity=\"critical\"}:{alertname=\"ClinicDependencyDown\", namespace=\"staging\", service=\"backend\"}"
+        }
+      ]
+    },
+    "logs_indexed": {
+      "ok": true,
+      "detail": {
+        "count": 572,
+        "_shards": {
+          "total": 1,
+          "successful": 1,
+          "skipped": 0,
+          "failed": 0
+        }
+      }
+    },
+    "logs_have_structured_fields": {
+      "ok": true,
+      "detail": [
+        {
+          "timestamp": "2026-11-18T12:43:21.695054+00:00",
+          "level": "ERROR",
+          "service": "runtime",
+          "message": "pika.adapters.utils.connection_workflow",
+          "error_type": null,
+          "namespace": "staging",
+          "pod": "a9564d5f0295",
+          "container": "runtime",
+          "environment": "staging",
+          "@timestamp": "2026-11-18T12:43:21.695054000+00:00"
+        },
+        {
+          "timestamp": "2026-11-18T12:43:21.695092+00:00",
+          "level": "ERROR",
+          "service": "runtime",
+          "message": "pika.adapters.utils.connection_workflow",
+          "error_type": null,
+          "namespace": "staging",
+          "pod": "a9564d5f0295",
+          "container": "runtime",
+          "environment": "staging",
+          "@timestamp": "2026-11-18T12:43:21.695092000+00:00"
+        },
+        {
+          "timestamp": "2026-11-18T12:43:21.695154+00:00",
+          "level": "ERROR",
+          "service": "runtime",
+          "message": "pika.adapters.utils.connection_workflow",
+          "error_type": null,
+          "namespace": "staging",
+          "pod": "a9564d5f0295",
+          "container": "runtime",
+          "environment": "staging",
+          "@timestamp": "2026-11-18T12:43:21.695154000+00:00"
+        }
+      ]
+    },
+    "kibana_available": {
+      "ok": true,
+      "detail": {
+        "level": "available",
+        "summary": "All services and plugins are available"
+      }
+    },
+    "kibana_data_view_created": {
+      "ok": true,
+      "detail": 200
+    },
+    "kibana_data_view_present": {
+      "ok": true,
+      "detail": [
+        "clinic-logs-*"
+      ]
+    }
+  },
+  "verdict": "PASS",
+  "finished_at": "2026-11-18T12:43:41.967965+00:00"
+}

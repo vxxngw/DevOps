@@ -1,0 +1,10 @@
+Running: D:\CODE\OOPs\Do_An\.venv\Scripts\python.exe -m ruff check services tests scripts ci observability
+Exit0; log:ci-out\ruff.log
+Running: D:\CODE\OOPs\Do_An\.venv\Scripts\python.exe -m ruff format --check services tests scripts ci observability
+Exit0; log:ci-out\format.log
+Running: npm.cmd run lint
+Exit0; log:ci-out\eslint.log
+Running: npm.cmd run format:check
+Exit0; log:ci-out\frontend-format.log
+Running: npm.cmd run build
+Exit0; log:ci-out\frontend-build.log

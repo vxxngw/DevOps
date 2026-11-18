@@ -1,0 +1,42 @@
+{
+  "at_utc": "2026-11-15T11:01:51.600912+00:00",
+  "scope": "Existing four dev containers were restarted, no recreation or volume changes. First integration failed because dependencies had exited255 after daemon restart; retry current source passed33/33.",
+  "containers": [
+    {
+      "name": "/clinic-dev-postgres-1",
+      "id": "f2026bcc753430ebdf30f6ce2b1cc55e3c73e22d8226be1abfca6607e6dd61a2",
+      "running": true,
+      "health": "healthy",
+      "networks": {
+        "clinic-dev_clinic": "172.19.0.5"
+      }
+    },
+    {
+      "name": "/clinic-dev-rabbitmq-1",
+      "id": "3bd1b6e097225ffed9331f2f4f81138e00dba6281f44c0f3da2449a87b827d21",
+      "running": true,
+      "health": "healthy",
+      "networks": {
+        "clinic-dev_clinic": "172.19.0.6"
+      }
+    },
+    {
+      "name": "/clinic-dev-mailpit-1",
+      "id": "9981491e21a39dbcaa0824d52e7a5ebdff245f9a00874c20dc16ed06167c8a70",
+      "running": true,
+      "health": "healthy",
+      "networks": {
+        "clinic-dev_clinic": "172.19.0.7"
+      }
+    },
+    {
+      "name": "/clinic-dev-frontend-1",
+      "id": "0856a1d27e7f99541b460f99820b55445f0b9ee1045e607375ce98d32ec497fb",
+      "running": true,
+      "health": "healthy",
+      "networks": {
+        "clinic-dev_clinic": "172.19.0.8"
+      }
+    }
+  ]
+}

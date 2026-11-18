@@ -1,0 +1,60 @@
+{
+  "at_utc": "2026-11-15T14:27:37.437232+00:00",
+  "source_commit": "d2ba14ceea8d99802db438351d6c6e96e88dca9b",
+  "branch": "codex/backup-restore-verification",
+  "build": 13,
+  "result": "SUCCESS",
+  "building": false,
+  "url": "http://localhost:18090/job/an-uyen/job/clinic-pipeline/13/",
+  "stage": "Declarative: Post Actions",
+  "c_free_gib": 7.31,
+  "d_free_gib": 9.25,
+  "publish": false,
+  "deploy": false,
+  "causes": [
+    {
+      "_class": "hudson.model.Cause$UserIdCause",
+      "shortDescription": "Started by user clinic-webhook",
+      "userId": "clinic-webhook"
+    }
+  ],
+  "junit": {
+    "junit-unit.xml": {
+      "passed": 110,
+      "skipped": 8,
+      "failed": 0
+    },
+    "junit-integration.xml": {
+      "passed": 33,
+      "skipped": 0,
+      "failed": 0
+    }
+  },
+  "images": {
+    "app": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-app:d2ba14ceea8d99802db438351d6c6e96e88dca9b",
+      "image_id": "sha256:4457c449b4ca3035131fd2fe72df7838e56470e1ed95a09f535b4f4870d7f7d5",
+      "critical": 0
+    },
+    "frontend": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-frontend:d2ba14ceea8d99802db438351d6c6e96e88dca9b",
+      "image_id": "sha256:849246a4c321d2189f278a9f3c73b08f822dc206c32d51d6993d04e0c96e374c",
+      "critical": 0
+    },
+    "postgres": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-postgres:d2ba14ceea8d99802db438351d6c6e96e88dca9b",
+      "image_id": "sha256:f932ecb146ded2e51cd2700a5e104dfd08f768e474eb93d7ff519116efd27364",
+      "critical": 0
+    },
+    "rabbitmq": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-rabbitmq:d2ba14ceea8d99802db438351d6c6e96e88dca9b",
+      "image_id": "sha256:f9b29832cb15de2f5fed4af26ec19f0455a02edf340bd69c224cd513d8c31a80",
+      "critical": 0
+    },
+    "mailpit": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-mailpit:d2ba14ceea8d99802db438351d6c6e96e88dca9b",
+      "image_id": "sha256:d8e3dc8f2451c36c08f6d7c43318f720c5a1d6cd51d1be775f32cfe1d46b61e9",
+      "critical": 0
+    }
+  }
+}

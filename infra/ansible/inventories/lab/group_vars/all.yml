@@ -1,0 +1,11 @@
+# Staging and production are namespaces in ONE cluster, not separate VM fleets.
+clinic_operator_cidrs: [192.168.150.1/32]
+clinic_pod_cidr: 10.42.0.0/16
+clinic_service_cidr: 10.43.0.0/16
+clinic_repo_url: https://github.com/vxxngw/DevOps.git
+clinic_repo_dir: /opt/anuyen-src
+clinic_backup_root: /srv/clinic-backups
+clinic_backup_retention_days: 7
+clinic_vault_file: "{{ inventory_dir }}/vault.yml"
+# Required actual inputs: clinic_operator_public_key, clinic_repo_revision (40hex),
+# and a Vault-encrypted vault.yml. No fake credentials/default private key.

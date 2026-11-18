@@ -1,0 +1,8 @@
+usage: run-sha-stack.py [-h] [--evidence EVIDENCE] security_summary
+
+positional arguments:
+  security_summary
+
+options:
+  -h, --help           show this help message and exit
+  --evidence EVIDENCE

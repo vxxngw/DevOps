@@ -1,0 +1,470 @@
+{
+  "started_at_utc": "2026-11-15T11:26:39.023383+00:00",
+  "commit": "32f4343f8bb800053faf81bfce1d171b3fcbf697",
+  "project": "clinic-sha-smoke-32f4343f8bb8-1b953186",
+  "compose_source_sha256": "a5053eb9c56bc3e3c945fe0e5452f95fc79a548966f2b21729f050ed3f87ea5b",
+  "verifier_sha256": "b245569e38610d2f8c67664fe5f6a50447a644fa17caf19a061572dc401cffdc",
+  "scope": "Original dev Compose, SHA image substitution and all published ports removed; unique test network/volumes in dedicated CI engine, no host dev changes",
+  "commands": [
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/.env",
+        "-p",
+        "clinic-sha-smoke-32f4343f8bb8-1b953186",
+        "-f",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/compose.yaml",
+        "config",
+        "--format",
+        "json"
+      ],
+      "exit_code": 0,
+      "log": null
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/.env",
+        "-p",
+        "clinic-sha-smoke-32f4343f8bb8-1b953186",
+        "-f",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/runtime-private.json",
+        "up",
+        "-d",
+        "--no-build",
+        "--pull",
+        "never",
+        "--wait"
+      ],
+      "exit_code": 0,
+      "log": "up.log"
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/.env",
+        "-p",
+        "clinic-sha-smoke-32f4343f8bb8-1b953186",
+        "-f",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/runtime-private.json",
+        "ps",
+        "-aq"
+      ],
+      "exit_code": 0,
+      "log": null
+    },
+    {
+      "command": [
+        "docker",
+        "inspect",
+        "3d64df83f724f299f233a26858df3a332daab1499016eec4ac8dd7e6f70c1582",
+        "85514d02ce86fb7bd6ee87d1eda689dc5c9548427c1bf62f790a0176e7938c4b",
+        "bdd162f67882f97e062eae6b8ca8da850af456c10db0c778a77efdfc7c159673",
+        "2b7f29383ca3d499bf42e5109f48a5736ae609fbaea9bf3f623993f90afa6e11",
+        "0b0ce4308e395d8b3ff56d4c0aa947b0dafd842a351b671c475bf1ed0c01734c",
+        "f7a92d25a808495f762fd42c4f4a93befb68614fd9b06474a6d7f258d706fa5d",
+        "622778b94f2ad0096561d09736b46d978875569ed0b6eceeea65277c19f4e3b2",
+        "e75d86c4325751d6f444ad3bfab9be3e536c501f1be6428442be70952c7809aa",
+        "4fc79f33c1a8e1a478d61a6bda6c902b180709b03e55cc7c19c30c1b48baec2f"
+      ],
+      "exit_code": 0,
+      "log": null
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/.env",
+        "-p",
+        "clinic-sha-smoke-32f4343f8bb8-1b953186",
+        "-f",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/runtime-private.json",
+        "exec",
+        "-T",
+        "api",
+        "id",
+        "-u"
+      ],
+      "exit_code": 0,
+      "log": null
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/.env",
+        "-p",
+        "clinic-sha-smoke-32f4343f8bb8-1b953186",
+        "-f",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/runtime-private.json",
+        "exec",
+        "-T",
+        "frontend",
+        "id",
+        "-u"
+      ],
+      "exit_code": 0,
+      "log": null
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/.env",
+        "-p",
+        "clinic-sha-smoke-32f4343f8bb8-1b953186",
+        "-f",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/runtime-private.json",
+        "exec",
+        "-T",
+        "mailpit",
+        "id",
+        "-u"
+      ],
+      "exit_code": 0,
+      "log": null
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/.env",
+        "-p",
+        "clinic-sha-smoke-32f4343f8bb8-1b953186",
+        "-f",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/runtime-private.json",
+        "exec",
+        "-T",
+        "postgres",
+        "id",
+        "-u"
+      ],
+      "exit_code": 0,
+      "log": null
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/.env",
+        "-p",
+        "clinic-sha-smoke-32f4343f8bb8-1b953186",
+        "-f",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/runtime-private.json",
+        "exec",
+        "-T",
+        "publisher",
+        "id",
+        "-u"
+      ],
+      "exit_code": 0,
+      "log": null
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/.env",
+        "-p",
+        "clinic-sha-smoke-32f4343f8bb8-1b953186",
+        "-f",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/runtime-private.json",
+        "exec",
+        "-T",
+        "rabbitmq",
+        "id",
+        "-u"
+      ],
+      "exit_code": 0,
+      "log": null
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/.env",
+        "-p",
+        "clinic-sha-smoke-32f4343f8bb8-1b953186",
+        "-f",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/runtime-private.json",
+        "exec",
+        "-T",
+        "worker",
+        "id",
+        "-u"
+      ],
+      "exit_code": 0,
+      "log": null
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/.env",
+        "-p",
+        "clinic-sha-smoke-32f4343f8bb8-1b953186",
+        "-f",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/runtime-private.json",
+        "exec",
+        "-T",
+        "api",
+        "python",
+        "-"
+      ],
+      "exit_code": 0,
+      "log": "client.log"
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/.env",
+        "-p",
+        "clinic-sha-smoke-32f4343f8bb8-1b953186",
+        "-f",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/runtime-private.json",
+        "logs",
+        "--no-log-prefix",
+        "--tail",
+        "100",
+        "api"
+      ],
+      "exit_code": 0,
+      "log": null
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/.env",
+        "-p",
+        "clinic-sha-smoke-32f4343f8bb8-1b953186",
+        "-f",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/runtime-private.json",
+        "logs",
+        "--no-log-prefix",
+        "--tail",
+        "100",
+        "publisher"
+      ],
+      "exit_code": 0,
+      "log": null
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/.env",
+        "-p",
+        "clinic-sha-smoke-32f4343f8bb8-1b953186",
+        "-f",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/runtime-private.json",
+        "logs",
+        "--no-log-prefix",
+        "--tail",
+        "100",
+        "worker"
+      ],
+      "exit_code": 0,
+      "log": null
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/.env",
+        "-p",
+        "clinic-sha-smoke-32f4343f8bb8-1b953186",
+        "-f",
+        "/home/jenkins/agent/runtime-smoke/clinic-sha-smoke-32f4343f8bb8-1b953186/runtime-private.json",
+        "down",
+        "--volumes",
+        "--remove-orphans"
+      ],
+      "exit_code": 0,
+      "log": "cleanup.log"
+    }
+  ],
+  "services": [
+    {
+      "service": "api",
+      "image_id": "sha256:7e331a74c6eccb0be4d8fcbd88bc3d62d463f198c4cf74bda36c7fb12761961c",
+      "state": "running",
+      "health": "healthy",
+      "exit_code": 0,
+      "uid": 10001
+    },
+    {
+      "service": "frontend",
+      "image_id": "sha256:938491cc1438c44dea7461e50169db25dab5a66dc8e57667181ebdf48abfaf1b",
+      "state": "running",
+      "health": "healthy",
+      "exit_code": 0,
+      "uid": 101
+    },
+    {
+      "service": "mailpit",
+      "image_id": "sha256:4e257bb12b287dec65209da2c31c1182a0b5f43d92d7cf41be7395cd133791a6",
+      "state": "running",
+      "health": "healthy",
+      "exit_code": 0,
+      "uid": 10001
+    },
+    {
+      "service": "migrate",
+      "image_id": "sha256:7e331a74c6eccb0be4d8fcbd88bc3d62d463f198c4cf74bda36c7fb12761961c",
+      "state": "exited",
+      "health": null,
+      "exit_code": 0
+    },
+    {
+      "service": "postgres",
+      "image_id": "sha256:0f74739546bfb5a5b98304174c33133f30f332588612e7f5b6566dd26dfc5a30",
+      "state": "running",
+      "health": "healthy",
+      "exit_code": 0,
+      "uid": 70
+    },
+    {
+      "service": "publisher",
+      "image_id": "sha256:7e331a74c6eccb0be4d8fcbd88bc3d62d463f198c4cf74bda36c7fb12761961c",
+      "state": "running",
+      "health": "healthy",
+      "exit_code": 0,
+      "uid": 10001
+    },
+    {
+      "service": "rabbitmq",
+      "image_id": "sha256:afd2bac4974c44be4cd1eed26bbe64bbc22126e249a19915bf9532b2bc4cd0fe",
+      "state": "running",
+      "health": "healthy",
+      "exit_code": 0,
+      "uid": 999
+    },
+    {
+      "service": "seed",
+      "image_id": "sha256:7e331a74c6eccb0be4d8fcbd88bc3d62d463f198c4cf74bda36c7fb12761961c",
+      "state": "exited",
+      "health": null,
+      "exit_code": 0
+    },
+    {
+      "service": "worker",
+      "image_id": "sha256:7e331a74c6eccb0be4d8fcbd88bc3d62d463f198c4cf74bda36c7fb12761961c",
+      "state": "running",
+      "health": "healthy",
+      "exit_code": 0,
+      "uid": 10001
+    }
+  ],
+  "business_smoke": {
+    "http_checks": [
+      {
+        "service": "api",
+        "endpoint": "health",
+        "status": 200,
+        "bytes": 43
+      },
+      {
+        "service": "api",
+        "endpoint": "ready",
+        "status": 200,
+        "bytes": 18
+      },
+      {
+        "service": "api",
+        "endpoint": "metrics",
+        "status": 200,
+        "bytes": 3618
+      },
+      {
+        "service": "publisher",
+        "endpoint": "health",
+        "status": 200,
+        "bytes": 15
+      },
+      {
+        "service": "publisher",
+        "endpoint": "ready",
+        "status": 200,
+        "bytes": 14
+      },
+      {
+        "service": "publisher",
+        "endpoint": "metrics",
+        "status": 200,
+        "bytes": 3675
+      },
+      {
+        "service": "worker",
+        "endpoint": "health",
+        "status": 200,
+        "bytes": 15
+      },
+      {
+        "service": "worker",
+        "endpoint": "ready",
+        "status": 200,
+        "bytes": 14
+      },
+      {
+        "service": "worker",
+        "endpoint": "metrics",
+        "status": 200,
+        "bytes": 3673
+      }
+    ],
+    "frontend_status": 200,
+    "appointment_id": "b6462a00-84e4-4816-be2e-9d788d253972",
+    "booking_email_body_matched": true,
+    "cancellation_email_body_matched": true,
+    "final_status": "CANCELLED",
+    "notification_status": "SENT",
+    "synthetic_patient": "patient@example.test"
+  },
+  "backend_json_logs": [
+    {
+      "service": "api",
+      "lines": 10,
+      "json_lines": 10
+    },
+    {
+      "service": "publisher",
+      "lines": 3,
+      "json_lines": 3
+    },
+    {
+      "service": "worker",
+      "lines": 3,
+      "json_lines": 3
+    }
+  ],
+  "cleanup_exit_code": 0,
+  "exit_code": 0,
+  "error": null,
+  "ended_at_utc": "2026-11-15T11:27:11.651434+00:00",
+  "public_log_files": [
+    "up.log",
+    "client.log",
+    "cleanup.log"
+  ],
+  "launcher_exit_code": 0
+}

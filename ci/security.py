@@ -120,7 +120,17 @@ def trivy(target, report, *, source="image", remote=False):
         command += ["--image-src", "remote"]
     if source == "fs":
         command += ["--include-dev-deps"]
-        for directory in [".git", ".ci-local", "ci-out", "tmp", ".venv", "frontend/node_modules"]:
+        for directory in [
+            ".git",
+            ".ci-local",
+            ".infra-local",
+            "ci-out",
+            "tmp",
+            "outputs",
+            ".venv",
+            "frontend/node_modules",
+            "frontend/dist",
+        ]:
             command += ["--skip-dirs", ROOT / directory]
     env = os.environ.copy()
     env["TRIVY_IGNORE_UNFIXED"] = "false"
@@ -180,6 +190,7 @@ def dependencies():
         ("requirements.lock", "requirements.txt"),
         ("frontend/package.json", "frontend/package.json"),
         ("frontend/package-lock.json", "frontend/package-lock.json"),
+        ("infra/requirements-ansible.lock", "infra-control/requirements.txt"),
         ("infra/requirements-static.txt", "infra-static/requirements.txt"),
     ]:
         (inputs / target).parent.mkdir(parents=True, exist_ok=True)

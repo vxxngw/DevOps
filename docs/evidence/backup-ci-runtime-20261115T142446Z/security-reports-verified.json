@@ -1,0 +1,49 @@
+{
+  "at_utc": "2026-11-15T14:30:57.282837+00:00",
+  "source_commit": "d2ba14ceea8d99802db438351d6c6e96e88dca9b",
+  "build": 13,
+  "scope": "Original Jenkins raw report bytes fetched and hash-checked; originals retained privately and Jenkins artifacts, never rewritten; public receipt contains counts/hashes only",
+  "reports": [
+    {
+      "report": "gitleaks.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "findings": 0
+    },
+    {
+      "report": "trivy-dependencies.json",
+      "sha256": "63c601aa86b05fdcb4b8abddfe68a83a6a0d260c34ad312aa7a9cfba33ea8a73",
+      "critical": 0,
+      "result_targets": 4
+    },
+    {
+      "report": "trivy-app.json",
+      "sha256": "693f025a00bfa53b945e4e8e731a66df5533077846b1fccc2bda0adb9e624a95",
+      "critical": 0,
+      "result_targets": 2
+    },
+    {
+      "report": "trivy-frontend.json",
+      "sha256": "057ceff1aeffd029e4e5a66ccfccb3686d11ef9a5a14a9692a1336db3c08d613",
+      "critical": 0,
+      "result_targets": 1
+    },
+    {
+      "report": "trivy-postgres.json",
+      "sha256": "a239393e0e3ec3da234b8f8e4504538c04705da46a642eab9fbb7b2fa059fc02",
+      "critical": 0,
+      "result_targets": 1
+    },
+    {
+      "report": "trivy-rabbitmq.json",
+      "sha256": "714641762e10fa468441e086bc259cf2be0315dff30d0d65dfe610a81e287fff",
+      "critical": 0,
+      "result_targets": 1
+    },
+    {
+      "report": "trivy-mailpit.json",
+      "sha256": "e7e7b15e8af7a42be338f30f9ca1dc0fd800c1defdeadf174667dceda6e79228",
+      "critical": 0,
+      "result_targets": 2
+    }
+  ]
+}
