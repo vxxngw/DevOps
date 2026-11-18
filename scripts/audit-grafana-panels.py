@@ -147,7 +147,12 @@ def main() -> int:
                 )
             except Exception as exc:  # noqa: BLE001 - record the failure
                 entry["targets"].append(
-                    {"expr": expr, "datasource": uid, "error": f"{type(exc).__name__}: {exc}", "ok": False}
+                    {
+                        "expr": expr,
+                        "datasource": uid,
+                        "error": f"{type(exc).__name__}: {exc}",
+                        "ok": False,
+                    }
                 )
         entry["ok"] = bool(entry["targets"]) and all(t["ok"] for t in entry["targets"])
         rows.append(entry)
