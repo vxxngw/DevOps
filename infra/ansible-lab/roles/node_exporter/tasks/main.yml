@@ -1,0 +1,16 @@
+---
+- name: Cài node exporter
+  ansible.builtin.apt:
+    name: "{{ node_exporter_package }}"
+    state: present
+
+- name: Bật node exporter
+  ansible.builtin.service:
+    name: "{{ node_exporter_service }}"
+    state: started
+    enabled: true
+
+- name: Chờ cổng metrics
+  ansible.builtin.wait_for:
+    port: "{{ node_exporter_port }}"
+    timeout: 30

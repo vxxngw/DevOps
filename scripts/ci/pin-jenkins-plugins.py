@@ -23,6 +23,7 @@ NAMES = (
     "junit",
     "ws-cleanup",
     "matrix-auth",
+    "ssh-slaves",
 )
 
 

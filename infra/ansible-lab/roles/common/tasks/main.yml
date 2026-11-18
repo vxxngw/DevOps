@@ -1,0 +1,10 @@
+---
+- name: Cập nhật apt cache (tối đa 1 lần/giờ)
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Cài gói cơ bản
+  ansible.builtin.apt:
+    name: "{{ common_packages }}"
+    state: present

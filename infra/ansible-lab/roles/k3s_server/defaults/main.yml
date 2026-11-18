@@ -1,0 +1,14 @@
+---
+k3s_install_url: https://get.k3s.io
+k3s_install_script: /usr/local/bin/k3s-install.sh
+
+# Datastore: etcd nhúng (cần cho etcd-snapshot backup)
+k3s_etcd: true
+
+# Backup bằng systemd timer
+k3s_backup_dir: /var/backups/k3s
+k3s_backup_oncalendar: "*-*-* 00/6:00:00"   # mỗi 6 giờ
+k3s_backup_keep_days: 7
+
+# Kubeconfig bàn giao cho nhóm (lưu trên máy chạy Ansible)
+k3s_kubeconfig_local: "{{ playbook_dir }}/artifacts/kubeconfig-{{ env_name }}.yaml"
