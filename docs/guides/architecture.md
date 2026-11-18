@@ -1,4 +1,48 @@
-# Kiến trúc Mốc 1 [THIẾT KẾ]
+# Kiến trúc [THIẾT KẾ]
+
+## Sơ đồ tổng thể
+
+Kiến trúc mục tiêu của toàn đồ án, gồm cả phần chưa chạy runtime. Trạng thái từng phần xem [ma trận](../compliance-matrix.md).
+
+```mermaid
+flowchart LR
+  DEV[5 thành viên<br/>nhánh riêng + pre-commit] --> PR
+
+  subgraph GH[GitHub vxxngw/DevOps]
+    PR[Pull Request<br/>≥1 review, pr-title] --> MAIN[main được bảo vệ]
+    MAIN --> RP[release-please<br/>CHANGELOG + tag semver]
+  end
+
+  MAIN -- webhook --> CI[Jenkins<br/>test, build, Gitleaks, Trivy]
+  CI -- image theo SHA --> REG[(GHCR)]
+
+  subgraph IAC[Hạ tầng]
+    TF[Terraform: 3 VM] --> ANS[Ansible: Docker, k3s, Jenkins, backup]
+  end
+  ANS --> K8S
+
+  subgraph K8S[k3s: namespace staging / production]
+    ING[Ingress + TLS cert-manager] --> FE[React / Nginx]
+    FE --> API[FastAPI · HPA]
+    API --> PG[(PostgreSQL + outbox)]
+    PG --> PUB[Outbox publisher]
+    PUB --> MQ[RabbitMQ]
+    MQ --> WK[Notification worker · KEDA]
+    WK --> SMTP[SMTP]
+  end
+
+  CI -- deploy staging → duyệt → production --> K8S
+  REG --> K8S
+
+  subgraph OBS[Giám sát]
+    PROM[Prometheus + Alertmanager] --> GRAF[Grafana]
+    FLU[Fluentd] --> ES[(Elasticsearch)] --> KIB[Kibana]
+  end
+  K8S -. metrics .-> PROM
+  K8S -. logs .-> FLU
+```
+
+## Ứng dụng (Mốc 1)
 
 PDF trang 1 yêu cầu frontend/backend/DB riêng; trang 5 thêm RabbitMQ, service thông báo, giám sát queue và KEDA. React, FastAPI, PostgreSQL, outbox, SMTP/Mailpit là quyết định triển khai theo brief. Luồng Mốc1 đã chạy thành công bằng Compose dev và có integration/browser/fault evidence; các lớp K8s/KEDA/monitoring/logging tập trung chưa triển khai. Xem ma trận và evidence index.
 

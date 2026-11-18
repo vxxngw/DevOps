@@ -72,7 +72,7 @@ Mỗi build dùng checkout sạch; private file không trong build context. Inte
 
 ## Git và giới hạn hiện tại
 
-Remote private [vuongvo2207-gmail-com/DevOps](https://github.com/vuongvo2207-gmail-com/DevOps); URL cũ redirect về cùng repository ID. Dùng nhánh codex/, Conventional Commits, PR ≥1 review thật, ưu tiên squash với title theo Conventional Commits. Không tự approve/merge để tạo bằng chứng. Sau kiểm chứng đầy đủ và review mới tag stable semver. Bật main protection khi gói repo hỗ trợ; lần gọi API lịch sử trả403 yêu cầu Pro hoặc public, chưa có bằng chứng enforcement mới. Giữ repo private; policy trong CONTRIBUTING không thay enforcement.
+Remote public [vxxngw/DevOps](https://github.com/vxxngw/DevOps), chuyển từ Organization `vuongvo2207-gmail-com` ngày 18/11/2026; URL cũ redirect về cùng repository. Repo được chuyển sang public để GitHub Free áp dụng ruleset bảo vệ main (bản private từng trả 403). Trước khi public đã quét Gitleaks toàn bộ lịch sử: không có phát hiện. Nhánh, Conventional Commits, PR ≥1 review, squash merge và release-please (CHANGELOG + tag semver) theo [quy trình nhóm](team-workflow.md) và CONTRIBUTING. Không tự approve/merge để tạo bằng chứng.
 
 Mốc 3 bổ sung overlay/migration Job/kubeconfig namespace, trusted HTTPS smoke, staging → approval có người/thời hạn → production dùng đúng digest, rollback đo thật. Các stage hiện dự kiến, sẽ báo lỗi nếu thiếu sản phẩm Mốc 3; không được dùng DEPLOY=true để công bố đã có Kubernetes.
 
