@@ -4,12 +4,16 @@ x-app: &app
     context: .
     dockerfile: services/Dockerfile
   image: clinic-app:${IMAGE_TAG:-dev}
-  env_file: .env
+  env_file:
+    - path: .env
+      required: false
   environment: &app-env
-    DATABASE_URL: postgresql+psycopg://clinic:${POSTGRES_PASSWORD:?Run init-env}@postgres:5432/clinic
-    RABBITMQ_URL: amqp://clinic:${RABBITMQ_PASSWORD:?Run init-env}@rabbitmq:5672/clinic-dev
+    DATABASE_URL: postgresql+psycopg://clinic:${POSTGRES_PASSWORD:-dev-only-postgres}@postgres:5432/clinic
+    RABBITMQ_URL: amqp://clinic:${RABBITMQ_PASSWORD:-dev-only-rabbitmq}@rabbitmq:5672/clinic-dev
     SMTP_HOST: mailpit
     SMTP_PORT: 1025
+    JWT_SECRET: ${JWT_SECRET:-dev-only-jwt-secret-not-for-real-use-000}
+    DEMO_PASSWORD: ${DEMO_PASSWORD:-dev-only-demo-pass}
   networks: [clinic]
   init: true
   stop_grace_period: 45s
@@ -23,7 +27,7 @@ services:
     environment:
       POSTGRES_USER: clinic
       POSTGRES_DB: clinic
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run init-env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dev-only-postgres}
     ports: ["127.0.0.1:5433:5432"]
     volumes: [postgres-data-alpine:/var/lib/postgresql/data]
     networks: [clinic]
@@ -33,7 +37,7 @@ services:
     hostname: rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: clinic
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:?Run init-env}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-dev-only-rabbitmq}
       RABBITMQ_DEFAULT_VHOST: clinic-dev
     ports: ["127.0.0.1:5673:5672", "127.0.0.1:15673:15672", "127.0.0.1:15693:15692"]
     volumes: [rabbitmq-data:/var/lib/rabbitmq]
