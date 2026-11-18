@@ -1,0 +1,108 @@
+---
+# ---------- Cài đặt ----------
+- name: Tạo thư mục cấu hình k3s
+  ansible.builtin.file:
+    path: /etc/rancher/k3s
+    state: directory
+    mode: "0755"
+
+- name: Ghi cấu hình k3s server (chứa token từ Vault)
+  ansible.builtin.template:
+    src: config.yaml.j2
+    dest: /etc/rancher/k3s/config.yaml
+    mode: "0600"
+  no_log: true
+  notify: Restart k3s
+
+- name: Tải script cài k3s
+  ansible.builtin.get_url:
+    url: "{{ k3s_install_url }}"
+    dest: "{{ k3s_install_script }}"
+    mode: "0755"
+
+- name: Cài k3s server (chỉ chạy khi chưa có binary)
+  ansible.builtin.command:
+    cmd: "{{ k3s_install_script }}"
+    creates: /usr/local/bin/k3s
+  environment:
+    INSTALL_K3S_CHANNEL: "{{ k3s_channel }}"
+
+- name: Áp dụng thay đổi cấu hình (restart k3s nếu cần)
+  ansible.builtin.meta: flush_handlers
+
+- name: Bật service k3s
+  ansible.builtin.service:
+    name: k3s
+    state: started
+    enabled: true
+
+- name: Chờ API server
+  ansible.builtin.wait_for:
+    port: 6443
+    host: "{{ node_ip }}"
+    timeout: 300
+
+- name: Chờ node Ready
+  ansible.builtin.command: k3s kubectl get node {{ inventory_hostname }} -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}'
+  register: k3s_ready
+  until: k3s_ready.stdout == "True"
+  retries: 40
+  delay: 5
+  changed_when: false
+
+# ---------- Backup / timer ----------
+- name: Tạo thư mục backup
+  ansible.builtin.file:
+    path: "{{ k3s_backup_dir }}"
+    state: directory
+    mode: "0700"
+
+- name: Script backup
+  ansible.builtin.template:
+    src: k3s-backup.sh.j2
+    dest: /usr/local/sbin/k3s-backup.sh
+    mode: "0750"
+
+- name: Unit service + timer backup
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "/etc/systemd/system/{{ item }}"
+    mode: "0644"
+  loop:
+    - k3s-backup.service
+    - k3s-backup.timer
+  notify: Reload systemd
+
+- name: Nạp unit mới
+  ansible.builtin.meta: flush_handlers
+
+- name: Bật timer backup
+  ansible.builtin.systemd:
+    name: k3s-backup.timer
+    state: started
+    enabled: true
+  when: k3s_etcd
+
+# ---------- Kubeconfig bàn giao ----------
+- name: Đọc kubeconfig
+  ansible.builtin.slurp:
+    src: /etc/rancher/k3s/k3s.yaml
+  register: k3s_kubeconfig
+  no_log: true
+
+- name: Tạo thư mục artifacts trên máy chạy Ansible
+  ansible.builtin.file:
+    path: "{{ k3s_kubeconfig_local | dirname }}"
+    state: directory
+    mode: "0700"
+  delegate_to: localhost
+  become: false
+
+- name: Lưu kubeconfig (đổi 127.0.0.1 thành IP server)
+  ansible.builtin.copy:
+    content: "{{ (k3s_kubeconfig.content | b64decode) | replace('127.0.0.1', node_ip) }}"
+    dest: "{{ k3s_kubeconfig_local }}"
+    mode: "0600"
+  delegate_to: localhost
+  become: false
+  no_log: true

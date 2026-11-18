@@ -1,0 +1,60 @@
+{
+  "at_utc": "2026-11-18T20:03:52Z",
+  "owner": "Long",
+  "scope": "Prototype k3s server on ONE VirtualBox VM using a standalone Ansible set (ansible-lab), NOT the repo roles in infra/ansible and NOT Terraform/libvirt",
+  "status": "PARTIAL",
+  "host": {
+    "os": "Windows 11 + WSL2 Ubuntu (control node)",
+    "hypervisor": "VirtualBox 7.2.22 (shares VT-x with Hyper-V/WSL/Docker)",
+    "ram_total_gib": 15.68
+  },
+  "vm": {
+    "name": "anuyen-server",
+    "image": "ubuntu-24.04-minimal-cloudimg-amd64.img (cloud-images.ubuntu.com/minimal/releases/noble/release)",
+    "vcpus": 2,
+    "memory_mib": 2048,
+    "disk_gib": 20,
+    "storage_controller": "VirtIO-SCSI (minimal image boots without initramfs; SATA not detected)",
+    "nic1": "NAT, SSH forward 127.0.0.1:2222 -> 22",
+    "nic2": "host-only 192.168.56.11/24 (static, netplan)",
+    "ssh_user": "ubuntu (cloud-init, key auth)"
+  },
+  "ansible": {
+    "inventory": "inventories/dev/hosts.yml (dev + staging inventories)",
+    "vault": "inventories/*/group_vars/all/vault.yml encrypted ($ANSIBLE_VAULT;1.1;AES256)",
+    "roles_run": ["common", "node_exporter", "k3s_server"],
+    "run1_recap": "anuyen-server ok=23 changed=8 unreachable=0 failed=0",
+    "run2_recap": "anuyen-server ok=21 changed=0 unreachable=0 failed=0",
+    "idempotent": true
+  },
+  "cluster": {
+    "node": "anuyen-server Ready control-plane,etcd",
+    "k3s_version": "v1.37.2+k3s1 (channel stable, NOT pinned v1.36.6+k3s1 from infra/versions.json)",
+    "internal_ip": "192.168.56.11",
+    "datastore": "embedded etcd (cluster-init)",
+    "container_runtime": "containerd://2.3.7-k3s1"
+  },
+  "backup": {
+    "mechanism": "systemd k3s-backup.timer -> k3s etcd-snapshot save + token copy to /var/backups/k3s",
+    "schedule": "*-*-* 00/6:00:00 UTC, retention 7 days",
+    "manual_run": "k3s backup OK: 1 snapshot(s) in /var/backups/k3s",
+    "snapshot": "timer-anuyen-server-1795032232 (3342368 bytes)",
+    "restore_tested": false
+  },
+  "files": ["run1-server.log", "run2-server.log", "check-server.txt"],
+  "deviations_from_design": [
+    "VirtualBox instead of libvirt/KVM; no Terraform plan/apply",
+    "1 VM only (server); jenkins and agent VMs not provisioned in this run",
+    "2 GiB RAM / 20 GiB disk instead of 4 GiB / 48 GiB (infra/lab-budget.json)",
+    "Network 192.168.56.0/24 instead of 192.168.150.0/24",
+    "User ubuntu instead of clinicops; no UFW, no sshd hardening, no secrets-encryption",
+    "k3s from get.k3s.io stable channel, not checksum-pinned binary",
+    "Backup is etcd snapshot, not repo role 'backup' (clinic PostgreSQL backups)"
+  ],
+  "not_proven": [
+    "repo infra/ansible site.yml on a clean VM",
+    "Terraform plan/apply",
+    "agent join / 2 nodes Ready",
+    "restore from snapshot"
+  ]
+}

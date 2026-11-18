@@ -1,0 +1,29 @@
+# Changelog
+
+## [0.2.0](https://github.com/vxxngw/DevOps/compare/v0.1.0...v0.2.0) (2026-11-18)
+
+
+### Features
+
+* **observability:** run monitoring stack and deliver alerts to Discord ([#12](https://github.com/vxxngw/DevOps/issues/12)) ([ac69934](https://github.com/vxxngw/DevOps/commit/ac6993402395b313effcda926a3c71e302c96a41))
+
+## 0.1.0 (2026-11-18)
+
+
+### Features
+
+* bootstrap An Uyen Hospital appointment platform ([b4d0fbc](https://github.com/vxxngw/DevOps/commit/b4d0fbc6c17ca0dab5833d234ffcf0cedc28a34e))
+* **ci:** verify SHA stack and record live Jenkins gates ([5bf6734](https://github.com/vxxngw/DevOps/commit/5bf673411fa75b726832d1363cb7d147bbceadcd))
+* **devops:** prepare observability and restore authenticated Jenkins ([7c14a27](https://github.com/vxxngw/DevOps/commit/7c14a27fb6cf621f4e5c0a3f9c4b8136656af687))
+* **infra:** prepare three-VM k3s lab and deployment gates ([cd941d3](https://github.com/vxxngw/DevOps/commit/cd941d319021365ac491fd4acb2326a7b9fe6dbb))
+* **observability:** prepare monitoring alerts and EFK stack ([3b2189d](https://github.com/vxxngw/DevOps/commit/3b2189de98ccc2843aaa560071ab75d6e77f0e98))
+* **scripts:** add init-env.mjs helper for nodejs ([ce6fe39](https://github.com/vxxngw/DevOps/commit/ce6fe39f72cedd094a893d9ea9e1ccb442f5a07a))
+
+
+### Bug Fixes
+
+* **ci:** include engine hostname in Docker TLS certificate ([9347bb8](https://github.com/vxxngw/DevOps/commit/9347bb86b3a0a0ca54f40ddadab961f009b5393a))
+* **ci:** retain Jenkins ownership across source and repository moves ([32f4343](https://github.com/vxxngw/DevOps/commit/32f4343f8bb800053faf81bfce1d171b3fcbf697))
+* **ci:** validate restored Jenkins and preserve scan failure gates ([955eff1](https://github.com/vxxngw/DevOps/commit/955eff1956178cb9f39c888e4329dd67d535f461))
+* **infra:** repair source paths and verify dev backup restore ([0bd3fb3](https://github.com/vxxngw/DevOps/commit/0bd3fb303f50999a54d08648f2c7d9a83edc6188))
+* **security:** replace vulnerable container bases ([4a6e056](https://github.com/vxxngw/DevOps/commit/4a6e05647044ad8722771eb0ba8bbe763b2133b1))

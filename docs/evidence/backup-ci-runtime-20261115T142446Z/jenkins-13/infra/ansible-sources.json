@@ -1,0 +1,48 @@
+{
+  "checked": [
+    {
+      "task_file": "infra/ansible/roles/backup/tasks/main.yml",
+      "task": "Install operational scripts",
+      "path": "scripts/infra/backup.sh",
+      "sha256": "a42b5a7784e38dbb70d4233a28346aa515f09165fd941b28ae59830c66f6e95b"
+    },
+    {
+      "task_file": "infra/ansible/roles/backup/tasks/main.yml",
+      "task": "Install operational scripts",
+      "path": "scripts/infra/restore.sh",
+      "sha256": "c739118951fb0e754f5b61cd2c8d497f4ec0db19fbb26b610e275e2c6a520e17"
+    },
+    {
+      "task_file": "infra/ansible/roles/backup/tasks/main.yml",
+      "task": "Install operational scripts",
+      "path": "scripts/infra/host-health.sh",
+      "sha256": "986b7cfe610ccae8ab0fa05e6d70923ecd523cf6327b198a6d0d6dcaecd6505a"
+    },
+    {
+      "task_file": "infra/ansible/roles/backup/tasks/main.yml",
+      "task": "Install operational scripts",
+      "path": "scripts/infra/backup-common.sh",
+      "sha256": "c243cba58d18e240ddff17d46bae56ee4d2c5128e5ce9baf57993f84d680c9f9"
+    },
+    {
+      "task_file": "infra/ansible/roles/backup/tasks/main.yml",
+      "task": "Install backup service",
+      "path": "infra/ansible/roles/backup/templates/clinic-backup@.service.j2",
+      "sha256": "c2b671c931cf87b3dc00d651a86f61be16a5facc3a0c76a6a163bd67ef6d1093"
+    },
+    {
+      "task_file": "infra/ansible/roles/k3s/tasks/main.yml",
+      "task": "Write role-specific k3s configuration",
+      "path": "infra/ansible/roles/k3s/templates/config.yaml.j2",
+      "sha256": "cb6f89958253110446fa301dc079cda7587c7e1415a972fcac556f02a0ef8b5f"
+    },
+    {
+      "task_file": "infra/ansible/roles/k3s/tasks/main.yml",
+      "task": "Install k3s service",
+      "path": "infra/ansible/roles/k3s/templates/k3s.service.j2",
+      "sha256": "97c03d98dc0e25c8be6bdf15fad6ac7b0e9c31f640559e372722e84acfd98ad4"
+    }
+  ],
+  "remote_sources": [],
+  "scope": "Controller-side checked-in source paths only; not Ansible convergence, target-host existence or idempotency."
+}

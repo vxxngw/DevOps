@@ -1,0 +1,8 @@
+{
+  "commit": "32f4343f8bb800053faf81bfce1d171b3fcbf697",
+  "project": "clinic-ci-32f4343f8bb8-9696ed8c",
+  "scope": "Isolated CI PostgreSQL/RabbitMQ/Mailpit; no dev ports or volumes",
+  "test_exit_code": 0,
+  "report_sha256": "922375bb527f50d5d55827dbfc63590de851b0bba036164ddfbaf51a1760fd40",
+  "at_utc": "2026-11-15T11:24:30.976653+00:00"
+}

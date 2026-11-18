@@ -39,8 +39,8 @@ def scan_fixture(tmp_path, relative, content):
 
 
 def source_hash_line():
-    digest = hashlib.sha256((ROOT / "frontend/src/api.ts").read_bytes()).hexdigest()
-    return json.dumps({"frontend/src/api.ts": digest})[1:-1] + "\n"
+    digest = hashlib.sha256((ROOT / "frontend/src/lib/api.ts").read_bytes()).hexdigest()
+    return json.dumps({"frontend/src/lib/api.ts": digest})[1:-1] + "\n"
 
 
 def test_verified_source_hash_exception_is_narrow(tmp_path):

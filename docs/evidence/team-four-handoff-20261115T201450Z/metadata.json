@@ -1,0 +1,115 @@
+{
+  "checked_at_utc": "2026-11-15T20:14:50.907971+00:00",
+  "checked_at_vietnam": "03:14:50 16/11/2026",
+  "operation": "READ_ONLY_ENVIRONMENT_AND_GIT_HANDOFF",
+  "members": [
+    "Vuong",
+    "Hoang",
+    "Long",
+    "Thien"
+  ],
+  "disk_free_gib": {
+    "C:": 0.2,
+    "D:": 9.09
+  },
+  "registry_token_file_exists": false,
+  "executed_build": false,
+  "executed_deploy": false,
+  "changed_repository_settings": false,
+  "source_commit": "adb5dbdc692a0aaa6d4e710c5143f223abb4c032",
+  "branch": "codex/backup-restore-verification",
+  "working_tree_before_edits": "",
+  "docker_info": {
+    "exit_code": 0,
+    "stdout": "\"29.9.3\"",
+    "stderr": ""
+  },
+  "docker_ps": {
+    "exit_code": 0,
+    "stdout": "clinic-ci-webhook-1\tUp 9 hours (healthy)\nclinic-ci-engine-1\tUp 10 hours (healthy)\nclinic-ci-agent-1\tUp 10 hours (healthy)\nclinic-ci-controller-1\tUp 10 hours (healthy)\nclinic-dev-publisher-1\tUp 6 hours (healthy)\nclinic-dev-api-1\tUp 6 hours (healthy)\nclinic-dev-frontend-1\tUp 9 hours (healthy)\nclinic-dev-worker-1\tUp 10 hours (healthy)\nclinic-dev-postgres-1\tUp 9 hours (healthy)\nclinic-dev-rabbitmq-1\tUp 9 hours (healthy)\nclinic-dev-mailpit-1\tUp 9 hours (healthy)\nmy-jenkins\tUp 10 hours",
+    "stderr": ""
+  },
+  "jenkins_anonymous_probe": {
+    "http_status": 403,
+    "jenkins_header": "2.580.1",
+    "content_type": "text/html;charset=utf-8"
+  },
+  "github": {
+    "http_status": 200,
+    "repository": "vuongvo2207-gmail-com/DevOps",
+    "repository_id": 1457478642,
+    "owner_type": "Organization",
+    "private": true,
+    "main_protected": false,
+    "main_commit": "5cac55cd32b0a4466d6a6eb05236c517fd3c7101",
+    "protection_read_status": 403,
+    "rulesets_read_status": 403,
+    "open_prs": [
+      {
+        "number": 2,
+        "draft": true,
+        "base": "codex/milestone-2",
+        "head": "codex/milestone-3",
+        "url": "https://github.com/vuongvo2207-gmail-com/DevOps/pull/2"
+      }
+    ],
+    "tags": [],
+    "protection_message": "Upgrade to GitHub Pro or make this repository public to enable this feature."
+  },
+  "jenkins_authenticated_read": {
+    "at_utc": "2026-11-15T20:16:08.383300+00:00",
+    "build": 14,
+    "result": "SUCCESS",
+    "building": false,
+    "url": "http://localhost:18090/job/an-uyen/job/clinic-pipeline/14/",
+    "source": "adb5dbdc692a0aaa6d4e710c5143f223abb4c032",
+    "publish": false,
+    "deploy": false
+  },
+  "http_read_only": {
+    "http://127.0.0.1:18080/": {
+      "status": 200,
+      "content_type": "text/html"
+    },
+    "http://127.0.0.1:8000/health": {
+      "status": 200,
+      "content_type": "application/json"
+    },
+    "http://127.0.0.1:8000/ready": {
+      "status": 200,
+      "content_type": "application/json"
+    },
+    "http://127.0.0.1:8000/metrics": {
+      "status": 200,
+      "content_type": "text/plain; version=1.0.0; charset=utf-8"
+    },
+    "http://127.0.0.1:8001/health": {
+      "status": 200,
+      "content_type": "application/json"
+    },
+    "http://127.0.0.1:8001/ready": {
+      "status": 200,
+      "content_type": "application/json"
+    },
+    "http://127.0.0.1:8001/metrics": {
+      "status": 200,
+      "content_type": "text/plain; version=1.0.0; charset=utf-8"
+    },
+    "http://127.0.0.1:8002/health": {
+      "status": 200,
+      "content_type": "application/json"
+    },
+    "http://127.0.0.1:8002/ready": {
+      "status": 200,
+      "content_type": "application/json"
+    },
+    "http://127.0.0.1:8002/metrics": {
+      "status": 200,
+      "content_type": "text/plain; version=1.0.0; charset=utf-8"
+    },
+    "http://127.0.0.1:8025/": {
+      "status": 200,
+      "content_type": "text/html; charset=utf-8"
+    }
+  }
+}

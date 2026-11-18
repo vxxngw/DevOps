@@ -1,0 +1,20 @@
+# Dev environment: three VirtualBox VMs on the host-only network 192.168.56.0/24
+# (the network the team already runs; see docs/evidence/m3-k3s-server-vbox-*).
+# Copy to hosts.yml (git-ignored) and replace with the real VM addresses.
+# cloud-init must create the `clinicops` user with the operator public key,
+# because the common role refuses any other ansible_user.
+all:
+  vars:
+    ansible_user: clinicops
+    ansible_python_interpreter: /usr/bin/python3
+    clinic_node_cidr: 192.168.56.0/24
+  children:
+    jenkins:
+      hosts:
+        anuyen-dev-jenkins: {ansible_host: 192.168.56.10}
+    k3s_server:
+      hosts:
+        anuyen-dev-server: {ansible_host: 192.168.56.11}
+    k3s_agent:
+      hosts:
+        anuyen-dev-agent: {ansible_host: 192.168.56.12}

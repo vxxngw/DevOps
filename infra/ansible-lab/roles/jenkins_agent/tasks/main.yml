@@ -1,0 +1,39 @@
+---
+- name: Cài Java cho Jenkins agent
+  ansible.builtin.apt:
+    name: [ "{{ jenkins_agent_java_package }}", git ]
+    state: present
+
+- name: Tạo user jenkins (thuộc nhóm docker)
+  ansible.builtin.user:
+    name: "{{ jenkins_agent_user }}"
+    home: "{{ jenkins_agent_home }}"
+    shell: /bin/bash
+    groups: docker
+    append: true
+
+- name: Tạo thư mục làm việc của agent
+  ansible.builtin.file:
+    path: "{{ jenkins_agent_home }}/agent"
+    state: directory
+    owner: "{{ jenkins_agent_user }}"
+    group: "{{ jenkins_agent_user }}"
+    mode: "0755"
+
+- name: Tạo thư mục .ssh
+  ansible.builtin.file:
+    path: "{{ jenkins_agent_home }}/.ssh"
+    state: directory
+    owner: "{{ jenkins_agent_user }}"
+    group: "{{ jenkins_agent_user }}"
+    mode: "0700"
+
+- name: Cho phép Jenkins controller SSH vào agent
+  ansible.builtin.lineinfile:
+    path: "{{ jenkins_agent_home }}/.ssh/authorized_keys"
+    line: "{{ jenkins_agent_pubkey }}"
+    create: true
+    owner: "{{ jenkins_agent_user }}"
+    group: "{{ jenkins_agent_user }}"
+    mode: "0600"
+  when: jenkins_agent_pubkey | length > 0

@@ -143,7 +143,7 @@ def test_mail_check_is_read_only_and_has_no_cluster_token():
 
 def test_namespace_credentials_are_distinct_and_consistent():
     spec = importlib.util.spec_from_file_location(
-        "cluster_secrets", ROOT / "scripts/prepare-cluster-secrets.py"
+        "cluster_secrets", ROOT / "scripts/infra/prepare-cluster-secrets.py"
     )
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)

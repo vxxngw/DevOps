@@ -1,0 +1,42 @@
+# Local-only alert rules.
+#
+# The production rule file (observability/prometheus/rules/clinic.yml) is NOT
+# mounted here: its recording rules hard-code `namespace: production` and a
+# backup job that do not exist in the local Docker runtime, so loading it
+# verbatim would leave permanent false-positive alerts and make the runtime
+# proof meaningless.
+#
+# Instead scripts/verify-observability-runtime.py derives
+# rules/clinic.local.yml from the production file at stack-up time, removing
+# only those expectation recording rules and keeping every alert expression
+# byte-identical. The derivation is recorded in the evidence receipt with
+# sha256 hashes of both files.
+#
+# This file only adds what the local runtime genuinely lacks: a deterministic
+# operator-triggered failure switch, and a `up`-based stand-in for
+# ClinicServiceDown (the production rule needs kubelet/node-exporter metrics).
+groups:
+- name: clinic-local-runtime
+  rules:
+  - alert: ClinicLocalSyntheticFailure
+    expr: clinic_local_synthetic_failure == 1
+    for: 10s
+    labels:
+      severity: critical
+      service: api
+      namespace: staging
+    annotations:
+      summary: Synthetic failure switch is on (local runtime proof only)
+      description: namespace={{ $labels.namespace }} service={{ $labels.service }} value={{ $value }}
+      runbook_url: https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#http-errors
+  - alert: ClinicLocalServiceDown
+    expr: up{job="clinic"} == 0
+    for: 30s
+    labels:
+      severity: critical
+      service: monitoring
+      namespace: staging
+    annotations:
+      summary: Một backend clinic không scrape được (local runtime)
+      description: instance={{ $labels.instance }} job={{ $labels.job }} value={{ $value }}
+      runbook_url: https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#service-down

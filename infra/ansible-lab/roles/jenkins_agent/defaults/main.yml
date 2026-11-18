@@ -1,0 +1,4 @@
+---
+jenkins_agent_user: jenkins
+jenkins_agent_home: /home/jenkins
+jenkins_agent_java_package: openjdk-21-jre-headless

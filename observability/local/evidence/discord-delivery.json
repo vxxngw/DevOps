@@ -1,0 +1,82 @@
+{
+  "generated_at": "2026-11-18T18:08:55.789259+00:00",
+  "purpose": "Real Discord receiver delivery proof (FIRING then RESOLVED) for the local observability runtime",
+  "alertmanager_image": "prom/alertmanager:v0.28.1",
+  "alertmanager_config": "observability/local/alertmanager/alertmanager.local.yml",
+  "alertmanager_config_sha256": "64cfa79035d70ecb44babe8e369753e5fc9cc5577d05e1033f8d9fc9d51a57b1",
+  "receiver": {
+    "name": "operations",
+    "integration": "discord",
+    "channel": "#alerts",
+    "webhook_url_source": "file .infra-local/observability/discord-webhook-url (gitignored, value not recorded)",
+    "send_resolved": true
+  },
+  "fault_injection": {
+    "action": "docker stop clinic-dev-rabbitmq-1, then docker start",
+    "stopped_at": "2026-11-18T18:06:08Z",
+    "restarted_at": "2026-11-18T18:07:25Z"
+  },
+  "notifications_timeline": [
+    {
+      "received_at": "2026-11-18T18:06:53.117652+00:00",
+      "status": "firing",
+      "alertname": "ClinicDependencyDown",
+      "instance": "publisher:8001"
+    },
+    {
+      "received_at": "2026-11-18T18:06:53.117652+00:00",
+      "status": "firing",
+      "alertname": "ClinicDependencyDown",
+      "instance": "worker:8002"
+    },
+    {
+      "received_at": "2026-11-18T18:07:23.111234+00:00",
+      "status": "firing",
+      "alertname": "ClinicScrapeFailed",
+      "instance": "rabbitmq:15692"
+    },
+    {
+      "received_at": "2026-11-18T18:07:43.110684+00:00",
+      "status": "resolved",
+      "alertname": "ClinicScrapeFailed",
+      "instance": "rabbitmq:15692"
+    },
+    {
+      "received_at": "2026-11-18T18:07:43.114754+00:00",
+      "status": "resolved",
+      "alertname": "ClinicDependencyDown",
+      "instance": "publisher:8001"
+    },
+    {
+      "received_at": "2026-11-18T18:07:43.114754+00:00",
+      "status": "resolved",
+      "alertname": "ClinicDependencyDown",
+      "instance": "worker:8002"
+    }
+  ],
+  "alertmanager_metrics": {
+    "discord_notifications_total": 4.0,
+    "discord_notifications_failed_total": {
+      "clientError": 0.0,
+      "serverError": 0.0,
+      "contextCanceled": 0.0,
+      "contextDeadlineExceeded": 0.0,
+      "other": 0.0
+    }
+  },
+  "checks": {
+    "firing_delivered": true,
+    "resolved_delivered": true,
+    "discord_sent_without_failure": true
+  },
+  "operator_confirmation": {
+    "firing_seen_in_discord": true,
+    "firing_messages": [
+      "[FIRING:2] ClinicDependencyDown (publisher:8001, worker:8002)",
+      "[FIRING:1] ClinicScrapeFailed (rabbitmq:15692)"
+    ],
+    "resolved_seen_in_discord": true,
+    "confirmed_by": "operator (Hoang), Discord #alerts, 2026-11-19"
+  },
+  "verdict": "PASS"
+}

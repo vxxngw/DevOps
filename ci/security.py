@@ -120,7 +120,17 @@ def trivy(target, report, *, source="image", remote=False):
         command += ["--image-src", "remote"]
     if source == "fs":
         command += ["--include-dev-deps"]
-        for directory in [".git", ".ci-local", "ci-out", "tmp", ".venv", "frontend/node_modules"]:
+        for directory in [
+            ".git",
+            ".ci-local",
+            ".infra-local",
+            "ci-out",
+            "tmp",
+            "outputs",
+            ".venv",
+            "frontend/node_modules",
+            "frontend/dist",
+        ]:
             command += ["--skip-dirs", ROOT / directory]
     env = os.environ.copy()
     env["TRIVY_IGNORE_UNFIXED"] = "false"

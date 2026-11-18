@@ -1,0 +1,74 @@
+
+PLAY [Base cho mọi máy] ********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [anuyen-agent]
+[ERROR]: Task failed: Timeout (12s) waiting for privilege escalation prompt:
+fatal: [anuyen-server]: UNREACHABLE! => 
+    changed: false
+    msg: 'Task failed: Timeout (12s) waiting for privilege escalation prompt:'
+    unreachable: true
+
+TASK [common : Cập nhật apt cache (tối đa 1 lần/giờ)] **************************
+changed: [anuyen-agent]
+
+TASK [common : Cài gói cơ bản] *************************************************
+changed: [anuyen-agent]
+
+TASK [node_exporter : Cài node exporter] ***************************************
+changed: [anuyen-agent]
+
+TASK [node_exporter : Bật node exporter] ***************************************
+ok: [anuyen-agent]
+
+TASK [node_exporter : Chờ cổng metrics] ****************************************
+ok: [anuyen-agent]
+
+PLAY [K3s server] **************************************************************
+
+PLAY [K3s agent + Docker + Jenkins agent] **************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [anuyen-agent]
+
+TASK [docker : Cài Docker (gói docker.io của Ubuntu)] **************************
+changed: [anuyen-agent]
+
+TASK [docker : Bật Docker] *****************************************************
+ok: [anuyen-agent]
+
+TASK [docker : Cho user vào nhóm docker] ***************************************
+changed: [anuyen-agent] => (item=ubuntu)
+
+TASK [k3s_agent : Chờ k3s server sẵn sàng] *************************************
+ok: [anuyen-agent]
+
+TASK [k3s_agent : Tạo thư mục cấu hình k3s] ************************************
+changed: [anuyen-agent]
+
+TASK [k3s_agent : Ghi cấu hình k3s agent (chứa token từ Vault)] ****************
+changed: [anuyen-agent]
+
+TASK [k3s_agent : Tải script cài k3s] ******************************************
+[WARNING]: Module remote_tmp /root/.ansible/tmp did not exist and was created with a mode of 0700, this may cause issues when running as another user. To avoid this, create the remote_tmp dir with the correct permissions manually
+changed: [anuyen-agent]
+
+TASK [k3s_agent : Cài k3s agent (chỉ chạy khi chưa có binary)] *****************
+[ERROR]: Task failed: Data could not be sent to remote host "127.0.0.1". Make sure this host can be reached over ssh:
+Origin: /home/asus/ansible-lab/roles/k3s_agent/tasks/main.yml:28:3
+
+26     mode: "0755"
+27
+28 - name: Cài k3s agent (chỉ chạy khi chưa có binary)
+     ^ column 3
+
+fatal: [anuyen-agent]: UNREACHABLE! => 
+    changed: false
+    msg: 'Task failed: Data could not be sent to remote host "127.0.0.1". Make sure this
+        host can be reached over ssh:'
+    unreachable: true
+
+PLAY RECAP *********************************************************************
+anuyen-agent               : ok=14   changed=8    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+anuyen-server              : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+

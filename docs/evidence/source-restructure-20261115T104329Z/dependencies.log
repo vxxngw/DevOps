@@ -1,0 +1,5 @@
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe --version
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe fs --cache-dir D:\CODE\OOPs\Do_An\.ci-local\trivy-cache --scanners vuln --severity CRITICAL --exit-code 1 --ignorefile D:\CODE\OOPs\Do_An\.ci-local\empty-trivy-ignore --format json --output D:\CODE\OOPs\Do_An\ci-out\security\trivy-dependencies.json --include-dev-deps --skip-dirs D:\CODE\OOPs\Do_An\.git --skip-dirs D:\CODE\OOPs\Do_An\.ci-local --skip-dirs D:\CODE\OOPs\Do_An\.infra-local --skip-dirs D:\CODE\OOPs\Do_An\ci-out --skip-dirs D:\CODE\OOPs\Do_An\tmp --skip-dirs D:\CODE\OOPs\Do_An\outputs --skip-dirs D:\CODE\OOPs\Do_An\.venv --skip-dirs D:\CODE\OOPs\Do_An\frontend\node_modules --skip-dirs D:\CODE\OOPs\Do_An\frontend\dist D:\CODE\OOPs\Do_An\.ci-local\dependency-input
+Exit0; log:ci-out\security\trivy-dependencies.log
+Running: git -c safe.directory=D:/CODE/OOPs/Do_An rev-parse HEAD
+Python/Node dependency scan passed, including dev dependencies; image scans are separate

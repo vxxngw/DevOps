@@ -1,0 +1,51 @@
+{
+  "at_utc": "2026-11-15T14:30:57.283412+00:00",
+  "source_commit": "d2ba14ceea8d99802db438351d6c6e96e88dca9b",
+  "branch": "codex/backup-restore-verification",
+  "build": 13,
+  "jenkins_result": "SUCCESS",
+  "build_url": "http://localhost:18090/job/an-uyen/job/clinic-pipeline/13/",
+  "junit": {
+    "junit-unit.xml": {
+      "passed": 110,
+      "skipped": 8,
+      "failed": 0
+    },
+    "junit-integration.xml": {
+      "passed": 33,
+      "skipped": 0,
+      "failed": 0
+    }
+  },
+  "images_critical": {
+    "app": 0,
+    "frontend": 0,
+    "postgres": 0,
+    "rabbitmq": 0,
+    "mailpit": 0
+  },
+  "secret_findings": 0,
+  "dependency_critical": 0,
+  "raw_security_reports_hash_verified": 7,
+  "sha_runtime": {
+    "exit_code": 0,
+    "cleanup_exit_code": 0,
+    "healthy_non_root_services": 7,
+    "successful_jobs": 2,
+    "backend_http_checks": 9,
+    "frontend_status": 200,
+    "booking_email_body_matched": true,
+    "cancellation_email_body_matched": true,
+    "backend_json_logs": true
+  },
+  "webhook_push_status": 202,
+  "publish": false,
+  "deploy": false,
+  "scope": "Real full Jenkins validation and isolated image-SHA stack; no registry publication or Kubernetes/VM/timer/monitoring deployment",
+  "remaining": [
+    "GHCR write:packages credential and publish/pull digest",
+    "Eligible non-draft main PR and human review",
+    "VM/Ansible convergence, K8s/HPA/KEDA and monitoring runtime",
+    "Scheduled backup/host health and staging/production restore"
+  ]
+}

@@ -5,9 +5,9 @@ Runbook chưa phải evidence đã provision. Người dùng chọn chuẩn bị
 ## Kiểm chứng local
 
 ```powershell
-.\.venv\Scripts\python.exe scripts/install-infra-tools.py
-wsl -d Ubuntu-22.04 -e bash /mnt/d/CODE/OOPs/Do_An/scripts/setup-infra-control.sh
-.\.venv\Scripts\python.exe scripts/verify-m3-local.py
+.\.venv\Scripts\python.exe scripts/infra/install-infra-tools.py
+wsl -d Ubuntu-22.04 -e bash /mnt/d/CODE/OOPs/Do_An/scripts/infra/setup-infra-control.sh
+.\.venv\Scripts\python.exe scripts/ci/verify-m3-local.py
 ```
 
 Cần requirements.lock và infra/requirements-static.txt trong Pythonvenv. Installer ghim/checkSHA256 TerraformWindows/Linux, uv, addonmanifests, collections và schema. Pythoncontrol3.13.18/Ansible 2.22 vì core2.22 yêu cầuPython≥3.13; không chạy Ansible bằng Python 3.10 có sẵn. Cache ở .infra-local trênD, bị loại khỏi Git/Dockercontext. Collection cài offline từ artifactđã kiểm. DrvFS có thể báo Galaxycache world-writable; privateSSHkey nên ở filesystemLinux/mode0600, không coi chmod trênNTFS là đã bảo vệkey.
@@ -23,10 +23,10 @@ Lấy Ubuntu24.04 từ [nguồn chính thức](https://cloud-images.ubuntu.com/r
 Trong Linux/WSL đã chuẩn bị:
 
 ```bash
-.infra-local/ansible-venv/bin/python scripts/preflight-infra.py
-.infra-local/ansible-venv/bin/python scripts/lab.py plan --var-file infra/terraform/lab.tfvars
+.infra-local/ansible-venv/bin/python scripts/infra/preflight-infra.py
+.infra-local/ansible-venv/bin/python scripts/infra/lab.py plan --var-file infra/terraform/lab.tfvars
 # Review exactly3 VM, dedicated pool/volumes/cloud-init and labnetwork.
-.infra-local/ansible-venv/bin/python scripts/lab.py apply --var-file infra/terraform/lab.tfvars
+.infra-local/ansible-venv/bin/python scripts/infra/lab.py apply --var-file infra/terraform/lab.tfvars
 .infra-local/bin/linux/terraform -chdir=infra/terraform output -raw ansible_inventory > infra/ansible/inventories/lab/hosts.yml
 ```
 
@@ -34,7 +34,14 @@ lab.py từ chối tạo khi preflight chưaREADY. Terraform dùng provider th�
 
 ## Ansible
 
-Một inventorylab cho một bộ3 VM; staging/production là namespace trong cùngcluster, cấu hình ứng dụng tách bằng overlays. Không tạo hai fleet chỉ vì hai namespace. Sampleinventory là IPdự kiến, không phải máy đã phát hiện.
+Inventory tách theo môi trường hạ tầng, mỗi môi trường một bộ 3 VM với hosts, operator CIDR và vault.yml riêng:
+
+| Inventory | Hạ tầng | Mạng node | Operator CIDR |
+|---|---|---|---|
+| `inventories/lab` | Terraform/libvirt (KVM) | 192.168.150.0/24 | 192.168.150.1/32 |
+| `inventories/dev` | VirtualBox host-only | 192.168.56.0/24 | 192.168.56.1/32 |
+
+Staging/production là namespace trong cùng cluster, cấu hình ứng dụng tách bằng overlays. Không tạo hai fleet chỉ vì hai namespace. Sample inventory là IP dự kiến, không phải máy đã phát hiện. Với `dev`, cloud-init của VM phải tạo user `clinicops` với operator public key; copy `dev/hosts.example.yml` thành `dev/hosts.yml` (bị ignore) và đổi `-i` trong các lệnh dưới sang `infra/ansible/inventories/dev/hosts.yml`.
 
 Tạo inventorylab/vault.yml từ schema, nhập secret local rồi ansible-vault encrypt; file/password không commit. Có k3stoken≥32ký tự; CIrole cần Jenkinsadminpassword≥24, GitHubreadtoken và registrywritecredential. clinic_repo_revision phải commit40hex đã push.
 
@@ -56,12 +63,12 @@ Chạy lần2cùngrevision/vars và lưu recapchanged=0. changed_when:false ch�
 Dùng admin kubeconfiglab qua SSH, giữ ngoàiGit; đúng server/CA, không insecure-skip-tls-verify:
 
 ```bash
-python scripts/bootstrap-cluster.py --expected-server https://192.168.150.11:6443
-python scripts/prepare-cluster-secrets.py staging --registry-token-file .registry-token
-python scripts/prepare-cluster-secrets.py production --registry-token-file .registry-token
+python scripts/infra/bootstrap-cluster.py --expected-server https://192.168.150.11:6443
+python scripts/infra/prepare-cluster-secrets.py staging --registry-token-file .registry-token
+python scripts/infra/prepare-cluster-secrets.py production --registry-token-file .registry-token
 kubectl create -f .infra-local/secrets/staging.json
 kubectl create -f .infra-local/secrets/production.json
-python scripts/issue-cluster-access.py --expected-server https://192.168.150.11:6443
+python scripts/infra/issue-cluster-access.py --expected-server https://192.168.150.11:6443
 ```
 
 Chưa chạy trêncluster trong phiên này. Secretgenerator từ chối ghi đè; không thay passwordDBđang có. Addon/RBAC/ClusterIssuer cần quyềnoperator; Jenkins chỉ namespaceRole. KubeconfigSA yêu cầu token8giờ: kiểm thời hạn APIserver cấp thực và rotateCredential sauhạn, không dùngadminkubeconfig cho deploy.
@@ -73,13 +80,13 @@ Jenkins cần clinic-kubeconfig-staging/production, clinic-lab-ca(publiccertific
 Hai tải độc lập, chỉ stagingsynthetic/Mailpit:
 
 ```bash
-python scripts/load-http.py --url https://staging.anuyen.test --password-file PASSWORD_FILE --ca-file LAB_CA
+python scripts/infra/load-http.py --url https://staging.anuyen.test --password-file PASSWORD_FILE --ca-file LAB_CA
 kubectl -n staging get hpa api -w
 kubectl -n staging set env deployment/worker WORKER_DELAY_SECONDS=2
-python scripts/load-queue.py burst --url https://staging.anuyen.test --password-file PASSWORD_FILE --ca-file LAB_CA
+python scripts/infra/load-queue.py burst --url https://staging.anuyen.test --password-file PASSWORD_FILE --ca-file LAB_CA
 kubectl -n staging get scaledobject worker
 kubectl -n staging get deployment api worker -w
-python scripts/load-queue.py cleanup --receipt RECEIPT --url https://staging.anuyen.test --password-file PASSWORD_FILE --ca-file LAB_CA
+python scripts/infra/load-queue.py cleanup --receipt RECEIPT --url https://staging.anuyen.test --password-file PASSWORD_FILE --ca-file LAB_CA
 kubectl -n staging set env deployment/worker WORKER_DELAY_SECONDS-
 ```
 
@@ -90,7 +97,7 @@ Ghi CPUAPI, HPAcurrent/desired, queue ready/unacked/backlog và worker/timestamp
 Xuất backup khỏi cả3 VM, kiểm checksum/state/plan; backup trênserver cũng mất khi xóaVMserver:
 
 ```bash
-python scripts/lab.py destroy --var-file infra/terraform/lab.tfvars --confirm-prefix anuyen
+python scripts/infra/lab.py destroy --var-file infra/terraform/lab.tfvars --confirm-prefix anuyen
 ```
 
 Terraform vẫn hiển thị xác nhận, wrapper kiểm đúngprefix. Không reset/unregisterWSL, xóaDockerdata, đụng defaultpool/network hoặc VMkhác. Chưa có apply/destroy/restoreevidence để nghiệm thu demo1.

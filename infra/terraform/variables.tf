@@ -37,6 +37,16 @@ variable "network_cidr" {
   type    = string
   default = "192.168.150.0/24"
 }
+variable "operator_cidrs" {
+  type        = list(string)
+  description = "IPv4 operator source networks allowed to SSH during first boot; include the libvirt gateway if using the hypervisor."
+  validation {
+    condition = length(var.operator_cidrs) > 0 && alltrue([
+      for cidr in var.operator_cidrs : can(cidrnetmask(cidr)) && !endswith(cidr, "/0")
+    ])
+    error_message = "Supply explicit operator IPv4 CIDRs; unrestricted /0 is forbidden."
+  }
+}
 variable "nodes" {
   type    = map(object({ memory_mib = number, vcpus = number, disk_gib = number, address = number, mac = string }))
   default = null

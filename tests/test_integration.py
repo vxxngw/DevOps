@@ -21,7 +21,7 @@ MAILPIT_API = os.environ.get("MAILPIT_API_URL", "http://localhost:8025")
 @pytest.fixture
 def broker():
     if os.environ.get("RUN_BROKER_TESTS") != "1":
-        pytest.skip("Real broker/Mailpit tests require --integration via scripts/verify.py")
+        pytest.skip("Real broker/Mailpit tests require --integration via scripts/dev/verify.py")
     with connect() as connection:
         channel = connection.channel()
         topology(channel)

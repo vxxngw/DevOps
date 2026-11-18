@@ -1,0 +1,19 @@
+anuyen-server | CHANGED | rc=0 >>
+NAME            STATUS   ROLES                AGE   VERSION        INTERNAL-IP     EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION              CONTAINER-RUNTIME
+anuyen-server   Ready    control-plane,etcd   24m   v1.37.2+k3s1   192.168.56.11   <none>        Ubuntu 24.04.5 LTS   6.8.0-147-generic (amd64)   containerd://2.3.7-k3s1
+NEXT                            LEFT LAST PASSED UNIT             ACTIVATES
+Thu 2026-11-19 00:00:00 UTC 3h 56min -         - k3s-backup.timer k3s-backup.service
+
+1 timers listed.
+Pass --all to see loaded but inactive timers, too.
+Nov 18 20:03:52 anuyen-server k3s-backup.sh[8746]: k3s backup OK: 1 snapshot(s) in /var/backups/k3s
+Nov 18 20:03:52 anuyen-server systemd[1]: k3s-backup.service: Deactivated successfully.
+Nov 18 20:03:52 anuyen-server systemd[1]: Finished k3s-backup.service - Backup k3s etcd snapshot.
+Name                           Location                                                                       Size    Created
+timer-anuyen-server-1795032232 file:///var/lib/rancher/k3s/server/db/snapshots/timer-anuyen-server-1795032232 3342368 2026-11-18T20:03:52Ztime="2026-11-18T20:03:52Z" level=warning msg="Unknown flag --write-kubeconfig-mode found in config.yaml, skipping\n"
+time="2026-11-18T20:03:52Z" level=warning msg="Unknown flag --node-ip found in config.yaml, skipping\n"
+time="2026-11-18T20:03:52Z" level=warning msg="Unknown flag --advertise-address found in config.yaml, skipping\n"
+time="2026-11-18T20:03:52Z" level=warning msg="Unknown flag --flannel-iface found in config.yaml, skipping\n"
+time="2026-11-18T20:03:52Z" level=warning msg="Unknown flag --tls-san found in config.yaml, skipping\n"
+time="2026-11-18T20:03:52Z" level=warning msg="Unknown flag --token found in config.yaml, skipping\n"
+time="2026-11-18T20:03:52Z" level=warning msg="Unknown flag --cluster-init found in config.yaml, skipping\n"

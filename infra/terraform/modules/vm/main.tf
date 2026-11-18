@@ -10,6 +10,7 @@ variable "vcpus" { type = number }
 variable "disk_gib" { type = number }
 variable "mac" { type = string }
 variable "ssh_public_key" { type = string }
+variable "operator_cidrs" { type = list(string) }
 
 resource "libvirt_volume" "root" {
   name          = "${var.name}.qcow2"
@@ -27,6 +28,12 @@ resource "libvirt_cloudinit_disk" "init" {
     manage_etc_hosts = true
     ssh_pwauth       = false
     disable_root     = true
+    packages         = ["ufw"]
+    runcmd = concat(
+      [["ufw", "default", "deny", "incoming"], ["ufw", "default", "allow", "outgoing"]],
+      [for cidr in var.operator_cidrs : ["ufw", "allow", "from", cidr, "to", "any", "port", "22", "proto", "tcp"]],
+      [["ufw", "--force", "enable"]]
+    )
     users = [{
       name                = "clinicops", groups = "sudo", shell = "/bin/bash", lock_passwd = true
       sudo                = "ALL=(ALL) NOPASSWD:ALL"

@@ -1,0 +1,4 @@
+clinic-dev-20261115T134406Z.dump: OK
+
+STDERR:
+createdb: error: database creation failed: ERROR:  database "clinic_restore_eb63f6477a8c4ccb810f" already exists

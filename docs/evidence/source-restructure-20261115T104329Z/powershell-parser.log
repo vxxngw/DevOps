@@ -1,0 +1,32 @@
+[
+    {
+        "file":  "scripts\\dev\\check-integration.ps1",
+        "errors":  [
+
+                   ]
+    },
+    {
+        "file":  "scripts\\dev\\check-ui.ps1",
+        "errors":  [
+
+                   ]
+    },
+    {
+        "file":  "scripts\\maintenance\\backup-docker-before-move.ps1",
+        "errors":  [
+
+                   ]
+    },
+    {
+        "file":  "scripts\\maintenance\\inspect-docker-storage.ps1",
+        "errors":  [
+
+                   ]
+    },
+    {
+        "file":  "scripts\\maintenance\\prepare-docker-storage-folders.ps1",
+        "errors":  [
+
+                   ]
+    }
+]

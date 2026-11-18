@@ -5,20 +5,47 @@
 ## Kiểm tra local
 
 ```powershell
-.\.venv\Scripts\python.exe scripts/install-observability-tools.py
-.\.venv\Scripts\python.exe scripts/verify-m4-local.py
+.\.venv\Scripts\python.exe scripts/infra/install-observability-tools.py
+.\.venv\Scripts\python.exe scripts/ci/verify-m4-local.py
 ```
 
 Binary Prometheus/Alertmanager đối chiếu SHA256 release, cache trên .infra-local ở D và bị ignore. Kết quả chỉ gồm parser/schema/policy/unit/fixture. Nginx -t, Fluentd --dry-run và image scan cần chạy riêng trên môi trường Linux/container phù hợp; hiện chưa chạy. Jenkinsfile mới chưa qua parser do Jenkins không kết nối được, chưa có build pipeline Mốc 4.
+
+## Nghiệm thu runtime thật bằng Docker Compose (đã chạy)
+
+Phần trên là kiểm tra tĩnh. Ngoài ra còn một stack runtime thật, chạy song song với `compose.yaml` của ứng dụng trên cùng Docker Desktop, dùng đúng image Prometheus/Alertmanager/Grafana/Elasticsearch/Kibana/Fluentd đã pin trong [`observability/versions.json`](../../observability/versions.json):
+
+```powershell
+python -X utf8 scripts/verify-observability-runtime.py --keep-running
+```
+
+Script này không mô phỏng gì cả. Nó dựng [`observability/local/compose.yaml`](../../observability/local/compose.yaml), rồi:
+
+1. Sinh [`observability/local/prometheus/rules/clinic.local.yml`](../../observability/local/prometheus/rules/clinic.local.yml) từ file rule production bằng [`observability/local/derive_rules.py`](../../observability/local/derive_rules.py). Chỉ bốn recording rule phụ thuộc cluster bị bỏ (`clinic:service_expected`, `clinic:backup_expected`, `clinic:container_cpu_cores5m`, `clinic:container_memory_bytes`) cùng năm alert chỉ sống nhờ chúng; mọi biểu thức, `for`, label, annotation còn lại giữ nguyên byte-for-byte. Cả hai sha256 được ghi vào receipt.
+2. Chờ Prometheus, Alertmanager, Grafana, Elasticsearch, Fluentd, Kibana và webhook receiver trả lời HTTP.
+3. Assert mọi scrape target `up` và dashboard/datasource Grafana đã được provision.
+4. Gây lỗi thật: `docker compose stop rabbitmq`, khiến `clinic_dependency_ready{dependency="rabbitmq"}` về 0. Chờ `ClinicDependencyDown` thành `active` trong Alertmanager API, rồi chờ webhook receiver nhận đúng payload `firing`.
+5. Khôi phục: `docker compose start rabbitmq`, chờ gauge về 1 và chờ webhook nhận payload `resolved`.
+6. Truy vấn Elasticsearch `clinic-logs-*/_count` và `_search` để chứng minh log ứng dụng do Fluentd ship tới, có đủ `service`/`level`/`message`; tạo Kibana data view `clinic-logs-*` qua API và đọc lại để xác nhận.
+7. Ghi [`observability/local/evidence/runtime-receipt.json`](../../observability/local/evidence/runtime-receipt.json) với mọi quan sát và verdict.
+
+Kết quả lần chạy 2026-11-18T12:42Z: **verdict PASS, 12/12 check**, 8 target `up` (api, publisher, worker, rabbitmq, rabbitmq-staging, postgres, prometheus, fluentd), `ClinicDependencyDown` FIRING rồi RESOLVED tới webhook, 572 document trong `clinic-logs-2026.11.18`, Kibana data view `clinic-logs-*` tạo thành công. Receipt và [`alertmanager-receipts.jsonl`](../../observability/local/evidence/alertmanager-receipts.jsonl) là bằng chứng thô, không phải ảnh chụp màn hình.
+
+Hai điểm khác biệt có chủ đích so với cluster, đều ghi trong comment của file cấu hình:
+
+- [`observability/local/efk/es-proxy.py`](../../observability/local/efk/es-proxy.py) là shim transport đứng trước Elasticsearch. `fluent-plugin-elasticsearch` 5.4.3 luôn gửi media type `compatible-with=9`, Elasticsearch 8.15 từ chối; proxy chỉ sửa đúng header đó sang `compatible-with=8` và gộp `Accept` trùng, không parse/reshape document. Trên Kubernetes Fluentd nói chuyện trực tiếp với ES.
+- Collector local chạy bằng root vì Docker Desktop mount `/var/lib/docker/containers` chỉ cho root; DaemonSet trên Kubernetes vẫn giữ `securityContext` non-root.
+
+Stack này chứng minh đường ống metric → rule → Alertmanager → webhook và log → Fluentd → Elasticsearch → Kibana hoạt động thật. Nó **không** chứng minh được những thứ chỉ có trên cluster: kubelet/cAdvisor/node-exporter, `kube-state-metrics`, backup CronJob, TLS của Elasticsearch, RBAC, NetworkPolicy và việc gửi Telegram thật. Các mục đó vẫn ở trạng thái chưa nghiệm thu như mô tả bên dưới.
 
 ## Chuẩn bị operator và scan
 
 Chạy lại Ansible tag os cho cấu hình vm.max_map_count=1048576 và thư mục /var/lib/anuyen-fluentd mode0700 trên 2 node. UFW chỉ mở 9100/10250 từ pod CIDR và dải node; không mở ra Internet. Kubelet phải trình chứng thư có IP SAN và CA khớp /var/run/secrets/kubernetes.io/serviceaccount/ca.crt. Nếu xác minh TLS thất bại, lấy đúng CA công khai từ admin rồi sửa mount/config; không bật insecure_skip_verify.
 
 ```bash
-python scripts/scan-observability.py
-python scripts/prepare-observability-secrets.py --telegram-chat-id ACTUAL_CHAT_ID --telegram-token-file PRIVATE_TOKEN_FILE
-python scripts/bootstrap-observability.py foundation --expected-server https://192.168.150.11:6443 --secrets-file .infra-local/observability/secrets.json
+python scripts/infra/scan-observability.py
+python scripts/infra/prepare-observability-secrets.py --telegram-chat-id ACTUAL_CHAT_ID --telegram-token-file PRIVATE_TOKEN_FILE
+python scripts/infra/bootstrap-observability.py foundation --expected-server https://192.168.150.11:6443 --secrets-file .infra-local/observability/secrets.json
 ```
 
 Chỉ chạy prepare khi chủ kênh đã chỉ định bot/chat thật; không dán token vào chat/Git. Secret file tạo một lần, từ chối ghi đè; bootstrap kiểm credential đang có và từ chối tự xoay password. Scan phải đúng digest, đủ 8 report, không CRITICAL và trong 24 giờ; metadata/report sửa hoặc thiếu đều chặn. Ngày15/11 đã scan8digest không CRITICAL và kiểm raw receipt; khi thực thi vẫn cần scan đúng version/digest trong24giờ. VM/cluster và receiver chưa có nên bootstrap runtime vẫn chưa đủ điều kiện. Trên Linux giữ private file mode0600; Windows/DrvFS cần ACL phù hợp, không coi chmod là đủ.
@@ -33,8 +60,8 @@ kubectl -n logging port-forward --address 127.0.0.1 service/elasticsearch 19200:
 Trong cửa sổ khác, operator cần DNS/hosts ánh xạ elasticsearch.logging.svc tới loopback cho tunnel này; dùng đúng hostname có trong certificate, không bỏ TLS verify:
 
 ```bash
-python scripts/configure-observability.py --expected-server https://192.168.150.11:6443 --secrets-file .infra-local/observability/secrets.json --ca-file .infra-local/observability/es-ca.crt
-python scripts/bootstrap-observability.py complete --expected-server https://192.168.150.11:6443 --secrets-file .infra-local/observability/secrets.json
+python scripts/infra/configure-observability.py --expected-server https://192.168.150.11:6443 --secrets-file .infra-local/observability/secrets.json --ca-file .infra-local/observability/es-ca.crt
+python scripts/infra/bootstrap-observability.py complete --expected-server https://192.168.150.11:6443 --secrets-file .infra-local/observability/secrets.json
 ```
 
 Configure tạo ILM/template và user Fluentd chỉ ghi clinic-logs-*, thiết lập kibana_system, user PostgreSQL clinic_metrics với pg_monitor và CONNECT; không cho exporter quyền ứng dụng hay superuser. Marker chỉ tạo sau tất cả thao tác thành công; complete kiểm marker đúng version. Chạy complete có thể gửi cảnh báo qua bot đã cấu hình: chỉ chạy khi chủ kênh đồng ý nhận cảnh báo vận hành. Không dùng Jenkins namespace deployer làm operator.

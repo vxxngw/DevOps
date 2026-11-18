@@ -18,3 +18,4 @@ infra/**
 deploy
 observability/**
 !observability/versions.json
+outputs
