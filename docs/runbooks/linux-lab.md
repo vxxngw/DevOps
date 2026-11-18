@@ -27,7 +27,9 @@ PostgreSQL chạy bằng Docker Compose (service `postgres`) với dữ liệu s
 .venv/Scripts/python.exe scripts/infra/vbox-lab.py --public-key ~/.ssh/anuyen_lab.pub
 ```
 
-Script tải `ubuntu-24.04-server-cloudimg-amd64.vmdk` (~563 MB, kiểm SHA-256) vào `.infra-local/downloads`, tạo VM `anuyen-lab` (2 vCPU, 4 GB RAM, đĩa 20 GB) trong `.infra-local/vbox` (ổ D), NIC1 NAT ra Internet, NIC2 host-only `192.168.56.10`. cloud-init nhận user `clinicops` + key qua SMBIOS/HTTP, không cần ISO. Log khởi động: `.infra-local/vbox/anuyen-lab/console.log`. Xoá VM: `VBoxManage unregistervm anuyen-lab --delete`.
+Script tải `ubuntu-24.04-server-cloudimg-amd64.vmdk` (~563 MB, kiểm SHA-256) vào `.infra-local/downloads`, tạo VM `anuyen-lab` (1 vCPU, 4 GB RAM, đĩa 20 GB) trong `.infra-local/vbox` (ổ D), NIC1 NAT ra Internet, NIC2 host-only `192.168.56.10`. cloud-init nhận user `clinicops` + key qua SMBIOS/HTTP (`10.0.2.2`, cần `--nat-localhostreachable1 on`), không cần ISO.
+
+Máy có WSL2/Hyper-V thì VirtualBox chạy ở chế độ NEM (log: `VT-x is not available`): 2 vCPU treo ở initramfs, paravirt `none`/`hyperv` gây kernel panic timer; 1 vCPU + paravirt KVM (mặc định) khởi động ổn định. Build image trên 1 vCPU mất khoảng 10–15 phút ở lần chạy đầu. Log khởi động: `.infra-local/vbox/anuyen-lab/console.log`. Xoá VM: `VBoxManage unregistervm anuyen-lab --delete`.
 
 ## 3. Chạy playbook (từ WSL, venv Ansible trong `.infra-local`)
 
