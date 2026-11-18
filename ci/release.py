@@ -3,9 +3,19 @@ import hashlib
 import json
 import os
 import re
+import time
 import xml.etree.ElementTree as ET
 
 from ci.common import IMAGES, OUTPUT, PRIVATE, ROOT, TOOLS, commit, now, read_json, run, write_json
+
+
+def verify_pull(reference, *, env, log, delays=(5, 10, 20, 40)):
+    # GHCR may answer "not found" for a digest pushed a few seconds ago; the last attempt still fails hard.
+    for delay in delays:
+        if run(["docker", "pull", reference], env=env, log=log, check=False).returncode == 0:
+            return
+        time.sleep(delay)
+    run(["docker", "pull", reference], env=env, log=log)
 
 
 def junit_passed(path, *, allow_skips):
@@ -127,10 +137,8 @@ def publish():
             if len(matching) != 1:
                 raise RuntimeError("Cannot determine a unique pushed digest")
             reference = matching[0]
-            run(
-                ["docker", "pull", reference],
-                env=environment,
-                log=OUTPUT / "push" / (name + "-verify-pull.log"),
+            verify_pull(
+                reference, env=environment, log=OUTPUT / "push" / (name + "-verify-pull.log")
             )
             manifest["images"][name] = {
                 **item,
