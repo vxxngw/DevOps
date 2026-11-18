@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.0](https://github.com/vxxngw/DevOps/compare/v0.3.0...v0.4.0) (2026-11-18)
+
+
+### Features
+
+* **ci:** Jenkins webhook deploys staging and waits for manual production approval ([#25](https://github.com/vxxngw/DevOps/issues/25)) ([8aadcaf](https://github.com/vxxngw/DevOps/commit/8aadcaf592999dcb1919a8da0b1569e3eb54a23e))
+* **compose:** make docker compose up work without a pre-generated .env ([#29](https://github.com/vxxngw/DevOps/issues/29)) ([ff2cd81](https://github.com/vxxngw/DevOps/commit/ff2cd81a8ae202edf0732a4a86807ec414545957))
+
 ## [0.3.0](https://github.com/vxxngw/DevOps/compare/v0.2.0...v0.3.0) (2026-11-18)
 
 
