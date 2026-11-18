@@ -1,12 +1,12 @@
 # Quy trình nhóm [Bài 1 – Giới thiệu DevOps]
 
-Cập nhật 18/11/2026. Repo: <https://github.com/vxxngw/DevOps> (tài khoản cá nhân `vxxngw`, chuyển từ Organization cũ; URL cũ tự redirect). Nhóm có **5 người**. Bảng phân công chi tiết vẫn ở [Sheet 50 task](https://docs.google.com/spreadsheets/d/1py3DJf2rO_x2zK0-LcE8tERMtrn2S5lINx7nbnM8-48/edit) và [onboarding](team-onboarding.md); VietAnh chưa có task trong Sheet.
+Cập nhật 19/11/2026. Repo: <https://github.com/vxxngw/DevOps> (tài khoản cá nhân `vxxngw`, chuyển từ Organization cũ; URL cũ tự redirect). Nhóm có **5 người**. Bảng phân công chi tiết vẫn ở [Sheet 50 task](https://docs.google.com/spreadsheets/d/1py3DJf2rO_x2zK0-LcE8tERMtrn2S5lINx7nbnM8-48/edit) và [onboarding](team-onboarding.md); VietAnh chưa có task trong Sheet.
 
 ## 1. Phân vai
 
 | Vai | Thành viên | GitHub | Nhánh làm việc | Phụ trách chính | PR được review bởi |
 |---|---|---|---|---|---|
-| TV1 | Hoang | `HoaAng911` (chưa nhận lời mời) | `Hoang` | API/UI/event contract, monitoring/logging/alert (Bài 10) | Long |
+| TV1 | Hoang | `HoaAng911` | `Hoang` | API/UI/event contract, monitoring/logging/alert (Bài 10) | Long |
 | TV2 | Vuong – chủ repo, điều phối | `vxxngw` | `codex/<task>` | Git/release, Docker/Compose/Jenkins, registry, CI security (Bài 2, 4–6, 11) | Hoang |
 | TV3 | Long | `baolong205` | `Long` | Linux/Bash, Terraform/Ansible, backup, chi phí (Bài 3, 7–8, 12) | Thien |
 | TV4 | Thien | `Thientao0609` | `Thien` | Kubernetes, HPA/KEDA, TLS/RBAC, rollout/rollback (Bài 9) | VietAnh |
@@ -42,7 +42,7 @@ flowchart LR
 2. Cài hook một lần: `pip install pre-commit && pre-commit install` (xem [CONTRIBUTING](../../CONTRIBUTING.md)).
 3. Commit theo [Conventional Commits](https://www.conventionalcommits.org/): `feat(api): ...`, `fix(worker): ...`, `docs: ...`, `ci: ...`.
 4. Mở PR vào `main`, điền template, gán reviewer theo vòng ở mục 1. Tiêu đề PR được workflow `pr-title` kiểm.
-5. `main` được bảo vệ: không push thẳng, không force-push, PR cần ≥1 approve và hết conversation mở.
+5. `main` được bảo vệ bằng ruleset `protect-main` (Settings → Rules): không push thẳng, không force-push/xóa, PR cần ≥1 approve và hết conversation mở. Tag `v*` được ruleset `protect-release-tags` chặn sửa/xóa.
 6. Merge bằng **Squash and merge** để mỗi PR là một commit Conventional trên main.
 7. release-please tự mở Release PR; merge PR đó sẽ gắn tag semver và cập nhật `CHANGELOG.md`.
 
@@ -65,7 +65,7 @@ Xem [architecture.md – Sơ đồ tổng thể](architecture.md#sơ-đồ-tổn
 
 **Bắt buộc**
 
-- [ ] **VietAnh:** gửi GitHub username; **Vuong** mời làm collaborator. **Hoang:** chấp nhận lời mời đang chờ.
+- [ ] **VietAnh:** gửi GitHub username; **Vuong** mời làm collaborator.
 - [ ] **Cả 5 người:** clone repo, đặt `git config user.name/user.email` khớp tài khoản GitHub (để commit được tính đúng người), cài pre-commit.
 - [ ] **Cả 5 người:** mỗi người có ít nhất 1 PR merge vào main, do người kế tiếp trong vòng review approve (PR đầu tiên theo [onboarding](team-onboarding.md)).
 - [ ] **Nhóm:** chốt vai TV5 cho VietAnh và thêm task vào Sheet.
