@@ -1,0 +1,103 @@
+{
+  "at_utc": "2026-11-15T13:54:31.435840+00:00",
+  "scope": "Existing dev image/container HTTP only; no image rebuild and not evidence of current source image",
+  "host_probes": [
+    {
+      "url": "http://127.0.0.1:8000/health",
+      "status_code": 200
+    },
+    {
+      "url": "http://127.0.0.1:8001/health",
+      "status_code": 200
+    },
+    {
+      "url": "http://127.0.0.1:8002/health",
+      "status_code": 200
+    },
+    {
+      "url": "http://127.0.0.1:18080/",
+      "status_code": 200
+    },
+    {
+      "url": "http://localhost:8000/health",
+      "status_code": 200
+    },
+    {
+      "url": "http://localhost:8001/health",
+      "status_code": 200
+    },
+    {
+      "url": "http://localhost:8002/health",
+      "status_code": 200
+    },
+    {
+      "url": "http://localhost:18080/",
+      "status_code": 200
+    }
+  ],
+  "internal_probes": [
+    {
+      "service": "api",
+      "exit_code": 0,
+      "checks": [
+        {
+          "path": "health",
+          "status": 200
+        },
+        {
+          "path": "ready",
+          "status": 200
+        },
+        {
+          "path": "metrics",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "service": "publisher",
+      "exit_code": 0,
+      "checks": [
+        {
+          "path": "health",
+          "status": 200
+        },
+        {
+          "path": "ready",
+          "status": 200
+        },
+        {
+          "path": "metrics",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "service": "worker",
+      "exit_code": 0,
+      "checks": [
+        {
+          "path": "health",
+          "status": 200
+        },
+        {
+          "path": "ready",
+          "status": 200
+        },
+        {
+          "path": "metrics",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "service": "frontend",
+      "exit_code": 0
+    }
+  ],
+  "action": {
+    "command": "docker restart --time 45 clinic-dev-api-1 clinic-dev-publisher-1",
+    "exit_code": 0,
+    "scope": "Restart only existing API/publisher; no DB/volume/image/Jenkins changes"
+  }
+}

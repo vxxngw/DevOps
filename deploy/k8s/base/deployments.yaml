@@ -32,7 +32,7 @@ spec:
       terminationGracePeriodSeconds: 70
       containers:
       - name: api
-        image: ghcr.io/vxxngw/devops-app:UNRELEASED
+        image: ghcr.io/vuongvo2207-gmail-com/devops-app:UNRELEASED
         ports:
         - name: http
           containerPort: 8000
@@ -134,7 +134,7 @@ spec:
       terminationGracePeriodSeconds: 70
       containers:
       - name: publisher
-        image: ghcr.io/vxxngw/devops-app:UNRELEASED
+        image: ghcr.io/vuongvo2207-gmail-com/devops-app:UNRELEASED
         ports:
         - name: http
           containerPort: 8001
@@ -222,7 +222,7 @@ spec:
       terminationGracePeriodSeconds: 70
       containers:
       - name: worker
-        image: ghcr.io/vxxngw/devops-app:UNRELEASED
+        image: ghcr.io/vuongvo2207-gmail-com/devops-app:UNRELEASED
         ports:
         - name: http
           containerPort: 8002
@@ -310,7 +310,7 @@ spec:
       terminationGracePeriodSeconds: 70
       containers:
       - name: frontend
-        image: ghcr.io/vxxngw/devops-frontend:UNRELEASED
+        image: ghcr.io/vuongvo2207-gmail-com/devops-frontend:UNRELEASED
         ports:
         - name: http
           containerPort: 8080
@@ -395,7 +395,7 @@ spec:
       terminationGracePeriodSeconds: 70
       containers:
       - name: mailpit
-        image: ghcr.io/vxxngw/devops-mailpit:UNRELEASED
+        image: ghcr.io/vuongvo2207-gmail-com/devops-mailpit:UNRELEASED
         ports:
         - name: http
           containerPort: 8025

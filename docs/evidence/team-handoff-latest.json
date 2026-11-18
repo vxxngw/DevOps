@@ -1,0 +1,19 @@
+{
+  "at_utc": "2026-11-15T20:16:08.383300+00:00",
+  "at_vietnam": "03:16:08 16/11/2026",
+  "path": "docs/evidence/team-four-handoff-20261115T201450Z",
+  "summary": "metadata.json",
+  "members": ["Vuong", "Hoang", "Long", "Thien"],
+  "assigned_tasks": {"Vuong": 14, "Hoang": 11, "Long": 13, "Thien": 12},
+  "closed_tasks": 0,
+  "existing_jenkins_build": 14,
+  "existing_jenkins_result": "SUCCESS",
+  "existing_build_source": "adb5dbdc692a0aaa6d4e710c5143f223abb4c032",
+  "new_build_executed": false,
+  "publish_executed": false,
+  "deploy_executed": false,
+  "main_protection": "BLOCKED_HTTP403_MAIN_PROTECTED_FALSE",
+  "ghcr": "BLOCKED_MISSING_CREDENTIAL_FILE",
+  "large_build": "BLOCKED_LOW_C_DISK_CAPACITY",
+  "scope": "Read-only runtime and Git snapshot; four-person documentation handoff, not completion of individual tasks or milestones"
+}

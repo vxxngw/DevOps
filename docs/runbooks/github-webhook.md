@@ -7,7 +7,7 @@
 Dedicated controller đã bật security, agent online; Docker dùng D và đủ dung lượng. Mật khẩu controller ở `.env.ci`; GitHub repo credential lấy từ GCM đã đăng nhập. `configure-webhook` tạo HMAC và token của `clinic-webhook` trong `.ci-local/webhook`, ngoài Git/Docker context. Không in nội dung file private.
 
 ```powershell
-.\.venv\Scripts\python.exe scripts/bootstrap-ci.py configure-webhook
+.\.venv\Scripts\python.exe scripts/ci/bootstrap-ci.py configure-webhook
 docker compose --env-file .env.ci -f compose.ci.yaml --profile webhook build webhook
 docker compose --env-file .env.ci -f compose.ci.yaml --profile webhook up -d --no-deps --no-build --wait webhook
 ```
@@ -30,7 +30,7 @@ Start-Process -FilePath $taskExe -ArgumentList @('tunnel','--no-autoupdate','--p
 Đọc URL `https://....trycloudflare.com` từ log local; xác nhận health200 và service=clinic-webhook, unsignedPOST401, `/login` và `/api/json`404 qua chính URL đó. Chỉ sau khi đúng routing/auth mới cấu hình repo:
 
 ```powershell
-.\.venv\Scripts\python.exe scripts/bootstrap-ci.py github-webhook --public-url https://URL_TUNNEL_THUC_TE
+.\.venv\Scripts\python.exe scripts/ci/bootstrap-ci.py github-webhook --public-url https://URL_TUNNEL_THUC_TE
 ```
 
 Bootstrap chỉ tạo/cập nhật hook trùng endpoint, events push/pull_request, `insecure_ssl=0`, HMAC lấy từ file local. Giữ nguyên các hook khác. Thu ping200 thật từ GitHub, deliveryID/event/status/SHA/queue/build và user `clinic-webhook`; bỏ toàn bộ header/body/HMAC/token khỏi evidence công khai.

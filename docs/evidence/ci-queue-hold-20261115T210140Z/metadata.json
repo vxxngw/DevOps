@@ -1,0 +1,60 @@
+{
+  "at_utc": "2026-11-15T21:03:51.377299+00:00",
+  "repository": "vuongvo2207-gmail-com/DevOps",
+  "local_commit": "75406f886530eb07877135da2241c279b9b9534b",
+  "remote_commit": "75406f886530eb07877135da2241c279b9b9534b",
+  "ci_state": {
+    "_class": "hudson.model.Hudson",
+    "quietDownReason": "An Uyen: low Windows C disk; hold validation for codex/team-four-handoff until C has >=5 GiB free. Build gates remain pending.",
+    "quietingDown": true
+  },
+  "latest_existing_build": {
+    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+    "building": false,
+    "number": 14,
+    "result": "SUCCESS"
+  },
+  "queue_items": [
+    {
+      "id": 29,
+      "blocked": true,
+      "buildable": false,
+      "why": "Jenkins is about to shut down",
+      "task": {
+        "_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob",
+        "name": "clinic-pipeline",
+        "url": "http://localhost:18090/job/an-uyen/job/clinic-pipeline/"
+      },
+      "parameters": {
+        "SOURCE_REF": "75406f886530eb07877135da2241c279b9b9534b",
+        "SOURCE_BRANCH": "codex/team-four-handoff",
+        "IS_PR": false,
+        "PUBLISH_IMAGES": false,
+        "DEPLOY": false
+      }
+    }
+  ],
+  "webhook_deliveries": [
+    {
+      "id": 3854253245023125504,
+      "event": "push",
+      "delivered_at": "2026-11-15T21:02:07.737Z",
+      "status": "OK",
+      "status_code": 202,
+      "after": "75406f886530eb07877135da2241c279b9b9534b",
+      "ref": "refs/heads/codex/team-four-handoff",
+      "repository_id": 1457478642
+    }
+  ],
+  "main_protected": false,
+  "protection_http_status": 403,
+  "registry_token_file_exists": false,
+  "disk_free_gib": {
+    "C:": 0.002,
+    "D:": 9.093
+  },
+  "open_prs": [],
+  "executed_new_build": false,
+  "published_images": false,
+  "deployed": false
+}

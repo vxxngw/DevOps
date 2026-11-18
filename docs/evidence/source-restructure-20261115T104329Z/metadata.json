@@ -1,0 +1,1280 @@
+{
+  "at_utc": "2026-11-15T10:43:29.849801+00:00",
+  "source_state": "UNCOMMITTED",
+  "base_commit": "5bf673411fa75b726832d1363cb7d147bbceadcd",
+  "scope": "Refactor verification, not GHCR publication, Kubernetes deployment or a new Jenkins pipeline build.",
+  "checks": [
+    {
+      "name": "ruff-fix-format",
+      "started_at_utc": "2026-11-15T10:43:29.890196+00:00",
+      "ended_at_utc": "2026-11-15T10:43:31.445011+00:00",
+      "command": [
+        "D:\\CODE\\OOPs\\Do_An\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "services",
+        "scripts",
+        "ci",
+        "observability"
+      ],
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "ci-lint",
+      "started_at_utc": "2026-11-15T10:43:32.628471+00:00",
+      "ended_at_utc": "2026-11-15T10:43:43.213450+00:00",
+      "command": [
+        "D:\\CODE\\OOPs\\Do_An\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ci.pipeline",
+        "lint"
+      ],
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "ci-unit",
+      "started_at_utc": "2026-11-15T10:43:43.348620+00:00",
+      "ended_at_utc": "2026-11-15T10:43:55.990646+00:00",
+      "command": [
+        "D:\\CODE\\OOPs\\Do_An\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ci.pipeline",
+        "unit"
+      ],
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "compose-dev",
+      "started_at_utc": "2026-11-15T10:43:56.130720+00:00",
+      "ended_at_utc": "2026-11-15T10:43:56.551660+00:00",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "compose.yaml",
+        "config",
+        "--quiet"
+      ],
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "compose-ci",
+      "started_at_utc": "2026-11-15T10:43:56.731037+00:00",
+      "ended_at_utc": "2026-11-15T10:43:56.887319+00:00",
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        ".env.ci",
+        "-f",
+        "compose.ci.yaml",
+        "config",
+        "--quiet"
+      ],
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "compose-ci-vm",
+      "started_at_utc": "2026-11-15T10:43:57.023474+00:00",
+      "ended_at_utc": "2026-11-15T10:43:57.180994+00:00",
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        ".env.ci",
+        "-f",
+        "compose.ci.yaml",
+        "-f",
+        "compose.ci.vm.yaml",
+        "config",
+        "--quiet"
+      ],
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "portable-cli",
+      "started_at_utc": "2026-11-15T10:43:57.317430+00:00",
+      "ended_at_utc": "2026-11-15T10:43:57.447662+00:00",
+      "command": [
+        "D:\\CODE\\OOPs\\Do_An\\.venv\\Scripts\\python.exe",
+        "D:\\CODE\\OOPs\\Do_An\\scripts\\ci\\run-sha-stack.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "dependencies",
+      "started_at_utc": "2026-11-15T10:43:57.601858+00:00",
+      "ended_at_utc": "2026-11-15T10:44:33.039228+00:00",
+      "command": [
+        "D:\\CODE\\OOPs\\Do_An\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ci.security",
+        "dependencies"
+      ],
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "integration-bind-source",
+      "started_at_utc": "2026-11-15T10:45:16.721189+00:00",
+      "ended_at_utc": "2026-11-15T10:45:37.687182+00:00",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "compose.yaml",
+        "-f",
+        "compose.test.yaml",
+        "-f",
+        "D:\\CODE\\OOPs\\Do_An\\.ci-local\\source-restructure-test.yaml",
+        "run",
+        "--rm",
+        "--no-deps",
+        "integration-tests"
+      ],
+      "exit_code": 1,
+      "passed": false
+    },
+    {
+      "name": "integration-bind-source-retry-2",
+      "started_at_utc": "2026-11-15T10:51:06.154379+00:00",
+      "ended_at_utc": "2026-11-15T10:51:32.872358+00:00",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "compose.yaml",
+        "-f",
+        "compose.test.yaml",
+        "run",
+        "--rm",
+        "--no-deps",
+        "integration-tests"
+      ],
+      "exit_code": 0,
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "No new full Jenkins run from refactored commit yet. C capacity is pending user cleanup; pre-refactor build #8 is baseline only."
+  ],
+  "disk_free_bytes": {
+    "C:": 137015296,
+    "D:": 10408636416
+  },
+  "integration_scope": "Current services/contracts/tests bind-mounted read-only into existing dev app image; real PostgreSQL/RabbitMQ/Mailpit; UUID test DB/queues. No new image build or SHA release claim.",
+  "source_files": [
+    {
+      "path": ".dockerignore",
+      "sha256": "2dba693ee76fcb211e2fa83bb60e449a3c4d24dd9ec92076760e6086eba95c1c"
+    },
+    {
+      "path": ".env.example",
+      "sha256": "131b8a869c8057e9bcae7bc8d29acd6be4f52a808967cc5c8f4b0264ddcca130"
+    },
+    {
+      "path": ".gitattributes",
+      "sha256": "1776adb3de2bdeb105bb530d12f304cd421f3633cf6e06bbce0795ffe20b08be"
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "sha256": "7fc0af9dba731f37cd44dffb5840bf4b543040bbc1d4c40ff684752e615aeb2c"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "be4b8bad591bc0add99a6df609afa7a52ffc911615a41f9164d0d38586d510bc"
+    },
+    {
+      "path": ".gitleaks.toml",
+      "sha256": "f5ceda390158a2b9744bcd602ac4beb8da773021fc601e4564e9a1468d73062d"
+    },
+    {
+      "path": ".vscode/settings.json",
+      "sha256": "752076c8cf085f6a86118b7dd55d0a129dfe74d7779a74ba520c918adb1d7c2d"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "sha256": "1a4bb52f44d9a5846f58547944fd0ca9391c2f9c59117f1a2a42a0f2c315df46"
+    },
+    {
+      "path": "Jenkinsfile",
+      "sha256": "6955c33832bc5513279c7f02ea77e16c8a72d6aeffb7d31bc256b9aad6055dcf"
+    },
+    {
+      "path": "README.md",
+      "sha256": "f28ad4cde69b3e372716969c5ec1816efa59c4b123c6a54b6935bb74834d92a7"
+    },
+    {
+      "path": "THIRD_PARTY.md",
+      "sha256": "c10cbba34694d6d0a1bfa9392f2a3871f87a37a50537f4d598afc2ab500d2ac1"
+    },
+    {
+      "path": "alembic.ini",
+      "sha256": "7a41fdc644a41a6b7b46176b152680ea33465a710418ec73291da9853a841cdf"
+    },
+    {
+      "path": "ci/__init__.py",
+      "sha256": "34ded0fd9c2154a85586a9b4301ed5c3626abe11ac35780af2ba240500a8c8fd"
+    },
+    {
+      "path": "ci/agent/Dockerfile",
+      "sha256": "1989990f7d542101901ff8b9d7039f0438f881b4da3efa046b3fdfeac72bed8b"
+    },
+    {
+      "path": "ci/cloudflared.json",
+      "sha256": "540ebc8f0c562b27a1ef24ee673b0b3aebed2826a182af099241bd107182c415"
+    },
+    {
+      "path": "ci/cluster.py",
+      "sha256": "13daad39c8cd433b9d9b09aa8781b83b89ba2011fb273449e574edc55e226dd0"
+    },
+    {
+      "path": "ci/common.py",
+      "sha256": "beba817d3d8e33cd8114ece9522f15ecc65059ad8740f4de3018fb0ad44ff3e4"
+    },
+    {
+      "path": "ci/compose.test.yaml",
+      "sha256": "32f03ef12e9a3b2e74f9142fb5c1d0c0085221b6dc28e475ff15c00d18d4f950"
+    },
+    {
+      "path": "ci/controller/Dockerfile",
+      "sha256": "9f6e598221f381181c55c9e1e6b98b3fb77a0f716d73d509721060c8352d0ddc"
+    },
+    {
+      "path": "ci/controller/plugins-lock.json",
+      "sha256": "52d56fdd335c3b12480c681e2f07d9d58f0bb5f4b0c3b1afe646c965edba0eed"
+    },
+    {
+      "path": "ci/controller/plugins.txt",
+      "sha256": "cbb908a00af946638ea8b1b258cc2608d2fcac74609e6869747a3c8270f04fb2"
+    },
+    {
+      "path": "ci/controller/security.groovy",
+      "sha256": "5b413eabe26db9f60969db35104591b9377c510b71ab21ffee900079d09fee6c"
+    },
+    {
+      "path": "ci/deploy.py",
+      "sha256": "f0244ac64c88bc9a9808ebc686243bfdf29c900b90fa149f772356d43cd50463"
+    },
+    {
+      "path": "ci/engine/Dockerfile",
+      "sha256": "faaa2e71bb8713af16a2fe48753d7e8cd44ad55f09338b1ce65713bfb3481b57"
+    },
+    {
+      "path": "ci/infrastructure.py",
+      "sha256": "94458440d18f6ef81b6e76dee6bdbe3e4128056859fb5a6b2798b1bdcb4f7ac0"
+    },
+    {
+      "path": "ci/install-agent-tools.py",
+      "sha256": "01a9dbfc6350b404330b7c93661ee463a2475386648351a10e751b87c84deb2a"
+    },
+    {
+      "path": "ci/observability.py",
+      "sha256": "32ae8f2c523e122cda68aaacc23ce4742a1ffe96e1e4dc784561d5761650bfbc"
+    },
+    {
+      "path": "ci/paths.py",
+      "sha256": "eedb98d99adb15ac8e012f6a66dbfdfe95a246d68f82a265c3631ba9ec313aa5"
+    },
+    {
+      "path": "ci/pipeline.py",
+      "sha256": "2ccb069b455f3652c465b8328f6f7aec73d0dbea0c527fc189b75f13e2190593"
+    },
+    {
+      "path": "ci/release.py",
+      "sha256": "f3961c4826cdf8fa824872d5ac3d5e6f355f27ad0bf811e4efbda52f0d666e69"
+    },
+    {
+      "path": "ci/rollback.py",
+      "sha256": "4741eb60d5feca1ac4889c29fda83a6432852f381a3421541f93b75979001204"
+    },
+    {
+      "path": "ci/security.py",
+      "sha256": "125e7594af880fb434864c513ec31bf9c99d4aaf15330bbed7b5f8f7113deb9e"
+    },
+    {
+      "path": "ci/smoke.py",
+      "sha256": "5fc0a39800e801eba5316973f6c1a29df2dd6f9662523b2bc72d9a8f7f2c08bd"
+    },
+    {
+      "path": "ci/tests/test_gates.py",
+      "sha256": "9a0b1cb2dc90df3a997f9c050b6b9517acf18200ec32276eb552f3569458413d"
+    },
+    {
+      "path": "ci/tests/test_gitleaks_config.py",
+      "sha256": "7ffe887dbab44d712695b7cafbc1b0d0410f53f8c124b3be4a6cb60028af217d"
+    },
+    {
+      "path": "ci/tests/test_infrastructure.py",
+      "sha256": "8e0cda3206f4a7a22c37d64d8758786bc48e01c8fd73c2f890b11e76b8d4ae0a"
+    },
+    {
+      "path": "ci/tests/test_observability_policy.py",
+      "sha256": "3bb3985e4532df3555c209e5733bc4b11a6feb64ccfdee17aa19250238dc606a"
+    },
+    {
+      "path": "ci/tests/test_paths.py",
+      "sha256": "63928accda943f6d8e489149c3b8e747c5ef7ba13641fc64391c82ea60a9da0b"
+    },
+    {
+      "path": "ci/tests/test_webhook.py",
+      "sha256": "d7abe78324f1bc44976abddce6e8f9946aa5512ebcbd92773e7c90d50333282a"
+    },
+    {
+      "path": "ci/tools.json",
+      "sha256": "3c279747200dcc381819b28461fca7d045f3cd14670b34edf54d6a28260f53d6"
+    },
+    {
+      "path": "ci/webhook/Dockerfile",
+      "sha256": "26df41f1fb63c2967f5923ab329040d961b4df7e4da23a004380fc2672b4f3a8"
+    },
+    {
+      "path": "ci/webhook/__init__.py",
+      "sha256": "0c9b6e4f45ae4d2bd1e584fbf890f926c3f008f423281c31bd2f57e926e11ab4"
+    },
+    {
+      "path": "ci/webhook/relay.py",
+      "sha256": "569dc4415cc5c301d614a655b75522eb8e62647adbf9ff68caa64d78f2fc5128"
+    },
+    {
+      "path": "compose.ci.vm.yaml",
+      "sha256": "3abf7dec4dc9bb522582166cd5c0fa1558187f35e64e29b98ab58eceb192864e"
+    },
+    {
+      "path": "compose.ci.yaml",
+      "sha256": "d73a7d0b6cb5ff8d483dcde8cea2675d015fc491c7c938829e020fca6010071e"
+    },
+    {
+      "path": "compose.test.yaml",
+      "sha256": "d4ee5582857e11d5b30809b6f60c0609d73468d52ee859ca8068c7f7d707ad1e"
+    },
+    {
+      "path": "compose.yaml",
+      "sha256": "a5053eb9c56bc3e3c945fe0e5452f95fc79a548966f2b21729f050ed3f87ea5b"
+    },
+    {
+      "path": "contracts/appointment-created.example.json",
+      "sha256": "5b938dcccbc16d0421c1201b42486a3b112b374d665b2deaef091b22dacea101"
+    },
+    {
+      "path": "contracts/appointment-event.schema.json",
+      "sha256": "957d49f0f9cba8371788ada51a0341ba834c74761545586be4c2c2ff5f1e8fd6"
+    },
+    {
+      "path": "deploy/k8s/base/account.yaml",
+      "sha256": "6671aad0b95fe61d6d3dd463922827063430a346d312cdf6bcad21b3f84833bd"
+    },
+    {
+      "path": "deploy/k8s/base/autoscaling.yaml",
+      "sha256": "0e830021c02e02b580c2ce41e1e5ba6fb0aadbf365ba21db1edff6540d08f2c9"
+    },
+    {
+      "path": "deploy/k8s/base/deployments.yaml",
+      "sha256": "6bee8a86daa07785e63bd1d9daf9e6c778a8d4c2e82791e9a55bad4e7f4e1119"
+    },
+    {
+      "path": "deploy/k8s/base/ingress.yaml",
+      "sha256": "86640cb708b0b02137d67bc2152c8f4e258471609bd25f671594bc8543aafc65"
+    },
+    {
+      "path": "deploy/k8s/base/kustomization.yaml",
+      "sha256": "a886a29cbf37938c3f493340ce3d054b537fab1737c5e96ba3c827c6873abd16"
+    },
+    {
+      "path": "deploy/k8s/base/migration.yaml",
+      "sha256": "5397a80971ec60d1f0144be35ddf52d4be1df9901fc4c7b3d8646954e6636b6f"
+    },
+    {
+      "path": "deploy/k8s/base/networkpolicy.yaml",
+      "sha256": "0397991c9ee86b2dd54cd3a54545a827357b5e398477a1f39a4b9d7d84750694"
+    },
+    {
+      "path": "deploy/k8s/base/nginx.conf",
+      "sha256": "f55a6a4edff7a8e019568ebb9228fdd4c0c07ae2e31a1aa95d8d439a946c5b04"
+    },
+    {
+      "path": "deploy/k8s/base/services.yaml",
+      "sha256": "2f37b3ca1d264cd5c65210e760f13f9b0488f0ab7ecd12b05f06fd2876c70493"
+    },
+    {
+      "path": "deploy/k8s/base/statefulsets.yaml",
+      "sha256": "d518aae10d345eea946f32e0a5b0541e5660dec4f511f37d0dcd0f61bdde52a3"
+    },
+    {
+      "path": "deploy/k8s/bootstrap/local-ca.yaml",
+      "sha256": "af44aee76889cab20c73b1ee1c098e5bb429ad217c698d822a4bfa72261e782d"
+    },
+    {
+      "path": "deploy/k8s/bootstrap/namespaces-rbac.yaml",
+      "sha256": "8e661f17f542a2539b6f6711c89a5f9a6e452310f89357b31043ae88f32e5717"
+    },
+    {
+      "path": "deploy/k8s/overlays/production/kustomization.yaml",
+      "sha256": "9a2b909a73c8e6822c6e51d89e7424ee9e2488867cae5a80270d7fec71b1d26c"
+    },
+    {
+      "path": "deploy/k8s/overlays/staging/kustomization.yaml",
+      "sha256": "e36dad10f2e162c39b483904c5c7c450143001330cdee14a745aad223e27d264"
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "eafb4c5ccbfc2b6808da8eb20e94c3fb54d061df8d435a38fb3b707dd0e27dc3"
+    },
+    {
+      "path": "docs/compliance-matrix.md",
+      "sha256": "73ad0d12c94cdb94376dd5cff03c2cb550b9bec6c8e671fa87d92ebc7b74aed0"
+    },
+    {
+      "path": "docs/guides/architecture.md",
+      "sha256": "1d7fa8da719e5c5201962cb776201739d3001276ae3529545a9efdf5e4e2ead4"
+    },
+    {
+      "path": "docs/guides/branding.md",
+      "sha256": "ed9c40f70735f0b338209c62bd55cbf834b2ed73d46fe498708b2ef55f322a91"
+    },
+    {
+      "path": "docs/guides/ci-cd.md",
+      "sha256": "4cb580d8ddc95a5cbe770c653882f43c3191aba88ee4708b53ec893f11002e06"
+    },
+    {
+      "path": "docs/guides/ci-recovery.md",
+      "sha256": "afce1ad59ca318f82bc2848d82521fc734c9cf6cabfca99ba59412f9b63b360d"
+    },
+    {
+      "path": "docs/guides/cloud-cost-estimate.md",
+      "sha256": "9e7c223f02218165ad48de2145ed9846885b444f6a2d6965672dc8312f53d41b"
+    },
+    {
+      "path": "docs/guides/decisions.md",
+      "sha256": "a34342842e4c91f897a394fe9164f2b765e2cde08b7dbf63e0a30f327ab60d4c"
+    },
+    {
+      "path": "docs/guides/demo-script.md",
+      "sha256": "286798e8bb6c69c557335379e7012c2c1420f9c0c518976650dfa542f23d20c1"
+    },
+    {
+      "path": "docs/guides/devops-review.md",
+      "sha256": "7f9c7ce59fe30c74d3c005b613484f16fb8581c9ea21b650782f0cf2be164e5f"
+    },
+    {
+      "path": "docs/guides/image-audit.md",
+      "sha256": "c3d06b2edb4dabd4932e8a1303d210481b0bc9f7c78c71ae6b09e2e2cb40cfec"
+    },
+    {
+      "path": "docs/guides/load-test-results.md",
+      "sha256": "6ebdf1c20a8e7dc81fb437787e2a37c93c0e2bccae467fa12dde23c970f69d8a"
+    },
+    {
+      "path": "docs/guides/local-setup.md",
+      "sha256": "c02655d10d6b0ab732ee50ac81f7e5d2208fedcbe9712e10eb4b728d9cb68910"
+    },
+    {
+      "path": "docs/guides/metrics-map.md",
+      "sha256": "bfba17ab58aebf5efe0b038dd1c6a4ce81adf6f2bd6cb59cb879fcab2debf63c"
+    },
+    {
+      "path": "docs/guides/milestone-1.md",
+      "sha256": "e5aa9622ec450767834dbe91863cbb81d1afef43acda5dae7ed1dafddbe4de25"
+    },
+    {
+      "path": "docs/guides/milestone-2.md",
+      "sha256": "6bb3cb6ba4bcbcc380b51879045e18468e21475c90af2a814088a74cfd67e61a"
+    },
+    {
+      "path": "docs/guides/milestone-3.md",
+      "sha256": "e3d60e0ec99ae1b89e143715c240722f83f87c40f27d2e04b58cfab98072e6e0"
+    },
+    {
+      "path": "docs/guides/milestone-4.md",
+      "sha256": "0bfc182c37152a1767db29aaa6c64f4c2aa67adc94cdf8559fbff39151e7d3cf"
+    },
+    {
+      "path": "docs/guides/postmortem.md",
+      "sha256": "767bac1e3f9d3c9f7884b4e2918e67b3f0f0c4970a1dbb29409716c9e9485a8b"
+    },
+    {
+      "path": "docs/guides/project-report.md",
+      "sha256": "83579ce5cd6a04cbc23879c89b28ec6a0b59cdc6684df11a72e14051cbceb45e"
+    },
+    {
+      "path": "docs/guides/resource-budget.md",
+      "sha256": "5e72cf0e28cd9ccd2f4165748fb5ec225c586141bd1e15cf72ad26e18f2c005b"
+    },
+    {
+      "path": "docs/guides/security.md",
+      "sha256": "bdd113aa5a792ddd9f5a621b4e12dcc3cf42fd3c710776c459575137364613c4"
+    },
+    {
+      "path": "docs/guides/soft-minimal.md",
+      "sha256": "ce900df6e9f672a6da797ccfc1bdf072b2becaac4c6912fc9419e6133fa51d9a"
+    },
+    {
+      "path": "docs/guides/source-structure.md",
+      "sha256": "a68a3d79877b3c8e637ddebf5bee7e7c5c060b06dd147388bf21423b6c2df47b"
+    },
+    {
+      "path": "docs/guides/submission.md",
+      "sha256": "03808f8fcdf66c86b9d8806c2b1155f8d071d5fab68c2fb04d9d73c412e93dd4"
+    },
+    {
+      "path": "docs/guides/team-onboarding.md",
+      "sha256": "c6303e872313c0aa9ac6334138c416cabda8d3a05a1d3628a5fdadd35a72bdf8"
+    },
+    {
+      "path": "docs/guides/team-workflow.md",
+      "sha256": "5b162d75aea173cca5d048254c28c9e475be582a56ebc4361d0d81b006411538"
+    },
+    {
+      "path": "docs/guides/ui-requirements-review.md",
+      "sha256": "c086dae4bcc1a2054d2a3427625b101851cad9279cef0c1e07c00c0827f63e1e"
+    },
+    {
+      "path": "docs/guides/versions.md",
+      "sha256": "4d531c589dfdda47bcc96279c076ae0977aaebdd7ea30f0a4b2246e115dc7198"
+    },
+    {
+      "path": "docs/guides/viva-preparation.md",
+      "sha256": "515845a9717898d992fb93cdb5158424a029b19bea1d108aa6dbd99f104690a5"
+    },
+    {
+      "path": "docs/runbooks/alerts.md",
+      "sha256": "0e01bf2876978c7e9e0fc02cc8cb19fe4fccd9fd942bbd020f3499835fce65c1"
+    },
+    {
+      "path": "docs/runbooks/deploy.md",
+      "sha256": "55f60609ba6fe69ce71b756c6d498aa8e1d393dfe843f81e1da48c8bcc71dc79"
+    },
+    {
+      "path": "docs/runbooks/docker-storage-migration.md",
+      "sha256": "d583ed8716147d401cc9fbb938da73acbb0e4e1e139156d12e5e39efab3ea566"
+    },
+    {
+      "path": "docs/runbooks/github-webhook.md",
+      "sha256": "d313eee73707173ae203293a4811baa62e5104ea633af496d4bd87f72d097efc"
+    },
+    {
+      "path": "docs/runbooks/infra-lab.md",
+      "sha256": "4ecb38e281e8ee844dedde302e783fd431d9bdb11964f76d6d6b47ad5cd0e701"
+    },
+    {
+      "path": "docs/runbooks/notifications.md",
+      "sha256": "b65218e60db04bb77542932ea7ee223558701f4a8a94623e4382ca1df97dd0fd"
+    },
+    {
+      "path": "docs/runbooks/observability.md",
+      "sha256": "a8b5663a5850200079d52d642944914695ade71e12c49c3e05f7a46dde31370f"
+    },
+    {
+      "path": "docs/runbooks/restore.md",
+      "sha256": "b9c2ac5b3bb0271582a64485b8bbb01556f19170ec6cf25ebe1318bbf2c39b90"
+    },
+    {
+      "path": "docs/runbooks/rollback.md",
+      "sha256": "c8bc72417f938d5e5ad2a1055f781c66eb485d7eb6d68d98c2f89231780ad852"
+    },
+    {
+      "path": "frontend/.dockerignore",
+      "sha256": "b2b14144c901c47ba035b93d725be73701be46fb69eb9f80c7df8bb6b220cfa6"
+    },
+    {
+      "path": "frontend/.prettierrc.json",
+      "sha256": "fbd3ee693016745c14a5dd8ec8d895d334fc3505f239c8d81d7117eff4efed97"
+    },
+    {
+      "path": "frontend/Dockerfile",
+      "sha256": "4533e6498899b26b4296e0776e1f07ae4d9f10e1f27c6dcdae81c2c600384ee6"
+    },
+    {
+      "path": "frontend/eslint.config.js",
+      "sha256": "331a2ea5ca3d53d3a343a49139eb8b1fdd42f94196ed5109276422acce77c572"
+    },
+    {
+      "path": "frontend/index.html",
+      "sha256": "f86516ac9883e71129e1a49cf45806d5b1a3d46201094114e80f9eccdd93f7ef"
+    },
+    {
+      "path": "frontend/nginx.conf",
+      "sha256": "b5ca11dea3ee9784c1d19bae0e295a3a3e36d4bfc02c26e6e11603f12dcdfe56"
+    },
+    {
+      "path": "frontend/package-lock.json",
+      "sha256": "2c8c2a0f715d30000e3cfe40ffb30c771c7144a525bb2c4a9f4e68a5cb6f0b39"
+    },
+    {
+      "path": "frontend/package.json",
+      "sha256": "f38aef4b22ab93fc96b979f20c36e9656282ad2bc92d2329f24f340982047a36"
+    },
+    {
+      "path": "frontend/public/brand/Inter-OFL.txt",
+      "sha256": "3b0a5fca3d17942cde889069889dedbbbd075e9b599968c82a95f4d944e9b345"
+    },
+    {
+      "path": "frontend/public/brand/an-uyen-logo-blue.svg",
+      "sha256": "207345e6bef8c08c133f5ff5313cb74f41c22cfb95f6618cacd47829e1585f1d"
+    },
+    {
+      "path": "frontend/public/brand/an-uyen-logo.jpg",
+      "sha256": "d98805068434ba4745e2bc0b93a03e76158a0550216c93ade36da63b11f88d3f"
+    },
+    {
+      "path": "frontend/src/app/App.tsx",
+      "sha256": "df670357000f6f8d67ba03fe5adf3653782c9c5b98a0009732a8a42da0767845"
+    },
+    {
+      "path": "frontend/src/app/styles.css",
+      "sha256": "5c7f4eb754a6dfba7849c767db90dc5662f15d031f16d485af6d9413986d9c2a"
+    },
+    {
+      "path": "frontend/src/app/useClinicApp.ts",
+      "sha256": "9cb78491f973456f8ce39ec1fb92aa443adbe983925ec87f9a647b944b3e1257"
+    },
+    {
+      "path": "frontend/src/components/ui/icons.tsx",
+      "sha256": "215191b241985c4168f0bab52757697af59c3a6027f4bf36084250af2a65fea6"
+    },
+    {
+      "path": "frontend/src/components/ui/index.tsx",
+      "sha256": "c513e97b3c3ad700a709c1fddf58bb905ad2ea55852175dbc87bf6df4d7eddab"
+    },
+    {
+      "path": "frontend/src/features/admin/AdminSetup.tsx",
+      "sha256": "5abc1741984fa7cecf575768bcc27dd7b941e31fa03e6258d911d32ba4e65467"
+    },
+    {
+      "path": "frontend/src/features/appointments/AppointmentList.tsx",
+      "sha256": "dbb48dfaf1874baf6fc0692ef2446a7f91dfde40fe0d30a707b82b120df57130"
+    },
+    {
+      "path": "frontend/src/features/appointments/labels.ts",
+      "sha256": "743b0b82a2726da16bd1d0f711314b4ea24747a9bf10d0102920bd01007e44c7"
+    },
+    {
+      "path": "frontend/src/features/auth/LoginPage.tsx",
+      "sha256": "42adbdb6d77474d7a7c7334e1b29027eb6c8ea6129f62e79bb32ce04032a695e"
+    },
+    {
+      "path": "frontend/src/features/booking/BookingConfirmation.tsx",
+      "sha256": "90bb841c3e5ef817769c9ba0e5fa41bec590d06aca41404076f87ab2a042d953"
+    },
+    {
+      "path": "frontend/src/features/booking/BookingWizard.tsx",
+      "sha256": "4563de441c3ae706a580f9eb8a1c968b437b5d761ad509e22537c14eb2b38020"
+    },
+    {
+      "path": "frontend/src/lib/api.ts",
+      "sha256": "bf7526e3b506d343a78e319363c65bbcf7369c9b907e9e31ba4974000dca9a75"
+    },
+    {
+      "path": "frontend/src/lib/types.ts",
+      "sha256": "c391e32f10347378e561dfc88a5506ea4d0a186313be5c85b71f29cd4f864297"
+    },
+    {
+      "path": "frontend/src/main.tsx",
+      "sha256": "616713d973ab38fb2d12e20085a4a64eeebc10293c53de676dbaf19de16fac86"
+    },
+    {
+      "path": "frontend/tests/requirements-audit.cjs",
+      "sha256": "cc6dd36e44e5cbb2699d87404e81564fb8a6604a4bfe4a48d16f0d7e0c54b8c2"
+    },
+    {
+      "path": "frontend/tests/smoke.cjs",
+      "sha256": "1bf4efd25d99f123d47655fe74b32ab5af54f1d3f0ba9fb2e0124d2b90d954c6"
+    },
+    {
+      "path": "frontend/tests/soft-minimal-smoke.cjs",
+      "sha256": "605b0f231478fdf1858ea856ddbdbdf45e6f286053592fa98ea46556965b7d5e"
+    },
+    {
+      "path": "frontend/tests/vite.preview.config.ts",
+      "sha256": "e1f864d9185a748f2d5af2dc6bee7c175f6e3e30c6edd49660c3b821f667e03e"
+    },
+    {
+      "path": "frontend/tsconfig.json",
+      "sha256": "71eb37c1e9a9e3a9222f26c53fd95b9dc1b09fdf6d9460986a3e4b4a65d2c68f"
+    },
+    {
+      "path": "frontend/vite.config.ts",
+      "sha256": "5a3466f21183ebd2813a89e7144ea5358a35567a219741883253c89f21bb0cb3"
+    },
+    {
+      "path": "images/mailpit/.dockerignore",
+      "sha256": "08bb7a70af4ae5a9c15226f499f2e76055ebd521550f87eb102a1316cdb9df38"
+    },
+    {
+      "path": "images/mailpit/Dockerfile",
+      "sha256": "ec621ee4c830b3b597a8449589c24a63c2163cf1cc6a39d8b7f469617cf10238"
+    },
+    {
+      "path": "images/postgres/.dockerignore",
+      "sha256": "08bb7a70af4ae5a9c15226f499f2e76055ebd521550f87eb102a1316cdb9df38"
+    },
+    {
+      "path": "images/postgres/Dockerfile",
+      "sha256": "a7cab25ddd85e5463c305fe0bff8fa24bff0fd72fcb0dda20112d5cbb320a3dc"
+    },
+    {
+      "path": "images/rabbitmq/.dockerignore",
+      "sha256": "b8199bf59cafb4651505d3396b9d644c30b9e01bc5d865a3bada87789bef9f4d"
+    },
+    {
+      "path": "images/rabbitmq/Dockerfile",
+      "sha256": "c1bf4d23fcbbbc14e1e1c4b22b4e94eff5042fe41b2783d3555ce07a77fb58e8"
+    },
+    {
+      "path": "images/rabbitmq/enabled_plugins",
+      "sha256": "a63f0dd4e9181c82af9ad191df89429da0b761517e4a05570a0c67de4c0c1c2d"
+    },
+    {
+      "path": "infra/ansible/ansible.cfg",
+      "sha256": "2411ffc7a5a41615ed08193a516aca3ae2050ed23f09f46d4f22e4ba88c348b5"
+    },
+    {
+      "path": "infra/ansible/collections/requirements.yml",
+      "sha256": "9b9358421e13ae73d57813c7698ade8be91e74b7164ad0c8d26f66dfb2420014"
+    },
+    {
+      "path": "infra/ansible/inventories/lab/group_vars/all.yml",
+      "sha256": "acd4d0a1038a20944f4243ce9b843d2237b58f325bda14497c6b1f5ccb375dcc"
+    },
+    {
+      "path": "infra/ansible/inventories/lab/hosts.example.yml",
+      "sha256": "d0165c3a5bc60fe8900360d8723bd4a5bacc5e4da140ffefdcf497f5a0bdcf33"
+    },
+    {
+      "path": "infra/ansible/inventories/lab/vault.example.yml",
+      "sha256": "425f61cc7a98817e18212ee407e518a108a20d386a2f80f5b9d6085dfc2f77b5"
+    },
+    {
+      "path": "infra/ansible/roles/backup/handlers/main.yml",
+      "sha256": "a03aeb4aac847ed078a57d014975ecb68ae1a2e8353da862938e4cc49118bb64"
+    },
+    {
+      "path": "infra/ansible/roles/backup/tasks/main.yml",
+      "sha256": "7c8a28d1bd832f3562de735ceef7ce73907120aa42b9c0c14f9cba7a186fb182"
+    },
+    {
+      "path": "infra/ansible/roles/backup/templates/clinic-backup@.service.j2",
+      "sha256": "c2b671c931cf87b3dc00d651a86f61be16a5facc3a0c76a6a163bd67ef6d1093"
+    },
+    {
+      "path": "infra/ansible/roles/common/handlers/main.yml",
+      "sha256": "78a29c9f260f824aae2fb6affc37b4f9ebd967f8e3893b96122be60bd239bba7"
+    },
+    {
+      "path": "infra/ansible/roles/common/tasks/main.yml",
+      "sha256": "a7446212bb75b44dd74029bb54bec91583007a16ce3fb54cbacfb2751a5e93f9"
+    },
+    {
+      "path": "infra/ansible/roles/docker/tasks/main.yml",
+      "sha256": "93ccb6d1b1d7fcf8d102e0d2b9b6772193f2f79b60d32cc1a2ecd6bb9625726f"
+    },
+    {
+      "path": "infra/ansible/roles/jenkins/tasks/main.yml",
+      "sha256": "7b1bada852bbef4c2d51326e4e0c4c936096d2a5ece87d45b3ae750758af9196"
+    },
+    {
+      "path": "infra/ansible/roles/k3s/handlers/main.yml",
+      "sha256": "b4c668fcf498c0c0c572627f44c22e516ed523ccc1ce29636fd692d8a0e5f0df"
+    },
+    {
+      "path": "infra/ansible/roles/k3s/tasks/main.yml",
+      "sha256": "8affab8fb75c1f5541eeaed443ccdfcf547a577ff51c92c439af68f892aaef0a"
+    },
+    {
+      "path": "infra/ansible/roles/k3s/templates/config.yaml.j2",
+      "sha256": "cb6f89958253110446fa301dc079cda7587c7e1415a972fcac556f02a0ef8b5f"
+    },
+    {
+      "path": "infra/ansible/roles/k3s/templates/k3s.service.j2",
+      "sha256": "97c03d98dc0e25c8be6bdf15fad6ac7b0e9c31f640559e372722e84acfd98ad4"
+    },
+    {
+      "path": "infra/ansible/roles/node_exporter/handlers/main.yml",
+      "sha256": "20f1e3301337e2461c82eff732c9637ad98610dcc91b0c0f2a8d96960722c2ac"
+    },
+    {
+      "path": "infra/ansible/roles/node_exporter/tasks/main.yml",
+      "sha256": "3b978ceeafcb552826c4c10025602ef74ab714652e8c34d85aa4affa2cfeb815"
+    },
+    {
+      "path": "infra/ansible/site.yml",
+      "sha256": "890cb1868541c225a19f6ad6c06d7120d4481b5c76b1547d6353c696f10ef6b7"
+    },
+    {
+      "path": "infra/ansible/tasks/load-vault.yml",
+      "sha256": "f10dca8e9d0ceb1647be698e83378632ed1583e52e6ad83797128f6348281eab"
+    },
+    {
+      "path": "infra/lab-budget.json",
+      "sha256": "c17797679887722d8cb07fd363753894282efc1506882dab65facfdbacbb85d7"
+    },
+    {
+      "path": "infra/requirements-ansible.lock",
+      "sha256": "06d169a3ec7b7dae779aeedf5b5e8430013dd7a57044973c947f1229ee1cf3b1"
+    },
+    {
+      "path": "infra/requirements-ansible.txt",
+      "sha256": "32d86677eecb63b8ffe211e49275a1bf084ead2b8bca94321f94074abcf1a2a2"
+    },
+    {
+      "path": "infra/requirements-static.txt",
+      "sha256": "0b0709dc3105d98b29f4fc6a870c15c0cf42191498384ef8a2a32d3fcf5f34ed"
+    },
+    {
+      "path": "infra/terraform/.terraform.lock.hcl",
+      "sha256": "11d4889705f60e20d3e4b95ec7abb1334e7bcb7cfb851f8dd6da0ce9bc851113"
+    },
+    {
+      "path": "infra/terraform/lab.example.tfvars",
+      "sha256": "eaabd39d17838fbf0ef5be4275298b2229dccbc6e0831494407afb28603fdb7c"
+    },
+    {
+      "path": "infra/terraform/main.tf",
+      "sha256": "1f8504495d7ab705a8f3d1e47ecf3b9375a0953b99928bbc8361b140ff1ad56c"
+    },
+    {
+      "path": "infra/terraform/modules/vm/main.tf",
+      "sha256": "5b2525ac58f7740cf05dcd66b24503a02d006a71ab033cf2abe768e4cbf28571"
+    },
+    {
+      "path": "infra/terraform/outputs.tf",
+      "sha256": "09566183e3774acbdc37683a1c3574b65af0974ccb73ef08dcb109b6aaa715ac"
+    },
+    {
+      "path": "infra/terraform/variables.tf",
+      "sha256": "01eefb2ffc687e01279ddcc81e90dacfb2a606b2f7fa20cd179d3fee255854c5"
+    },
+    {
+      "path": "infra/terraform/versions.tf",
+      "sha256": "b8c37ba9842d912a881dd66373fa1221984452edc7aef173b4cdf7708082fa23"
+    },
+    {
+      "path": "infra/versions.json",
+      "sha256": "222808f439cae8a98ec3ec3bca10f579c44a15d04a12876e42fa2ac7111955f3"
+    },
+    {
+      "path": "observability/__init__.py",
+      "sha256": "a560ecab914b6a192a6ed5d48092fee061bf484b4f70fd501a03bd113a001c07"
+    },
+    {
+      "path": "observability/config.py",
+      "sha256": "2858ee6850d5ec86742860d45068833c49f6d663a3f0d4b63b29252805a66388"
+    },
+    {
+      "path": "observability/efk/fluent.conf",
+      "sha256": "4046d895c35a71918a7bf5fd2911d123b1568bf9dca550ba5536ed463851f2d7"
+    },
+    {
+      "path": "observability/gates.py",
+      "sha256": "c7871cd2d7fd3ee4601a2827066a40a6e281445fb898f1fd454e9e0a40a408ef"
+    },
+    {
+      "path": "observability/grafana/dashboards/operations.json",
+      "sha256": "cd9b363cc7759bc01981cb52a8d0080d3bc576cad22783b5f2a8ff28c18009c4"
+    },
+    {
+      "path": "observability/grafana/datasources.yml",
+      "sha256": "33a5eeddab983579dad9d551abf6569da388341c5287764b3ea7cd0442fcc079"
+    },
+    {
+      "path": "observability/grafana/providers.yml",
+      "sha256": "c0d1d257da554ea9595e8b105d0afa9ee92f1e1df645d2166e6c8be2e141c225"
+    },
+    {
+      "path": "observability/k8s/resources.yaml",
+      "sha256": "529d8f51952e9fad20641e31ead5351db69559dc4e2504d8eb7d4807b5d60a30"
+    },
+    {
+      "path": "observability/kustomization.yaml",
+      "sha256": "6bad0c6cb300ab5f3ef6a4e2debf0541bcd59777dbd99c4508d317b4ddf01188"
+    },
+    {
+      "path": "observability/prometheus/demo/clinic-demo.yml",
+      "sha256": "b154ae905b74cb39512d50f93be3c593934aa7a42771591c9269cbb69e7a31c1"
+    },
+    {
+      "path": "observability/prometheus/prometheus.yml",
+      "sha256": "8e51e8c25fe23d4e2b4ccf22d40b790fa510f316a564cbb1fbb7464ab7b7fa2c"
+    },
+    {
+      "path": "observability/prometheus/rules/clinic.yml",
+      "sha256": "0a45ef9ad1ba4db01a718a8acafaaf938868987674d23855345adf0aeba272db"
+    },
+    {
+      "path": "observability/prometheus/tests/clinic.test.yml",
+      "sha256": "cc2cfc6cf4ebcbdef7b490d0321da1ee3ce0ba097f54b93730366f23f7fce941"
+    },
+    {
+      "path": "observability/versions.json",
+      "sha256": "3c66fd7e0082ff6b43f4133eee031a08737e442004dee46dd586372aa1e4505c"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "5656e7c4f649127d0a77edd2ffe9c6af137baec7d2c4810e09499213afb3cf5e"
+    },
+    {
+      "path": "requirements.in",
+      "sha256": "8e91236a627f3a2f7540467e5f7cf2fbc691ca8bf17933acbdaf997050de83f0"
+    },
+    {
+      "path": "requirements.lock",
+      "sha256": "8cea72b78c7859369891cfc856b5363cddd583606e5f973a7089b336651e7f93"
+    },
+    {
+      "path": "scripts/ci/bootstrap-ci.py",
+      "sha256": "d3092bae6f06a22484cf65009bbcd402782b2804034362508a7437faebd85ab1"
+    },
+    {
+      "path": "scripts/ci/install-ci-tools.py",
+      "sha256": "a91d3ab88996d9b0ead33564f3dcae224a65869029d2121b814f86fb4bf51d47"
+    },
+    {
+      "path": "scripts/ci/pin-jenkins-plugins.py",
+      "sha256": "9a1f4c11341e8c4b6a876fb0a5e588f666b937b76b981c6456e9ecf9bc665eeb"
+    },
+    {
+      "path": "scripts/ci/run-sha-stack.py",
+      "sha256": "b2021a79f8f9cf585474df13e9854ae44fefa9e6efd4dd6397acc9d02c3d3fec"
+    },
+    {
+      "path": "scripts/ci/verify-m2-local.py",
+      "sha256": "1b2dffb7af275a8ebd2ae90d3c5221ee07e8c37c8a25f8401f14670cd09466be"
+    },
+    {
+      "path": "scripts/ci/verify-m3-local.py",
+      "sha256": "0cb0bacab6cfcbcf110d7e2c0ec2ae7632a415cd86c97a8f3c345caab846374c"
+    },
+    {
+      "path": "scripts/ci/verify-m4-local.py",
+      "sha256": "1e65aed07945a364185c6535bbea5da1a3e74a7b189a5fd7cb2ae88c011a957f"
+    },
+    {
+      "path": "scripts/ci/verify-sha-stack.py",
+      "sha256": "7cf5d192735a719e21173622e23e1d44c4102edf59a9c0190e0b91e909400670"
+    },
+    {
+      "path": "scripts/dev/check-integration.ps1",
+      "sha256": "cf18cd544d847fa38c141467acbd7269a3086d8e0f504def6852c852739bee8c"
+    },
+    {
+      "path": "scripts/dev/check-ui.ps1",
+      "sha256": "3fb87d98e7f1ae63760ac1530ed9ca18a7d76e6c495815d3dda92304cb203abb"
+    },
+    {
+      "path": "scripts/dev/collect-runtime.py",
+      "sha256": "df07e28bb9af14dd2897a86ff1b6207bb8ca5653e5305da25ca09f3b775d37f2"
+    },
+    {
+      "path": "scripts/dev/init-env.py",
+      "sha256": "becbc9ec64f7b8b1e00bccc8ecdfb8dd48608131da173753787a1812973d1dc1"
+    },
+    {
+      "path": "scripts/dev/preflight.py",
+      "sha256": "5419683545cfbc2dfa73775f722bc2bd8276632d0d5bbfd8a401a6a0c12985cb"
+    },
+    {
+      "path": "scripts/dev/smoke-runtime.py",
+      "sha256": "261cfee5c35aa8343afce465f8f44d946835ae84dd0c833b6de0ae321c449f4a"
+    },
+    {
+      "path": "scripts/dev/verify.py",
+      "sha256": "f3bed518754c90999c2deb6f43457071025f7e7478e4c27045bd5eacf87fabaf"
+    },
+    {
+      "path": "scripts/infra/backup.sh",
+      "sha256": "d335cf348e7094e65f00b391304e78dac69a9c486de4e08d657b12e7e14dce2d"
+    },
+    {
+      "path": "scripts/infra/bootstrap-cluster.py",
+      "sha256": "82069440c3defcf57ee5f5b1ae308935983a0b4813e5d530b1a151b93d5d7a75"
+    },
+    {
+      "path": "scripts/infra/bootstrap-observability.py",
+      "sha256": "fbdd9284f8cc570e9cabd7cf70ac354734de0fc7ee9c4a934d6862ffec6752d3"
+    },
+    {
+      "path": "scripts/infra/check-infra-control.sh",
+      "sha256": "83164bc0550abe56a844ad43a04c62ac1ad777ba80a6f864e5499e73bf219088"
+    },
+    {
+      "path": "scripts/infra/check-vault-local.py",
+      "sha256": "b1e720fe671adb09a03df59e7aaffc982161935bbe5f6d86a63aaca63c623523"
+    },
+    {
+      "path": "scripts/infra/configure-observability.py",
+      "sha256": "25fa281e62e72c171ed767f5fa36e442873aa858b6c5bbd83daac11a1a62c3a0"
+    },
+    {
+      "path": "scripts/infra/host-health.sh",
+      "sha256": "986b7cfe610ccae8ab0fa05e6d70923ecd523cf6327b198a6d0d6dcaecd6505a"
+    },
+    {
+      "path": "scripts/infra/install-infra-tools.py",
+      "sha256": "b551d4f3e880d8d8cb1ccfd792801bff39caa5c963e621c6804b72812337481d"
+    },
+    {
+      "path": "scripts/infra/install-observability-tools.py",
+      "sha256": "988d3d23a3b60e233e45020298d7e4cf05e5163997797a94d1291e8990ad2fe9"
+    },
+    {
+      "path": "scripts/infra/issue-cluster-access.py",
+      "sha256": "9ed46329aeb66f151d5e1bb013d6c76c4c959111afa8c4b164bec9772eaf3ee7"
+    },
+    {
+      "path": "scripts/infra/lab.py",
+      "sha256": "9c13228144d4fa3a51097942f06099e88cbab62e23b6919a84437d3626115a63"
+    },
+    {
+      "path": "scripts/infra/load-http.py",
+      "sha256": "d702c19aa2b342e2689d94050cf6801c2a0bf59bd641da91361d31ebc6a92333"
+    },
+    {
+      "path": "scripts/infra/load-queue.py",
+      "sha256": "89332cf2fa4e626911e5bd2d595338d4a8cb7cca0f6d3564a025985a91587ea8"
+    },
+    {
+      "path": "scripts/infra/preflight-infra.py",
+      "sha256": "32e1453523805a9c9747a39e443a1173e530b48eebbe78f50555ebb8063a6d16"
+    },
+    {
+      "path": "scripts/infra/prepare-cluster-secrets.py",
+      "sha256": "6a2c213d3292102e3693258767e974f697beb072e4fb303f69ceb22c15fbf3d4"
+    },
+    {
+      "path": "scripts/infra/prepare-observability-secrets.py",
+      "sha256": "d639bb90525167d6654a7903cf95b3786262469296e557e7948fd903b87437f7"
+    },
+    {
+      "path": "scripts/infra/restore.sh",
+      "sha256": "9ab59723b30ca0122ef3f9188c13dccf2a29986bc4e0ec40266dc32f95758422"
+    },
+    {
+      "path": "scripts/infra/scan-observability.py",
+      "sha256": "4708d2abeda3e0238ece986c6879d4fc82cffb35c7b9166fa0bdc32f7d1787ba"
+    },
+    {
+      "path": "scripts/infra/setup-infra-control.sh",
+      "sha256": "28fb4a1c32ee76b3ec2e96be4ea2384d1b95a1571e4e8f19b6496f3384764882"
+    },
+    {
+      "path": "scripts/maintenance/backup-docker-before-move.ps1",
+      "sha256": "daf16702ee1638128f4c38f3fe3376d26e47de0475cee6ed021b9c1b79d38f27"
+    },
+    {
+      "path": "scripts/maintenance/inspect-docker-storage.ps1",
+      "sha256": "2f2c18603cc84b00c18e63955a15520340e3305a0be9debc4e69d8ec36c4479b"
+    },
+    {
+      "path": "scripts/maintenance/prepare-docker-storage-folders.ps1",
+      "sha256": "c3236de7742c4a1a78f4a1f4ffe4f001dd337f9b163b15207b29ad0564235984"
+    },
+    {
+      "path": "services/Dockerfile",
+      "sha256": "16548ccfd91b936e20628d6f6fb8d8776e82b993f4e952d8104dfb8b992f7584"
+    },
+    {
+      "path": "services/clinic/__init__.py",
+      "sha256": "4e87e5a76360973a9d87df6f26c4a27bea16658227e4815e530932a506308f1e"
+    },
+    {
+      "path": "services/clinic/api.py",
+      "sha256": "9ad9e4659a035b7ebc6c0f0097dfb9925f4480f48af4f500417612fb93463d77"
+    },
+    {
+      "path": "services/clinic/application/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "services/clinic/application/appointments.py",
+      "sha256": "9434f4aa4442239d05652acc96ae91be7b30d427104309edb86352be6304bae6"
+    },
+    {
+      "path": "services/clinic/application/auth.py",
+      "sha256": "f729436eee2acbcd10e0e0338f5ced2b8534c71985047e84bcb238d1219e5aa0"
+    },
+    {
+      "path": "services/clinic/application/catalog.py",
+      "sha256": "9120bea2a815c3eff70927542dbd88f023b7abdb52490d315821a67721c68fbc"
+    },
+    {
+      "path": "services/clinic/application/views.py",
+      "sha256": "051ac362e4719d1eb4934892864439fc318d3b28ebbe3f1fe33033ab8d3b846d"
+    },
+    {
+      "path": "services/clinic/broker.py",
+      "sha256": "b38ae2584c65cc04d17b7b78b1b32d896acffa20324c748cbd21e91973860fc6"
+    },
+    {
+      "path": "services/clinic/config.py",
+      "sha256": "3f37106a43ed225983d9744c67b0b6bf24bbc88d36d05fcade31754f8250cb7c"
+    },
+    {
+      "path": "services/clinic/contracts.py",
+      "sha256": "43738a092027015a14320669e94fa12edfb31616f929478045a9e7833000df6f"
+    },
+    {
+      "path": "services/clinic/db.py",
+      "sha256": "52c5a85947e181463ca57f191de5977801c76f5d31da7614c9c61e39730fe506"
+    },
+    {
+      "path": "services/clinic/dlq.py",
+      "sha256": "9b59cc6f31b10c80eeefcc6e376ca48a16b4e6fca313bd971decacc904bdb7ec"
+    },
+    {
+      "path": "services/clinic/events.py",
+      "sha256": "950e5703304804e526547e46992357524e67a4fe054dfa220c537e8af81c0587"
+    },
+    {
+      "path": "services/clinic/manage_user.py",
+      "sha256": "ade3f2c9f30f78f2f120afb1259e4610d4cbd1a83d9556db7773ef7d15460893"
+    },
+    {
+      "path": "services/clinic/middleware.py",
+      "sha256": "547d42154a0985335baa08274291481fd0cac5a64deca898ab6691a556f8447b"
+    },
+    {
+      "path": "services/clinic/models.py",
+      "sha256": "39eb0e01558bf91e49576786fb6a1b0513bc2bcdbda0c2a62cd380fdf0b55153"
+    },
+    {
+      "path": "services/clinic/publisher.py",
+      "sha256": "7f710d6af80fdfb469740769f1583603da5b074d07624fb66f2632ca2781abb7"
+    },
+    {
+      "path": "services/clinic/reminders.py",
+      "sha256": "cb99c2ba4944767ec3752b1c21ffe5259486f41279bc1ac591d9207620f47b0e"
+    },
+    {
+      "path": "services/clinic/reset_password.py",
+      "sha256": "1ef93dd40150401731560daf4786d19b524ba16d4469b736441e56af37c65349"
+    },
+    {
+      "path": "services/clinic/routers/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "services/clinic/routers/admin.py",
+      "sha256": "1cddcf794eecd701ca593312e4a64365c928078a4dc057365d9ee6753d85e61b"
+    },
+    {
+      "path": "services/clinic/routers/appointments.py",
+      "sha256": "24ff5d20606bda2d96f4de4dbccf8204118dcef55e3ba415ccaa9e9fbf6ea718"
+    },
+    {
+      "path": "services/clinic/routers/auth.py",
+      "sha256": "5cad8bd7b7aabfd93d9c5d99522b684346266894467ea08d5048e9aa7fcbeaac"
+    },
+    {
+      "path": "services/clinic/routers/catalog.py",
+      "sha256": "abd98b9a4cdd66753866ad7df53d00061414b4b447003a968d02b7fba4280d5e"
+    },
+    {
+      "path": "services/clinic/routers/system.py",
+      "sha256": "713b02563e9bac2d8b5d947f21f93afceaa321808d9950a6958561324b7fc6e8"
+    },
+    {
+      "path": "services/clinic/runtime.py",
+      "sha256": "bd397d2d6f37789d2856b6b41e1abd57ea8b98a10166247e3456d8704fd145a1"
+    },
+    {
+      "path": "services/clinic/schemas/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "services/clinic/schemas/appointments.py",
+      "sha256": "c99997ceaffb130ad9276b334c565b134cc39d1708acde3a7ca86af53783eec3"
+    },
+    {
+      "path": "services/clinic/schemas/auth.py",
+      "sha256": "f114dc880b511888e212f02e8460bf4b3150cc41839e2aefb980d60790e7e144"
+    },
+    {
+      "path": "services/clinic/schemas/catalog.py",
+      "sha256": "94672e176dd90013f5015e614bbae118431b2569897f02d4f461bae690c3bafb"
+    },
+    {
+      "path": "services/clinic/security.py",
+      "sha256": "8e3e74a7b27033ccca4d8d6c56f88043173e68cd716923b179a97d0f4095913a"
+    },
+    {
+      "path": "services/clinic/seed.py",
+      "sha256": "5af5779d45024285099d9185842def3116f1218c83f818f18d116cccde89de17"
+    },
+    {
+      "path": "services/clinic/telemetry.py",
+      "sha256": "c00b7d335a623561db9778ad6cea4cf8459ce227fa3643436996cc09bd43c96d"
+    },
+    {
+      "path": "services/clinic/worker.py",
+      "sha256": "3f6205eded2b134aa928c539276ac44f0ad3442ee0504879b0906664ecd4c56c"
+    },
+    {
+      "path": "services/logging.json",
+      "sha256": "7895fe3217b90156d22f994fed39eeb9872a660d9060524a0c66e833c8ff485c"
+    },
+    {
+      "path": "services/migrations/env.py",
+      "sha256": "22b330dbcdf60e4bdee022e2349ac5997bab5727021b121530711ace5c92f0eb"
+    },
+    {
+      "path": "services/migrations/script.py.mako",
+      "sha256": "ee5dd9a388ee59fd3d089670c2f60db5f5904da6f21cfe3bfc44d7f567ee1546"
+    },
+    {
+      "path": "services/migrations/versions/0b3e2278237d_initial_schema.py",
+      "sha256": "5d9a11ed00d1a5d1a8c7f7eda8ad207a2d3561f79f317133df4965b13670852a"
+    },
+    {
+      "path": "services/migrations/versions/20261114_01_reminders.py",
+      "sha256": "ae5cfc7adc3a0e6d4d0868c918c90046413765e9cb5031246fe285d4b41a47cb"
+    },
+    {
+      "path": "tests/conftest.py",
+      "sha256": "b113e576cebe3d45c68367486cdba8968dbd68319b69dd609b68bfcbd7f1c5e1"
+    },
+    {
+      "path": "tests/test_api.py",
+      "sha256": "832832bc91cfc396c9a2cb6282a6b1d442225e77bb71bf362d4e1e04f854eef6"
+    },
+    {
+      "path": "tests/test_contracts.py",
+      "sha256": "b9f8a276330229dec67ff54c4ce42a96118872a8e5a19b29cd3520eb4d2b1d75"
+    },
+    {
+      "path": "tests/test_events.py",
+      "sha256": "990d6d319f3be614e4410733899fb02df2e6954f61bce18ff980de6a07a2da8f"
+    },
+    {
+      "path": "tests/test_integration.py",
+      "sha256": "eb921bbaf14c5ec23caef4455b7d28d3fbc31de41d9a1527669f64f93936b33a"
+    },
+    {
+      "path": "tests/test_observability.py",
+      "sha256": "1443177fd938ccc840b21f951b7fc31fb715a73c6e029cbcd66ca9723b1aced3"
+    },
+    {
+      "path": "tests/test_reminders.py",
+      "sha256": "a3dc8c09f6571683a8a1bb75332c6acd37eb490d07c357ee7f039b740d44b0fd"
+    }
+  ],
+  "jenkins_parser": {
+    "http_status": 200,
+    "passed": true
+  },
+  "jenkins_live": {
+    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+    "building": false,
+    "number": 10,
+    "result": "SUCCESS",
+    "url": "http://localhost:18090/job/an-uyen/job/clinic-pipeline/10/"
+  }
+}

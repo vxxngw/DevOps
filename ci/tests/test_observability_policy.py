@@ -84,7 +84,7 @@ def test_scrape_keeps_event_service_labels_and_verifies_kubelet_tls():
 
 def test_generated_operator_credentials_are_isolated_and_not_an_app_secret():
     spec = importlib.util.spec_from_file_location(
-        "prepare_obs", ROOT / "scripts/prepare-observability-secrets.py"
+        "prepare_obs", ROOT / "scripts/infra/prepare-observability-secrets.py"
     )
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -150,7 +150,7 @@ def test_critical_finding_cannot_be_hidden_by_passing_metadata(scan):
 
 def test_scanner_outage_does_not_hide_other_reports_or_open_gate(tmp_path, monkeypatch):
     spec = importlib.util.spec_from_file_location(
-        "scan_obs", ROOT / "scripts/scan-observability.py"
+        "scan_obs", ROOT / "scripts/infra/scan-observability.py"
     )
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)

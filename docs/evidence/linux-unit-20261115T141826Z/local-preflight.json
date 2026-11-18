@@ -1,0 +1,35 @@
+{
+  "at_utc": "2026-11-15T14:12:00.556280+00:00",
+  "registry_token_file_exists": false,
+  "disk_free_bytes": {
+    "C:": 1854705664,
+    "D:": 10070568960
+  },
+  "bash_candidates": [
+    "C:\\Program Files\\Git\\bin\\bash.exe",
+    "C:\\Program Files\\Git\\usr\\bin\\bash.exe"
+  ],
+  "docker": {
+    "exit_code": 0,
+    "containers": [
+      "clinic-ci-webhook-1 | Up 3 hours (healthy)",
+      "clinic-ci-engine-1 | Up 4 hours (healthy)",
+      "clinic-ci-agent-1 | Up 4 hours (healthy)",
+      "clinic-ci-controller-1 | Up 4 hours (healthy)",
+      "clinic-dev-publisher-1 | Up 18 minutes (healthy)",
+      "clinic-dev-api-1 | Up 18 minutes (healthy)",
+      "clinic-dev-frontend-1 | Up 3 hours (healthy)",
+      "clinic-dev-worker-1 | Up 4 hours (healthy)",
+      "clinic-dev-postgres-1 | Up 3 hours (healthy)",
+      "clinic-dev-rabbitmq-1 | Up 3 hours (healthy)",
+      "clinic-dev-mailpit-1 | Up 3 hours (healthy)",
+      "my-jenkins | Up 4 hours"
+    ]
+  },
+  "github_credential": {
+    "login": "vxxngw",
+    "oauth_scopes_header": "gist, notifications, read:gpg_key, read:org, repo, user, workflow, write:public_key",
+    "write_packages_in_header": false,
+    "scope_header_absent_does_not_prove_denial": false
+  }
+}

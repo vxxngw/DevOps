@@ -1,0 +1,6 @@
+{
+  "old_scm": "https://github.com/vxxngw/DevOps.git",
+  "new_scm": "https://github.com/vuongvo2207-gmail-com/DevOps.git",
+  "update_status": 200,
+  "scope": "Updated only SCM URL in owned project job; credentials, permissions, agents and publication/deployment parameters unchanged. Git origin follows the same verified repository1457478642."
+}

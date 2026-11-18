@@ -1,0 +1,150 @@
+{
+  "at_utc": "2026-11-15T11:35:02.789170+00:00",
+  "verified_application_commit": "32f4343f8bb800053faf81bfce1d171b3fcbf697",
+  "branch": "codex/source-structure",
+  "ci": {
+    "at_utc": "2026-11-15T11:26:33.561221+00:00",
+    "source_commit": "32f4343f8bb800053faf81bfce1d171b3fcbf697",
+    "build": 11,
+    "result": "SUCCESS",
+    "building": false,
+    "url": "http://localhost:18090/job/an-uyen/job/clinic-pipeline/11/",
+    "stage": "Declarative: Post Actions",
+    "publish": false,
+    "deploy": false,
+    "c_free_gib": 1.51,
+    "d_free_gib": 9.6,
+    "junit": {
+      "junit-unit.xml": {
+        "cases": 100,
+        "passed": 92,
+        "skipped": 8,
+        "failed": 0
+      },
+      "junit-integration.xml": {
+        "cases": 33,
+        "passed": 33,
+        "skipped": 0,
+        "failed": 0
+      }
+    },
+    "images": {
+      "app": {
+        "tag": "ghcr.io/vuongvo2207-gmail-com/devops-app:32f4343f8bb800053faf81bfce1d171b3fcbf697",
+        "critical": 0,
+        "image_id": "sha256:7e331a74c6eccb0be4d8fcbd88bc3d62d463f198c4cf74bda36c7fb12761961c"
+      },
+      "frontend": {
+        "tag": "ghcr.io/vuongvo2207-gmail-com/devops-frontend:32f4343f8bb800053faf81bfce1d171b3fcbf697",
+        "critical": 0,
+        "image_id": "sha256:938491cc1438c44dea7461e50169db25dab5a66dc8e57667181ebdf48abfaf1b"
+      },
+      "postgres": {
+        "tag": "ghcr.io/vuongvo2207-gmail-com/devops-postgres:32f4343f8bb800053faf81bfce1d171b3fcbf697",
+        "critical": 0,
+        "image_id": "sha256:0f74739546bfb5a5b98304174c33133f30f332588612e7f5b6566dd26dfc5a30"
+      },
+      "rabbitmq": {
+        "tag": "ghcr.io/vuongvo2207-gmail-com/devops-rabbitmq:32f4343f8bb800053faf81bfce1d171b3fcbf697",
+        "critical": 0,
+        "image_id": "sha256:afd2bac4974c44be4cd1eed26bbe64bbc22126e249a19915bf9532b2bc4cd0fe"
+      },
+      "mailpit": {
+        "tag": "ghcr.io/vuongvo2207-gmail-com/devops-mailpit:32f4343f8bb800053faf81bfce1d171b3fcbf697",
+        "critical": 0,
+        "image_id": "sha256:4e257bb12b287dec65209da2c31c1182a0b5f43d92d7cf41be7395cd133791a6"
+      }
+    }
+  },
+  "browser": {
+    "path": "../ui-20261115T105819Z/metadata.json",
+    "checks_passed": 10,
+    "scope": "Native current UI/API, isolated SQLite, Edge. SMTP verified separately by Linux integration and SHA stack."
+  },
+  "sha_runtime": {
+    "path": "sha-runtime/metadata.json",
+    "commit": "32f4343f8bb800053faf81bfce1d171b3fcbf697",
+    "exit_code": 0,
+    "cleanup_exit_code": 0,
+    "recorded_services": 9,
+    "business_smoke": {
+      "http_checks": [
+        {
+          "service": "api",
+          "endpoint": "health",
+          "status": 200,
+          "bytes": 43
+        },
+        {
+          "service": "api",
+          "endpoint": "ready",
+          "status": 200,
+          "bytes": 18
+        },
+        {
+          "service": "api",
+          "endpoint": "metrics",
+          "status": 200,
+          "bytes": 3618
+        },
+        {
+          "service": "publisher",
+          "endpoint": "health",
+          "status": 200,
+          "bytes": 15
+        },
+        {
+          "service": "publisher",
+          "endpoint": "ready",
+          "status": 200,
+          "bytes": 14
+        },
+        {
+          "service": "publisher",
+          "endpoint": "metrics",
+          "status": 200,
+          "bytes": 3675
+        },
+        {
+          "service": "worker",
+          "endpoint": "health",
+          "status": 200,
+          "bytes": 15
+        },
+        {
+          "service": "worker",
+          "endpoint": "ready",
+          "status": 200,
+          "bytes": 14
+        },
+        {
+          "service": "worker",
+          "endpoint": "metrics",
+          "status": 200,
+          "bytes": 3673
+        }
+      ],
+      "frontend_status": 200,
+      "appointment_id": "b6462a00-84e4-4816-be2e-9d788d253972",
+      "booking_email_body_matched": true,
+      "cancellation_email_body_matched": true,
+      "final_status": "CANCELLED",
+      "notification_status": "SENT"
+    },
+    "backend_json_logs_services": 3
+  },
+  "evidence_integrity": {
+    "unchanged_original_files": 1001,
+    "mutable_navigation_pointers_updated": [
+      "docs/evidence/ci-runtime-latest.json",
+      "docs/evidence/README.md"
+    ],
+    "raw_captured_reports_and_logs_unchanged": true
+  },
+  "remaining_scope": [
+    "GHCR publication/pull-by-digest requires credential; no image push performed",
+    "Eligible base-main PR and real human review not yet accepted",
+    "VM/Kubernetes/staging/production/HPA/KEDA/monitoring runtime remain separate uncompleted requirements"
+  ],
+  "recovery": "First integration33setup errors retained; correct four dev containers restarted, retry33passed. First GitHub push502 retained, canonical repo/relay restored and later delivery202 built the exact source."
+}
