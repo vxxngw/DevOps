@@ -1,0 +1,550 @@
+{
+  "generated_at": "2026-11-18T18:08:56.562785+00:00",
+  "dashboard": "observability/grafana/dashboards/operations.json",
+  "variables": {
+    "namespace": "staging",
+    "__rate_interval": "1m",
+    "__interval": "15s"
+  },
+  "panel_count": 37,
+  "panels_with_data": 20,
+  "panels_without_data": [
+    "CPU container (cores)",
+    "RAM container",
+    "Replicas Ready",
+    "Replicas desired",
+    "Pod restarts",
+    "HPA/KEDA desired",
+    "HPA/KEDA current",
+    "API business 5xx ratio",
+    "Frontend requests/s",
+    "Frontend 5xx ratio",
+    "Frontend p95",
+    "Publisher failure ratio",
+    "Worker failure/retry ratio",
+    "Backup age",
+    "Backup last run",
+    "Node CPU",
+    "Node RAM"
+  ],
+  "panels": [
+    {
+      "index": 0,
+      "title": "CPU container (cores)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "clinic:container_cpu_cores5m{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 1,
+      "title": "RAM container",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "clinic:container_memory_bytes{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 2,
+      "title": "Backend up",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "up{job=\"clinic\",namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 3,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 3,
+      "title": "Replicas Ready",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "kube_deployment_status_replicas_available{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 4,
+      "title": "Replicas desired",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "kube_deployment_spec_replicas{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 5,
+      "title": "Pod restarts",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(namespace,pod) (increase(kube_pod_container_status_restarts_total{namespace=~\"staging\"}[15m]))",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 6,
+      "title": "HPA/KEDA desired",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "kube_horizontalpodautoscaler_status_desired_replicas{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 7,
+      "title": "HPA/KEDA current",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "kube_horizontalpodautoscaler_status_current_replicas{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 8,
+      "title": "API business requests/s",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "clinic:api_request_rate5m{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 1,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 9,
+      "title": "API business 5xx ratio",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "clinic:api_error_ratio5m{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 10,
+      "title": "API business p95",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "clinic:api_p95_seconds5m{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 1,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 11,
+      "title": "Frontend requests/s",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(namespace,category) (rate(clinic_frontend_requests_total{namespace=~\"staging\",category!=\"health\"}[5m]))",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 12,
+      "title": "Frontend 5xx ratio",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(namespace) (rate(clinic_frontend_requests_total{namespace=~\"staging\",status=~\"5..\",category!=\"health\"}[5m])) / sum by(namespace) (rate(clinic_frontend_requests_total{namespace=~\"staging\",category!=\"health\"}[5m]))",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 13,
+      "title": "Frontend p95",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95,sum by(namespace,le) (rate(clinic_frontend_duration_seconds_bucket{namespace=~\"staging\",category!=\"health\"}[5m])))",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 14,
+      "title": "RabbitMQ ready",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rabbitmq_queue_messages_ready{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 5,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 15,
+      "title": "RabbitMQ unacked",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rabbitmq_queue_messages_unacked{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 5,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 16,
+      "title": "RabbitMQ backlog",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rabbitmq_queue_messages{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 5,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 17,
+      "title": "RabbitMQ consumers",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rabbitmq_queue_consumers{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 5,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 18,
+      "title": "RabbitMQ publish/s",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rate(rabbitmq_queue_messages_published_total{namespace=~\"staging\"}[5m])",
+          "datasource": "clinic-prometheus",
+          "series": 1,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 19,
+      "title": "RabbitMQ delivered/s",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rate(rabbitmq_queue_messages_delivered_ack_total{namespace=~\"staging\"}[5m])",
+          "datasource": "clinic-prometheus",
+          "series": 1,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 20,
+      "title": "RabbitMQ ack/s",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rate(rabbitmq_queue_messages_acked_total{namespace=~\"staging\"}[5m])",
+          "datasource": "clinic-prometheus",
+          "series": 1,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 21,
+      "title": "DLQ depth",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "rabbitmq_queue_messages{namespace=~\"staging\",queue=~\".*[.]dlq\"}",
+          "datasource": "clinic-prometheus",
+          "series": 1,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 22,
+      "title": "Outbox pending",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "clinic_outbox_pending{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 3,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 23,
+      "title": "Oldest outbox age",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "clinic_outbox_oldest_seconds{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 3,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 24,
+      "title": "Event outcomes/s",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(namespace,service,outcome) (rate(clinic_events_total{namespace=~\"staging\"}[5m]))",
+          "datasource": "clinic-prometheus",
+          "series": 3,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 25,
+      "title": "Publisher failure ratio",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(namespace) (rate(clinic_events_total{namespace=~\"staging\",service=\"outbox-publisher\",outcome=\"failed\"}[5m])) / sum by(namespace) (rate(clinic_events_total{namespace=~\"staging\",service=\"outbox-publisher\"}[5m]))",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 26,
+      "title": "Worker failure/retry ratio",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(namespace) (rate(clinic_events_total{namespace=~\"staging\",service=\"notification-worker\",outcome=~\"retry|failed_dlq\"}[5m])) / sum by(namespace) (rate(clinic_events_total{namespace=~\"staging\",service=\"notification-worker\"}[5m]))",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 27,
+      "title": "Publisher / worker processing p95",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95,sum by(namespace,service,le) (rate(clinic_event_duration_seconds_bucket{namespace=~\"staging\"}[5m])))",
+          "datasource": "clinic-prometheus",
+          "series": 2,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 28,
+      "title": "PostgreSQL exporter up",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "pg_up{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 1,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 29,
+      "title": "PostgreSQL connections",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum by(namespace,state) (pg_stat_activity_count{namespace=~\"staging\"})",
+          "datasource": "clinic-prometheus",
+          "series": 6,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 30,
+      "title": "PostgreSQL database size",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "pg_database_size_bytes{namespace=~\"staging\",datname=\"clinic\"}",
+          "datasource": "clinic-prometheus",
+          "series": 1,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 31,
+      "title": "Backup age",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "time()-clinic_backup_last_success_timestamp_seconds{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 32,
+      "title": "Backup last run",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "clinic_backup_last_run_success{namespace=~\"staging\"}",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 33,
+      "title": "Node CPU",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "1-avg by(node) (rate(node_cpu_seconds_total{mode=\"idle\"}[5m]))",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 34,
+      "title": "Node RAM",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "1-node_memory_MemAvailable_bytes/node_memory_MemTotal_bytes",
+          "datasource": "clinic-prometheus",
+          "series": 0,
+          "ok": false
+        }
+      ],
+      "ok": false
+    },
+    {
+      "index": 35,
+      "title": "Fluentd buffer queue",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "fluentd_output_status_buffer_queue_length",
+          "datasource": "clinic-prometheus",
+          "series": 1,
+          "ok": true
+        }
+      ],
+      "ok": true
+    },
+    {
+      "index": 36,
+      "title": "Queue wait p95 (gồm retry TTL; timestamp AMQP độ phân giải giây)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95,sum by(namespace,le) (rate(clinic_queue_delay_seconds_bucket{namespace=~\"staging\"}[5m])))",
+          "datasource": "clinic-prometheus",
+          "series": 1,
+          "ok": true
+        }
+      ],
+      "ok": true
+    }
+  ]
+}

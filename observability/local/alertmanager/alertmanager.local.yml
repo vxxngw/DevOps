@@ -1,20 +1,36 @@
-# Local Alertmanager: same routing shape as observability/config.py, but the
-# receiver is a local webhook that writes a receipt file instead of Telegram.
-# No token is stored here; the Telegram path stays operator-owned.
+# Local Alertmanager: same routing shape as observability/config.py.
+#
+# Every notification goes to two places:
+# * Discord - the real team channel. The webhook URL is read from a file that
+#   lives outside git (.infra-local/observability/discord-webhook-url, mounted
+#   read-only by compose.yaml), so no credential is ever committed.
+# * receiver:9099 - the local webhook that appends a JSONL receipt, kept so
+#   scripts/verify-observability-runtime.py can still assert FIRING/RESOLVED.
 global:
   resolve_timeout: 1m
 route:
-  receiver: local-receipt
+  receiver: operations
   group_by: [alertname, namespace, service]
   group_wait: 5s
   group_interval: 10s
   repeat_interval: 1h
   routes:
   - matchers: ['severity="critical"']
-    receiver: local-receipt
+    receiver: operations
     continue: false
 receivers:
-- name: local-receipt
+- name: operations
+  discord_configs:
+  - webhook_url_file: /etc/alertmanager/secrets/discord-webhook-url
+    send_resolved: true
+    title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }} · An Uyên Hospital'
+    message: |-
+      {{ range .Alerts }}{{ if eq .Status "firing" }}🔴{{ else }}✅{{ end }} **{{ .Labels.alertname }}** ({{ .Labels.severity }})
+      namespace={{ .Labels.namespace }} service={{ .Labels.service }} instance={{ .Labels.instance }}
+      {{ .Annotations.summary }}
+      Bắt đầu: {{ .StartsAt.Format "2006-01-02 15:04:05 MST" }}{{ if eq .Status "resolved" }} · Kết thúc: {{ .EndsAt.Format "2006-01-02 15:04:05 MST" }}{{ end }}
+      Runbook: {{ .Annotations.runbook_url }}
+      {{ end }}
   webhook_configs:
   - url: http://receiver:9099/alert
     send_resolved: true

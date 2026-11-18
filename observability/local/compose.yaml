@@ -37,13 +37,17 @@ services:
     restart: unless-stopped
 
   alertmanager:
-    image: prom/alertmanager:v0.27.0
+    # v0.28+ is required for discord_configs.webhook_url_file.
+    image: prom/alertmanager:v0.28.1
     command:
       - --config.file=/etc/alertmanager/alertmanager.yml
       - --storage.path=/alertmanager
       - --web.external-url=http://127.0.0.1:19093
     volumes:
       - ./alertmanager/alertmanager.local.yml:/etc/alertmanager/alertmanager.yml:ro
+      # Discord webhook URL, kept outside git (.infra-local/ is gitignored).
+      # Override with DISCORD_WEBHOOK_FILE=<path> if it lives elsewhere.
+      - ${DISCORD_WEBHOOK_FILE:-../../.infra-local/observability/discord-webhook-url}:/etc/alertmanager/secrets/discord-webhook-url:ro
       - alertmanager-data:/alertmanager
     ports: ["127.0.0.1:19093:9093"]
     networks: [observability]
