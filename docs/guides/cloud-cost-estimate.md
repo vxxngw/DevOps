@@ -23,3 +23,20 @@ Egress Droplet giả định trong allowance gộp của các VM; phần vượt
 **Ngoài tổng:** đăng ký domain (giả định đã sở hữu), SMTP ngoài, gói/quota GHCR/GitHub thực, thuế, excess usage và công vận hành. Chưa có thông tin tài khoản để tính các mục này; $171 là ước tính hạ tầng theo giả định, không phải hóa đơn trọn gói hay khẳng định cloud miễn phí.
 
 Chuyển cloud còn cần provider Terraform DigitalOcean, VPC/firewall/SSH, DNS domain hợp lệ, certificate issuer phù hợp, thiết lập volume/StorageClass, backup offsite/restore và webhook/Jenkins ingress an toàn. Repo hiện chỉ có libvirt local; bảng giá không chứng minh các cấu hình cloud này tồn tại. Ba VM này vẫn có1 control plane và DB/broker1 replica, không HA. Đo allocatable/requests/limits/disk thực trước nghiệm thu; resource-budget.md là ước lượng.
+
+## Phạm vi dự toán và phép tính ngày 18/11/2026
+
+Giữ các đơn giá trong bảng tra ngày 14/11/2026, chưa tra lại giá trong lượt
+hoàn thiện hạ tầng này: compute 48+24+48 USD/tháng,
+weekly backup 20%, volume Standard 0.10 USD/GiB/tháng, HTTP LB 12 USD/node/tháng,
+Spaces 5 USD/tháng, DNS miễn phí và reserved IPv4 không gắn 5 USD/tháng.
+Phép tính theo cùng giả định là **171 USD/tháng**, dự phòng 20% thành
+**205.20 USD/tháng**. Đây là giá tham chiếu công khai, chưa kiểm quota/stock hay
+báo giá tài khoản; không có hóa đơn hoặc tài nguyên được thuê trong phiên này.
+
+Tổng trên dành cho **một fleet 3 VM dùng chung hai namespace**, không bao gồm
+hai fleet staging/production độc lập mới có inventory mẫu. Nếu nhân đôi toàn bộ
+compute/backup/volume/LB và dùng chung một gói Spaces vẫn đủ quota, phép tính
+lập ngân sách là `2 × (120 + 24 + 10 + 12) + 5 = 337 USD/tháng` trước thuế;
+dự phòng 20% là 404.40 USD. Đây chỉ là kịch bản tính toán, không phải cấu hình
+đã triển khai hoặc cam kết backup luôn nằm trong quota.

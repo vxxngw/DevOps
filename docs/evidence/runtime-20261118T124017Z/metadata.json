@@ -1,0 +1,22 @@
+{
+  "started_at_utc": "2026-11-18T12:40:17.507478+00:00",
+  "commit": "UNCOMMITTED",
+  "scope": "Compose frontend proxy -> FastAPI -> PostgreSQL -> RabbitMQ -> SMTP/Mailpit",
+  "checks": [
+    {
+      "name": "booking_email_body_and_sent",
+      "appointment_id": "cd83acba-b322-4a55-9a87-c58f8197e913"
+    },
+    {
+      "name": "cancellation_email_sent_and_slots_released",
+      "count": 1
+    }
+  ],
+  "commands": [],
+  "faults_requested": false,
+  "created_appointments": [
+    "cd83acba-b322-4a55-9a87-c58f8197e913"
+  ],
+  "exit_code": 0,
+  "ended_at_utc": "2026-11-18T12:40:31.145999+00:00"
+}
