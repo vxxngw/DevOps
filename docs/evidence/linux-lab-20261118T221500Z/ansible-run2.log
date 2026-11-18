@@ -1,0 +1,149 @@
+
+PLAY [Linux baseline, dev database and scheduled backup on the lab VM] *********
+
+TASK [Gathering Facts] *********************************************************
+ok: [anuyen-lab]
+
+TASK [Require an exact revision to deploy] *************************************
+ok: [anuyen-lab] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [common : Ensure operator login is already established] *******************
+ok: [anuyen-lab] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [common : Install OS prerequisites] ***************************************
+ok: [anuyen-lab]
+
+TASK [common : Ensure operating user] ******************************************
+ok: [anuyen-lab]
+
+TASK [common : Install actual operator public key] *****************************
+ok: [anuyen-lab]
+
+TASK [common : Configure key-only SSH without root login] **********************
+ok: [anuyen-lab]
+
+TASK [common : Enable IPv4 forwarding] *****************************************
+ok: [anuyen-lab]
+
+TASK [common : Load CNI kernel modules] ****************************************
+ok: [anuyen-lab] => (item=overlay)
+ok: [anuyen-lab] => (item=br_netfilter)
+
+TASK [common : Enable bridge packet filtering for CNI] *************************
+ok: [anuyen-lab] => (item=net.bridge.bridge-nf-call-iptables)
+ok: [anuyen-lab] => (item=net.bridge.bridge-nf-call-ip6tables)
+
+TASK [common : Default deny inbound] *******************************************
+ok: [anuyen-lab]
+
+TASK [common : Permit outgoing] ************************************************
+ok: [anuyen-lab]
+
+TASK [common : Permit routed pod traffic, isolated further by Kubernetes policies] ***
+ok: [anuyen-lab]
+
+TASK [common : Permit SSH before enabling firewall] ****************************
+ok: [anuyen-lab] => (item=192.168.56.1/32)
+
+TASK [common : Permit node exporter only from lab nodes] ***********************
+ok: [anuyen-lab]
+
+TASK [common : Permit monitoring pod access to node exporter and kubelet] ******
+ok: [anuyen-lab] => (item=9100)
+ok: [anuyen-lab] => (item=10250)
+
+TASK [common : Configure Elasticsearch memory map capacity on cluster nodes] ***
+skipping: [anuyen-lab]
+
+TASK [common : Create bounded Fluentd buffer directory on cluster nodes] *******
+skipping: [anuyen-lab]
+
+TASK [common : Permit private k3s node traffic] ********************************
+skipping: [anuyen-lab] => (item={'port': '6443', 'proto': 'tcp'}) 
+skipping: [anuyen-lab] => (item={'port': '10250', 'proto': 'tcp'}) 
+skipping: [anuyen-lab] => (item={'port': '8472', 'proto': 'udp'}) 
+skipping: [anuyen-lab] => (item={'port': '80', 'proto': 'tcp'}) 
+skipping: [anuyen-lab] => (item={'port': '443', 'proto': 'tcp'}) 
+skipping: [anuyen-lab]
+
+TASK [common : Permit API and HTTPS access from operator networks] *************
+skipping: [anuyen-lab] => (item=['192.168.56.1/32', '6443']) 
+skipping: [anuyen-lab] => (item=['192.168.56.1/32', '80']) 
+skipping: [anuyen-lab] => (item=['192.168.56.1/32', '443']) 
+skipping: [anuyen-lab]
+
+TASK [common : Enable firewall] ************************************************
+ok: [anuyen-lab]
+
+TASK [common : Install host health check script] *******************************
+ok: [anuyen-lab]
+
+TASK [common : Install host health check service and timer] ********************
+ok: [anuyen-lab] => (item=clinic-host-health.service)
+ok: [anuyen-lab] => (item=clinic-host-health.timer)
+
+TASK [common : Enable host health schedule] ************************************
+ok: [anuyen-lab]
+
+TASK [docker : Prepare Docker apt keyring] *************************************
+ok: [anuyen-lab]
+
+TASK [docker : Install official Docker signing key] ****************************
+ok: [anuyen-lab]
+
+TASK [docker : Add Ubuntu24.04 Docker repository] ******************************
+ok: [anuyen-lab]
+
+TASK [docker : Install pinned Docker and Compose packages] *********************
+ok: [anuyen-lab]
+
+TASK [docker : Start Docker] ***************************************************
+ok: [anuyen-lab]
+
+TASK [backup : Create backup root] *********************************************
+ok: [anuyen-lab]
+
+TASK [backup : Install operational scripts] ************************************
+ok: [anuyen-lab] => (item=backup.sh)
+ok: [anuyen-lab] => (item=restore.sh)
+ok: [anuyen-lab] => (item=backup-common.sh)
+
+TASK [backup : Install backup service] *****************************************
+ok: [anuyen-lab]
+
+TASK [backup : Install backup timer] *******************************************
+ok: [anuyen-lab]
+
+TASK [backup : Enable backup schedules] ****************************************
+ok: [anuyen-lab] => (item=dev)
+
+TASK [Checkout exact project revision] *****************************************
+changed: [anuyen-lab]
+
+TASK [Create random synthetic dev credentials once] ****************************
+ok: [anuyen-lab]
+
+TASK [Keep dev credentials readable by root only] ******************************
+ok: [anuyen-lab]
+
+TASK [Start PostgreSQL and wait until healthy] *********************************
+ok: [anuyen-lab]
+
+TASK [Apply database migrations] ***********************************************
+ok: [anuyen-lab]
+
+TASK [Count synthetic doctors] *************************************************
+ok: [anuyen-lab]
+
+TASK [Load synthetic seed data into an empty database] *************************
+changed: [anuyen-lab]
+
+PLAY RECAP *********************************************************************
+anuyen-lab                 : ok=37   changed=2    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
+

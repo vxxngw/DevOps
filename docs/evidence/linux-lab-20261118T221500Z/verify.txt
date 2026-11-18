@@ -1,0 +1,81 @@
+
+### os
+Ubuntu 24.04.5 LTS
+6.8.0-147-generic
+anuyen-lab
+
+### user
+uid=1000(clinicops) gid=1000(clinicops) groups=1000(clinicops),27(sudo)
+clinicops:x:1000:1000::/home/clinicops:/bin/bash
+clinicops L 2026-11-18 0 99999 7 -1
+root L 2026-10-17 0 99999 7 -1
+
+### sshd effective config
+permitrootlogin no
+pubkeyauthentication yes
+passwordauthentication no
+kbdinteractiveauthentication no
+
+### sshd drop-in
+PermitRootLogin no
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+PubkeyAuthentication yes
+
+### ufw
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), allow (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW IN    192.168.56.1              
+9100/tcp                   ALLOW IN    192.168.56.0/24           
+9100/tcp                   ALLOW IN    10.42.0.0/16              
+10250/tcp                  ALLOW IN    10.42.0.0/16              
+
+
+### timers
+NEXT                           LEFT LAST                           PASSED UNIT                     ACTIVATES
+Wed 2026-11-18 22:15:00 UTC 4min 3s Wed 2026-11-18 22:00:17 UTC 10min ago clinic-host-health.timer clinic-host-health.service
+Wed 2026-11-18 23:00:31 UTC   49min Wed 2026-11-18 22:04:33 UTC  6min ago clinic-backup@dev.timer  clinic-backup@dev.service
+
+2 timers listed.
+
+### health service
+DynamicUser=yes
+ExecStart=/usr/local/sbin/clinic-host-health.sh
+2026-11-18T22:00:17+00:00 anuyen-lab systemd[1]: Starting clinic-host-health.service - Clinic Linux host health check...
+2026-11-18T22:00:17+00:00 anuyen-lab clinic-host-health.sh[16246]: {"scope":"Linux host only; not application health","memory_available_bytes":3538837504,"root_disk_free_bytes":15644106752,"load1":0.08,"cpus":1,"healthy":true}
+2026-11-18T22:00:17+00:00 anuyen-lab systemd[1]: clinic-host-health.service: Deactivated successfully.
+2026-11-18T22:00:17+00:00 anuyen-lab systemd[1]: Finished clinic-host-health.service - Clinic Linux host health check.
+2026-11-18T22:10:28+00:00 anuyen-lab systemd[1]: Starting clinic-host-health.service - Clinic Linux host health check...
+2026-11-18T22:10:28+00:00 anuyen-lab clinic-host-health.sh[20660]: {"scope":"Linux host only; not application health","memory_available_bytes":3500769280,"root_disk_free_bytes":15612596224,"load1":0.78,"cpus":1,"healthy":true}
+2026-11-18T22:10:28+00:00 anuyen-lab systemd[1]: clinic-host-health.service: Deactivated successfully.
+2026-11-18T22:10:28+00:00 anuyen-lab systemd[1]: Finished clinic-host-health.service - Clinic Linux host health check.
+
+### backup unit
+After=network-online.target docker.service k3s.service
+ExecStart=/opt/anuyen-src/scripts/infra/backup.sh %i
+
+### backup runs
+2026-11-18T22:04:33+00:00 anuyen-lab systemd[1]: Starting clinic-backup@dev.service - Clinic PostgreSQL backup dev...
+2026-11-18T22:04:33+00:00 anuyen-lab systemd[1]: clinic-backup@dev.service: Main process exited, code=exited, status=203/EXEC
+2026-11-18T22:04:33+00:00 anuyen-lab systemd[1]: clinic-backup@dev.service: Failed with result 'exit-code'.
+2026-11-18T22:04:33+00:00 anuyen-lab systemd[1]: Failed to start clinic-backup@dev.service - Clinic PostgreSQL backup dev.
+2026-11-18T22:09:44+00:00 anuyen-lab systemd[1]: Starting clinic-backup@dev.service - Clinic PostgreSQL backup dev...
+2026-11-18T22:09:46+00:00 anuyen-lab backup.sh[20240]: {"event":"backup_complete","namespace":"dev","transport":"docker-dev","artifact":"/opt/anuyen-src/.infra-local/db-backups/dev/clinic-dev-20261118T220944Z.dump"}
+2026-11-18T22:09:46+00:00 anuyen-lab systemd[1]: clinic-backup@dev.service: Deactivated successfully.
+2026-11-18T22:09:46+00:00 anuyen-lab systemd[1]: Finished clinic-backup@dev.service - Clinic PostgreSQL backup dev.
+2026-11-18T22:10:30+00:00 anuyen-lab systemd[1]: Starting clinic-backup@dev.service - Clinic PostgreSQL backup dev...
+2026-11-18T22:10:31+00:00 anuyen-lab backup.sh[20784]: {"event":"backup_complete","namespace":"dev","transport":"docker-dev","artifact":"/opt/anuyen-src/.infra-local/db-backups/dev/clinic-dev-20261118T221030Z.dump"}
+2026-11-18T22:10:31+00:00 anuyen-lab systemd[1]: clinic-backup@dev.service: Deactivated successfully.
+2026-11-18T22:10:31+00:00 anuyen-lab systemd[1]: Finished clinic-backup@dev.service - Clinic PostgreSQL backup dev.
+
+### backup files
+total 64
+-rw------- 1 root root 25660 Nov 18 22:09 clinic-dev-20261118T220944Z.dump
+-rw------- 1 root root    99 Nov 18 22:09 clinic-dev-20261118T220944Z.dump.sha256
+-rw------- 1 root root 25660 Nov 18 22:10 clinic-dev-20261118T221030Z.dump
+-rw------- 1 root root    99 Nov 18 22:10 clinic-dev-20261118T221030Z.dump.sha256

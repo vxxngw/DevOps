@@ -1,0 +1,154 @@
+
+PLAY [Linux baseline, dev database and scheduled backup on the lab VM] *********
+
+TASK [Gathering Facts] *********************************************************
+ok: [anuyen-lab]
+
+TASK [Require an exact revision to deploy] *************************************
+ok: [anuyen-lab] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [common : Ensure operator login is already established] *******************
+ok: [anuyen-lab] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [common : Install OS prerequisites] ***************************************
+changed: [anuyen-lab]
+
+TASK [common : Ensure operating user] ******************************************
+ok: [anuyen-lab]
+
+TASK [common : Install actual operator public key] *****************************
+ok: [anuyen-lab]
+
+TASK [common : Configure key-only SSH without root login] **********************
+changed: [anuyen-lab]
+
+TASK [common : Enable IPv4 forwarding] *****************************************
+changed: [anuyen-lab]
+
+TASK [common : Load CNI kernel modules] ****************************************
+changed: [anuyen-lab] => (item=overlay)
+changed: [anuyen-lab] => (item=br_netfilter)
+
+TASK [common : Enable bridge packet filtering for CNI] *************************
+changed: [anuyen-lab] => (item=net.bridge.bridge-nf-call-iptables)
+changed: [anuyen-lab] => (item=net.bridge.bridge-nf-call-ip6tables)
+
+TASK [common : Default deny inbound] *******************************************
+ok: [anuyen-lab]
+
+TASK [common : Permit outgoing] ************************************************
+ok: [anuyen-lab]
+
+TASK [common : Permit routed pod traffic, isolated further by Kubernetes policies] ***
+ok: [anuyen-lab]
+
+TASK [common : Permit SSH before enabling firewall] ****************************
+changed: [anuyen-lab] => (item=192.168.56.1/32)
+
+TASK [common : Permit node exporter only from lab nodes] ***********************
+changed: [anuyen-lab]
+
+TASK [common : Permit monitoring pod access to node exporter and kubelet] ******
+changed: [anuyen-lab] => (item=9100)
+changed: [anuyen-lab] => (item=10250)
+
+TASK [common : Configure Elasticsearch memory map capacity on cluster nodes] ***
+skipping: [anuyen-lab]
+
+TASK [common : Create bounded Fluentd buffer directory on cluster nodes] *******
+skipping: [anuyen-lab]
+
+TASK [common : Permit private k3s node traffic] ********************************
+skipping: [anuyen-lab] => (item={'port': '6443', 'proto': 'tcp'}) 
+skipping: [anuyen-lab] => (item={'port': '10250', 'proto': 'tcp'}) 
+skipping: [anuyen-lab] => (item={'port': '8472', 'proto': 'udp'}) 
+skipping: [anuyen-lab] => (item={'port': '80', 'proto': 'tcp'}) 
+skipping: [anuyen-lab] => (item={'port': '443', 'proto': 'tcp'}) 
+skipping: [anuyen-lab]
+
+TASK [common : Permit API and HTTPS access from operator networks] *************
+skipping: [anuyen-lab] => (item=['192.168.56.1/32', '6443']) 
+skipping: [anuyen-lab] => (item=['192.168.56.1/32', '80']) 
+skipping: [anuyen-lab] => (item=['192.168.56.1/32', '443']) 
+skipping: [anuyen-lab]
+
+TASK [common : Enable firewall] ************************************************
+changed: [anuyen-lab]
+
+TASK [common : Install host health check script] *******************************
+changed: [anuyen-lab]
+
+TASK [common : Install host health check service and timer] ********************
+changed: [anuyen-lab] => (item=clinic-host-health.service)
+changed: [anuyen-lab] => (item=clinic-host-health.timer)
+
+TASK [common : Enable host health schedule] ************************************
+changed: [anuyen-lab]
+
+TASK [docker : Prepare Docker apt keyring] *************************************
+ok: [anuyen-lab]
+
+TASK [docker : Install official Docker signing key] ****************************
+[WARNING]: Module remote_tmp /root/.ansible/tmp did not exist and was created with a mode of 0700, this may cause issues when running as another user. To avoid this, create the remote_tmp dir with the correct permissions manually
+changed: [anuyen-lab]
+
+TASK [docker : Add Ubuntu24.04 Docker repository] ******************************
+changed: [anuyen-lab]
+
+TASK [docker : Install pinned Docker and Compose packages] *********************
+changed: [anuyen-lab]
+
+TASK [docker : Start Docker] ***************************************************
+ok: [anuyen-lab]
+
+TASK [backup : Create backup root] *********************************************
+changed: [anuyen-lab]
+
+TASK [backup : Install operational scripts] ************************************
+changed: [anuyen-lab] => (item=backup.sh)
+changed: [anuyen-lab] => (item=restore.sh)
+changed: [anuyen-lab] => (item=backup-common.sh)
+
+TASK [backup : Install backup service] *****************************************
+changed: [anuyen-lab]
+
+TASK [backup : Install backup timer] *******************************************
+changed: [anuyen-lab]
+
+TASK [backup : Enable backup schedules] ****************************************
+changed: [anuyen-lab] => (item=dev)
+
+TASK [Checkout exact project revision] *****************************************
+changed: [anuyen-lab]
+
+TASK [Create random synthetic dev credentials once] ****************************
+changed: [anuyen-lab]
+
+TASK [Keep dev credentials readable by root only] ******************************
+changed: [anuyen-lab]
+
+TASK [Start PostgreSQL and wait until healthy] *********************************
+[WARNING]: Docker compose: image clinic-postgres:dev: pull access denied for clinic-postgres, repository does not exist or may require 'docker login'
+changed: [anuyen-lab]
+
+TASK [Apply database migrations] ***********************************************
+ok: [anuyen-lab]
+
+TASK [Load synthetic seed data into a fresh schema] ****************************
+skipping: [anuyen-lab]
+
+RUNNING HANDLER [common : Reload ssh] ******************************************
+changed: [anuyen-lab]
+
+RUNNING HANDLER [backup : Reload systemd for backups] **************************
+ok: [anuyen-lab]
+
+PLAY RECAP *********************************************************************
+anuyen-lab                 : ok=37   changed=25   unreachable=0    failed=0    skipped=5    rescued=0    ignored=0   
+

@@ -1,0 +1,33 @@
+### script mode
+-rwxr-xr-x /opt/anuyen-src/scripts/infra/backup.sh
+### start unit
+exit=0
+### journal
+2026-11-18T22:09:44+00:00 anuyen-lab systemd[1]: Starting clinic-backup@dev.service - Clinic PostgreSQL backup dev...
+2026-11-18T22:09:46+00:00 anuyen-lab backup.sh[20240]: {"event":"backup_complete","namespace":"dev","transport":"docker-dev","artifact":"/opt/anuyen-src/.infra-local/db-backups/dev/clinic-dev-20261118T220944Z.dump"}
+2026-11-18T22:09:46+00:00 anuyen-lab systemd[1]: clinic-backup@dev.service: Deactivated successfully.
+2026-11-18T22:09:46+00:00 anuyen-lab systemd[1]: Finished clinic-backup@dev.service - Clinic PostgreSQL backup dev.
+2026-11-18T22:10:30+00:00 anuyen-lab systemd[1]: Starting clinic-backup@dev.service - Clinic PostgreSQL backup dev...
+2026-11-18T22:10:31+00:00 anuyen-lab backup.sh[20784]: {"event":"backup_complete","namespace":"dev","transport":"docker-dev","artifact":"/opt/anuyen-src/.infra-local/db-backups/dev/clinic-dev-20261118T221030Z.dump"}
+2026-11-18T22:10:31+00:00 anuyen-lab systemd[1]: clinic-backup@dev.service: Deactivated successfully.
+2026-11-18T22:10:31+00:00 anuyen-lab systemd[1]: Finished clinic-backup@dev.service - Clinic PostgreSQL backup dev.
+### files
+total 64
+-rw------- 1 root root 25660 Nov 18 22:09 clinic-dev-20261118T220944Z.dump
+-rw------- 1 root root    99 Nov 18 22:09 clinic-dev-20261118T220944Z.dump.sha256
+-rw------- 1 root root 25660 Nov 18 22:10 clinic-dev-20261118T221030Z.dump
+-rw------- 1 root root    99 Nov 18 22:10 clinic-dev-20261118T221030Z.dump.sha256
+### checksum
+clinic-dev-20261118T221030Z.dump: OK
+### dump contents (TABLE DATA entries)
+9
+### metrics
+clinic_backup_last_success_timestamp_seconds{namespace="dev"} 1795039831
+clinic_backup_last_run_success{namespace="dev"} 1
+### timers
+NEXT                            LEFT LAST                           PASSED UNIT                     ACTIVATES
+Wed 2026-11-18 22:15:00 UTC 4min 26s Wed 2026-11-18 22:00:17 UTC 10min ago clinic-host-health.timer clinic-host-health.service
+Wed 2026-11-18 23:00:31 UTC    49min Wed 2026-11-18 22:04:33 UTC  6min ago clinic-backup@dev.timer  clinic-backup@dev.service
+
+2 timers listed.
+Pass --all to see loaded but inactive timers, too.
