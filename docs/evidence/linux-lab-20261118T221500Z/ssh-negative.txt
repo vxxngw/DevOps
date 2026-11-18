@@ -1,0 +1,9 @@
+### root with key
+root@192.168.56.10: Permission denied (publickey).
+exit=255
+### clinicops with password only
+clinicops@192.168.56.10: Permission denied (publickey).
+exit=255
+### clinicops with key
+ok as clinicops
+exit=0
