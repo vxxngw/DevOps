@@ -35,9 +35,10 @@ Các thư mục cache/local/output đã được Git ignore và ẩn trong Explo
 Prerequisites: Git, Docker Desktop/Linux engine có Docker Compose; Python 3.12 để sinh env. Khi chạy native/test cần Python 3.12 và Node 24/npm. Cổng dev: 18080, 8000–8002, 5433, 5673, 15673, 15693, 1025, 8025 phải trống; không mở cổng DB/broker/metrics ra Internet. FRONTEND_PORT có thể đổi; 8080 đang được Jenkins sẵn có sử dụng nên được giữ nguyên.
 
 ```powershell
-python scripts/dev/init-env.py
 docker compose up -d --build --wait
 ```
+
+Một lệnh này đủ dựng toàn bộ môi trường dev: khi chưa có `.env`, Compose dùng secret mặc định `dev-only-*` (chỉ cho máy local, mọi cổng bind `127.0.0.1`). Muốn dùng secret ngẫu nhiên thì chạy `python scripts/dev/init-env.py` **trước lần up đầu tiên**; giá trị trong `.env` luôn được ưu tiên. Nếu đã dựng bằng secret mặc định rồi mới tạo `.env`, cần `docker compose down -v` để Postgres/RabbitMQ khởi tạo lại với mật khẩu mới.
 
 `init-env.py` tạo secret ngẫu nhiên trong `.env`, không ghi đè và không in secret. Compose dựng DB/broker/Mailpit, chạy migration rồi seed dev, khởi động app. Seed lặp an toàn, không đổi password tài khoản đã có, bị cấm khi ENVIRONMENT=production. Lệnh up/build/wait đã chạy thành công trên máy khảo sát; chưa kiểm chứng dựng toàn bộ IaC/K8s từ máy trắng.
 
