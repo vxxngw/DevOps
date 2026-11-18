@@ -1,0 +1,13 @@
+---
+env_name: dev
+ansible_user: ubuntu
+ansible_ssh_private_key_file: ~/.ssh/m3
+
+# K3s
+k3s_channel: stable
+k3s_iface: enp0s8          # card host-only trong VM
+k3s_server_ip: "{{ hostvars[groups['k3s_server'][0]].node_ip }}"
+k3s_token: "{{ vault_k3s_token }}"
+
+# Jenkins agent: dán public key của Jenkins controller vào đây (để trống = bỏ qua)
+jenkins_agent_pubkey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAcTOLpwIiuwsjgqqYd5NadtgMJ/pda004EV8m01zy9w clinic-ci-controller"

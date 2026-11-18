@@ -1,7 +1,7 @@
 {
-  "latest": "m3-k3s-server-vbox-20261118T200352Z/metadata.json",
-  "previous": "m3-preparation-20261114T151538Z/metadata.json",
+  "latest": "m3-ansible-vbox-20261118T215200Z/README.md",
+  "previous": "m3-k3s-server-vbox-20261118T200352Z/metadata.json",
   "local_checks_passed": true,
-  "scope": "k3s server prototype on one VirtualBox VM with standalone Ansible; not repo infra/ansible roles, no Terraform; jenkins/agent not run",
-  "runtime_status": "PARTIAL"
+  "scope": "2 VirtualBox VMs provisioned from blank by infra/ansible-lab: k3s server+agent (2 nodes Ready), Docker, Jenkins SSH agent online, node exporter; run2 changed=0; staging inventory has no VM; no Terraform",
+  "runtime_status": "PASS_DEV_ONLY"
 }

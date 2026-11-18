@@ -1,0 +1,22 @@
+---
+# Cài máy chủ từ máy trắng. Chạy: ansible-playbook site.yml
+- name: Base cho mọi máy
+  hosts: all
+  become: true
+  roles:
+    - { role: common, tags: [common] }
+    - { role: node_exporter, tags: [node_exporter] }
+
+- name: K3s server
+  hosts: k3s_server
+  become: true
+  roles:
+    - { role: k3s_server, tags: [k3s, k3s_server] }
+
+- name: K3s agent + Docker + Jenkins agent
+  hosts: k3s_agent
+  become: true
+  roles:
+    - { role: docker, tags: [docker] }
+    - { role: k3s_agent, tags: [k3s, k3s_agent] }
+    - { role: jenkins_agent, tags: [jenkins_agent] }

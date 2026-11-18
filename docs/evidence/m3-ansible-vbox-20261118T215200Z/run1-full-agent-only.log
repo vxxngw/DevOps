@@ -1,0 +1,90 @@
+
+PLAY [Base cho mọi máy] ********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [anuyen-agent]
+[ERROR]: Task failed: Failed to connect to the host via ssh: Connection timed out during banner exchange
+Connection to 127.0.0.1 port 2222 timed out
+
+Task failed.
+
+<<< caused by >>>
+
+Failed to connect to the host via ssh: Connection timed out during banner exchange
+Connection to 127.0.0.1 port 2222 timed out
+
+fatal: [anuyen-server]: UNREACHABLE! => 
+    changed: false
+    msg: |-
+        Task failed: Failed to connect to the host via ssh: Connection timed out during banner exchange
+        Connection to 127.0.0.1 port 2222 timed out
+    unreachable: true
+
+TASK [common : Cập nhật apt cache (tối đa 1 lần/giờ)] **************************
+ok: [anuyen-agent]
+
+TASK [common : Cài gói cơ bản] *************************************************
+ok: [anuyen-agent]
+
+TASK [node_exporter : Cài node exporter] ***************************************
+ok: [anuyen-agent]
+
+TASK [node_exporter : Bật node exporter] ***************************************
+ok: [anuyen-agent]
+
+TASK [node_exporter : Chờ cổng metrics] ****************************************
+ok: [anuyen-agent]
+
+PLAY [K3s server] **************************************************************
+
+PLAY [K3s agent + Docker + Jenkins agent] **************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [anuyen-agent]
+
+TASK [docker : Cài Docker (gói docker.io của Ubuntu)] **************************
+ok: [anuyen-agent]
+
+TASK [docker : Bật Docker] *****************************************************
+ok: [anuyen-agent]
+
+TASK [docker : Cho user vào nhóm docker] ***************************************
+ok: [anuyen-agent] => (item=ubuntu)
+
+TASK [k3s_agent : Chờ k3s server sẵn sàng] *************************************
+ok: [anuyen-agent]
+
+TASK [k3s_agent : Tạo thư mục cấu hình k3s] ************************************
+ok: [anuyen-agent]
+
+TASK [k3s_agent : Ghi cấu hình k3s agent (chứa token từ Vault)] ****************
+ok: [anuyen-agent]
+
+TASK [k3s_agent : Tải script cài k3s] ******************************************
+ok: [anuyen-agent]
+
+TASK [k3s_agent : Cài k3s agent (chỉ chạy khi chưa có binary)] *****************
+ok: [anuyen-agent]
+
+TASK [k3s_agent : Bật service k3s-agent] ***************************************
+ok: [anuyen-agent]
+
+TASK [jenkins_agent : Cài Java cho Jenkins agent] ******************************
+changed: [anuyen-agent]
+
+TASK [jenkins_agent : Tạo user jenkins (thuộc nhóm docker)] ********************
+changed: [anuyen-agent]
+
+TASK [jenkins_agent : Tạo thư mục làm việc của agent] **************************
+changed: [anuyen-agent]
+
+TASK [jenkins_agent : Tạo thư mục .ssh] ****************************************
+changed: [anuyen-agent]
+
+TASK [jenkins_agent : Cho phép Jenkins controller SSH vào agent] ***************
+changed: [anuyen-agent]
+
+PLAY RECAP *********************************************************************
+anuyen-agent               : ok=21   changed=5    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+anuyen-server              : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+
