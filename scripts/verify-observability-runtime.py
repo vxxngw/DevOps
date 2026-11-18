@@ -66,7 +66,14 @@ def now() -> str:
     return datetime.now(UTC).isoformat()
 
 
-def http(url: str, *, method: str = "GET", body: bytes | None = None, headers: dict | None = None, timeout: int = 10):
+def http(
+    url: str,
+    *,
+    method: str = "GET",
+    body: bytes | None = None,
+    headers: dict | None = None,
+    timeout: int = 10,
+):
     request = urllib.request.Request(url, data=body, method=method, headers=headers or {})
     with urllib.request.urlopen(request, timeout=timeout) as response:
         return response.status, response.read()
@@ -99,7 +106,9 @@ def compose(*args: str, timeout: int = 900) -> subprocess.CompletedProcess:
 def clinic_compose(*args: str, timeout: int = 300) -> subprocess.CompletedProcess:
     command = ["docker", "compose", "-f", str(CLINIC_COMPOSE), *args]
     env = {**os.environ, **env_from_dotenv()}
-    return subprocess.run(command, cwd=REPO_ROOT, capture_output=True, text=True, timeout=timeout, env=env)
+    return subprocess.run(
+        command, cwd=REPO_ROOT, capture_output=True, text=True, timeout=timeout, env=env
+    )
 
 
 def env_from_dotenv() -> dict:
@@ -174,7 +183,9 @@ def ensure_kibana_data_view() -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--skip-up", action="store_true", help="reuse an already running stack")
-    parser.add_argument("--keep-running", action="store_true", help="do not stop the stack at the end")
+    parser.add_argument(
+        "--keep-running", action="store_true", help="do not stop the stack at the end"
+    )
     parser.add_argument("--alert-timeout", type=int, default=300)
     args = parser.parse_args()
 
@@ -211,7 +222,9 @@ def main() -> int:
         if not args.skip_up:
             env = {**os.environ, **env_from_dotenv()}
             command = ["docker", "compose", "-f", str(COMPOSE_FILE), "up", "-d", "--build"]
-            result = subprocess.run(command, cwd=REPO_ROOT, capture_output=True, text=True, timeout=1800, env=env)
+            result = subprocess.run(
+                command, cwd=REPO_ROOT, capture_output=True, text=True, timeout=1800, env=env
+            )
             record("compose_up", returncode=result.returncode, stderr=result.stderr[-2000:])
             if result.returncode != 0:
                 raise RuntimeError("docker compose up failed")
@@ -221,7 +234,9 @@ def main() -> int:
         wait_for("alertmanager", lambda: http(f"{ALERTMANAGER}/-/ready")[0] == 200, timeout=180)
         wait_for("receiver", lambda: http(f"{RECEIVER}/health")[0] == 200, timeout=120)
         wait_for("grafana", lambda: http(f"{GRAFANA}/api/health")[0] == 200, timeout=240)
-        wait_for("elasticsearch", lambda: http(f"{ELASTICSEARCH}/_cluster/health")[0] == 200, timeout=420)
+        wait_for(
+            "elasticsearch", lambda: http(f"{ELASTICSEARCH}/_cluster/health")[0] == 200, timeout=420
+        )
         wait_for("fluentd", lambda: http("http://127.0.0.1:24231/metrics")[0] == 200, timeout=300)
         wait_for("kibana", lambda: http(f"{KIBANA}/api/status")[0] == 200, timeout=600)
         record("components_ready", at=now())
@@ -229,7 +244,9 @@ def main() -> int:
         # 4. scrape targets
         targets = wait_for(
             "clinic targets up",
-            lambda: (lambda t: t if t and all(x["health"] == "up" for x in t) else None)(prom_targets()),
+            lambda: (lambda t: t if t and all(x["health"] == "up" for x in t) else None)(
+                prom_targets()
+            ),
             timeout=180,
         )
         summary = [
@@ -245,16 +262,24 @@ def main() -> int:
         record("targets", count=len(summary), targets=summary)
         check("all_targets_up", all(t["health"] == "up" for t in summary), summary)
         clinic_targets = [t for t in summary if t["job"] == "clinic"]
-        check("clinic_targets_present", len(clinic_targets) >= 3, [t["scrapeUrl"] for t in clinic_targets])
+        check(
+            "clinic_targets_present",
+            len(clinic_targets) >= 3,
+            [t["scrapeUrl"] for t in clinic_targets],
+        )
 
         # 5. Grafana provisioning
-        status, dashboards = http_json(f"{GRAFANA}/api/search?query=An%20Uy%C3%AAn", headers=grafana_headers())
+        status, dashboards = http_json(
+            f"{GRAFANA}/api/search?query=An%20Uy%C3%AAn", headers=grafana_headers()
+        )
         record("grafana_dashboards", status=status, dashboards=dashboards)
         check("grafana_dashboard_provisioned", status == 200 and len(dashboards) >= 1, dashboards)
         status, datasources = http_json(f"{GRAFANA}/api/datasources", headers=grafana_headers())
         names = sorted(d["name"] for d in datasources) if status == 200 else []
         record("grafana_datasources", status=status, names=names)
-        check("grafana_datasources_provisioned", {"Prometheus", "Elasticsearch"} <= set(names), names)
+        check(
+            "grafana_datasources_provisioned", {"Prometheus", "Elasticsearch"} <= set(names), names
+        )
 
         # 6. real failure -> FIRING
         before = prom_query('clinic_dependency_ready{dependency="rabbitmq"}')
@@ -264,13 +289,15 @@ def main() -> int:
 
         firing = wait_for(
             "ClinicDependencyDown firing",
-            lambda: [
-                a
-                for a in alertmanager_alerts()
-                if a.get("labels", {}).get("alertname") == "ClinicDependencyDown"
-                and a.get("status", {}).get("state") == "active"
-            ]
-            or None,
+            lambda: (
+                [
+                    a
+                    for a in alertmanager_alerts()
+                    if a.get("labels", {}).get("alertname") == "ClinicDependencyDown"
+                    and a.get("status", {}).get("state") == "active"
+                ]
+                or None
+            ),
             timeout=args.alert_timeout,
             interval=3,
         )
@@ -279,8 +306,14 @@ def main() -> int:
 
         firing_receipt = wait_for(
             "firing webhook receipt",
-            lambda: [r for r in read_alert_receipts() if r["alertname"] == "ClinicDependencyDown" and r["status"] == "firing"]
-            or None,
+            lambda: (
+                [
+                    r
+                    for r in read_alert_receipts()
+                    if r["alertname"] == "ClinicDependencyDown" and r["status"] == "firing"
+                ]
+                or None
+            ),
             timeout=120,
             interval=2,
         )
@@ -298,8 +331,14 @@ def main() -> int:
         )
         resolved = wait_for(
             "resolved webhook receipt",
-            lambda: [r for r in read_alert_receipts() if r["alertname"] == "ClinicDependencyDown" and r["status"] == "resolved"]
-            or None,
+            lambda: (
+                [
+                    r
+                    for r in read_alert_receipts()
+                    if r["alertname"] == "ClinicDependencyDown" and r["status"] == "resolved"
+                ]
+                or None
+            ),
             timeout=args.alert_timeout,
             interval=3,
         )
@@ -329,7 +368,11 @@ def main() -> int:
         )
 
         status, kibana_status = http_json(f"{KIBANA}/api/status")
-        record("kibana_status", status=status, level=kibana_status.get("status", {}).get("overall", {}).get("level"))
+        record(
+            "kibana_status",
+            status=status,
+            level=kibana_status.get("status", {}).get("overall", {}).get("level"),
+        )
         check("kibana_available", status == 200, kibana_status.get("status", {}).get("overall"))
 
         data_view = ensure_kibana_data_view()
