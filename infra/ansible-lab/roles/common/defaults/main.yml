@@ -1,0 +1,6 @@
+---
+common_packages:
+  - curl
+  - ca-certificates
+  - python3
+  - iptables

@@ -1,0 +1,11 @@
+# Quản lý bởi Ansible
+[Unit]
+Description=Lịch backup k3s
+
+[Timer]
+OnCalendar={{ k3s_backup_oncalendar }}
+Persistent=true
+Unit=k3s-backup.service
+
+[Install]
+WantedBy=timers.target

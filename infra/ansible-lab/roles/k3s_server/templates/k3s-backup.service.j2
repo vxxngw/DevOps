@@ -1,0 +1,9 @@
+# Quản lý bởi Ansible
+[Unit]
+Description=Backup k3s etcd snapshot
+After=k3s.service
+Requires=k3s.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/k3s-backup.sh

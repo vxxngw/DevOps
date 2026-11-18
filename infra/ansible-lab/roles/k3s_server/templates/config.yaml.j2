@@ -1,0 +1,11 @@
+# Quản lý bởi Ansible - không sửa tay
+write-kubeconfig-mode: "0644"
+node-ip: {{ node_ip }}
+advertise-address: {{ node_ip }}
+flannel-iface: {{ k3s_iface }}
+tls-san:
+  - {{ node_ip }}
+token: {{ k3s_token }}
+{% if k3s_etcd %}
+cluster-init: true
+{% endif %}

@@ -48,7 +48,7 @@ Credential nằm trong folder `an-uyen`, không trong Git:
 docker compose --env-file .env.ci -f compose.ci.yaml --profile webhook up -d --build --wait webhook
 ```
 
-Relay chỉ bind 127.0.0.1:18085, HMAC SHA256 cho payload nguyên byte, tối đa 1 MiB. Đối chiếu tên `vuongvo2207-gmail-com/DevOps` và repository ID `1457478642` từ `ci/webhook/repository.json`, cùng commit40hex. PR phải cùng repo, không draft và base `main`; fork bị từ chối. Nhánh main có thể yêu cầu publish sau các gate, nhánh tính năng/PR không publish; webhook luôn giữ deploy=false. API token relay thuộc clinic-webhook với quyền Overall/Read, Job/Read, Job/Build, không có quyền admin/configure/credentials. Không dùng token clinic-admin cho relay.
+Relay chỉ bind 127.0.0.1:18085, HMAC SHA256 cho payload nguyên byte, tối đa 1 MiB. Đối chiếu tên `vxxngw/DevOps` và repository ID `1457478642` từ `ci/webhook/repository.json`, cùng commit40hex. PR phải cùng repo, không draft và base `main`; fork bị từ chối. Nhánh main có thể yêu cầu publish sau các gate, nhánh tính năng/PR không publish; webhook luôn giữ deploy=false. API token relay thuộc clinic-webhook với quyền Overall/Read, Job/Read, Job/Build, không có quyền admin/configure/credentials. Không dùng token clinic-admin cho relay.
 
 Cần URL HTTPS công khai chỉ chuyển tiếp đến relay, giữ controller/agent/engine nội bộ. Có thể dùng [Cloudflare Quick Tunnel](https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/) cho demo local sau khi cài cloudflared ghim phiên bản và ghi version/checksum. Đây là lựa chọn thiết kế, không phải yêu cầu PDF; Quick Tunnel không bảo đảm uptime và URL thay đổi sau restart. Không trỏ tunnel vào Jenkins8080/18090. Khi relay healthy và có URL:
 

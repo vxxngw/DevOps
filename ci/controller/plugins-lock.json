@@ -58,6 +58,13 @@
       "requiredCore": "2.528.3",
       "sha256": "uPepFvHeCHLUwWJkvPlgT9tbLaGCd2R0WUbHrF9hOUg=",
       "url": "https://updates.jenkins.io/download/plugins/matrix-auth/3.3/matrix-auth.hpi"
+    },
+    {
+      "name": "ssh-slaves",
+      "version": "3.1097.v868116049892",
+      "requiredCore": "2.504.1",
+      "sha256": "jWxJlqrSPIhZKKDQ3HQiAO2URzGJQ0qTgzuPDeMGWX8=",
+      "url": "https://updates.jenkins.io/download/plugins/ssh-slaves/3.1097.v868116049892/ssh-slaves.hpi"
     }
   ]
 }

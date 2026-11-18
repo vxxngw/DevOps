@@ -1,0 +1,12 @@
+#!/bin/bash
+# Quản lý bởi Ansible - backup etcd snapshot + token của k3s
+set -euo pipefail
+DEST={{ k3s_backup_dir }}
+SNAPDIR=/var/lib/rancher/k3s/server/db/snapshots
+mkdir -p "$DEST"
+/usr/local/bin/k3s etcd-snapshot save --name timer
+cp -u "$SNAPDIR"/timer-* "$DEST"/
+cp -u /var/lib/rancher/k3s/server/token "$DEST"/token
+chmod 600 "$DEST"/*
+find "$DEST" "$SNAPDIR" -maxdepth 1 -name 'timer-*' -mtime +{{ k3s_backup_keep_days }} -delete
+echo "k3s backup OK: $(ls -1 "$DEST" | grep -c '^timer-') snapshot(s) in $DEST"

@@ -34,7 +34,14 @@ lab.py từ chối tạo khi preflight chưaREADY. Terraform dùng provider th�
 
 ## Ansible
 
-Một inventorylab cho một bộ3 VM; staging/production là namespace trong cùngcluster, cấu hình ứng dụng tách bằng overlays. Không tạo hai fleet chỉ vì hai namespace. Sampleinventory là IPdự kiến, không phải máy đã phát hiện.
+Inventory tách theo môi trường hạ tầng, mỗi môi trường một bộ 3 VM với hosts, operator CIDR và vault.yml riêng:
+
+| Inventory | Hạ tầng | Mạng node | Operator CIDR |
+|---|---|---|---|
+| `inventories/lab` | Terraform/libvirt (KVM) | 192.168.150.0/24 | 192.168.150.1/32 |
+| `inventories/dev` | VirtualBox host-only | 192.168.56.0/24 | 192.168.56.1/32 |
+
+Staging/production là namespace trong cùng cluster, cấu hình ứng dụng tách bằng overlays. Không tạo hai fleet chỉ vì hai namespace. Sample inventory là IP dự kiến, không phải máy đã phát hiện. Với `dev`, cloud-init của VM phải tạo user `clinicops` với operator public key; copy `dev/hosts.example.yml` thành `dev/hosts.yml` (bị ignore) và đổi `-i` trong các lệnh dưới sang `infra/ansible/inventories/dev/hosts.yml`.
 
 Tạo inventorylab/vault.yml từ schema, nhập secret local rồi ansible-vault encrypt; file/password không commit. Có k3stoken≥32ký tự; CIrole cần Jenkinsadminpassword≥24, GitHubreadtoken và registrywritecredential. clinic_repo_revision phải commit40hex đã push.
 

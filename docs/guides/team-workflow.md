@@ -10,7 +10,7 @@ Cập nhật 19/11/2026. Repo: <https://github.com/vxxngw/DevOps> (tài khoản 
 | TV2 | Vuong – chủ repo, điều phối | `vxxngw` | `codex/<task>` | Git/release, Docker/Compose/Jenkins, registry, CI security (Bài 2, 4–6, 11) | Hoang |
 | TV3 | Long | `baolong205` | `Long` | Linux/Bash, Terraform/Ansible, backup, chi phí (Bài 3, 7–8, 12) | Thien |
 | TV4 | Thien | `Thientao0609` | `Thien` | Kubernetes, HPA/KEDA, TLS/RBAC, rollout/rollback (Bài 9) | VietAnh |
-| TV5 | VietAnh | chưa có – cần mời | `VietAnh` | *Đề xuất, chờ nhóm chốt:* QA/kiểm thử E2E, đo DORA (Bài 1 nâng cao), báo cáo và video | Vuong |
+| TV5 | VietAnh | `vietanh2481` | `feat/k3s-agent-workload` | K3s Agent (Worker & Storage Node), QA/kiểm thử E2E, đo DORA (Bài 1 nâng cao) | Vuong |
 
 Vòng review: **Vuong → Hoang → Long → Thien → VietAnh → Vuong** (người đứng sau review PR của người đứng trước). Không tự approve PR của mình, không dùng chung tài khoản Git. Thay đổi contract, migration, Jenkinsfile hoặc tài nguyên dùng chung cần báo cả nhóm trước khi merge.
 
@@ -65,7 +65,7 @@ Xem [architecture.md – Sơ đồ tổng thể](architecture.md#sơ-đồ-tổn
 
 **Bắt buộc**
 
-- [ ] **VietAnh:** gửi GitHub username; **Vuong** mời làm collaborator.
+- [x] **VietAnh:** gửi GitHub username (`vietanh2481`); **Vuong** mời làm collaborator.
 - [ ] **Cả 5 người:** clone repo, đặt `git config user.name/user.email` khớp tài khoản GitHub (để commit được tính đúng người), cài pre-commit.
 - [ ] **Cả 5 người:** mỗi người có ít nhất 1 PR merge vào main, do người kế tiếp trong vòng review approve (PR đầu tiên theo [onboarding](team-onboarding.md)).
 - [ ] **Nhóm:** chốt vai TV5 cho VietAnh và thêm task vào Sheet.
