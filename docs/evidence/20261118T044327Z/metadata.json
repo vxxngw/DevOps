@@ -1,0 +1,101 @@
+{
+  "started_at_utc": "2026-11-18T04:43:27.351421+00:00",
+  "host": "Windows-11-10.0.26300-SP0",
+  "commit": "5cac55cd32b0a4466d6a6eb05236c517fd3c7101",
+  "working_tree": "",
+  "scope": "SQLite API + unit only",
+  "commands": [
+    {
+      "command": [
+        "D:\\HocTap\\DevOps\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "started_at_utc": "2026-11-18T04:43:27.836699+00:00",
+      "ended_at_utc": "2026-11-18T04:43:29.101198+00:00",
+      "exit_code": 0,
+      "output": "pip-check.log"
+    },
+    {
+      "command": [
+        "D:\\HocTap\\DevOps\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "services",
+        "tests",
+        "scripts"
+      ],
+      "started_at_utc": "2026-11-18T04:43:29.101553+00:00",
+      "ended_at_utc": "2026-11-18T04:43:29.793283+00:00",
+      "exit_code": 0,
+      "output": "ruff.log"
+    },
+    {
+      "command": [
+        "D:\\HocTap\\DevOps\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "services",
+        "tests",
+        "scripts"
+      ],
+      "started_at_utc": "2026-11-18T04:43:29.793388+00:00",
+      "ended_at_utc": "2026-11-18T04:43:30.019596+00:00",
+      "exit_code": 0,
+      "output": "format.log"
+    },
+    {
+      "command": [
+        "D:\\HocTap\\DevOps\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "--tb=short",
+        "--junitxml=D:\\HocTap\\DevOps\\docs\\evidence\\20261118T044327Z\\junit.xml"
+      ],
+      "started_at_utc": "2026-11-18T04:43:30.019704+00:00",
+      "ended_at_utc": "2026-11-18T04:43:37.914490+00:00",
+      "exit_code": 0,
+      "output": "pytest.log"
+    }
+  ],
+  "source_sha256": {
+    "compose.yaml": "a5053eb9c56bc3e3c945fe0e5452f95fc79a548966f2b21729f050ed3f87ea5b",
+    "contracts\\appointment-created.example.json": "7d70f5e72ab75181d86fa70198cb874831dbf0bbf1bc36b70b01eff6fffa9256",
+    "contracts\\appointment-event.schema.json": "9f314aa0f3ba095e723831c3ca0c0103c00de15f5202e838aed5eca8e1d8d9af",
+    "requirements.lock": "8cea72b78c7859369891cfc856b5363cddd583606e5f973a7089b336651e7f93",
+    "services\\clinic\\__init__.py": "4e87e5a76360973a9d87df6f26c4a27bea16658227e4815e530932a506308f1e",
+    "services\\clinic\\api.py": "4f6f88d830741e0daddc8664040a5d63e79d09abe08e37d84b84e19bc5c0a417",
+    "services\\clinic\\broker.py": "b38ae2584c65cc04d17b7b78b1b32d896acffa20324c748cbd21e91973860fc6",
+    "services\\clinic\\config.py": "3f37106a43ed225983d9744c67b0b6bf24bbc88d36d05fcade31754f8250cb7c",
+    "services\\clinic\\contracts.py": "43738a092027015a14320669e94fa12edfb31616f929478045a9e7833000df6f",
+    "services\\clinic\\db.py": "52c5a85947e181463ca57f191de5977801c76f5d31da7614c9c61e39730fe506",
+    "services\\clinic\\dlq.py": "9b59cc6f31b10c80eeefcc6e376ca48a16b4e6fca313bd971decacc904bdb7ec",
+    "services\\clinic\\events.py": "950e5703304804e526547e46992357524e67a4fe054dfa220c537e8af81c0587",
+    "services\\clinic\\manage_user.py": "ade3f2c9f30f78f2f120afb1259e4610d4cbd1a83d9556db7773ef7d15460893",
+    "services\\clinic\\models.py": "39eb0e01558bf91e49576786fb6a1b0513bc2bcdbda0c2a62cd380fdf0b55153",
+    "services\\clinic\\publisher.py": "7f710d6af80fdfb469740769f1583603da5b074d07624fb66f2632ca2781abb7",
+    "services\\clinic\\reminders.py": "cb99c2ba4944767ec3752b1c21ffe5259486f41279bc1ac591d9207620f47b0e",
+    "services\\clinic\\reset_password.py": "1ef93dd40150401731560daf4786d19b524ba16d4469b736441e56af37c65349",
+    "services\\clinic\\runtime.py": "bd397d2d6f37789d2856b6b41e1abd57ea8b98a10166247e3456d8704fd145a1",
+    "services\\clinic\\security.py": "8e3e74a7b27033ccca4d8d6c56f88043173e68cd716923b179a97d0f4095913a",
+    "services\\clinic\\seed.py": "5af5779d45024285099d9185842def3116f1218c83f818f18d116cccde89de17",
+    "services\\clinic\\telemetry.py": "c00b7d335a623561db9778ad6cea4cf8459ce227fa3643436996cc09bd43c96d",
+    "services\\clinic\\worker.py": "3f6205eded2b134aa928c539276ac44f0ad3442ee0504879b0906664ecd4c56c",
+    "services\\migrations\\env.py": "22b330dbcdf60e4bdee022e2349ac5997bab5727021b121530711ace5c92f0eb",
+    "services\\migrations\\versions\\0b3e2278237d_initial_schema.py": "5d9a11ed00d1a5d1a8c7f7eda8ad207a2d3561f79f317133df4965b13670852a",
+    "services\\migrations\\versions\\20261114_01_reminders.py": "ae5cfc7adc3a0e6d4d0868c918c90046413765e9cb5031246fe285d4b41a47cb",
+    "tests\\conftest.py": "b113e576cebe3d45c68367486cdba8968dbd68319b69dd609b68bfcbd7f1c5e1",
+    "tests\\test_api.py": "832832bc91cfc396c9a2cb6282a6b1d442225e77bb71bf362d4e1e04f854eef6",
+    "tests\\test_contracts.py": "b9f8a276330229dec67ff54c4ce42a96118872a8e5a19b29cd3520eb4d2b1d75",
+    "tests\\test_events.py": "990d6d319f3be614e4410733899fb02df2e6954f61bce18ff980de6a07a2da8f",
+    "tests\\test_integration.py": "15cca357218a9ad9e0b415468de8909a76630a7fbd9419abb636d00222c0fb13",
+    "tests\\test_observability.py": "1443177fd938ccc840b21f951b7fc31fb715a73c6e029cbcd66ca9723b1aced3",
+    "tests\\test_reminders.py": "a3dc8c09f6571683a8a1bb75332c6acd37eb490d07c357ee7f039b740d44b0fd"
+  },
+  "ended_at_utc": "2026-11-18T04:43:37.914606+00:00"
+}
