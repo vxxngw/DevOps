@@ -27,7 +27,7 @@ spec:
       terminationGracePeriodSeconds: 70
       containers:
       - name: postgres
-        image: ghcr.io/vuongvo2207-gmail-com/devops-postgres:UNRELEASED
+        image: ghcr.io/vxxngw/devops-postgres:UNRELEASED
         ports:
         - name: db
           containerPort: 5432
@@ -118,7 +118,7 @@ spec:
       terminationGracePeriodSeconds: 70
       containers:
       - name: rabbitmq
-        image: ghcr.io/vuongvo2207-gmail-com/devops-rabbitmq:UNRELEASED
+        image: ghcr.io/vxxngw/devops-rabbitmq:UNRELEASED
         ports:
         - name: amqp
           containerPort: 5672

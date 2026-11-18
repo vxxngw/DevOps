@@ -58,11 +58,11 @@ def test_passing_junit(tmp_path):
 
 
 def fixture_release():
-    reference = "ghcr.io/vuongvo2207-gmail-com/devops-app@sha256:" + "a" * 64
+    reference = "ghcr.io/vxxngw/devops-app@sha256:" + "a" * 64
     manifest = {
         "images": {
             "app": {
-                "tag": "ghcr.io/vuongvo2207-gmail-com/devops-app:commit",
+                "tag": "ghcr.io/vxxngw/devops-app:commit",
                 "reference": reference,
             }
         }
@@ -77,7 +77,7 @@ def fixture_release():
                     "containers": [
                         {
                             "name": "api",
-                            "image": "ghcr.io/vuongvo2207-gmail-com/devops-app:previous",
+                            "image": "ghcr.io/vxxngw/devops-app:previous",
                         }
                     ]
                 }

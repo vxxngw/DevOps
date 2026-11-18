@@ -8,7 +8,7 @@ from ci.webhook.relay import DeliveryStore, parameters, validate_signature
 
 def push():
     return {
-        "repository": {"full_name": "vuongvo2207-gmail-com/DevOps", "id": 1457478642},
+        "repository": {"full_name": "vxxngw/DevOps", "id": 1457478642},
         "ref": "refs/heads/main",
         "after": "a" * 40,
         "deleted": False,
@@ -69,9 +69,9 @@ def test_invalid_revision_cannot_reach_checkout(revision):
         parameters("push", event)
 
 
-def pr(owner="vuongvo2207-gmail-com/DevOps"):
+def pr(owner="vxxngw/DevOps"):
     return {
-        "repository": {"full_name": "vuongvo2207-gmail-com/DevOps", "id": 1457478642},
+        "repository": {"full_name": "vxxngw/DevOps", "id": 1457478642},
         "action": "synchronize",
         "pull_request": {
             "draft": False,
@@ -81,7 +81,7 @@ def pr(owner="vuongvo2207-gmail-com/DevOps"):
                 "sha": "b" * 40,
                 "repo": {
                     "full_name": owner,
-                    "id": 1457478642 if owner == "vuongvo2207-gmail-com/DevOps" else 1,
+                    "id": 1457478642 if owner == "vxxngw/DevOps" else 1,
                 },
             },
         },
@@ -125,7 +125,7 @@ def test_matching_name_without_pinned_numeric_id_is_rejected(identifier):
 
 def test_old_name_is_not_accepted_just_because_repository_id_matches():
     event = push()
-    event["repository"]["full_name"] = "vxxngw/DevOps"
+    event["repository"]["full_name"] = "vuongvo2207-gmail-com/DevOps"  # pre-transfer organization
     with pytest.raises(ValueError):
         parameters("push", event)
 
