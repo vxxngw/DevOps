@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.0](https://github.com/vxxngw/DevOps/compare/v0.2.0...v0.3.0) (2026-11-18)
+
+
+### Features
+
+* **infra:** Linux baseline on a VirtualBox lab VM (Bài 3) ([#18](https://github.com/vxxngw/DevOps/issues/18)) ([e896161](https://github.com/vxxngw/DevOps/commit/e8961618f8617b7158684e15c57dead9557d4289))
+* **infra:** provision k3s, Docker and Jenkins agent with Ansible on VirtualBox ([#21](https://github.com/vxxngw/DevOps/issues/21)) ([eb3748b](https://github.com/vxxngw/DevOps/commit/eb3748bcd02d7c9ed0df5f56ddba4cd585fd841c))
+* task baolong ([#17](https://github.com/vxxngw/DevOps/issues/17)) ([9f4a4c3](https://github.com/vxxngw/DevOps/commit/9f4a4c3d869a57512d32db399bdc712c60071115))
+
+
+### Bug Fixes
+
+* **infra:** make entry shell scripts executable for systemd ([#20](https://github.com/vxxngw/DevOps/issues/20)) ([9c2c897](https://github.com/vxxngw/DevOps/commit/9c2c8973ebcaebc07ea35aeb99f7a39d2c751a42))
+
 ## [0.2.0](https://github.com/vxxngw/DevOps/compare/v0.1.0...v0.2.0) (2026-11-18)
 
 
