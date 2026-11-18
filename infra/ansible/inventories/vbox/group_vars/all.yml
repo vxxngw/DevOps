@@ -1,0 +1,10 @@
+# One VirtualBox VM for Bai 3 on the default host-only network 192.168.56.0/24.
+# SSH source as seen by the VM (check with `echo $SSH_CLIENT` before the first run): the Windows host.
+clinic_operator_cidrs: [192.168.56.1/32]
+clinic_node_cidr: 192.168.56.0/24
+clinic_pod_cidr: 10.42.0.0/16
+clinic_repo_url: https://github.com/vxxngw/DevOps.git
+clinic_repo_dir: /opt/anuyen-src
+clinic_backup_root: /srv/clinic-backups
+clinic_backup_retention_days: 7
+clinic_backup_on_calendar: hourly

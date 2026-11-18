@@ -48,4 +48,5 @@ module "node" {
   disk_gib        = each.value.disk_gib
   mac             = each.value.mac
   ssh_public_key  = var.ssh_public_key
+  operator_cidrs  = var.operator_cidrs
 }

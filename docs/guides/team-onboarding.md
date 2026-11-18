@@ -1,6 +1,6 @@
 # Checklist onboarding cho nhóm 4 thành viên
 
-> Từ 18/11/2026 nhóm có 5 người (thêm **VietAnh – TV5**). Phân vai, GitHub, vòng review mới và việc còn lại ở [quy trình nhóm](team-workflow.md). Phần dưới giữ nguyên bản 4 người; VietAnh làm 6 bước OB-01..OB-06 như mọi người và nhận task sau khi nhóm chốt vai.
+> Từ 19/11/2026 nhóm có 5 người (thêm **VietAnh – TV5**). Phân vai, GitHub, vòng review mới và việc còn lại ở [quy trình nhóm](team-workflow.md). Phần dưới giữ nguyên bản 4 người; VietAnh làm 6 bước OB-01..OB-06 như mọi người và nhận task sau khi nhóm chốt vai.
 
 Phân công cho An Uyên Hospital – Đặt lịch khám có thông báo, đồng bộ 16/11/2026 với [bảng task của nhóm](https://docs.google.com/spreadsheets/d/1py3DJf2rO_x2zK0-LcE8tERMtrn2S5lINx7nbnM8-48/edit). Nhóm gồm **Vuong, Hoang, Long, Thien**; **TV1 = Hoang, TV2 = Vuong, TV3 = Long, TV4 = Thien**. GitHub từng người còn cần điền trong [quy trình nhóm](team-workflow.md). Đây là trách nhiệm bàn giao tiếp theo, không phải bằng chứng ai đã thực hiện các kết quả cũ. Mọi checkbox bên dưới là công việc cần làm, chưa được đánh dấu hoàn thành thay thành viên.
 

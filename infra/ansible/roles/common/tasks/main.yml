@@ -115,3 +115,38 @@
   when: inventory_hostname in groups.get('k3s_server', []) + groups.get('k3s_agent', [])
 - name: Enable firewall
   community.general.ufw: {state: enabled}
+- name: Install host health check script
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/../../scripts/infra/host-health.sh"
+    dest: /usr/local/sbin/clinic-host-health.sh
+    mode: '0755'
+- name: Install host health check service and timer
+  ansible.builtin.copy:
+    dest: "/etc/systemd/system/{{ item.name }}"
+    mode: '0644'
+    content: "{{ item.content }}"
+  loop:
+    - name: clinic-host-health.service
+      content: |
+        [Unit]
+        Description=Clinic Linux host health check
+        [Service]
+        Type=oneshot
+        DynamicUser=yes
+        ExecStart=/usr/local/sbin/clinic-host-health.sh
+    - name: clinic-host-health.timer
+      content: |
+        [Unit]
+        Description=Clinic Linux host health check every 15 minutes
+        [Timer]
+        OnCalendar=*:0/15
+        Persistent=true
+        [Install]
+        WantedBy=timers.target
+  loop_control: {label: "{{ item.name }}"}
+- name: Enable host health schedule
+  ansible.builtin.systemd_service:
+    name: clinic-host-health.timer
+    enabled: true
+    state: started
+    daemon_reload: true
