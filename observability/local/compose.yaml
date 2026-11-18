@@ -1,0 +1,191 @@
+# Local Docker runtime for the observability stack (Bài 10 / P1-04).
+#
+# The Kubernetes manifests under observability/k8s stay the production target.
+# This file exists only so an operator can prove the same Prometheus rules,
+# Grafana provisioning and EFK pipeline actually run and emit FIRING/RESOLVED
+# signals on a machine without a cluster. It never replaces the k8s path.
+#
+# Run it through scripts/verify-observability-runtime.py, which supplies the
+# required POSTGRES_PASSWORD from the repository .env file.
+name: clinic-observability
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=6h
+      - --web.enable-lifecycle
+      - --web.enable-admin-api
+    volumes:
+      - ./prometheus/prometheus.local.yml:/etc/prometheus/prometheus.yml:ro
+      # Derived from observability/prometheus/rules/clinic.yml by
+      # scripts/verify-observability-runtime.py (see rules/local.yml).
+      - ./prometheus/rules:/etc/prometheus/rules:ro
+      - prometheus-data:/prometheus
+    ports: ["127.0.0.1:19090:9090"]
+    networks: [clinic, observability]
+    depends_on: [alertmanager]
+    logging: *logging
+    restart: unless-stopped
+
+  alertmanager:
+    image: prom/alertmanager:v0.27.0
+    command:
+      - --config.file=/etc/alertmanager/alertmanager.yml
+      - --storage.path=/alertmanager
+      - --web.external-url=http://127.0.0.1:19093
+    volumes:
+      - ./alertmanager/alertmanager.local.yml:/etc/alertmanager/alertmanager.yml:ro
+      - alertmanager-data:/alertmanager
+    ports: ["127.0.0.1:19093:9093"]
+    networks: [observability]
+    depends_on: [receiver]
+    logging: *logging
+    restart: unless-stopped
+
+  receiver:
+    build:
+      context: ./receiver
+    image: clinic-alert-receiver:local
+    environment:
+      RECEIPT_PATH: /receipts/alertmanager-receipts.jsonl
+    volumes:
+      - ./evidence:/receipts
+    ports: ["127.0.0.1:19099:9099"]
+    networks: [observability]
+    logging: *logging
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:11.3.0
+    environment:
+      GF_SECURITY_ADMIN_USER: clinicops
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-clinicops-local-only}
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+      GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+      GF_NEWS_NEWS_FEED_ENABLED: "false"
+      GF_SERVER_ROOT_URL: http://127.0.0.1:13000
+    volumes:
+      - ./grafana/datasources.local.yml:/etc/grafana/provisioning/datasources/datasources.yml:ro
+      # Reuses the production provider file unchanged.
+      - ../../observability/grafana/providers.yml:/etc/grafana/provisioning/dashboards/providers.yml:ro
+      # Reuses the production dashboard JSON unchanged.
+      - ../../observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+    ports: ["127.0.0.1:13000:3000"]
+    networks: [observability]
+    depends_on: [prometheus]
+    logging: *logging
+    restart: unless-stopped
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.3
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      xpack.security.enrollment.enabled: "false"
+      xpack.ml.enabled: "false"
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+      bootstrap.memory_lock: "true"
+    ulimits:
+      memlock: {soft: -1, hard: -1}
+      nofile: {soft: 65536, hard: 65536}
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports: ["127.0.0.1:19200:9200"]
+    networks: [observability]
+    healthcheck:
+      test: [CMD-SHELL, "curl -fsS http://localhost:9200/_cluster/health >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 40s
+    logging: *logging
+    restart: unless-stopped
+
+  # Transport shim: fluent-plugin-elasticsearch 5.4.3 always sends
+  # `compatible-with=9` media types, which Elasticsearch 8.15 rejects. The proxy
+  # rewrites only that header; documents are untouched. See efk/es-proxy.py.
+  es-proxy:
+    image: python:3.12-alpine
+    command: ["python", "/app/es-proxy.py"]
+    environment:
+      ES_UPSTREAM_HOST: elasticsearch
+      ES_UPSTREAM_PORT: "9200"
+      ES_PROXY_PORT: "9200"
+    volumes:
+      - ./efk/es-proxy.py:/app/es-proxy.py:ro
+    networks: [observability]
+    depends_on:
+      elasticsearch: {condition: service_healthy}
+    logging: *logging
+    restart: unless-stopped
+
+  fluentd:
+    build:
+      context: ./efk
+    image: clinic-fluentd:local
+    # Docker Desktop bind-mounts /var/lib/docker/containers root-only, so the
+    # local collector must run as root to read the container json-file logs.
+    # The Kubernetes deployment keeps its non-root securityContext.
+    user: "0:0"
+    environment:
+      FLUENTD_CONF: fluent.local.conf
+      ELASTIC_HOST: es-proxy
+      ELASTIC_PORT: "9200"
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - fluentd-buffers:/buffers
+    ports: ["127.0.0.1:24231:24231"]
+    networks: [observability]
+    depends_on:
+      es-proxy: {condition: service_started}
+    logging: *logging
+    restart: unless-stopped
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.15.3
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+      SERVER_PUBLICBASEURL: http://127.0.0.1:15601
+      TELEMETRY_ENABLED: "false"
+      MONITORING_ENABLED: "false"
+    ports: ["127.0.0.1:15601:5601"]
+    networks: [observability]
+    depends_on:
+      elasticsearch: {condition: service_healthy}
+    logging: *logging
+    restart: unless-stopped
+
+  postgres-exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter:v0.20.1
+    environment:
+      DATA_SOURCE_NAME: postgresql://clinic:${POSTGRES_PASSWORD:?Run init-env}@postgres:5432/clinic?sslmode=disable
+    ports: ["127.0.0.1:19187:9187"]
+    networks: [clinic, observability]
+    logging: *logging
+    restart: unless-stopped
+
+volumes:
+  prometheus-data:
+  alertmanager-data:
+  grafana-data:
+  elasticsearch-data:
+  fluentd-buffers:
+
+networks:
+  clinic:
+    external: true
+    name: clinic-dev_clinic
+  observability:
+    name: clinic-observability

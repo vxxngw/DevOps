@@ -1,0 +1,25 @@
+# Local Alertmanager: same routing shape as observability/config.py, but the
+# receiver is a local webhook that writes a receipt file instead of Telegram.
+# No token is stored here; the Telegram path stays operator-owned.
+global:
+  resolve_timeout: 1m
+route:
+  receiver: local-receipt
+  group_by: [alertname, namespace, service]
+  group_wait: 5s
+  group_interval: 10s
+  repeat_interval: 1h
+  routes:
+  - matchers: ['severity="critical"']
+    receiver: local-receipt
+    continue: false
+receivers:
+- name: local-receipt
+  webhook_configs:
+  - url: http://receiver:9099/alert
+    send_resolved: true
+    max_alerts: 0
+inhibit_rules:
+- source_matchers: ['alertname="ClinicServiceDown"']
+  target_matchers: ['severity=~"warning|critical"']
+  equal: [namespace, service]
