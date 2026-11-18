@@ -1,0 +1,8 @@
+# One public cloud VM for Bai 3. Real address, operator CIDR, key and revision live in hosts.yml.
+clinic_node_cidr: 10.0.0.0/16
+clinic_pod_cidr: 10.42.0.0/16
+clinic_repo_url: https://github.com/vxxngw/DevOps.git
+clinic_repo_dir: /opt/anuyen-src
+clinic_backup_root: /srv/clinic-backups
+clinic_backup_retention_days: 7
+clinic_backup_on_calendar: hourly

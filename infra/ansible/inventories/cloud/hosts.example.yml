@@ -1,0 +1,13 @@
+# Copy to hosts.yml (git-ignored) and fill the real values. Never commit a real IP or key.
+all:
+  vars:
+    ansible_user: clinicops
+    ansible_python_interpreter: /usr/bin/python3
+  children:
+    cloud:
+      hosts:
+        anuyen-cloud:
+          ansible_host: 203.0.113.10                    # VM public IP (TEST-NET placeholder)
+          clinic_operator_cidrs: [198.51.100.7/32]      # your public IP /32; SSH is allowed only from here
+          clinic_operator_public_key: "ssh-ed25519 AAAA... anuyen-lab"
+          clinic_repo_revision: "0000000000000000000000000000000000000000"  # quoted 40-hex commit on main

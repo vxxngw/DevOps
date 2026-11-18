@@ -1,0 +1,50 @@
+# Bai 3 on ONE cloud VM: hardened Linux baseline (user, SSH key, no root, UFW), host health timer,
+# Compose PostgreSQL with synthetic data and a scheduled backup. The k3s cluster stays in site.yml.
+- name: Linux baseline, dev database and scheduled backup on the cloud lab VM
+  hosts: cloud
+  become: true
+  environment:
+    LC_ALL: C
+  vars:
+    clinic_versions: "{{ lookup('file', playbook_dir + '/../versions.json') | from_json }}"
+    clinic_backup_profiles: [dev]
+    clinic_backup_command: "{{ clinic_repo_dir }}/scripts/infra/backup.sh"
+  pre_tasks:
+    - name: Require an exact revision to deploy
+      ansible.builtin.assert:
+        that: clinic_repo_revision is match('^[0-9a-f]{40}$')
+  roles:
+    - common
+    - docker
+    - backup
+  tasks:
+    - name: Checkout exact project revision
+      ansible.builtin.git:
+        repo: "{{ clinic_repo_url }}"
+        dest: "{{ clinic_repo_dir }}"
+        version: "{{ clinic_repo_revision }}"
+        force: false
+    - name: Create random synthetic dev credentials once
+      ansible.builtin.command:
+        cmd: python3 scripts/dev/init-env.py
+        chdir: "{{ clinic_repo_dir }}"
+        creates: "{{ clinic_repo_dir }}/.env"
+    - name: Keep dev credentials readable by root only
+      ansible.builtin.file: {path: "{{ clinic_repo_dir }}/.env", mode: '0600'}
+    - name: Start PostgreSQL and wait until healthy
+      community.docker.docker_compose_v2:
+        project_src: "{{ clinic_repo_dir }}"
+        services: [postgres]
+        wait: true
+    - name: Apply database migrations
+      ansible.builtin.command:
+        cmd: docker compose run --rm -T migrate
+        chdir: "{{ clinic_repo_dir }}"
+      register: clinic_migrate
+      changed_when: "'Running upgrade' in (clinic_migrate.stdout + clinic_migrate.stderr)"
+    # Seed prints nothing, so it only runs right after a fresh schema to keep reruns idempotent.
+    - name: Load synthetic seed data into a fresh schema
+      ansible.builtin.command:
+        cmd: docker compose run --rm -T seed
+        chdir: "{{ clinic_repo_dir }}"
+      when: clinic_migrate is changed
