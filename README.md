@@ -2,7 +2,9 @@
 
 Repo private hiện tại: [vuongvo2207-gmail-com/DevOps](https://github.com/vuongvo2207-gmail-com/DevOps), cùng repo ID sau khi GitHub đổi địa chỉ.
 
-Nhóm 3 thành viên bắt đầu từ [checklist onboarding và phân công task](docs/guides/team-onboarding.md). Phân công tên/GitHub thật tại [quy trình nhóm](docs/guides/team-workflow.md); trạng thái kiểm chứng mới nhất xem [ma trận](docs/compliance-matrix.md) và [CI evidence](docs/evidence/ci-runtime-latest.json).
+Nhóm **4 thành viên: Vuong, Hoang, Long, Thien**, bắt đầu từ [checklist onboarding](docs/guides/team-onboarding.md) và [bảng phân công 50 task](https://docs.google.com/spreadsheets/d/1py3DJf2rO_x2zK0-LcE8tERMtrn2S5lINx7nbnM8-48/edit). GitHub/kênh trao đổi thực tại [quy trình nhóm](docs/guides/team-workflow.md); trạng thái kiểm chứng xem [ma trận](docs/compliance-matrix.md) và [CI evidence](docs/evidence/ci-runtime-latest.json).
+
+**Đọc lại 16/11/2026:** [bằng chứng bàn giao 4 người](docs/evidence/team-four-handoff-20261115T201450Z/README.md) xác nhận Docker/container healthy, 11 endpoint trả 200 và Jenkins #14 SUCCESS cho `adb5dbd` (publish/deploy=false). Không chạy build mới của thay đổi tài liệu: C chỉ còn khoảng 0,20GiB; GHCR credential chưa có, main protection vẫn 403. VM/cluster/monitoring runtime còn bị chặn.
 
 Đồ án DevOps đề tài số 8: React/TypeScript → FastAPI → PostgreSQL/outbox → RabbitMQ → worker email. API, publisher và worker là ba tiến trình riêng; có health, readiness, Prometheus metrics và JSON logs. Chỉ sử dụng dữ liệu giả lập.
 

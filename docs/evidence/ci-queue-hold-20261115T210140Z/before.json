@@ -1,0 +1,70 @@
+{
+  "root": {
+    "_class": "hudson.model.Hudson",
+    "numExecutors": 0,
+    "jobs": [
+      {
+        "_class": "com.cloudbees.hudson.plugins.folder.Folder",
+        "name": "an-uyen"
+      }
+    ],
+    "quietDownReason": null,
+    "quietingDown": false,
+    "useSecurity": true
+  },
+  "project_jobs": {
+    "_class": "com.cloudbees.hudson.plugins.folder.Folder",
+    "jobs": [
+      {
+        "_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob",
+        "name": "clinic-pipeline",
+        "builds": [
+          {
+            "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+            "building": false,
+            "number": 14,
+            "result": "SUCCESS"
+          },
+          {
+            "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+            "building": false,
+            "number": 13,
+            "result": "SUCCESS"
+          }
+        ]
+      }
+    ]
+  },
+  "queue": {
+    "_class": "hudson.model.Queue",
+    "items": []
+  },
+  "computers": {
+    "_class": "hudson.model.ComputerSet",
+    "computer": [
+      {
+        "_class": "hudson.model.Hudson$MasterComputer",
+        "displayName": "Built-In Node",
+        "executors": [],
+        "offline": false,
+        "oneOffExecutors": []
+      },
+      {
+        "_class": "hudson.slaves.SlaveComputer",
+        "displayName": "clinic-ci-linux",
+        "executors": [
+          {
+            "currentExecutable": null
+          }
+        ],
+        "offline": false,
+        "oneOffExecutors": []
+      }
+    ]
+  },
+  "pipeline_owned": true,
+  "disk_free_gib": {
+    "C:": 0.007,
+    "D:": 9.093
+  }
+}
