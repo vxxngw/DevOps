@@ -9,7 +9,11 @@ import urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-REPOSITORY = "vxxngw/DevOps"
+REPOSITORY_CONFIG = json.loads(
+    Path(__file__).with_name("repository.json").read_text(encoding="utf-8")
+)
+REPOSITORY = REPOSITORY_CONFIG["full_name"]
+REPOSITORY_ID = REPOSITORY_CONFIG["id"]
 MAX_BODY = 1024 * 1024
 
 
@@ -19,7 +23,8 @@ def validate_signature(secret, body, signature):
 
 
 def parameters(event, payload):
-    if payload.get("repository", {}).get("full_name") != REPOSITORY:
+    repository = payload.get("repository", {})
+    if repository.get("full_name") != REPOSITORY or repository.get("id") != REPOSITORY_ID:
         raise ValueError("Unexpected repository")
     if event == "ping":
         return None
@@ -38,7 +43,8 @@ def parameters(event, payload):
         pr = payload["pull_request"]
         if pr.get("draft") or pr.get("base", {}).get("ref") != "main":
             return None
-        if pr.get("head", {}).get("repo", {}).get("full_name") != REPOSITORY:
+        head_repo = pr.get("head", {}).get("repo", {})
+        if head_repo.get("full_name") != REPOSITORY or head_repo.get("id") != REPOSITORY_ID:
             raise ValueError("Fork PRs are not allowed on the trusted build agent")
         branch = pr["head"]["ref"]
         revision = pr["head"]["sha"]

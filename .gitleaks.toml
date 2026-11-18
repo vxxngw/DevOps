@@ -11,4 +11,4 @@ description = "Only64hex SHA256 source hashes for the five verified path keys in
 condition = "AND"
 regexTarget = "line"
 paths = ['''(^|[/\\])docs[/\\]evidence[/\\].*[/\\]metadata\.json$''']
-regexes = ['''^\s*"(?:services(?:/|\\\\)clinic(?:/|\\\\)(?:api|reset_password)\.py|tests(?:/|\\\\)test_api\.py|frontend(?:/|\\\\)src(?:/|\\\\)api\.ts)"\s*:\s*"[a-fA-F0-9]{64}",?\s*$''']
+regexes = ['''^\s*"(?:services(?:/|\\\\)clinic(?:/|\\\\)(?:api|reset_password)\.py|tests(?:/|\\\\)test_api\.py|frontend(?:/|\\\\)src(?:/|\\\\)(?:lib(?:/|\\\\))?api\.ts)"\s*:\s*"[a-fA-F0-9]{64}",?\s*$''']

@@ -101,6 +101,7 @@ def lint():
     )
     npm = "npm.cmd" if os.name == "nt" else "npm"
     run([npm, "run", "lint"], cwd=ROOT / "frontend", log=OUTPUT / "eslint.log")
+    run([npm, "run", "format:check"], cwd=ROOT / "frontend", log=OUTPUT / "frontend-format.log")
     run([npm, "run", "build"], cwd=ROOT / "frontend", log=OUTPUT / "frontend-build.log")
 
 

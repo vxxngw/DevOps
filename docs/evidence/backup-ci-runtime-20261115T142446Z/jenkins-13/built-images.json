@@ -1,0 +1,31 @@
+{
+  "commit": "d2ba14ceea8d99802db438351d6c6e96e88dca9b",
+  "built_at_utc": "2026-11-15T14:25:58.516927+00:00",
+  "images": {
+    "app": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-app:d2ba14ceea8d99802db438351d6c6e96e88dca9b",
+      "image_id": "sha256:4457c449b4ca3035131fd2fe72df7838e56470e1ed95a09f535b4f4870d7f7d5",
+      "source_revision": "d2ba14ceea8d99802db438351d6c6e96e88dca9b"
+    },
+    "frontend": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-frontend:d2ba14ceea8d99802db438351d6c6e96e88dca9b",
+      "image_id": "sha256:849246a4c321d2189f278a9f3c73b08f822dc206c32d51d6993d04e0c96e374c",
+      "source_revision": "d2ba14ceea8d99802db438351d6c6e96e88dca9b"
+    },
+    "postgres": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-postgres:d2ba14ceea8d99802db438351d6c6e96e88dca9b",
+      "image_id": "sha256:f932ecb146ded2e51cd2700a5e104dfd08f768e474eb93d7ff519116efd27364",
+      "source_revision": "4a6e05647044ad8722771eb0ba8bbe763b2133b1"
+    },
+    "rabbitmq": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-rabbitmq:d2ba14ceea8d99802db438351d6c6e96e88dca9b",
+      "image_id": "sha256:f9b29832cb15de2f5fed4af26ec19f0455a02edf340bd69c224cd513d8c31a80",
+      "source_revision": "4a6e05647044ad8722771eb0ba8bbe763b2133b1"
+    },
+    "mailpit": {
+      "tag": "ghcr.io/vuongvo2207-gmail-com/devops-mailpit:d2ba14ceea8d99802db438351d6c6e96e88dca9b",
+      "image_id": "sha256:d8e3dc8f2451c36c08f6d7c43318f720c5a1d6cd51d1be775f32cfe1d46b61e9",
+      "source_revision": "4a6e05647044ad8722771eb0ba8bbe763b2133b1"
+    }
+  }
+}

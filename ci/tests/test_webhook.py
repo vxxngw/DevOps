@@ -8,7 +8,7 @@ from ci.webhook.relay import DeliveryStore, parameters, validate_signature
 
 def push():
     return {
-        "repository": {"full_name": "vxxngw/DevOps"},
+        "repository": {"full_name": "vuongvo2207-gmail-com/DevOps", "id": 1457478642},
         "ref": "refs/heads/main",
         "after": "a" * 40,
         "deleted": False,
@@ -59,14 +59,21 @@ def test_invalid_revision_cannot_reach_checkout(revision):
         parameters("push", event)
 
 
-def pr(owner="vxxngw/DevOps"):
+def pr(owner="vuongvo2207-gmail-com/DevOps"):
     return {
-        "repository": {"full_name": "vxxngw/DevOps"},
+        "repository": {"full_name": "vuongvo2207-gmail-com/DevOps", "id": 1457478642},
         "action": "synchronize",
         "pull_request": {
             "draft": False,
             "base": {"ref": "main"},
-            "head": {"ref": "feature", "sha": "b" * 40, "repo": {"full_name": owner}},
+            "head": {
+                "ref": "feature",
+                "sha": "b" * 40,
+                "repo": {
+                    "full_name": owner,
+                    "id": 1457478642 if owner == "vuongvo2207-gmail-com/DevOps" else 1,
+                },
+            },
         },
     }
 
@@ -96,3 +103,25 @@ def test_failed_queue_can_be_redelivered(tmp_path):
     assert store.claim("payload-sha")
     store.finish("payload-sha", False)
     assert store.claim("payload-sha")
+
+
+@pytest.mark.parametrize("identifier", [None, 1, "1457478642"])
+def test_matching_name_without_pinned_numeric_id_is_rejected(identifier):
+    event = push()
+    event["repository"]["id"] = identifier
+    with pytest.raises(ValueError):
+        parameters("push", event)
+
+
+def test_old_name_is_not_accepted_just_because_repository_id_matches():
+    event = push()
+    event["repository"]["full_name"] = "vxxngw/DevOps"
+    with pytest.raises(ValueError):
+        parameters("push", event)
+
+
+def test_pr_head_requires_matching_repository_id():
+    event = pr()
+    event["pull_request"]["head"]["repo"]["id"] = 1
+    with pytest.raises(ValueError):
+        parameters("pull_request", event)

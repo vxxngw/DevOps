@@ -5,8 +5,8 @@
 ## Kiểm tra local
 
 ```powershell
-.\.venv\Scripts\python.exe scripts/install-observability-tools.py
-.\.venv\Scripts\python.exe scripts/verify-m4-local.py
+.\.venv\Scripts\python.exe scripts/infra/install-observability-tools.py
+.\.venv\Scripts\python.exe scripts/ci/verify-m4-local.py
 ```
 
 Binary Prometheus/Alertmanager đối chiếu SHA256 release, cache trên .infra-local ở D và bị ignore. Kết quả chỉ gồm parser/schema/policy/unit/fixture. Nginx -t, Fluentd --dry-run và image scan cần chạy riêng trên môi trường Linux/container phù hợp; hiện chưa chạy. Jenkinsfile mới chưa qua parser do Jenkins không kết nối được, chưa có build pipeline Mốc 4.
@@ -43,9 +43,9 @@ Stack này chứng minh đường ống metric → rule → Alertmanager → web
 Chạy lại Ansible tag os cho cấu hình vm.max_map_count=1048576 và thư mục /var/lib/anuyen-fluentd mode0700 trên 2 node. UFW chỉ mở 9100/10250 từ pod CIDR và dải node; không mở ra Internet. Kubelet phải trình chứng thư có IP SAN và CA khớp /var/run/secrets/kubernetes.io/serviceaccount/ca.crt. Nếu xác minh TLS thất bại, lấy đúng CA công khai từ admin rồi sửa mount/config; không bật insecure_skip_verify.
 
 ```bash
-python scripts/scan-observability.py
-python scripts/prepare-observability-secrets.py --telegram-chat-id ACTUAL_CHAT_ID --telegram-token-file PRIVATE_TOKEN_FILE
-python scripts/bootstrap-observability.py foundation --expected-server https://192.168.150.11:6443 --secrets-file .infra-local/observability/secrets.json
+python scripts/infra/scan-observability.py
+python scripts/infra/prepare-observability-secrets.py --telegram-chat-id ACTUAL_CHAT_ID --telegram-token-file PRIVATE_TOKEN_FILE
+python scripts/infra/bootstrap-observability.py foundation --expected-server https://192.168.150.11:6443 --secrets-file .infra-local/observability/secrets.json
 ```
 
 Chỉ chạy prepare khi chủ kênh đã chỉ định bot/chat thật; không dán token vào chat/Git. Secret file tạo một lần, từ chối ghi đè; bootstrap kiểm credential đang có và từ chối tự xoay password. Scan phải đúng digest, đủ 8 report, không CRITICAL và trong 24 giờ; metadata/report sửa hoặc thiếu đều chặn. Ngày15/11 đã scan8digest không CRITICAL và kiểm raw receipt; khi thực thi vẫn cần scan đúng version/digest trong24giờ. VM/cluster và receiver chưa có nên bootstrap runtime vẫn chưa đủ điều kiện. Trên Linux giữ private file mode0600; Windows/DrvFS cần ACL phù hợp, không coi chmod là đủ.
@@ -60,8 +60,8 @@ kubectl -n logging port-forward --address 127.0.0.1 service/elasticsearch 19200:
 Trong cửa sổ khác, operator cần DNS/hosts ánh xạ elasticsearch.logging.svc tới loopback cho tunnel này; dùng đúng hostname có trong certificate, không bỏ TLS verify:
 
 ```bash
-python scripts/configure-observability.py --expected-server https://192.168.150.11:6443 --secrets-file .infra-local/observability/secrets.json --ca-file .infra-local/observability/es-ca.crt
-python scripts/bootstrap-observability.py complete --expected-server https://192.168.150.11:6443 --secrets-file .infra-local/observability/secrets.json
+python scripts/infra/configure-observability.py --expected-server https://192.168.150.11:6443 --secrets-file .infra-local/observability/secrets.json --ca-file .infra-local/observability/es-ca.crt
+python scripts/infra/bootstrap-observability.py complete --expected-server https://192.168.150.11:6443 --secrets-file .infra-local/observability/secrets.json
 ```
 
 Configure tạo ILM/template và user Fluentd chỉ ghi clinic-logs-*, thiết lập kibana_system, user PostgreSQL clinic_metrics với pg_monitor và CONNECT; không cho exporter quyền ứng dụng hay superuser. Marker chỉ tạo sau tất cả thao tác thành công; complete kiểm marker đúng version. Chạy complete có thể gửi cảnh báo qua bot đã cấu hình: chỉ chạy khi chủ kênh đồng ý nhận cảnh báo vận hành. Không dùng Jenkins namespace deployer làm operator.

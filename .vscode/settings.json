@@ -1,0 +1,15 @@
+{
+  "files.exclude": {
+    "**/__pycache__": true,
+    ".pytest_cache": true,
+    ".ruff_cache": true,
+    ".venv": true,
+    ".ci-local": true,
+    ".infra-local": true,
+    "ci-out": true,
+    "frontend/node_modules": true,
+    "frontend/dist": true,
+    "tmp": true,
+    "outputs": true
+  }
+}

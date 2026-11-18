@@ -1,0 +1,9 @@
+exclude:
+  - infra/
+  - .github/
+  - contracts/
+  - ci/
+  - deploy/
+  - observability/
+  - scripts/
+  - node_modules/

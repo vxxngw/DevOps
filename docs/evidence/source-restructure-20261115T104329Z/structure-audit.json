@@ -1,0 +1,65 @@
+{
+  "captured_evidence_byte_integrity": {
+    "unchanged_files": 1002,
+    "changed_navigation_only": [
+      "docs/evidence/README.md"
+    ]
+  },
+  "http_routes_preserved": 18,
+  "application_bodies_preserved": 18,
+  "missing_markdown_links": [],
+  "portable_init_env": {
+    "different_checkout_with_spaces": true,
+    "different_working_directory": true,
+    "refuses_overwrite": true,
+    "real_env_unchanged": true
+  },
+  "bash_syntax": [
+    {
+      "file": "scripts/infra/backup.sh",
+      "exit_code": 0
+    },
+    {
+      "file": "scripts/infra/check-infra-control.sh",
+      "exit_code": 0
+    },
+    {
+      "file": "scripts/infra/host-health.sh",
+      "exit_code": 0
+    },
+    {
+      "file": "scripts/infra/restore.sh",
+      "exit_code": 0
+    },
+    {
+      "file": "scripts/infra/setup-infra-control.sh",
+      "exit_code": 0
+    }
+  ],
+  "unit": {
+    "tests": 93,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 8,
+    "passed": 85
+  },
+  "integration": {
+    "tests": 33,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 33
+  },
+  "windows_resources": {
+    "c_free_bytes": 3732152320,
+    "d_free_bytes": 10408411136,
+    "physical_available_bytes": 1484341248,
+    "commit_available_bytes": 2774315008
+  },
+  "remaining_runtime": {
+    "browser": "PENDING_RESOURCE_CHECK",
+    "new_full_jenkins_pipeline": "PENDING_HOST_RESOURCE_CLEANUP",
+    "new_sha_images": "NOT_BUILT",
+    "ghcr": "BLOCKED_MISSING_CREDENTIAL"
+  }
+}
