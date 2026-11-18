@@ -98,8 +98,8 @@ def test_registry_digest_substitution_covers_every_workload(rendered):
     manifest = {
         "images": {
             name: {
-                "tag": "ghcr.io/vuongvo2207-gmail-com/devops-" + name + ":candidate",
-                "reference": "ghcr.io/vuongvo2207-gmail-com/devops-" + name + "@sha256:" + "a" * 64,
+                "tag": "ghcr.io/vxxngw/devops-" + name + ":candidate",
+                "reference": "ghcr.io/vxxngw/devops-" + name + "@sha256:" + "a" * 64,
             }
             for name in names
         }
@@ -132,7 +132,7 @@ def test_context_must_match_cluster_and_namespace(monkeypatch):
 
 
 def test_mail_check_is_read_only_and_has_no_cluster_token():
-    image = "ghcr.io/vuongvo2207-gmail-com/devops-app@sha256:" + "a" * 64
+    image = "ghcr.io/vxxngw/devops-app@sha256:" + "a" * 64
     job = mailpit_job("staging", "a" * 8 + "-0000-0000-0000-000000000000", image)
     spec = job["spec"]["template"]["spec"]
     assert spec["automountServiceAccountToken"] is False

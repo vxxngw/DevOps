@@ -1,6 +1,6 @@
 # An Uyên Hospital · Đặt lịch khám có thông báo
 
-Repo private hiện tại: [vuongvo2207-gmail-com/DevOps](https://github.com/vuongvo2207-gmail-com/DevOps), cùng repo ID sau khi GitHub đổi địa chỉ.
+Repo public hiện tại: [vxxngw/DevOps](https://github.com/vxxngw/DevOps) (chuyển từ Organization `vuongvo2207-gmail-com`, cùng repository ID; URL cũ tự redirect).
 
 Nhóm **4 thành viên: Vuong, Hoang, Long, Thien**, bắt đầu từ [checklist onboarding](docs/guides/team-onboarding.md) và [bảng phân công 50 task](https://docs.google.com/spreadsheets/d/1py3DJf2rO_x2zK0-LcE8tERMtrn2S5lINx7nbnM8-48/edit). GitHub/kênh trao đổi thực tại [quy trình nhóm](docs/guides/team-workflow.md); trạng thái kiểm chứng xem [ma trận](docs/compliance-matrix.md) và [CI evidence](docs/evidence/ci-runtime-latest.json).
 

@@ -4,6 +4,6 @@
   "docker": "29.9.3",
   "jenkins": "2.580.1",
   "agent": "3391.va_37fa_a_305d6d-5",
-  "registry": "ghcr.io/vuongvo2207-gmail-com",
-  "repository": "https://github.com/vuongvo2207-gmail-com/DevOps"
+  "registry": "ghcr.io/vxxngw",
+  "repository": "https://github.com/vxxngw/DevOps"
 }
