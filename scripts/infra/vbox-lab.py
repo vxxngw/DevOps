@@ -85,7 +85,10 @@ def vboxmanage() -> str:
 
 
 def vbox(*args: str) -> str:
-    return subprocess.run([vboxmanage(), *args], check=True, capture_output=True, text=True).stdout
+    # stderr stays on the console so VBoxManage errors are visible.
+    return subprocess.run(
+        [vboxmanage(), *args], check=True, stdout=subprocess.PIPE, text=True
+    ).stdout
 
 
 def sha256(path: Path) -> str:
@@ -192,6 +195,9 @@ def create(args):
         str(args.cpus),
         "--nic1",
         "nat",
+        # VirtualBox >= 6.1.28 blocks 10.0.2.2 -> host loopback unless enabled; the seed is served there.
+        "--nat-localhostreachable1",
+        "on",
         "--nic2",
         "hostonly",
         "--hostonlyadapter2",
@@ -205,6 +211,8 @@ def create(args):
         str(folder / "console.log"),
     )
     vbox("clonemedium", "disk", str(image), str(disk), "--format", "VDI")
+    # Unregister the shared source image, or the next VM's clone fails on a stale registry entry.
+    vbox("closemedium", "disk", str(image))
     vbox("modifymedium", "disk", str(disk), "--resize", str(args.disk_gb * 1024))
     vbox("storagectl", args.name, "--name", "SATA", "--add", "sata", "--portcount", "1")
     vbox(
@@ -248,7 +256,9 @@ def main():
     parser.add_argument("--name", default="anuyen-lab")
     parser.add_argument("--ip", default="192.168.56.10")
     parser.add_argument("--memory", type=int, default=4096)
-    parser.add_argument("--cpus", type=int, default=2)
+    # Under Hyper-V (WSL2 hosts) VirtualBox falls back to NEM: 2 vCPUs stall in initramfs and
+    # paravirt none/hyperv panics on the timer; 1 vCPU with KVM paravirt boots reliably.
+    parser.add_argument("--cpus", type=int, default=1)
     parser.add_argument("--disk-gb", type=int, default=20)
     parser.add_argument("--timeout", type=int, default=900)
     create(parser.parse_args())
