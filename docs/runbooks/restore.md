@@ -34,7 +34,7 @@ Nếu restore lỗi sau khi tạo DB, runner vẫn thử dọn DB thuộc lượ
 
 ## Vận hành staging bằng Ansible/systemd
 
-Đây là quy trình đã chuẩn bị, **chưa chạy trên VM/cluster**. Role backup cài `backup.sh`, `restore.sh`, `host-health.sh`, `backup-common.sh` từ `scripts/infra` vào `/usr/local/sbin/clinic-*`. CI kiểm mọi source copy/template và Bash từng file, kể cả thư mục con. Kiểm tĩnh không thay playbook thật hoặc recap idempotency.
+Đây là quy trình đã chuẩn bị, **chưa chạy trên VM/cluster**. Role backup cài `backup.sh`, `restore.sh`, `backup-common.sh` từ `scripts/infra` vào `/usr/local/sbin/clinic-*`; `host-health.sh` do role common cài trên mọi máy kèm timer 15 phút. Bản chạy trên một VM VirtualBox (hồ sơ `dev`) ở [linux-lab.md](linux-lab.md). CI kiểm mọi source copy/template và Bash từng file, kể cả thư mục con. Kiểm tĩnh không thay playbook thật hoặc recap idempotency.
 
 Timer dự kiến chạy hằng ngày 02:15 giờ host, delay ngẫu nhiên 300 giây, `Persistent=true`; kiểm timezone trước demo. Dump staging/production ở `/srv/clinic-backups/NAMESPACE`, ngoài DB pod/node lưu trữ, umask 077/checksum. Retention chỉ áp dụng tên backup đúng prefix trong thư mục đã kiểm. Node exporter textfile xuất trạng thái lần chạy và thời điểm thành công gần nhất; cần alert lỗi/mất metric/backup cũ theo [runbook cảnh báo](alerts.md).
 

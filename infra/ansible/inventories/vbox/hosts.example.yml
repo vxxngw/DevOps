@@ -1,0 +1,10 @@
+# VirtualBox VM made by scripts/infra/vbox-lab.py on the host-only network. Usable as is: pass
+# clinic_operator_public_key and clinic_repo_revision with -e. Copy to hosts.yml (git-ignored) to change it.
+all:
+  vars:
+    ansible_user: clinicops
+    ansible_python_interpreter: /usr/bin/python3
+  children:
+    linux_lab:
+      hosts:
+        anuyen-lab: {ansible_host: 192.168.56.10}
