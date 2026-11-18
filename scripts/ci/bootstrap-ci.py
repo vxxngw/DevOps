@@ -157,6 +157,11 @@ def github_credential():
 
 
 def job_xml():
+    # Webhook builds use these defaults, so a Jenkins host outside the VirtualBox host
+    # points them at the k3s server it can actually reach (see docs/runbooks/k3s-lab-handoff.md).
+    cluster_server = (
+        read_settings().get("CLINIC_CLUSTER_SERVER_URL") or "https://192.168.56.11:6443"
+    )
     root = ET.Element("flow-definition", plugin="workflow-job")
     ET.SubElement(root, "description").text = OWNER
     properties = ET.SubElement(root, "properties")
@@ -165,9 +170,9 @@ def job_xml():
         "parameterDefinitions",
     )
     for name, value in {
-        "SOURCE_REF": "codex/milestone-4",
-        "SOURCE_BRANCH": "codex/milestone-4",
-        "CLUSTER_SERVER_URL": "https://192.168.150.11:6443",
+        "SOURCE_REF": "main",
+        "SOURCE_BRANCH": "main",
+        "CLUSTER_SERVER_URL": cluster_server,
         "STAGING_URL": "https://staging.anuyen.test",
         "PRODUCTION_URL": "https://hospital.anuyen.test",
         "SECURITY_DEMO": "none",

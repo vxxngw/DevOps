@@ -48,7 +48,7 @@ Credential nằm trong folder `an-uyen`, không trong Git:
 docker compose --env-file .env.ci -f compose.ci.yaml --profile webhook up -d --build --wait webhook
 ```
 
-Relay chỉ bind 127.0.0.1:18085, HMAC SHA256 cho payload nguyên byte, tối đa 1 MiB. Đối chiếu tên `vuongvo2207-gmail-com/DevOps` và repository ID `1457478642` từ `ci/webhook/repository.json`, cùng commit40hex. PR phải cùng repo, không draft và base `main`; fork bị từ chối. Nhánh main có thể yêu cầu publish sau các gate, nhánh tính năng/PR không publish; webhook luôn giữ deploy=false. API token relay thuộc clinic-webhook với quyền Overall/Read, Job/Read, Job/Build, không có quyền admin/configure/credentials. Không dùng token clinic-admin cho relay.
+Relay chỉ bind 127.0.0.1:18085, HMAC SHA256 cho payload nguyên byte, tối đa 1 MiB. Đối chiếu tên `vuongvo2207-gmail-com/DevOps` và repository ID `1457478642` từ `ci/webhook/repository.json`, cùng commit40hex. PR phải cùng repo, không draft và base `main`; fork bị từ chối. Push lên main gửi PUBLISH_IMAGES=true và DEPLOY=true: publish digest đã scan, deploy staging rồi dừng ở stage `Approve production` (input, chỉ PRODUCTION_APPROVERS, timeout 15 phút) trước production. Nhánh tính năng/PR không publish, không deploy. API token relay thuộc clinic-webhook với quyền Overall/Read, Job/Read, Job/Build, không có quyền admin/configure/credentials. Không dùng token clinic-admin cho relay.
 
 Cần URL HTTPS công khai chỉ chuyển tiếp đến relay, giữ controller/agent/engine nội bộ. Có thể dùng [Cloudflare Quick Tunnel](https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/) cho demo local sau khi cài cloudflared ghim phiên bản và ghi version/checksum. Đây là lựa chọn thiết kế, không phải yêu cầu PDF; Quick Tunnel không bảo đảm uptime và URL thay đổi sau restart. Không trỏ tunnel vào Jenkins8080/18090. Khi relay healthy và có URL:
 
@@ -60,7 +60,7 @@ Lệnh tạo/cập nhật đúng endpoint của repo, không in HMAC/token. GitH
 
 ## Nghiệm thu pipeline
 
-Job `an-uyen/clinic-pipeline`, mặc định SOURCE_REF/SOURCE_BRANCH=codex/milestone-4, IS_PR=false, PUBLISH_IMAGES=false, DEPLOY=false. Chỉ người tin cậy có thể sửa mã trong repo private/khởi chạy pipeline có credential. Các kiểm tra PR của thiết kế local này không phải hệ thống chạy code từ fork không tin cậy.
+Job `an-uyen/clinic-pipeline`, mặc định SOURCE_REF/SOURCE_BRANCH=main, CLUSTER_SERVER_URL=https://192.168.56.11:6443 (k3s lab VirtualBox), IS_PR=false, PUBLISH_IMAGES=false, DEPLOY=false. Chỉ người tin cậy có thể sửa mã trong repo private/khởi chạy pipeline có credential. Các kiểm tra PR của thiết kế local này không phải hệ thống chạy code từ fork không tin cậy.
 
 1. Push nhánh/PR thật, xác nhận webhook tạo build, checkout đúng SHA. Parser validate thành công chưa đủ bước này.
 2. Build bình thường: secret scan → lint/typecheck → unit → hạ tầng tĩnh → observability tĩnh → build5images → integration PostgreSQL/RabbitMQ/Mailpit riêng → Trivy image + lockfiles. Kiểm tra JUnit không có integration skip và log từng gate. Hai bước cấu hình tĩnh không triển khai VM/cluster/monitoring.

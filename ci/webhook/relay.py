@@ -53,12 +53,15 @@ def parameters(event, payload):
         return None
     if not re.fullmatch(r"[a-f0-9]{40}", revision):
         raise ValueError("Invalid source revision")
+    # Only a push to main is a release candidate: it publishes the scanned SHA images,
+    # deploys staging and then waits at the Jenkins manual approval before production.
+    release = branch == "main" and not is_pr
     return {
         "SOURCE_REF": revision,
         "SOURCE_BRANCH": branch,
         "IS_PR": str(is_pr).lower(),
-        "PUBLISH_IMAGES": str(branch == "main" and not is_pr).lower(),
-        "DEPLOY": "false",
+        "PUBLISH_IMAGES": str(release).lower(),
+        "DEPLOY": str(release).lower(),
         "SECURITY_DEMO": "none",
     }
 

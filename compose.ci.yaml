@@ -73,6 +73,12 @@ services:
       - agent-cache:/home/jenkins/.cache
       - engine-client-certs:/certs/client:ro
     networks: [control, build]
+    # Smoke tests reach the k3s lab ingress by name. Default is the VirtualBox host-only IP
+    # (Jenkins on the VM host); a Jenkins on another machine sets the server's LAN IP in .env.ci.
+    extra_hosts:
+      - "staging.anuyen.test:${CLINIC_LAB_INGRESS_IP:-192.168.56.11}"
+      - "hospital.anuyen.test:${CLINIC_LAB_INGRESS_IP:-192.168.56.11}"
+      - "k3s.anuyen.test:${CLINIC_LAB_INGRESS_IP:-192.168.56.11}"
     depends_on:
       controller: {condition: service_healthy}
       engine: {condition: service_healthy}
