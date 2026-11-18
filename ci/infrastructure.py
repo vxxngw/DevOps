@@ -229,7 +229,7 @@ def main():
                 )
                 if ".terraform" not in path.parts
             ],
-            "scope": "Terraform validate and Kubernetes schema/policy/render only; no VM, Ansible convergence, cluster, TLS trust or scaling claim",
+            "scope": "Terraform validate and Kubernetes schema/policy/render only; no VM, host convergence, cluster, TLS trust or scaling claim",
             "counts": counts,
             "terraform": actual,
         },

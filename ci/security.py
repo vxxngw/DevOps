@@ -180,7 +180,6 @@ def dependencies():
         ("requirements.lock", "requirements.txt"),
         ("frontend/package.json", "frontend/package.json"),
         ("frontend/package-lock.json", "frontend/package-lock.json"),
-        ("infra/requirements-ansible.lock", "infra-control/requirements.txt"),
         ("infra/requirements-static.txt", "infra-static/requirements.txt"),
     ]:
         (inputs / target).parent.mkdir(parents=True, exist_ok=True)

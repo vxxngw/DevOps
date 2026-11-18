@@ -80,7 +80,6 @@ def lint():
             "tests",
             "scripts",
             "ci",
-            "observability",
         ],
         log=OUTPUT / "ruff.log",
     )
@@ -95,7 +94,6 @@ def lint():
             "tests",
             "scripts",
             "ci",
-            "observability",
         ],
         log=OUTPUT / "format.log",
     )
@@ -302,7 +300,6 @@ def main():
             "build",
             "integration",
             "infrastructure",
-            "observability",
             "deploy-staging",
             "deploy-production",
         ],
@@ -315,7 +312,6 @@ def main():
         "build": build,
         "integration": integration,
         "infrastructure": lambda: run([python_executable(), "-m", "ci.infrastructure"]),
-        "observability": lambda: run([python_executable(), "-m", "ci.observability"]),
         "deploy-staging": lambda: run([python_executable(), "-m", "ci.deploy", "staging"]),
         "deploy-production": lambda: run([python_executable(), "-m", "ci.deploy", "production"]),
     }[args.action]()

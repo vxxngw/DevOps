@@ -2,7 +2,7 @@
 
 PDFtrang6 yêu cầu runbookrestore. scripts/backup.sh, restore.sh, host-health.sh và Ansiblebackuprole/systemdtimer đã chuẩn bị; Bashsyntaxcheck không thay pg_dump/restorethật.
 
-Timer trên k3sserver chạy daily, customdump vào /srv/clinic-backups/NAMESPACE ngoài DBpod/storageagent, mode0600/checksum. Retention7ngày chỉ filenameđúngprefix trongdirđãkiểm; lỗi phải nonzero. Nodeexportertextfile ghi lastsuccesstimestamp, Mốc 4cần alertage/failure. Hai namespace táchdir; kiểm timezoneVM/UTC của timertrước demo.
+Timer trên k3s server chạy 02:15 theo timezone VM, random delay tối đa 300 giây, Persistent=true. Dump custom format vào /srv/clinic-backups/NAMESPACE ngoài DB pod/storage agent, mode0600 và checksum. Mặc định retention 7 ngày (profile production riêng 14 ngày), chỉ xóa đúng tên dump/checksum quá số phút tương ứng, sau backup thành công. `flock` chặn hai backup cùng namespace chạy chồng. Lỗi exit khác 0; node exporter textfile ghi trạng thái/lần thành công. Chưa có offsite tự động; kiểm journal và copy dump ra ngoài fleet bằng kênh mã hóa trước teardown.
 
 ```bash
 sudo systemctl start clinic-backup@staging.service

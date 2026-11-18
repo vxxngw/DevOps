@@ -1,12 +1,16 @@
 # Chuẩn bị và dựng lab3 VM
 
+> Cập nhật 18/11/2026: quy trình nghiệm thu và inventory/workspace mới ở
+> `D:\nam4\project_devops\DevOps\docs\runbooks\infra-acceptance.md`.
+> Có inventory mẫu lab/staging/production; fleet độc lập chưa triển khai.
+
 Runbook chưa phải evidence đã provision. Người dùng chọn chuẩn bị trên máy hiện tại. Windows16,87GBRAM/WSL8GiB chưa đủ [profile](../../infra/lab-budget.json):3 VM tổng18GiB RAM/128GiB disk, dự trù host32GiB và160GiB disktrống. Đây là lựa chọn thiết kế, không phải cấu hình phần cứng PDF bắt buộc. /dev/kvm có thật nhưng user chưa có quyền; chưa libvirt/QEMU. Không cấp sudo/nhóm, sửa WSL hoặc tạo VM trong phiên này.
 
 ## Kiểm chứng local
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/install-infra-tools.py
-wsl -d Ubuntu-22.04 -e bash /mnt/d/CODE/OOPs/Do_An/scripts/setup-infra-control.sh
+wsl -d Ubuntu -e bash /mnt/d/nam4/project_devops/DevOps/scripts/setup-infra-control.sh
 .\.venv\Scripts\python.exe scripts/verify-m3-local.py
 ```
 
@@ -16,7 +20,7 @@ Verifier chỉ Terraform fmt/init/validate, schema/policy render, unit, Ansible/
 
 ## Trước apply thật
 
-Host Linux/KVM cần libvirtdaemon, QEMU, quyền /dev/kvm và qemu:///system; operator/admin phải chuẩn bị quyền phù hợp, không chmod777. Chọn host đủ ngân sách kể cả Windows/WSL/Docker/Mốc 4. WSLcần RAM vật lý/hạn mức/diskbacking thật; df của ext4ảo không thay dung lượng ổWindows. Có thể dùng module trên hostLinux khác đủ tài nguyên.
+Host Linux/KVM cần libvirtdaemon, QEMU, quyền /dev/kvm và qemu:///system; operator/admin phải chuẩn bị quyền phù hợp, không chmod777. Chọn host đủ ngân sách kể cả Windows/WSL/Docker. WSLcần RAM vật lý/hạn mức/diskbacking thật; df của ext4ảo không thay dung lượng ổWindows. Có thể dùng module trên hostLinux khác đủ tài nguyên.
 
 Lấy Ubuntu24.04 từ [nguồn chính thức](https://cloud-images.ubuntu.com/releases/noble/), lưu ngoàiGit, xác minh SHA256SUMS đúng bản tải và ghi URL/ngày/hash. Copy lab.example.tfvars sang lab.tfvars bịignore, điền storage_pathriêng, imagepath/checksum thật và SSHpublickey thật; không privatekey/token trongTerraform. DrvFS/QEMUstorage chưa đo quyền/hiệu năng. Kiểm subnet192.168.150.0/24/prefix/MAC không đụng tài nguyên khác.
 
@@ -24,17 +28,20 @@ Trong Linux/WSL đã chuẩn bị:
 
 ```bash
 .infra-local/ansible-venv/bin/python scripts/preflight-infra.py
+.infra-local/bin/linux/terraform -chdir=infra/terraform init -input=false -lockfile=readonly
+# Chọn workspace lab đã được review; xem runbook infra-acceptance trước khi tạo mới.
+.infra-local/bin/linux/terraform -chdir=infra/terraform workspace select lab
 .infra-local/ansible-venv/bin/python scripts/lab.py plan --var-file infra/terraform/lab.tfvars
 # Review exactly3 VM, dedicated pool/volumes/cloud-init and labnetwork.
 .infra-local/ansible-venv/bin/python scripts/lab.py apply --var-file infra/terraform/lab.tfvars
 .infra-local/bin/linux/terraform -chdir=infra/terraform output -raw ansible_inventory > infra/ansible/inventories/lab/hosts.yml
 ```
 
-lab.py từ chối tạo khi preflight chưaREADY. Terraform dùng provider thật, không shell/Vagrant thayVM. Lưu plan/outputđã che nhạy cảm, virshlist/3IP/SSH thật. Terraform quản lý NAT/DHCP/DNS; Ansible quản lý UFWtrongVM.
+lab.py từ chối tạo khi preflight chưaREADY. Terraform dùng provider thật, không shell/Vagrant thayVM. Lưu plan/outputđã che nhạy cảm, virshlist/3IP/SSH thật. Terraform quản lý NAT/DHCP/DNS và bootstrap UFW qua cloud-init; Ansible chờ cloud-init rồi bổ sung UFW trong VM.
 
 ## Ansible
 
-Một inventorylab cho một bộ3 VM; staging/production là namespace trong cùngcluster, cấu hình ứng dụng tách bằng overlays. Không tạo hai fleet chỉ vì hai namespace. Sampleinventory là IPdự kiến, không phải máy đã phát hiện.
+Profile lab dùng một bộ 3 VM cho hai namespace. Có thêm inventory mẫu staging/production cho hai fleet độc lập với subnet và Vault riêng; chưa provision và cần ngân sách riêng. Sample inventory là IP dự kiến, không phải máy đã phát hiện. Chọn một mô hình theo runbook infra-acceptance, không gộp inventory các fleet.
 
 Tạo inventorylab/vault.yml từ schema, nhập secret local rồi ansible-vault encrypt; file/password không commit. Có k3stoken≥32ký tự; CIrole cần Jenkinsadminpassword≥24, GitHubreadtoken và registrywritecredential. clinic_repo_revision phải commit40hex đã push.
 

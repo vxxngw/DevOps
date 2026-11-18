@@ -41,7 +41,7 @@ def main():
     )
     metadata = {
         "at_utc": datetime.now(UTC).isoformat(),
-        "scope": "Local preparation only: static checks, unit tests, scanner and actual host preflight. No VM apply, Ansible convergence, cluster deploy, trusted HTTPS, scale, backup/restore or rollback runtime claim",
+        "scope": "Local preparation only: static checks, unit tests, scanner and actual host preflight. No VM apply, host convergence, cluster deploy, trusted HTTPS, scale, backup/restore or rollback runtime claim",
         "head_commit": subprocess.check_output(git + ["rev-parse", "HEAD"], text=True).strip(),
         "working_tree": subprocess.check_output(git + ["status", "--short"], text=True),
         "files": [
@@ -85,14 +85,17 @@ def main():
         ),
         ("infrastructure", [sys.executable, "-m", "ci.infrastructure"]),
         (
-            "ansible-bash-host",
+            "terraform-bash-host",
             [
                 "wsl",
                 "-d",
-                "Ubuntu-22.04",
+                os.environ.get("CLINIC_WSL_DISTRO", "Ubuntu"),
                 "-e",
                 "bash",
-                "/mnt/d/CODE/OOPs/Do_An/scripts/check-infra-control.sh",
+                "/mnt/"
+                + ROOT.drive[0].lower()
+                + ROOT.as_posix()[2:]
+                + "/scripts/check-infra-control.sh",
             ]
             if platform.system() == "Windows"
             else ["bash", "scripts/check-infra-control.sh"],

@@ -1,6 +1,0 @@
-# SAMPLE SCHEMA ONLY. Copy outside group_vars, fill locally, then ansible-vault encrypt.
-# Never run with this plaintext sample or commit vault.yml/password files.
-vault_k3s_token: ""
-vault_jenkins_admin_password: ""
-vault_github_read_token: ""
-vault_registry_write_token: ""

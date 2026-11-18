@@ -24,7 +24,6 @@ for command in [
     ["docker", "desktop", "status"],
     ["kubectl", "config", "current-context"],
     ["terraform", "version"],
-    ["ansible", "--version"],
 ]:
     try:
         result = subprocess.run(

@@ -1,3 +1,5 @@
+> **Infrastructure workflow update (2026-11-19):** Active provisioning is Terraform + cloud-init/Bash; Ansible source has been retired. See docs/runbooks/terraform-only.md. Historical Ansible instructions below are not the active workflow. Mandatory Ansible acceptance for Bài 7 is not satisfied by this change.
+
 # An Uyên Hospital · Đặt lịch khám có thông báo
 
 Đồ án DevOps đề tài số 8: React/TypeScript → FastAPI → PostgreSQL/outbox → RabbitMQ → worker email. API, publisher và worker là ba tiến trình riêng; có health, readiness, Prometheus metrics và JSON logs. Chỉ sử dụng dữ liệu giả lập.
@@ -57,4 +59,4 @@ Jenkins/registry/webhook cần chạy nghiệm thu theo [Mốc 2](docs/milestone
 Nếu Docker `EOF`, HTTP 500 hoặc mất engine pipe: kiểm tra `docker version`, trạng thái Docker Desktop/WSL và tài nguyên host. Không tiếp tục coi build/up là thành công. Nếu cổng đã dùng, chọn cổng test khác hoặc dừng đúng tiến trình của mình; không kill dịch vụ không biết chủ sở hữu. Nếu login lỗi, kiểm tra seed/mật khẩu hiện tại, không reset DB. Nếu notification PENDING, kiểm tra publisher/broker/outbox trước; xem runbook. Mọi kiểm tra có evidence và scope riêng trong ma trận.
 
 
-Phần chuẩn bị **Mốc 4** ở [docs/milestone-4.md](docs/milestone-4.md): Prometheus/Grafana/Alertmanager/EFK, dashboard37panel, alert rules và [runbook quan sát](docs/runbooks/observability.md). Kiểm tra local: `python scripts/install-observability-tools.py` rồi `python scripts/verify-m4-local.py`. [Evidence](docs/evidence/m4-latest.json) chỉ xác nhận parser/schema/unit/fixture; chưa có stack hoặc cảnh báo gửi thật. [Cloud estimate](docs/cloud-cost-estimate.md), [8 bước demo](docs/demo-script.md), [checklist nộp](docs/submission.md), [vấn đáp](docs/viva-preparation.md).
+Bài 10 (Prometheus/Grafana, Alertmanager và EFK) đã được gỡ khỏi mã triển khai theo yêu cầu ngày 18/11/2026. Các báo cáo/evidence lịch sử không phản ánh cấu hình hiện tại. Các phần khác: [Cloud estimate](docs/cloud-cost-estimate.md), [demo](docs/demo-script.md), [checklist nộp](docs/submission.md), [vấn đáp](docs/viva-preparation.md).

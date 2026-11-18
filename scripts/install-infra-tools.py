@@ -78,14 +78,6 @@ def main():
         if hashlib.sha256(content).hexdigest() != versions["kubernetes_schema"]["sha256"]:
             raise RuntimeError("Kubernetes schema checksum mismatch")
         (target / "vendor/kubernetes-swagger.json").write_bytes(content)
-        for name, collection in versions["collections"].items():
-            content = download(collection["url"])
-            if hashlib.sha256(content).hexdigest() != collection["sha256"]:
-                raise RuntimeError("Collection checksum mismatch: " + name)
-            directory = target / "collection-artifacts"
-            directory.mkdir(exist_ok=True)
-            (directory / collection["filename"]).write_bytes(content)
-            records.append({"tool": name, **collection})
     (target / "tool-checksums.json").write_text(
         json.dumps(records, indent=2) + "\n", encoding="utf-8"
     )

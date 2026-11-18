@@ -2,7 +2,6 @@
   "terraform": "1.17.2",
   "libvirt_provider": "0.9.9",
   "k3s": "v1.36.6+k3s1",
-  "ansible_core": "2.22.0",
   "uv": "0.13.8",
   "cert_manager": "v1.21.3",
   "keda": "v2.21.0",
@@ -28,40 +27,6 @@
     "docker-compose-plugin": "5.7.1-1~ubuntu.24.04~noble"
   },
   "node_exporter": "1.12.1",
-  "collections": {
-    "community.general": {
-      "version": "14.0.1",
-      "sha256": "816291784a3369a888119a6a5d00593beec44d919605ac6553b0a54274470beb",
-      "url": "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-general-14.0.1.tar.gz",
-      "filename": "community-general-14.0.1.tar.gz",
-      "dependencies": {
-        "community.library_inventory_filtering_v1": ">=1.0.0"
-      }
-    },
-    "community.docker": {
-      "version": "5.4.0",
-      "sha256": "098e671822180a4170af061eca281df431e0747c7d66450bc75e9adb727abe19",
-      "url": "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-docker-5.4.0.tar.gz",
-      "filename": "community-docker-5.4.0.tar.gz",
-      "dependencies": {
-        "community.library_inventory_filtering_v1": ">=1.0.0"
-      }
-    },
-    "ansible.posix": {
-      "version": "2.2.2",
-      "sha256": "00a58c5d804c9adc99c3c3dc1b9f2246f4bb5f7337941440e0956f0e31c3b82b",
-      "url": "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/ansible-posix-2.2.2.tar.gz",
-      "filename": "ansible-posix-2.2.2.tar.gz",
-      "dependencies": {}
-    },
-    "community.library_inventory_filtering_v1": {
-      "version": "1.1.5",
-      "sha256": "cbb9e86c5b1720df21e940cedcd2f3e1226c38262623e090a883712610733851",
-      "url": "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-library_inventory_filtering_v1-1.1.5.tar.gz",
-      "filename": "community-library_inventory_filtering_v1-1.1.5.tar.gz",
-      "dependencies": {}
-    }
-  },
   "kubernetes_schema": {
     "url": "https://raw.githubusercontent.com/kubernetes/kubernetes/v1.36.6/api/openapi-spec/swagger.json",
     "sha256": "dcede2063da1d7ad62ecb5af8adb6d7fabd0b52385a7fa0048afb491dac90450"

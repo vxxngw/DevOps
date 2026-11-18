@@ -19,6 +19,10 @@ trap 'status=$?; write_status 0 || true; exit "$status"' ERR
 mkdir -p "$backup_root/$namespace"
 destination="$(realpath "$backup_root/$namespace")"
 [[ "$destination" == "$backup_root/$namespace" ]] || exit 2
+chmod 0700 "$backup_root" "$destination"
+# Serialize manual and timer invocations per namespace before creating artifacts.
+exec 9>"$destination/.backup.lock"
+flock -n 9 || { echo 'Backup already running' >&2; exit 1; }
 stamp="$(date -u +%Y%m%dT%H%M%SZ)"
 artifact="$destination/clinic-$namespace-$stamp.dump"
 [[ ! -e "$artifact" && ! -e "$artifact.tmp" ]] || exit 2
@@ -28,7 +32,7 @@ kubectl -n "$namespace" exec postgres-0 -- sh -ec \
 [[ -s "$artifact.tmp" ]] || { echo 'Empty backup' >&2; exit 1; }
 mv -- "$artifact.tmp" "$artifact"
 (cd "$destination" && sha256sum "$(basename "$artifact")" > "$(basename "$artifact").sha256")
-find "$destination" -maxdepth 1 -type f -name "clinic-$namespace-????????T??????Z.dump*" -mtime "+$retention" -delete
+find "$destination" -maxdepth 1 -type f \( -name "clinic-$namespace-????????T??????Z.dump" -o -name "clinic-$namespace-????????T??????Z.dump.sha256" \) -mmin "+$((retention * 1440))" -delete
 if [[ -d "$metric_dir" ]]; then
   printf 'clinic_backup_last_success_timestamp_seconds{namespace="%s"} %s\n' "$namespace" "$(date +%s)" > "$metric_dir/clinic-backup-$namespace.prom.tmp"
   chmod 0644 "$metric_dir/clinic-backup-$namespace.prom.tmp"
