@@ -1,0 +1,12 @@
+# Jenkins builds an-uyen/clinic-pipeline (UTC), read from the controller's build records and logs
+#17 2026-11-18T23:07:01Z by=clinic-admin   SOURCE_REF=main PUBLISH_IMAGES=true DEPLOY=false  FAILURE at "Lint and typecheck" (ruff format --check: 2 files from #12)
+#19 2026-11-18T23:23:24Z by=clinic-admin   SOURCE_REF=main PUBLISH_IMAGES=true DEPLOY=false  FAILURE at "Lint and typecheck" (same, fix #27 not merged yet)
+#20 2026-11-18T23:26:20Z by=clinic-admin   SOURCE_REF=main PUBLISH_IMAGES=true DEPLOY=false  FAILURE at "Lint and typecheck" (started 90 s before #27 merged)
+#21 2026-11-18T23:35:11Z by=clinic-admin   commit ff2cd81 PUBLISH_IMAGES=true DEPLOY=false   FAILURE at "Push SHA images": app/frontend/postgres pushed + pulled by digest, rabbitmq pushed but digest pull returned "not found" (GHCR propagation); fixed in #31
+#22 2026-11-19T00:01:27Z by=clinic-webhook commit 269519e (push of #31 to main) IS_PR=false PUBLISH_IMAGES=true DEPLOY=true
+    checkout -> secret scan -> lint -> unit -> config checks -> build images -> integration -> image/dependency scan: passed
+    push: 5/5 images pushed and pulled back by digest (release-manifest.json)
+    FAILURE at "Deploy staging": Could not find credentials entry with ID 'clinic-kubeconfig-staging'; "Approve production" and "Deploy production" skipped
+#23 2026-11-19T00:04:11Z by=clinic-webhook commit 1753510a (push to release-please--branches--main) IS_PR=false PUBLISH_IMAGES=false DEPLOY=false
+#24 2026-11-19T00:06:51Z by=clinic-webhook commit 1753510a (Release PR #32, pull_request event) IS_PR=true PUBLISH_IMAGES=false DEPLOY=false
+    checkout -> secret scan -> lint -> unit -> config checks: passed; FAILURE at "Build images": engine DNS could not resolve registry-1.docker.io for the node base image (transient network, same commit built fine in #22)

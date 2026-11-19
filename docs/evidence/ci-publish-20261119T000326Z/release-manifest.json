@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "commit": "269519ee0301c15b032178ff3f1403566b851dcd",
+  "created_at_utc": "2026-11-19T00:03:26.354899+00:00",
+  "source": "https://github.com/vxxngw/DevOps",
+  "images": {
+    "app": {
+      "tag": "ghcr.io/vxxngw/devops-app:269519ee0301c15b032178ff3f1403566b851dcd",
+      "image_id": "sha256:7d0190deaa6f2138bb92b71eb7a2a160c89d793b07eb827530b88ea17f3c9770",
+      "source_revision": "269519ee0301c15b032178ff3f1403566b851dcd",
+      "reference": "ghcr.io/vxxngw/devops-app@sha256:7d0190deaa6f2138bb92b71eb7a2a160c89d793b07eb827530b88ea17f3c9770",
+      "digest": "sha256:7d0190deaa6f2138bb92b71eb7a2a160c89d793b07eb827530b88ea17f3c9770"
+    },
+    "frontend": {
+      "tag": "ghcr.io/vxxngw/devops-frontend:269519ee0301c15b032178ff3f1403566b851dcd",
+      "image_id": "sha256:125bf9b8f20ab26601f6d74092b90d8d850c8673049fe52f595c6ec18c399d20",
+      "source_revision": "269519ee0301c15b032178ff3f1403566b851dcd",
+      "reference": "ghcr.io/vxxngw/devops-frontend@sha256:125bf9b8f20ab26601f6d74092b90d8d850c8673049fe52f595c6ec18c399d20",
+      "digest": "sha256:125bf9b8f20ab26601f6d74092b90d8d850c8673049fe52f595c6ec18c399d20"
+    },
+    "postgres": {
+      "tag": "ghcr.io/vxxngw/devops-postgres:269519ee0301c15b032178ff3f1403566b851dcd",
+      "image_id": "sha256:c116ebce97945563e0b0682e939ad753c42fbdf760fd6e100cf31e9aeaec78e7",
+      "source_revision": "4a6e05647044ad8722771eb0ba8bbe763b2133b1",
+      "reference": "ghcr.io/vxxngw/devops-postgres@sha256:c116ebce97945563e0b0682e939ad753c42fbdf760fd6e100cf31e9aeaec78e7",
+      "digest": "sha256:c116ebce97945563e0b0682e939ad753c42fbdf760fd6e100cf31e9aeaec78e7"
+    },
+    "rabbitmq": {
+      "tag": "ghcr.io/vxxngw/devops-rabbitmq:269519ee0301c15b032178ff3f1403566b851dcd",
+      "image_id": "sha256:5012b81a87773f2b4e5852aacfceeb2b01813e1a7c9661d395a72c98a0605c32",
+      "source_revision": "4a6e05647044ad8722771eb0ba8bbe763b2133b1",
+      "reference": "ghcr.io/vxxngw/devops-rabbitmq@sha256:5012b81a87773f2b4e5852aacfceeb2b01813e1a7c9661d395a72c98a0605c32",
+      "digest": "sha256:5012b81a87773f2b4e5852aacfceeb2b01813e1a7c9661d395a72c98a0605c32"
+    },
+    "mailpit": {
+      "tag": "ghcr.io/vxxngw/devops-mailpit:269519ee0301c15b032178ff3f1403566b851dcd",
+      "image_id": "sha256:b70d8ba6453cae99938b125884e880860027117f5c1f9fa9f41885e84c4e9c29",
+      "source_revision": "4a6e05647044ad8722771eb0ba8bbe763b2133b1",
+      "reference": "ghcr.io/vxxngw/devops-mailpit@sha256:b70d8ba6453cae99938b125884e880860027117f5c1f9fa9f41885e84c4e9c29",
+      "digest": "sha256:b70d8ba6453cae99938b125884e880860027117f5c1f9fa9f41885e84c4e9c29"
+    }
+  }
+}
