@@ -1,0 +1,25 @@
+{
+  "at_utc": "2026-11-14T19:44:37.714791+00:00",
+  "storage_setting": "D:\\DockerData\\active\\DockerDesktopWSL",
+  "source_c_data_exists": false,
+  "target_vhdx_files": [
+    {
+      "path": "D:\\DockerData\\active\\DockerDesktopWSL\\disk\\docker_data.vhdx",
+      "resolved_path": "D:\\DockerData\\active\\DockerDesktopWSL\\disk\\docker_data.vhdx",
+      "bytes": 13709082624,
+      "exclusive_read_error": 32
+    },
+    {
+      "path": "D:\\DockerData\\active\\DockerDesktopWSL\\main\\ext4.vhdx",
+      "resolved_path": "D:\\DockerData\\active\\DockerDesktopWSL\\main\\ext4.vhdx",
+      "bytes": 100663296,
+      "exclusive_read_error": 32
+    }
+  ],
+  "free_bytes": {
+    "C": 15941672960,
+    "D": 8110608384
+  },
+  "no_manual_junction_or_vhdx_mutation": true,
+  "verified": true
+}

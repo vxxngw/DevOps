@@ -1,5 +1,7 @@
 # Mốc 2 – Container và CI
 
+Cập nhật **15/11/2026**: [CI và image SHA đã chạy thật](evidence/ci-runtime-latest.json). Jenkins4/5SUCCESS, unit81passed/8skip; integration33passed/0skip; build/scan đủ5imageSHA và dependency không CRITICAL. Agent online/non-root, Docker rootless qua mutualTLS đã sửa SAN. Full-stack SHA riêng:7healthy/non-root, migration/seed0, health/ready/metrics/JSON và đặt/hủy lịch/email qua. GitHub push202 tự kích Jenkins5SUCCESS; gate âm1secret và4CRITICAL có FAILURE/push-deploy skipped thật. GHCR chưa có credential, PRmain phù hợp chưa chạy ở snapshot này; không staging/production/VM/cluster. Các đoạn ngày14/11 bên dưới là lịch sử, không phải trạng thái mới nhất.
+
 Trạng thái ngày 14/11/2026: **chưa nghiệm thu Mốc 2**. Mã CI đã triển khai; kết quả local và phần runtime bị chặn được tách dưới đây. Không suy việc Jenkinsfile hợp lệ thành pipeline chạy thành công.
 
 | Tiêu chí trong brief | Phân loại | Sản phẩm | Kiểm chứng thực tế | Trạng thái |
@@ -18,7 +20,7 @@ Các cổng được triển khai theo hướng fail closed: báo cáo scanner t
 
 Jenkins riêng ở 18090 có đăng nhập, controller 0 executor, agent Linux non-root, Docker engine rootless riêng; không mount Docker socket host. Engine lồng vẫn cần privileged để khởi tạo rootlesskit: đây là giới hạn cô lập của thiết kế local, cần VM CI riêng ở Mốc 3. Jenkins cũ 8080 không được dùng giữ credential mới.
 
-Blocker hiện tại:
+Blocker ở snapshot14/11 (xem cập nhật15/11 phía trên):
 
 - Docker Desktop đã đọc lại dữ liệu cũ nhưng đĩa C vẫn đang được mount; bản sao trên D chưa active. Không build lớn lên C khi chưa chuyển xong. [Runbook chuyển ổ](runbooks/docker-storage-migration.md) ghi rõ thử nghiệm cấu hình không có hiệu lực.
 - `.registry-token` chưa có tại lần kiểm tra cuối. Git push được cấp quyền; credential Git hiện có không có write:packages. Chỉ nhập PAT classic phù hợp vào file local bị ignore, không vào chat/Git.
@@ -30,3 +32,6 @@ Chuỗi staging → approval → production là PDF Bài 6 nhưng thuộc triể
 Sau commit67eaf2d, remote scan phát hiện nền Python cũ9CRITICAL, Nginx cũ3, Mailpit cũ3, PostgreSQL1 ở gosu; RabbitMQ0. Dockerfile đã đổi Python3.12.16-slim-trixie, Nginx1.30.6-alpine3.24, Mailpit1.33.1 sang digest nguồn mới được quét0CRITICAL. PostgreSQL giữ dòng17/volume, bỏ binary gosu chỉ dùng khởi động root; image này luôn USERpostgres. **Chưa build/scan image custom hoặc kiểm tra initdb/SMTP/nginx sau đổi nền**. Không suy0CRITICAL của base thành release sạch; [bằng chứng và nguồn](evidence/m2-base-images-20261114T085952Z/metadata.json).
 
 Cách dựng và lấy evidence còn lại: [CI/CD](ci-cd.md). Chỉ đổi trạng thái Mốc 2 sau khi có pipeline xanh, webhook thật, hai build âm bị chặn trước push, image scan đầy đủ và pull lại bằng digest.
+
+
+Kiểm chứng gate bổ sung15/11: [Jenkins6/7](evidence/ci-agent-20261115T064424Z/publish-requested-negative-checks.json) yêu cầu PUBLISH_IMAGES=true, DEPLOY=false nhưng scanner thật phát hiện1secret/4CRITICAL, buildFAILURE và push SKIPPED_FOR_FAILURE; không chỉ chứng minh stage bị tắt bởi tham số. Không đăng nhập/push registry hoặc deploy.

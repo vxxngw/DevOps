@@ -1,0 +1,1 @@
+kube_horizontalpodautoscaler_status_desired_replicas{namespace=~"$namespace"}

@@ -1,0 +1,9 @@
+{
+  "artifact": "ci-out/junit-integration.xml",
+  "raw_sha256": "a7cb06e2fa7a76985db3c8b68ae71f924e561e82b9f484625b591595102e8dbd",
+  "tests": 33,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": 33
+}

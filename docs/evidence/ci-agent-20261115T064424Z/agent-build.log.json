@@ -1,0 +1,22 @@
+{
+  "started_at_utc": "2026-11-15T06:53:01.576640+00:00",
+  "ended_at_utc": "2026-11-15T06:53:05.361689+00:00",
+  "command": [
+    "docker",
+    "compose",
+    "--progress",
+    "plain",
+    "--env-file",
+    ".env.ci",
+    "-f",
+    "compose.ci.yaml",
+    "--profile",
+    "agent",
+    "build",
+    "agent"
+  ],
+  "exit_code": 1,
+  "log": "agent-build.log",
+  "stop_reason": null,
+  "D_free_bytes": 7843254272
+}

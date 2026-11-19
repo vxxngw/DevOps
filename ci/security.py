@@ -180,7 +180,10 @@ def dependencies():
         ("requirements.lock", "requirements.txt"),
         ("frontend/package.json", "frontend/package.json"),
         ("frontend/package-lock.json", "frontend/package-lock.json"),
+        ("infra/requirements-ansible.lock", "infra-control/requirements.txt"),
+        ("infra/requirements-static.txt", "infra-static/requirements.txt"),
     ]:
+        (inputs / target).parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / original, inputs / target)
         checksums[original] = hashlib.sha256((ROOT / original).read_bytes()).hexdigest()
     report = OUTPUT / "security/trivy-dependencies.json"

@@ -1,0 +1,21 @@
+{
+  "at_utc": "2026-11-15T07:56:23.383496+00:00",
+  "status": "VERIFIED_LOCAL_ONLY",
+  "initial_check_issue": "Collector expected credentials endpoint403; Jenkins returns404 to hide the same endpoint which admin can read. No permission settings were weakened or changed. Original mismatch retained.",
+  "admin_credentials_endpoint_status": 200,
+  "restricted_credentials_endpoint_status": 404,
+  "actual_jenkins_acl": {
+    "read": true,
+    "admin": false,
+    "script": false,
+    "build": true,
+    "configure": false,
+    "credentials_view": false,
+    "credentials_create": false,
+    "credentials_update": false,
+    "credentials_delete": false
+  },
+  "hmac_http_checks_passed": true,
+  "public_tunnel": "NOT_STARTED",
+  "github_delivery": "NOT_RUN"
+}

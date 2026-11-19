@@ -1,0 +1,120 @@
+{
+  "uid": 1000,
+  "docker_host": "tcp://engine:2376",
+  "tls_verify": "1",
+  "host_docker_socket_present": false,
+  "tools": [
+    {
+      "command": [
+        "id"
+      ],
+      "exit_code": 0,
+      "output": "uid=1000(jenkins) gid=1000(jenkins) groups=1000(jenkins)\n"
+    },
+    {
+      "command": [
+        "python3",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "Python 3.12.16\n"
+    },
+    {
+      "command": [
+        "node",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "v24.22.1\n"
+    },
+    {
+      "command": [
+        "java",
+        "-version"
+      ],
+      "exit_code": 0,
+      "output": "openjdk version \"21.0.12.1\" 2026-08-18 LTS\nOpenJDK Runtime Environment Temurin-21.0.12.1+1 (build 21.0.12.1+1-LTS)\nOpenJDK 64-Bit Server VM Temurin-21.0.12.1+1 (build 21.0.12.1+1-LTS, mixed mode)\n"
+    },
+    {
+      "command": [
+        "docker",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "Docker version 29.9.3, build 5457199\n"
+    },
+    {
+      "command": [
+        "docker",
+        "version",
+        "--format",
+        "{{.Server.Version}}"
+      ],
+      "exit_code": 0,
+      "output": "29.9.3\n"
+    },
+    {
+      "command": [
+        "docker",
+        "info",
+        "--format",
+        "{{json .SecurityOptions}}"
+      ],
+      "exit_code": 0,
+      "output": "[\"name=seccomp,profile=builtin\",\"name=rootless\",\"name=cgroupns\"]\n"
+    },
+    {
+      "command": [
+        "terraform",
+        "version",
+        "-json"
+      ],
+      "exit_code": 0,
+      "output": "{\n  \"format_version\": \"1.0\",\n  \"terraform_version\": \"1.17.2\",\n  \"platform\": \"linux_amd64\",\n  \"provider_selections\": {},\n  \"terraform_outdated\": false\n}\n"
+    },
+    {
+      "command": [
+        "kubectl",
+        "version",
+        "--client",
+        "-o",
+        "json"
+      ],
+      "exit_code": 0,
+      "output": "{\n  \"clientVersion\": {\n    \"major\": \"1\",\n    \"minor\": \"36\",\n    \"gitVersion\": \"v1.36.6\",\n    \"gitCommit\": \"1b2171b110bb2a2542e1322035c6583ec86eb976\",\n    \"gitTreeState\": \"clean\",\n    \"buildDate\": \"2026-10-27T12:05:48Z\",\n    \"goVersion\": \"go1.26.10\",\n    \"compiler\": \"gc\",\n    \"platform\": \"linux/amd64\"\n  },\n  \"kustomizeVersion\": \"v5.8.1\"\n}\n"
+    },
+    {
+      "command": [
+        "promtool",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "promtool, version 3.16.0 (branch: HEAD, revision: e2e28adeee2c5883d000fc82aca6008cfbf7e96d)\n  build user:       root@880187fc0808\n  build date:       20261105-15:13:16\n  go version:       go1.27.3\n  platform:         linux/amd64\n  tags:             netgo,builtinassets\n"
+    },
+    {
+      "command": [
+        "amtool",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "amtool, version 0.35.0 (branch: HEAD, revision: 8cf67a8e75004bad6c3c6bacc829945cf8a3ee65)\n  build user:       root@a39990983e5e\n  build date:       20261109-16:47:15\n  go version:       go1.27.3\n  platform:         linux/amd64\n  tags:             netgo\n"
+    },
+    {
+      "command": [
+        "gitleaks",
+        "version"
+      ],
+      "exit_code": 0,
+      "output": "v8.30.1\n"
+    },
+    {
+      "command": [
+        "trivy",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "Version: 0.76.2\n"
+    }
+  ],
+  "at_utc": "2026-11-15T07:21:27.715135+00:00"
+}

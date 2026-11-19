@@ -1,0 +1,1 @@
+sum by (namespace, service, outcome) (rate(clinic_events_total{namespace=~"$namespace"}[5m]))

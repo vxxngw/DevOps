@@ -1,0 +1,14 @@
+188da079285e | clinic-ci-engine-1 | Up 31 minutes (healthy)
+d854f70cc616 | clinic-ci-controller-1 | Up 31 minutes (healthy)
+e83cd7dacec1 | clinic-dev-publisher-1 | Up 31 minutes (healthy)
+7bedbc126b91 | clinic-dev-api-1 | Up 31 minutes (healthy)
+0856a1d27e7f | clinic-dev-frontend-1 | Exited (255) 32 minutes ago
+1e01c92bfb25 | clinic-dev-worker-1 | Up 31 minutes (healthy)
+df39074254d3 | clinic-dev-seed-1 | Exited (0) 24 hours ago
+05cc2bf32cff | clinic-dev-migrate-1 | Exited (0) 24 hours ago
+f2026bcc7534 | clinic-dev-postgres-1 | Exited (255) 32 minutes ago
+3bd1b6e09722 | clinic-dev-rabbitmq-1 | Exited (255) 32 minutes ago
+9981491e21a3 | clinic-dev-mailpit-1 | Exited (255) 32 minutes ago
+6bf5c0973187 | my-jenkins | Up 31 minutes
+290a94c45811 | stoic_shannon | Exited (0) 5 weeks ago
+78407130c567 | jenkins-docker | Exited (137) 5 weeks ago

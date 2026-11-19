@@ -1,0 +1,29 @@
+{
+  "scope": "Current-turn verification summary. Full native pytest result observed from exec: 81 passed, 8 skipped; separate scanner-driver JUnit has 10 tests. No full-suite JUnit was requested in that command.",
+  "command": [
+    ".venv/Scripts/python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "tests",
+    "ci/tests",
+    "--tb=short"
+  ],
+  "exit_code": 0,
+  "passed": 81,
+  "skipped": 8,
+  "files": [
+    {
+      "path": "Jenkinsfile",
+      "sha256": "6955c33832bc5513279c7f02ea77e16c8a72d6aeffb7d31bc256b9aad6055dcf"
+    },
+    {
+      "path": "scripts/scan-observability.py",
+      "sha256": "640df9253ee0d5a3eb9ac25c1e29c94b9f3571c19fe8f5bb7149982271707dee"
+    },
+    {
+      "path": "ci/tests/test_observability_policy.py",
+      "sha256": "b803e525905f3c634f4c6f76e7c19985161149c4436f43b20ab31eadc3cc4905"
+    }
+  ]
+}

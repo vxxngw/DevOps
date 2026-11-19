@@ -1,0 +1,142 @@
+ Image clinic-ci-agent:3391 Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.35kB done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 2.46kB done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#3 DONE 0.0s
+
+#4 [internal] load metadata for ghcr.io/gitleaks/gitleaks:v8.30.1
+#4 DONE 0.0s
+
+#5 [internal] load metadata for docker.io/aquasec/trivy:0.76.2
+#5 DONE 0.0s
+
+#6 [internal] load metadata for docker.io/library/node:24.22.1-trixie-slim
+#6 ...
+
+#7 [internal] load metadata for docker.io/jenkins/inbound-agent:3391.va_37fa_a_305d6d-5-jdk21
+#7 DONE 0.8s
+
+#6 [internal] load metadata for docker.io/library/node:24.22.1-trixie-slim
+#6 DONE 0.8s
+
+#8 [internal] load metadata for docker.io/library/docker:29.9.3-cli
+#8 DONE 0.8s
+
+#9 [internal] load .dockerignore
+#9 transferring context: 280B done
+#9 DONE 0.0s
+
+#10 [infra-tools 1/7] FROM docker.io/library/python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#10 resolve docker.io/library/python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b 0.1s done
+#10 DONE 0.1s
+
+#11 [docker 1/1] FROM docker.io/library/docker:29.9.3-cli@sha256:5a7af0dcb0e46c803efe9b45371dd21cb500e5b4453250394ac6f06d49b6e6f1
+#11 resolve docker.io/library/docker:29.9.3-cli@sha256:5a7af0dcb0e46c803efe9b45371dd21cb500e5b4453250394ac6f06d49b6e6f1 0.1s done
+#11 DONE 0.1s
+
+#12 [java 1/1] FROM docker.io/jenkins/inbound-agent:3391.va_37fa_a_305d6d-5-jdk21@sha256:64a27e807d216d527a7f5224e6ff9733b5cbd8650db3b5dfd0aea3b94949460f
+#12 resolve docker.io/jenkins/inbound-agent:3391.va_37fa_a_305d6d-5-jdk21@sha256:64a27e807d216d527a7f5224e6ff9733b5cbd8650db3b5dfd0aea3b94949460f 0.1s done
+#12 DONE 0.1s
+
+#13 [node 1/1] FROM docker.io/library/node:24.22.1-trixie-slim@sha256:89c5244bc22a9bc3287d89ebc7e49b9cb5bb84cd40e6175ac3421d5a9f68b95a
+#13 resolve docker.io/library/node:24.22.1-trixie-slim@sha256:89c5244bc22a9bc3287d89ebc7e49b9cb5bb84cd40e6175ac3421d5a9f68b95a 0.1s done
+#13 CACHED
+
+#14 [stage-6  5/14] COPY --from=java /usr/local/bin/jenkins-agent /usr/local/bin/jenkins-agent
+#14 CACHED
+
+#15 [stage-6  7/14] COPY --from=docker /usr/local/libexec/docker/cli-plugins/ /usr/local/libexec/docker/cli-plugins/
+#15 CACHED
+
+#16 [stage-6  4/14] COPY --from=java /usr/share/jenkins/agent.jar /usr/share/jenkins/agent.jar
+#16 CACHED
+
+#17 [stage-6  6/14] COPY --from=docker /usr/local/bin/docker /usr/local/bin/docker
+#17 CACHED
+
+#18 [stage-6  2/14] RUN apt-get update && apt-get install -y --no-install-recommends git curl openssh-client libstdc++6     && rm -rf /var/lib/apt/lists/*     && groupadd --gid 1000 jenkins && useradd --uid 1000 --gid 1000 --create-home jenkins     && mkdir -p /home/jenkins/agent /home/jenkins/.cache     && chown -R 1000:1000 /home/jenkins
+#18 CACHED
+
+#19 [stage-6  3/14] COPY --from=java /opt/java/openjdk/ /opt/java/openjdk/
+#19 CACHED
+
+#20 [gitleaks 1/1] FROM ghcr.io/gitleaks/gitleaks:v8.30.1@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f
+#20 resolve ghcr.io/gitleaks/gitleaks:v8.30.1@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f 0.1s done
+#20 CACHED
+
+#21 [trivy 1/1] FROM docker.io/aquasec/trivy:0.76.2@sha256:8f6bb947dbc528902e11f2f5be52f7b519f6a39d5d148f41166f2040499768fb
+#21 resolve docker.io/aquasec/trivy:0.76.2@sha256:8f6bb947dbc528902e11f2f5be52f7b519f6a39d5d148f41166f2040499768fb 0.0s done
+#21 CACHED
+
+#22 [stage-6  8/14] COPY --from=node /usr/local/bin/node /usr/local/bin/node
+#22 CACHED
+
+#23 [internal] load build context
+#23 transferring context: 298B done
+#23 DONE 0.0s
+
+#24 [infra-tools 2/7] COPY infra/versions.json /tmp/versions.json
+#24 CACHED
+
+#25 [infra-tools 3/7] COPY ci/install-agent-tools.py /tmp/install.py
+#25 CACHED
+
+#26 [infra-tools 4/7] RUN python /tmp/install.py
+#26 ...
+
+#27 [stage-6  9/14] COPY --from=node /usr/local/lib/node_modules/ /usr/local/lib/node_modules/
+#27 DONE 0.5s
+
+#28 [stage-6 10/14] COPY --from=gitleaks /usr/bin/gitleaks /usr/local/bin/gitleaks
+#28 DONE 0.1s
+
+#26 [infra-tools 4/7] RUN python /tmp/install.py
+#26 ...
+
+#29 [stage-6 11/14] COPY --from=trivy /usr/local/bin/trivy /usr/local/bin/trivy
+#29 DONE 0.4s
+
+#26 [infra-tools 4/7] RUN python /tmp/install.py
+#26 DONE 63.0s
+
+#30 [infra-tools 5/7] COPY observability/versions.json /tmp/observability-versions.json
+#30 DONE 0.0s
+
+#31 [infra-tools 6/7] COPY scripts/install-observability-tools.py /tmp/install-obs.py
+#31 DONE 0.1s
+
+#32 [infra-tools 7/7] RUN python /tmp/install-obs.py --versions /tmp/observability-versions.json --destination /out --cache /tmp/obs-downloads --tools-only
+#32 54.09 prometheus 3.16.0 archive SHA256 verified
+#32 54.09 alertmanager 0.35.0 archive SHA256 verified
+#32 DONE 54.2s
+
+#33 [stage-6 12/14] COPY --from=infra-tools /out/ /usr/local/bin/
+#33 DONE 1.0s
+
+#34 [stage-6 13/14] RUN ln -s ../lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm     && ln -s ../lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
+#34 DONE 0.3s
+
+#35 [stage-6 14/14] WORKDIR /home/jenkins/agent
+#35 DONE 0.1s
+
+#36 exporting to image
+#36 exporting layers
+#36 exporting layers 17.0s done
+#36 exporting manifest sha256:a55e4a4c15b6c67ce22febb5425edec541a838fb622047b7248d43784199e7ef 0.0s done
+#36 exporting config sha256:559a8f451b9aa85bc85295b027fa1ee12b95ad4b78c52c431de12e4aab9a1a6b done
+#36 exporting attestation manifest sha256:39029c0cc5f7354b6967407efa3c5dbf561cd663387193d8a838f22040b8cfb6 0.0s done
+#36 exporting manifest list sha256:69fab62ff4ec979425c8ec405e1088305ac45f5da9849692fa119d4a8cd48eb6 0.0s done
+#36 naming to docker.io/library/clinic-ci-agent:3391 done
+#36 unpacking to docker.io/library/clinic-ci-agent:3391
+#36 unpacking to docker.io/library/clinic-ci-agent:3391 7.1s done
+#36 DONE 24.3s
+
+#37 resolving provenance for metadata file
+#37 DONE 0.0s
+ Image clinic-ci-agent:3391 Built 

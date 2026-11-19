@@ -1,4 +1,5 @@
 import json
+import time
 
 import pika
 
@@ -68,6 +69,7 @@ def publish(channel, event, *, destination="main", delay=None, headers=None):
             delivery_mode=2,
             message_id=event["event_id"],
             correlation_id=event["correlation_id"],
+            timestamp=int(time.time()),
             headers=headers or {},
         ),
     )

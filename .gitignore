@@ -23,3 +23,8 @@ htmlcov/
 .registry-token
 .ci-local/
 ci-out/
+.infra-local/
+infra/ansible/inventories/**/vault.yml
+infra/ansible/inventories/**/hosts.yml
+!infra/ansible/inventories/**/hosts.example.yml
+*.tfplan

@@ -1,0 +1,19 @@
+{
+  "scope": "Read-only handle probe at collection time; C locked, old D copy unmounted; not D migration proof",
+  "probes": [
+    {
+      "path": "C:/Users/Acer/AppData/Local/Docker/wsl/disk/docker_data.vhdx",
+      "exists": true,
+      "exclusive_read_error": 32
+    },
+    {
+      "path": "D:/DockerData/DockerDesktopWSL/disk/docker_data.vhdx",
+      "exists": true,
+      "exclusive_read_succeeded": true
+    },
+    {
+      "path": "D:/DockerData/active",
+      "exists": false
+    }
+  ]
+}

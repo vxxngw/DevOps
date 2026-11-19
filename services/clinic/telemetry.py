@@ -9,6 +9,11 @@ HTTP_COUNT = Counter("clinic_http_requests_total", "HTTP requests", ["route", "m
 HTTP_TIME = Histogram("clinic_http_duration_seconds", "Business HTTP duration", ["route", "method"])
 EVENT_COUNT = Counter("clinic_events_total", "Event outcomes", ["service", "outcome"])
 EVENT_TIME = Histogram("clinic_event_duration_seconds", "Event processing time", ["service"])
+QUEUE_WAIT = Histogram(
+    "clinic_queue_delay_seconds",
+    "Seconds since the most recent AMQP publication, including retry TTL when present",
+    buckets=(0.1, 0.5, 1, 2.5, 5, 10, 30, 60, 120, 300),
+)
 OUTBOX_PENDING = Gauge("clinic_outbox_pending", "Unpublished events")
 OUTBOX_AGE = Gauge("clinic_outbox_oldest_seconds", "Age of oldest unpublished event")
 DEPENDENCY = Gauge("clinic_dependency_ready", "Dependency connection status", ["dependency"])

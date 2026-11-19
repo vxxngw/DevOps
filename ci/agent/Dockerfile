@@ -3,6 +3,13 @@ FROM docker:29.9.3-cli AS docker
 FROM node:24.22.1-trixie-slim AS node
 FROM ghcr.io/gitleaks/gitleaks:v8.30.1 AS gitleaks
 FROM aquasec/trivy:0.76.2 AS trivy
+FROM python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b AS infra-tools
+COPY infra/versions.json /tmp/versions.json
+COPY ci/install-agent-tools.py /tmp/install.py
+RUN python /tmp/install.py
+COPY observability/versions.json /tmp/observability-versions.json
+COPY scripts/install-observability-tools.py /tmp/install-obs.py
+RUN python /tmp/install-obs.py --versions /tmp/observability-versions.json --destination /out --cache /tmp/obs-downloads --tools-only
 
 FROM python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
 RUN apt-get update && apt-get install -y --no-install-recommends git curl openssh-client libstdc++6 \
@@ -19,6 +26,7 @@ COPY --from=node /usr/local/bin/node /usr/local/bin/node
 COPY --from=node /usr/local/lib/node_modules/ /usr/local/lib/node_modules/
 COPY --from=gitleaks /usr/bin/gitleaks /usr/local/bin/gitleaks
 COPY --from=trivy /usr/local/bin/trivy /usr/local/bin/trivy
+COPY --from=infra-tools /out/ /usr/local/bin/
 RUN ln -s ../lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
     && ln -s ../lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx
 ENV JAVA_HOME=/opt/java/openjdk AGENT_WORKDIR=/home/jenkins/agent

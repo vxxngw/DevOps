@@ -1,0 +1,138 @@
+{
+  "at_utc": "2026-11-15T08:18:08.837980+00:00",
+  "build_number": 4,
+  "result": "SUCCESS",
+  "artifacts": [
+    {
+      "artifact": "ci-out/build/app.log",
+      "published_file": "artifact-ci-out_build_app.log",
+      "sha256": "becd623085c48fe7beb79414ad2eb3a96143273d74f191f7e780f99e522aa9b3"
+    },
+    {
+      "artifact": "ci-out/build/frontend.log",
+      "published_file": "artifact-ci-out_build_frontend.log",
+      "sha256": "9dc67d71af0f6c8022b36d68be31df24d1cc79cf6aae6a0c0143c6df0ce4273d"
+    },
+    {
+      "artifact": "ci-out/build/mailpit.log",
+      "published_file": "artifact-ci-out_build_mailpit.log",
+      "sha256": "ef0c41f5ef81fdaffa343b73a6e2abb388349a727169b02cb9baabce374209c2"
+    },
+    {
+      "artifact": "ci-out/build/postgres.log",
+      "published_file": "artifact-ci-out_build_postgres.log",
+      "sha256": "079687787599183025db89e396607757fea5426eeff6a26c73b9a989c30049e6"
+    },
+    {
+      "artifact": "ci-out/build/rabbitmq.log",
+      "published_file": "artifact-ci-out_build_rabbitmq.log",
+      "sha256": "857d2a8daaf0a8b6bcd3ecf1cdc95a835f4d93d67b5883430202174bcf70548d"
+    },
+    {
+      "artifact": "ci-out/built-images.json",
+      "published_file": "artifact-ci-out_built-images.json",
+      "sha256": "d1ca28241b99c68a03660fd1c234e41da10acad1fc39fbf4d6ef9ffc5c90b12e"
+    },
+    {
+      "artifact": "ci-out/dependency-gate.json",
+      "published_file": "artifact-ci-out_dependency-gate.json",
+      "sha256": "f3ce74a071c04ac4d59df4c2c1fe555faf686eb52d5d06b2c95882dc439b3ef2"
+    },
+    {
+      "artifact": "ci-out/format.log",
+      "published_file": "artifact-ci-out_format.log",
+      "sha256": "9c8484f35c0be72f8b42e79915a8060671d9a6fd45f659309229a5a8aa670ea6"
+    },
+    {
+      "artifact": "ci-out/infra/metadata.json",
+      "published_file": "artifact-ci-out_infra_metadata.json",
+      "sha256": "50661eef8710c166ae1d8e7a144546f3ecbb751710def2c110cb80ea1715ed54"
+    },
+    {
+      "artifact": "ci-out/install-python.log",
+      "published_file": "artifact-ci-out_install-python.log",
+      "sha256": "7fca466b03cd34baf689ffd3bea12a66ca4f7bf2a05968ae86a4ba6fd692c4ec"
+    },
+    {
+      "artifact": "ci-out/integration-cleanup.log",
+      "published_file": "artifact-ci-out_integration-cleanup.log",
+      "sha256": "e33aff66b0696eeb18235d2314b195c947f04f2093b4af326f628820b52457e8"
+    },
+    {
+      "artifact": "ci-out/integration-metadata.json",
+      "published_file": "artifact-ci-out_integration-metadata.json",
+      "sha256": "a5d42c459ffb1c3c08cf02f465a03761572623ccbeb0d9326206f0c25e717329"
+    },
+    {
+      "artifact": "ci-out/integration-up.log",
+      "published_file": "artifact-ci-out_integration-up.log",
+      "sha256": "58d47e8a39090b18de97c09cb1baea72669e6e38a2b1bcf884a6fe4b6d76061a"
+    },
+    {
+      "artifact": "ci-out/integration.log",
+      "published_file": "artifact-ci-out_integration.log",
+      "sha256": "11ee224dd1f45e7e5fe779edfc589546e6074990c6377c056b0c92da835da871"
+    },
+    {
+      "artifact": "ci-out/junit-integration.xml",
+      "summary": "summary-junit-integration.xml.json",
+      "raw_sha256": "3b938adb17346d16b1e9f12c4ac8d8d2f92ade47b9eebb31ceab66cd89116029"
+    },
+    {
+      "artifact": "ci-out/junit-unit.xml",
+      "summary": "summary-junit-unit.xml.json",
+      "raw_sha256": "ed268d45be2863e3d315cb828996ce66d49c129051f6a07ef5a2064883a1867b"
+    },
+    {
+      "artifact": "ci-out/observability/metadata.json",
+      "published_file": "artifact-ci-out_observability_metadata.json",
+      "sha256": "ae4c721dc0bacb6225f99f91d31c1c7f40fabf48a88c9fb3099a3f858b512487"
+    },
+    {
+      "artifact": "ci-out/ruff.log",
+      "published_file": "artifact-ci-out_ruff.log",
+      "sha256": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0"
+    },
+    {
+      "artifact": "ci-out/security/trivy-app.log",
+      "published_file": "artifact-ci-out_security_trivy-app.log",
+      "sha256": "b2bfd1d2cef0b92fe93a11931697fb26fcb0184ae8c10c7427006fc95a224ab4"
+    },
+    {
+      "artifact": "ci-out/security/trivy-dependencies.log",
+      "published_file": "artifact-ci-out_security_trivy-dependencies.log",
+      "sha256": "e7a908fe1020bc837ad8946123ccccc32eecc963923f05b57811123396459ad3"
+    },
+    {
+      "artifact": "ci-out/security/trivy-frontend.log",
+      "published_file": "artifact-ci-out_security_trivy-frontend.log",
+      "sha256": "0cf70215839ef5f47222b75bc83cfe79ddb2cc0995d04e2dd47962a5fdc3ebbf"
+    },
+    {
+      "artifact": "ci-out/security/trivy-mailpit.log",
+      "published_file": "artifact-ci-out_security_trivy-mailpit.log",
+      "sha256": "09040ac3c68fe9e3c3e4f7194c136bfefc061ebfa63be67725438c75b0286be8"
+    },
+    {
+      "artifact": "ci-out/security/trivy-postgres.log",
+      "published_file": "artifact-ci-out_security_trivy-postgres.log",
+      "sha256": "9853150101925d22dc7b335c4ea97de5e9233573dabf6020f47d0ab603f5e2df"
+    },
+    {
+      "artifact": "ci-out/security/trivy-rabbitmq.log",
+      "published_file": "artifact-ci-out_security_trivy-rabbitmq.log",
+      "sha256": "c13b680899b7ab9e665dd4774d85841914dec8cf275ce27f356d6bda18eb29f6"
+    },
+    {
+      "artifact": "ci-out/security-summary.json",
+      "published_file": "artifact-ci-out_security-summary.json",
+      "sha256": "7848ee2457c001e891fca480b726010fee9bcaf683686ded7b46a9219671ce31"
+    },
+    {
+      "artifact": "ci-out/unit-metadata.json",
+      "published_file": "artifact-ci-out_unit-metadata.json",
+      "sha256": "44fdb81a674f473a4a61e169fb5d162f07f6f34a981baa62a4eba41a3b30fe23"
+    }
+  ],
+  "scope": "Original JSON metadata/logs and JUnit count summaries; full raw reports remain in Jenkins artifacts. No package checksum redaction or report re-signing."
+}

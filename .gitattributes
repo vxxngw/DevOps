@@ -7,3 +7,6 @@ Dockerfile text eol=lf
 Jenkinsfile text eol=lf
 *.png binary
 *.jpg binary
+
+# Evidence hashes refer to original bytes; prevent CRLF conversion on checkout.
+docs/evidence/ci-agent-20261115T064424Z/** -text

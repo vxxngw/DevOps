@@ -1,0 +1,49 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 518B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 517B 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/docker:29.9.3-dind-rootless
+#3 ...
+
+#4 [auth] library/docker:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/docker:29.9.3-dind-rootless
+#3 DONE 1.8s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 280B 0.0s done
+#5 DONE 0.0s
+
+#6 [validation 1/2] FROM docker.io/library/docker:29.9.3-dind-rootless@sha256:707a099b8ddd86306eb28c8b1775264a3ee0135b16dc505b7b48ffb328edf8d0
+#6 resolve docker.io/library/docker:29.9.3-dind-rootless@sha256:707a099b8ddd86306eb28c8b1775264a3ee0135b16dc505b7b48ffb328edf8d0 0.0s done
+#6 DONE 0.1s
+
+#7 [validation 2/2] RUN docker --version > /tmp/docker-version && test -s /tmp/docker-version
+#7 CACHED
+
+#8 [stage-1 2/3] COPY --from=validation /tmp/docker-version /usr/local/share/clinic-docker-version
+#8 CACHED
+
+#9 [stage-1 3/3] RUN mkdir -p /home/jenkins/agent && chown 1000:1000 /home/jenkins/agent
+#9 CACHED
+
+#10 exporting to image
+#10 exporting layers 0.0s done
+#10 exporting manifest sha256:6b8a21e18498465b2d12dee4acce4f722b2d32f0a854cd3c9d7f9c57af56c4bf done
+#10 exporting config sha256:bd0a844459d32936ee24bd5784a69572c32d5a50c19d538886e55da8781f0bea 0.0s done
+#10 exporting attestation manifest sha256:6a903f8c02c38fc70e9609bf2eda82ae099a9f4b26ee91960f31f62da3c0cdd4
+#10 exporting attestation manifest sha256:6a903f8c02c38fc70e9609bf2eda82ae099a9f4b26ee91960f31f62da3c0cdd4 0.0s done
+#10 exporting manifest list sha256:8170a2e54c85bef7bf4a29d67f932e4cdedc0ec7aefe49390c7bc09ed740eef2 0.0s done
+#10 naming to docker.io/library/clinic-ci-engine:29.9.3 done
+#10 unpacking to docker.io/library/clinic-ci-engine:29.9.3 done
+#10 DONE 0.2s
+
+#11 resolving provenance for metadata file
+#11 DONE 0.0s
+ Image clinic-ci-engine:29.9.3 Building 
+ Image clinic-ci-engine:29.9.3 Built 

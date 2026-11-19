@@ -1,0 +1,6 @@
+{
+  "scope": "Synthetic local Vault encryption/decryption and plaintext rejection; no VM or real secrets",
+  "encrypted_exit": 0,
+  "plaintext_exit": 2,
+  "verified": true
+}

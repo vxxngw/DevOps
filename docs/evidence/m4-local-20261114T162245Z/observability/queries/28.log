@@ -1,0 +1,6 @@
+histogram_quantile(
+  0.95,
+  sum by (namespace, service, le) (
+    rate(clinic_event_duration_seconds_bucket{namespace=~"$namespace"}[5m])
+  )
+)

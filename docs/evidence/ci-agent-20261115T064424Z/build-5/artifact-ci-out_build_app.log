@@ -1,0 +1,60 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.09kB 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#2 DONE 2.8s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 280B 0.0s done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 71.69kB 0.0s done
+#4 DONE 0.0s
+
+#5 [dependencies 1/4] FROM docker.io/library/python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#5 resolve docker.io/library/python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b 0.0s done
+#5 DONE 0.0s
+
+#6 [dependencies 2/4] WORKDIR /build
+#6 CACHED
+
+#7 [runtime 7/8] COPY contracts contracts
+#7 CACHED
+
+#8 [dependencies 4/4] RUN pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.lock
+#8 CACHED
+
+#9 [runtime 3/8] COPY --from=dependencies /wheels /wheels
+#9 CACHED
+
+#10 [runtime 5/8] RUN pip install --no-cache-dir --no-index --find-links=/wheels -r requirements.lock     && rm -rf /wheels && groupadd -g 10001 clinic && useradd -u 10001 -g clinic -M clinic
+#10 CACHED
+
+#11 [runtime 6/8] COPY services services
+#11 CACHED
+
+#12 [dependencies 3/4] COPY requirements.lock .
+#12 CACHED
+
+#13 [runtime 4/8] COPY requirements.lock .
+#13 CACHED
+
+#14 [runtime 2/8] WORKDIR /app
+#14 CACHED
+
+#15 [runtime 8/8] COPY alembic.ini .
+#15 CACHED
+
+#16 exporting to image
+#16 exporting layers done
+#16 exporting manifest sha256:0620212d472245a041e4ce77e8ddfaa2f7c96a9f2491777afb74fe9d243b25dc 0.0s done
+#16 exporting config sha256:7ebc015dd2a4d67cb3a42a5ffe33990802f83ff8806efec1ae154dd6aa062bf8 0.0s done
+#16 exporting attestation manifest sha256:6b754e62fc99450e1a1a8ce4f5d4f6be252ab2b305a89e2eaa4f3ecb0402edf6 0.0s done
+#16 exporting manifest list sha256:4c3ce477c23fb9e14dd0354d0a696a6ce72e08b2ddc399f30088374e9d42642b 0.0s done
+#16 naming to ghcr.io/vxxngw/devops-app:aadcc9892b64e59e0523513968dfaefa4dd53f1a done
+#16 unpacking to ghcr.io/vxxngw/devops-app:aadcc9892b64e59e0523513968dfaefa4dd53f1a done
+#16 DONE 0.2s

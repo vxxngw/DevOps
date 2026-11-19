@@ -1,0 +1,24 @@
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe --version
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe image --cache-dir D:\CODE\OOPs\Do_An\.ci-local\trivy-cache --scanners vuln --severity CRITICAL --exit-code 1 --ignorefile D:\CODE\OOPs\Do_An\.ci-local\empty-trivy-ignore --format json --output D:\CODE\OOPs\Do_An\ci-out\observability-images\prometheus.json --image-src remote quay.io/prometheus/prometheus@sha256:9332054523223e2ddc18d8101799d54a4a8d823b030c53216f063a6c117773cd
+Exit0; log:ci-out\observability-images\prometheus.log
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe --version
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe image --cache-dir D:\CODE\OOPs\Do_An\.ci-local\trivy-cache --scanners vuln --severity CRITICAL --exit-code 1 --ignorefile D:\CODE\OOPs\Do_An\.ci-local\empty-trivy-ignore --format json --output D:\CODE\OOPs\Do_An\ci-out\observability-images\alertmanager.json --image-src remote quay.io/prometheus/alertmanager@sha256:5f6e66c01bd610aef6dd671642a52eee775fd3a89bd8788ebada33efaf373d10
+Exit0; log:ci-out\observability-images\alertmanager.log
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe --version
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe image --cache-dir D:\CODE\OOPs\Do_An\.ci-local\trivy-cache --scanners vuln --severity CRITICAL --exit-code 1 --ignorefile D:\CODE\OOPs\Do_An\.ci-local\empty-trivy-ignore --format json --output D:\CODE\OOPs\Do_An\ci-out\observability-images\grafana.json --image-src remote docker.io/grafana/grafana@sha256:0615ec4fbd4072004b7d86b46ded63013a74b7d6eb1119273dd89e8fa25c13cf
+Exit0; log:ci-out\observability-images\grafana.log
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe --version
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe image --cache-dir D:\CODE\OOPs\Do_An\.ci-local\trivy-cache --scanners vuln --severity CRITICAL --exit-code 1 --ignorefile D:\CODE\OOPs\Do_An\.ci-local\empty-trivy-ignore --format json --output D:\CODE\OOPs\Do_An\ci-out\observability-images\kube-state-metrics.json --image-src remote registry.k8s.io/kube-state-metrics/kube-state-metrics@sha256:42cfe3723a5f058171c627537fb57a3ea0f26e4380fa18555a95cb1a1b4cfc5b
+Exit0; log:ci-out\observability-images\kube-state-metrics.log
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe --version
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe image --cache-dir D:\CODE\OOPs\Do_An\.ci-local\trivy-cache --scanners vuln --severity CRITICAL --exit-code 1 --ignorefile D:\CODE\OOPs\Do_An\.ci-local\empty-trivy-ignore --format json --output D:\CODE\OOPs\Do_An\ci-out\observability-images\postgres-exporter.json --image-src remote quay.io/prometheuscommunity/postgres-exporter@sha256:ac5ec343104fae0e2d84a27bb8d69b38430a11910c5382cad85d478d2bab713e
+Exit0; log:ci-out\observability-images\postgres-exporter.log
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe --version
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe image --cache-dir D:\CODE\OOPs\Do_An\.ci-local\trivy-cache --scanners vuln --severity CRITICAL --exit-code 1 --ignorefile D:\CODE\OOPs\Do_An\.ci-local\empty-trivy-ignore --format json --output D:\CODE\OOPs\Do_An\ci-out\observability-images\elasticsearch.json --image-src remote docker.elastic.co/elasticsearch/elasticsearch@sha256:79b4f1de4c15e6eca824723086a51e5934406d614d410cc11be77748cafac537
+Exit0; log:ci-out\observability-images\elasticsearch.log
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe --version
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe image --cache-dir D:\CODE\OOPs\Do_An\.ci-local\trivy-cache --scanners vuln --severity CRITICAL --exit-code 1 --ignorefile D:\CODE\OOPs\Do_An\.ci-local\empty-trivy-ignore --format json --output D:\CODE\OOPs\Do_An\ci-out\observability-images\kibana.json --image-src remote docker.elastic.co/kibana/kibana@sha256:c7ed45da5c3cfea020fc6c99ce027f4d21d19dab330379c5115d5eb95f6ecebc
+Exit0; log:ci-out\observability-images\kibana.log
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe --version
+Running: D:\CODE\OOPs\Do_An\.ci-local\bin\trivy.exe image --cache-dir D:\CODE\OOPs\Do_An\.ci-local\trivy-cache --scanners vuln --severity CRITICAL --exit-code 1 --ignorefile D:\CODE\OOPs\Do_An\.ci-local\empty-trivy-ignore --format json --output D:\CODE\OOPs\Do_An\ci-out\observability-images\fluentd.json --image-src remote docker.io/fluent/fluentd-kubernetes-daemonset@sha256:11e174a0a158d4a575a948921a89cbd1bd292277f23948bbfaba3bb2e7304d04
+Exit0; log:ci-out\observability-images\fluentd.log

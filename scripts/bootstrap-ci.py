@@ -124,6 +124,8 @@ class Controller:
 
 
 def github_credential():
+    if os.environ.get("CLINIC_GITHUB_TOKEN"):
+        return os.environ.get("CLINIC_GITHUB_USER", "vxxngw"), os.environ["CLINIC_GITHUB_TOKEN"]
     result = subprocess.run(
         ["git", "credential", "fill"],
         input="protocol=https\nhost=github.com\npath=vxxngw/DevOps.git\n\n",
@@ -148,8 +150,11 @@ def job_xml():
         "parameterDefinitions",
     )
     for name, value in {
-        "SOURCE_REF": "codex/milestone-2",
-        "SOURCE_BRANCH": "codex/milestone-2",
+        "SOURCE_REF": "codex/milestone-4",
+        "SOURCE_BRANCH": "codex/milestone-4",
+        "CLUSTER_SERVER_URL": "https://192.168.150.11:6443",
+        "STAGING_URL": "https://staging.anuyen.test",
+        "PRODUCTION_URL": "https://hospital.anuyen.test",
         "SECURITY_DEMO": "none",
         "PRODUCTION_APPROVERS": "clinic-admin",
     }.items():

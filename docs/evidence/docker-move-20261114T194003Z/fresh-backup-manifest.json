@@ -1,0 +1,20 @@
+{
+  "at_utc": "2026-11-14T19:42:43.210859+00:00",
+  "scope": "Fresh data disk and settings backup; data VHDX held exclusively read-only. Bootstrap VHDX still held by Windows after docker-desktop termination, excluded from this fresh backup; previous verified bootstrap backups retained.",
+  "records": [
+    {
+      "source": "C:\\Users\\Acer\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+      "backup": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\recovery-backups\\before-recovery-20261115T024145\\disk\\docker_data.vhdx",
+      "bytes": 13668188160,
+      "sha256": "8ceb7e9619237634f7ad59866a4d327cbc8182b5f758c1dcd131368762ebe036",
+      "verified": true
+    },
+    {
+      "source": "C:\\Users\\Acer\\AppData\\Roaming\\Docker\\settings-store.json",
+      "backup": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\recovery-backups\\before-recovery-20261115T024145\\settings-store.json",
+      "bytes": 453,
+      "sha256": "c64a935d6f9de9a519a88e297173d592cbc6176970bd875825e861e8781fda18",
+      "verified": true
+    }
+  ]
+}

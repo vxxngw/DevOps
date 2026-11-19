@@ -1,0 +1,18 @@
+---
+- name: Read raw Vault envelope without loader auto-decryption
+  ansible.builtin.slurp:
+    src: "{{ clinic_vault_file }}"
+  delegate_to: localhost
+  become: false
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+  register: clinic_vault_raw
+  no_log: true
+- name: Refuse plaintext secrets input
+  ansible.builtin.assert:
+    that: (clinic_vault_raw.content | b64decode).startswith('$ANSIBLE_VAULT;')
+    fail_msg: Supply an encrypted vault.yml and --ask-vault-pass or --vault-password-file
+  no_log: true
+- name: Load authenticated encrypted project secrets
+  ansible.builtin.include_vars: "{{ clinic_vault_file }}"
+  no_log: true

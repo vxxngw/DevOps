@@ -1,0 +1,40 @@
+{
+  "at_utc": "2026-11-15T09:17:50.719950+00:00",
+  "incident": "Docker engine stopped after fatal write to C:/Users/Acer/AppData/Local/Docker/log/vm/init.log: not enough space; data VHDX remains on D",
+  "root_cause_scope": "Fatal log ENOSPC observed; what filled C at incident time is not fully proven. Later snapshot found C pagefile allocated20994MiB; no OS memory settings or user files changed.",
+  "recovery": "Official Desktop stop, terminate only docker-desktop, official Desktop start; no reset/unregister/delete. Server29.9.3 confirmed after restart.",
+  "jenkins": {
+    "_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob",
+    "lastBuild": {
+      "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+      "building": false,
+      "number": 7,
+      "result": "FAILURE"
+    },
+    "lastSuccessfulBuild": {
+      "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+      "number": 5,
+      "result": "SUCCESS"
+    }
+  },
+  "agent": {
+    "_class": "hudson.slaves.SlaveComputer",
+    "numExecutors": 1,
+    "offline": false
+  },
+  "queue": {
+    "_class": "hudson.model.Queue",
+    "items": []
+  },
+  "registry_token_file_present": false,
+  "disk_free_bytes": {
+    "C": 2911006720,
+    "D": 11062325248
+  },
+  "storage_verified_after_restart": {
+    "backend_location": "D:\\DockerData\\active\\DockerDesktopWSL",
+    "active_vhdx": "D:\\DockerData\\active\\DockerDesktopWSL\\disk\\docker_data.vhdx",
+    "exclusive_read_error": 32,
+    "old_C_data_absent": true
+  }
+}

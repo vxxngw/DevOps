@@ -1,0 +1,257 @@
+{
+  "scope": "Published audit copies only. Raw matching reports remain in ignored ci-out/observability-images and are the bootstrap gate input. Public package SHA1 fields triggered the Sourcegraph token rule; only those checksum fields removed, no allowlist or vulnerability result changes.",
+  "reports": [
+    {
+      "path": "alertmanager.json",
+      "raw_sha256": "3a3fcbc270338b4887c1494fb08e7c2b6a7dce109d0018c4a46d6e5d2d77c094",
+      "published_sha256": "3a3fcbc270338b4887c1494fb08e7c2b6a7dce109d0018c4a46d6e5d2d77c094",
+      "redacted_public_package_sha1_paths": []
+    },
+    {
+      "path": "elasticsearch.json",
+      "raw_sha256": "082700e1361029150e3db1f7a103ae2cd7ec4507f5e2c9903e0c7b1ada227aeb",
+      "published_sha256": "082700e1361029150e3db1f7a103ae2cd7ec4507f5e2c9903e0c7b1ada227aeb",
+      "redacted_public_package_sha1_paths": []
+    },
+    {
+      "path": "fluentd.json",
+      "raw_sha256": "5347b98ca9196106c56c704853bcc99204eac16bf78d60ab72c1a3374e3f8c78",
+      "published_sha256": "5347b98ca9196106c56c704853bcc99204eac16bf78d60ab72c1a3374e3f8c78",
+      "redacted_public_package_sha1_paths": []
+    },
+    {
+      "path": "grafana.json",
+      "raw_sha256": "ed0f90ee0b3dde977eaa78ad4e446e9ef419ef2a4ecae4786206bbfd7425c1bb",
+      "published_sha256": "d54b122a01302c5547f031df557c5a57ab790ccde5ade47ba8303704fc9a1484",
+      "redacted_public_package_sha1_paths": [
+        [
+          "Results",
+          0,
+          "Packages",
+          0,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          1,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          2,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          3,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          4,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          5,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          6,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          7,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          8,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          9,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          10,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          11,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          12,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          13,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          14,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          15,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          16,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          17,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          18,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          19,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          20,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          21,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          22,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          23,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          24,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          25,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          26,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          27,
+          "Digest"
+        ],
+        [
+          "Results",
+          0,
+          "Packages",
+          28,
+          "Digest"
+        ]
+      ]
+    },
+    {
+      "path": "kibana.json",
+      "raw_sha256": "315714e3e29d1e534fa03255212d8745d41252b401048d1ff9ca68297a906e62",
+      "published_sha256": "315714e3e29d1e534fa03255212d8745d41252b401048d1ff9ca68297a906e62",
+      "redacted_public_package_sha1_paths": []
+    },
+    {
+      "path": "kube-state-metrics.json",
+      "raw_sha256": "bc79562bd13fd2c6226eed1c5f35173cd5994116d1b8c48c4f15449cb961dae8",
+      "published_sha256": "bc79562bd13fd2c6226eed1c5f35173cd5994116d1b8c48c4f15449cb961dae8",
+      "redacted_public_package_sha1_paths": []
+    },
+    {
+      "path": "postgres-exporter.json",
+      "raw_sha256": "62075e0609ac2302cfa4093486d8df85976880cb9ac7ecc12df226b4b8872038",
+      "published_sha256": "62075e0609ac2302cfa4093486d8df85976880cb9ac7ecc12df226b4b8872038",
+      "redacted_public_package_sha1_paths": []
+    },
+    {
+      "path": "prometheus.json",
+      "raw_sha256": "d3ead2fd3d7d3339cd3a0a90b80dce2bee2467286ec2518118cf00eebb293653",
+      "published_sha256": "d3ead2fd3d7d3339cd3a0a90b80dce2bee2467286ec2518118cf00eebb293653",
+      "redacted_public_package_sha1_paths": []
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{"host": "releases.hashicorp.com", "dns": "OK", "addresses": ["108.157.14.11", "108.157.14.127", "108.157.14.21", "108.157.14.23"]}
+{"host": "dl.k8s.io", "dns": "OK", "addresses": ["151.101.1.91", "151.101.129.91", "151.101.193.91", "151.101.65.91"]}
+{"host": "github.com", "dns": "OK", "addresses": ["20.247.166.64"]}
+{"download": "terraform-checksums", "status": 200, "bytes": 1592}
+{"proxy_environment_present": {"HTTP_PROXY": false, "HTTPS_PROXY": false, "http_proxy": false, "https_proxy": false}}

@@ -1,0 +1,1 @@
+rabbitmq_queue_messages_ready{namespace=~"$namespace"}

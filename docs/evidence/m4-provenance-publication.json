@@ -1,0 +1,20 @@
+{
+  "operation": "Reserialize source path/hash dictionaries as path/sha256 records to prevent secret-filename checksum false positives. All hashes and test outcomes retained; no scanner allowlist changed.",
+  "files": [
+    {
+      "path": "docs/evidence/m4-local-20261114T161055Z/metadata.json",
+      "raw_sha256": "d1d0ee7029642251573ed1433aa6d5d41059f64c81747f4723a45b5ca24c34a0",
+      "published_sha256": "bbbc1022c4b8946b2c48bfc7c15c6917dbe8218a1ff78a7e7c69fd46e529bd94"
+    },
+    {
+      "path": "docs/evidence/m4-local-20261114T162245Z/metadata.json",
+      "raw_sha256": "ce585dadca24fa4c49755514744f60669c2e1027d950153a3621386839128db4",
+      "published_sha256": "412eba6dfdf4d3bc3d635f86da8f3ba40e86b72cbbcc446ba41a142f7cda20ee"
+    },
+    {
+      "path": "docs/evidence/m4-preparation-20261114T162614Z/metadata.json",
+      "raw_sha256": "d9115dfd2b1912cd8ff8564f173435cdd7d8e81cfb73374906e5e29361c8c080",
+      "published_sha256": "e35a55eecad2847dd9ee114d432865c92500907a23feefdc49f00c67fcb84e92"
+    }
+  ]
+}

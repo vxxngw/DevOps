@@ -1,0 +1,9 @@
+{
+  "at_utc": "2026-11-14T16:34:09.913690+00:00",
+  "scope": "Actual Gitleaks dir scan of staged-tree export before adding this scan receipt and final documentation wording; final staged content scanned again before commit.",
+  "staged_tree": "a9349f07a1c202063d485215e6cbb26bd7567469",
+  "scanner": "Gitleaks 8.30.1",
+  "exit_code": 0,
+  "findings": 0,
+  "report_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+}

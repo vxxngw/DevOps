@@ -1,0 +1,7 @@
+{
+  "at_utc": "2026-11-15T08:18:06.698209+00:00",
+  "build_number": 3,
+  "result": "FAILURE",
+  "artifacts": [],
+  "scope": "Original JSON metadata/logs and JUnit count summaries; full raw reports remain in Jenkins artifacts. No package checksum redaction or report re-signing."
+}

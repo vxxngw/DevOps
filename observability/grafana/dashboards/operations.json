@@ -1,0 +1,1285 @@
+{
+  "uid": "anuyen-operations",
+  "title": "An Uyên Hospital · Vận hành",
+  "schemaVersion": 40,
+  "version": 1,
+  "tags": [
+    "anuyen",
+    "preparation-not-runtime-proof"
+  ],
+  "timezone": "Asia/Ho_Chi_Minh",
+  "refresh": "15s",
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "templating": {
+    "list": [
+      {
+        "name": "namespace",
+        "type": "custom",
+        "query": "staging,production",
+        "current": {
+          "text": "staging",
+          "value": "staging"
+        },
+        "multi": true,
+        "includeAll": false
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "CPU container (cores)",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "clinic:container_cpu_cores5m{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "type": "timeseries",
+      "title": "RAM container",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "clinic:container_memory_bytes{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "type": "timeseries",
+      "title": "Backend up",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "up{job=\"clinic\",namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": "timeseries",
+      "title": "Replicas Ready",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "kube_deployment_status_replicas_available{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "type": "timeseries",
+      "title": "Replicas desired",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "kube_deployment_spec_replicas{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "Pod restarts",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by(namespace,pod) (increase(kube_pod_container_status_restarts_total{namespace=~\"$namespace\"}[15m]))",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "type": "timeseries",
+      "title": "HPA/KEDA desired",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "kube_horizontalpodautoscaler_status_desired_replicas{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 8,
+      "type": "timeseries",
+      "title": "HPA/KEDA current",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "kube_horizontalpodautoscaler_status_current_replicas{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 9,
+      "type": "timeseries",
+      "title": "API business requests/s",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 32
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "clinic:api_request_rate5m{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 10,
+      "type": "timeseries",
+      "title": "API business 5xx ratio",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 32
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "clinic:api_error_ratio5m{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 11,
+      "type": "timeseries",
+      "title": "API business p95",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 40
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "clinic:api_p95_seconds5m{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 12,
+      "type": "timeseries",
+      "title": "Frontend requests/s",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 40
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by(namespace,category) (rate(clinic_frontend_requests_total{namespace=~\"$namespace\",category!=\"health\"}[5m]))",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 13,
+      "type": "timeseries",
+      "title": "Frontend 5xx ratio",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 48
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by(namespace) (rate(clinic_frontend_requests_total{namespace=~\"$namespace\",status=~\"5..\",category!=\"health\"}[5m])) / sum by(namespace) (rate(clinic_frontend_requests_total{namespace=~\"$namespace\",category!=\"health\"}[5m]))",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 14,
+      "type": "timeseries",
+      "title": "Frontend p95",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 48
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.95,sum by(namespace,le) (rate(clinic_frontend_duration_seconds_bucket{namespace=~\"$namespace\",category!=\"health\"}[5m])))",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 15,
+      "type": "timeseries",
+      "title": "RabbitMQ ready",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 56
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rabbitmq_queue_messages_ready{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 16,
+      "type": "timeseries",
+      "title": "RabbitMQ unacked",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 56
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rabbitmq_queue_messages_unacked{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 17,
+      "type": "timeseries",
+      "title": "RabbitMQ backlog",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 64
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rabbitmq_queue_messages{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 18,
+      "type": "timeseries",
+      "title": "RabbitMQ consumers",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 64
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rabbitmq_queue_consumers{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 19,
+      "type": "timeseries",
+      "title": "RabbitMQ publish/s",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 72
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rate(rabbitmq_queue_messages_published_total{namespace=~\"$namespace\"}[5m])",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 20,
+      "type": "timeseries",
+      "title": "RabbitMQ delivered/s",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 72
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rate(rabbitmq_queue_messages_delivered_ack_total{namespace=~\"$namespace\"}[5m])",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 21,
+      "type": "timeseries",
+      "title": "RabbitMQ ack/s",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 80
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rate(rabbitmq_queue_messages_acked_total{namespace=~\"$namespace\"}[5m])",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 22,
+      "type": "timeseries",
+      "title": "DLQ depth",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 80
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rabbitmq_queue_messages{namespace=~\"$namespace\",queue=~\".*[.]dlq\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 23,
+      "type": "timeseries",
+      "title": "Outbox pending",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 88
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "clinic_outbox_pending{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 24,
+      "type": "timeseries",
+      "title": "Oldest outbox age",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 88
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "clinic_outbox_oldest_seconds{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 25,
+      "type": "timeseries",
+      "title": "Event outcomes/s",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 96
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by(namespace,service,outcome) (rate(clinic_events_total{namespace=~\"$namespace\"}[5m]))",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 26,
+      "type": "timeseries",
+      "title": "Publisher failure ratio",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 96
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by(namespace) (rate(clinic_events_total{namespace=~\"$namespace\",service=\"outbox-publisher\",outcome=\"failed\"}[5m])) / sum by(namespace) (rate(clinic_events_total{namespace=~\"$namespace\",service=\"outbox-publisher\"}[5m]))",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 27,
+      "type": "timeseries",
+      "title": "Worker failure/retry ratio",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 104
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by(namespace) (rate(clinic_events_total{namespace=~\"$namespace\",service=\"notification-worker\",outcome=~\"retry|failed_dlq\"}[5m])) / sum by(namespace) (rate(clinic_events_total{namespace=~\"$namespace\",service=\"notification-worker\"}[5m]))",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 28,
+      "type": "timeseries",
+      "title": "Publisher / worker processing p95",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 104
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.95,sum by(namespace,service,le) (rate(clinic_event_duration_seconds_bucket{namespace=~\"$namespace\"}[5m])))",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 29,
+      "type": "timeseries",
+      "title": "PostgreSQL exporter up",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 112
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "pg_up{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 30,
+      "type": "timeseries",
+      "title": "PostgreSQL connections",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 112
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by(namespace,state) (pg_stat_activity_count{namespace=~\"$namespace\"})",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 31,
+      "type": "timeseries",
+      "title": "PostgreSQL database size",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 120
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "pg_database_size_bytes{namespace=~\"$namespace\",datname=\"clinic\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 32,
+      "type": "timeseries",
+      "title": "Backup age",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 120
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "time()-clinic_backup_last_success_timestamp_seconds{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 33,
+      "type": "timeseries",
+      "title": "Backup last run",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 128
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "clinic_backup_last_run_success{namespace=~\"$namespace\"}",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 34,
+      "type": "timeseries",
+      "title": "Node CPU",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 128
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "1-avg by(node) (rate(node_cpu_seconds_total{mode=\"idle\"}[5m]))",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 35,
+      "type": "timeseries",
+      "title": "Node RAM",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 136
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "1-node_memory_MemAvailable_bytes/node_memory_MemTotal_bytes",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 36,
+      "type": "timeseries",
+      "title": "Fluentd buffer queue",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 136
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "fluentd_output_status_buffer_queue_length",
+          "legendFormat": "{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        }
+      }
+    },
+    {
+      "id": 37,
+      "type": "timeseries",
+      "title": "Queue wait p95 (gồm retry TTL; timestamp AMQP độ phân giải giây)",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "clinic-prometheus"
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 144
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.95,sum by(namespace,le) (rate(clinic_queue_delay_seconds_bucket{namespace=~\"$namespace\"}[5m])))",
+          "legendFormat": "{{namespace}}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      }
+    }
+  ]
+}

@@ -40,6 +40,19 @@ def prepare():
         ],
         log=OUTPUT / "install-python.log",
     )
+    run(
+        [
+            python_executable(),
+            "-m",
+            "pip",
+            "install",
+            "--cache-dir",
+            PRIVATE / "pip-cache",
+            "-r",
+            "infra/requirements-static.txt",
+        ],
+        log=OUTPUT / "install-infra-python.log",
+    )
     npm = "npm.cmd" if os.name == "nt" else "npm"
     run(
         [
@@ -58,7 +71,17 @@ def prepare():
 
 def lint():
     run(
-        [python_executable(), "-m", "ruff", "check", "services", "tests", "scripts", "ci"],
+        [
+            python_executable(),
+            "-m",
+            "ruff",
+            "check",
+            "services",
+            "tests",
+            "scripts",
+            "ci",
+            "observability",
+        ],
         log=OUTPUT / "ruff.log",
     )
     run(
@@ -72,6 +95,7 @@ def lint():
             "tests",
             "scripts",
             "ci",
+            "observability",
         ],
         log=OUTPUT / "format.log",
     )
@@ -135,6 +159,26 @@ def build():
             else ROOT
         )
         dockerfile = ROOT / "services/Dockerfile" if name == "app" else context / "Dockerfile"
+        source_revision = revision
+        created = now()
+        extra = []
+        if name in {"postgres", "rabbitmq", "mailpit"}:
+            # Keep unchanged middleware metadata stable across app releases. Cache is
+            # persistent; cold rebuilds/upgrades still require a maintenance check.
+            provenance = run(
+                [
+                    "git",
+                    "-c",
+                    "safe.directory=" + ROOT.as_posix(),
+                    "log",
+                    "-1",
+                    "--format=%H%n%ct%n%cI",
+                    "--",
+                    context.relative_to(ROOT),
+                ]
+            ).stdout.splitlines()
+            source_revision, epoch, created = provenance
+            extra = ["--build-arg", "SOURCE_DATE_EPOCH=" + epoch]
         run(
             [
                 "docker",
@@ -142,9 +186,10 @@ def build():
                 "--label",
                 "org.opencontainers.image.source=" + TOOLS["repository"],
                 "--label",
-                "org.opencontainers.image.revision=" + revision,
+                "org.opencontainers.image.revision=" + source_revision,
                 "--label",
-                "org.opencontainers.image.created=" + now(),
+                "org.opencontainers.image.created=" + created,
+                *extra,
                 "-f",
                 dockerfile,
                 "-t",
@@ -156,7 +201,11 @@ def build():
         image_id = run(
             ["docker", "image", "inspect", image(name, revision), "--format", "{{.Id}}"]
         ).stdout.strip()
-        images[name] = {"tag": image(name, revision), "image_id": image_id}
+        images[name] = {
+            "tag": image(name, revision),
+            "image_id": image_id,
+            "source_revision": source_revision,
+        }
     write_json(
         OUTPUT / "built-images.json", {"commit": revision, "built_at_utc": now(), "images": images}
     )
@@ -244,11 +293,32 @@ def integration():
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("action", choices=["prepare", "lint", "unit", "build", "integration"])
+    parser.add_argument(
+        "action",
+        choices=[
+            "prepare",
+            "lint",
+            "unit",
+            "build",
+            "integration",
+            "infrastructure",
+            "observability",
+            "deploy-staging",
+            "deploy-production",
+        ],
+    )
     args = parser.parse_args()
-    {"prepare": prepare, "lint": lint, "unit": unit, "build": build, "integration": integration}[
-        args.action
-    ]()
+    {
+        "prepare": prepare,
+        "lint": lint,
+        "unit": unit,
+        "build": build,
+        "integration": integration,
+        "infrastructure": lambda: run([python_executable(), "-m", "ci.infrastructure"]),
+        "observability": lambda: run([python_executable(), "-m", "ci.observability"]),
+        "deploy-staging": lambda: run([python_executable(), "-m", "ci.deploy", "staging"]),
+        "deploy-production": lambda: run([python_executable(), "-m", "ci.deploy", "production"]),
+    }[args.action]()
 
 
 if __name__ == "__main__":

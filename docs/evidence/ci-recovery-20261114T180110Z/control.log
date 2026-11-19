@@ -1,0 +1,93 @@
+
+playbook: infra/ansible/site.yml
+{"scope": "Synthetic local Vault encryption/decryption and plaintext rejection; no VM or real secrets", "encrypted_exit": 0, "plaintext_exit": 2, "verified": true}
+{
+  "at_utc": "2026-11-14T18:11:29.265569+00:00",
+  "scope": "Host readiness only; no VM provisioning",
+  "status": "BLOCKED",
+  "checks": [
+    {
+      "name": "linux_control_node",
+      "passed": true,
+      "detail": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.35"
+    },
+    {
+      "name": "kvm_device_access",
+      "passed": false,
+      "detail": "Requires existing read/write permission; no sudo or group changes attempted"
+    },
+    {
+      "name": "libvirt_socket",
+      "passed": false,
+      "detail": "qemu:///system daemon must be installed on the chosen host"
+    },
+    {
+      "name": "virsh",
+      "passed": false,
+      "detail": "Executable available on control/hypervisor host"
+    },
+    {
+      "name": "qemu-system-x86_64",
+      "passed": false,
+      "detail": "Executable available on control/hypervisor host"
+    },
+    {
+      "name": "ssh",
+      "passed": true,
+      "detail": "Executable available on control/hypervisor host"
+    },
+    {
+      "name": "vm_ram_capacity",
+      "passed": false,
+      "detail": {
+        "available_mib": 5837,
+        "linux_total_mib": 7795,
+        "vm_required_mib": 18432,
+        "reserve_mib": 1024
+      }
+    },
+    {
+      "name": "vcpus",
+      "passed": true,
+      "detail": {
+        "logical_cpus": 12,
+        "vm_vcpus": 8
+      }
+    },
+    {
+      "name": "storage",
+      "passed": false,
+      "detail": {
+        "free_bytes": 36901605376,
+        "minimum_free_gib": 160
+      }
+    },
+    {
+      "name": "libvirt_connection",
+      "passed": false,
+      "detail": "Read-only connection; no domains created"
+    },
+    {
+      "name": "dns:registry.terraform.io",
+      "passed": true,
+      "detail": "DNS only; not registry authentication or webhook connectivity"
+    },
+    {
+      "name": "dns:github.com",
+      "passed": true,
+      "detail": "DNS only; not registry authentication or webhook connectivity"
+    },
+    {
+      "name": "dns:ghcr.io",
+      "passed": true,
+      "detail": "DNS only; not registry authentication or webhook connectivity"
+    },
+    {
+      "name": "dns:cloud-images.ubuntu.com",
+      "passed": true,
+      "detail": "DNS only; not registry authentication or webhook connectivity"
+    }
+  ]
+}
+
+PRECHECK_ONLY: Ansible/Bash syntax passed; VM preflight exit=2 (2 means BLOCKED)

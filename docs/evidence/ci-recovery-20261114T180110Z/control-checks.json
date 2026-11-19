@@ -1,0 +1,154 @@
+{
+  "at_utc": "2026-11-14T18:11:30.907925+00:00",
+  "scope": "Actual restored WSL control checks and scanner-driver regression; no VM, pipeline, staging/production or alert delivery acceptance.",
+  "checks": [
+    {
+      "name": "control",
+      "exit_code": 0,
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-22.04",
+        "-e",
+        "bash",
+        "/mnt/d/CODE/OOPs/Do_An/scripts/check-infra-control.sh"
+      ]
+    },
+    {
+      "name": "scanner-driver-tests",
+      "exit_code": 0,
+      "command": [
+        "D:\\CODE\\OOPs\\Do_An\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "ci/tests/test_observability_policy.py",
+        "--tb=short",
+        "--junitxml=D:\\CODE\\OOPs\\Do_An\\docs\\evidence\\ci-recovery-20261114T180110Z\\junit-scanner-driver.xml"
+      ]
+    },
+    {
+      "name": "ruff",
+      "exit_code": 0,
+      "command": [
+        "D:\\CODE\\OOPs\\Do_An\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "scripts/scan-observability.py",
+        "ci/tests/test_observability_policy.py"
+      ]
+    },
+    {
+      "name": "format",
+      "exit_code": 0,
+      "command": [
+        "D:\\CODE\\OOPs\\Do_An\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "scripts/scan-observability.py",
+        "ci/tests/test_observability_policy.py"
+      ]
+    }
+  ],
+  "files": [
+    {
+      "path": "Jenkinsfile",
+      "sha256": "6955c33832bc5513279c7f02ea77e16c8a72d6aeffb7d31bc256b9aad6055dcf"
+    },
+    {
+      "path": "scripts/scan-observability.py",
+      "sha256": "640df9253ee0d5a3eb9ac25c1e29c94b9f3571c19fe8f5bb7149982271707dee"
+    },
+    {
+      "path": "ci/tests/test_observability_policy.py",
+      "sha256": "b803e525905f3c634f4c6f76e7c19985161149c4436f43b20ab31eadc3cc4905"
+    },
+    {
+      "path": "scripts/check-infra-control.sh",
+      "sha256": "e80788bdb037fb41ffffc366132514de1e2a1d9220672142e2cd70284f7c3b99"
+    },
+    {
+      "path": "scripts/check-vault-local.py",
+      "sha256": "105b5997d11d9ba949b6492ec439d7774e1ceeb9a1c5c3976eb366d7646f04d3"
+    },
+    {
+      "path": "infra/ansible/site.yml",
+      "sha256": "890cb1868541c225a19f6ad6c06d7120d4481b5c76b1547d6353c696f10ef6b7"
+    },
+    {
+      "path": "infra/ansible/collections/requirements.yml",
+      "sha256": "9b9358421e13ae73d57813c7698ade8be91e74b7164ad0c8d26f66dfb2420014"
+    },
+    {
+      "path": "infra/ansible/tasks/load-vault.yml",
+      "sha256": "f10dca8e9d0ceb1647be698e83378632ed1583e52e6ad83797128f6348281eab"
+    },
+    {
+      "path": "infra/ansible/inventories/lab/hosts.example.yml",
+      "sha256": "d0165c3a5bc60fe8900360d8723bd4a5bacc5e4da140ffefdcf497f5a0bdcf33"
+    },
+    {
+      "path": "infra/ansible/inventories/lab/vault.example.yml",
+      "sha256": "425f61cc7a98817e18212ee407e518a108a20d386a2f80f5b9d6085dfc2f77b5"
+    },
+    {
+      "path": "infra/ansible/inventories/lab/group_vars/all.yml",
+      "sha256": "acd4d0a1038a20944f4243ce9b843d2237b58f325bda14497c6b1f5ccb375dcc"
+    },
+    {
+      "path": "infra/ansible/roles/backup/handlers/main.yml",
+      "sha256": "a03aeb4aac847ed078a57d014975ecb68ae1a2e8353da862938e4cc49118bb64"
+    },
+    {
+      "path": "infra/ansible/roles/backup/tasks/main.yml",
+      "sha256": "7c8a28d1bd832f3562de735ceef7ce73907120aa42b9c0c14f9cba7a186fb182"
+    },
+    {
+      "path": "infra/ansible/roles/common/handlers/main.yml",
+      "sha256": "78a29c9f260f824aae2fb6affc37b4f9ebd967f8e3893b96122be60bd239bba7"
+    },
+    {
+      "path": "infra/ansible/roles/common/tasks/main.yml",
+      "sha256": "a7446212bb75b44dd74029bb54bec91583007a16ce3fb54cbacfb2751a5e93f9"
+    },
+    {
+      "path": "infra/ansible/roles/docker/tasks/main.yml",
+      "sha256": "93ccb6d1b1d7fcf8d102e0d2b9b6772193f2f79b60d32cc1a2ecd6bb9625726f"
+    },
+    {
+      "path": "infra/ansible/roles/jenkins/tasks/main.yml",
+      "sha256": "c04a534bd6967574bc672f78fc91969bca6ecf9765e15a90093cf1557ac21216"
+    },
+    {
+      "path": "infra/ansible/roles/k3s/handlers/main.yml",
+      "sha256": "b4c668fcf498c0c0c572627f44c22e516ed523ccc1ce29636fd692d8a0e5f0df"
+    },
+    {
+      "path": "infra/ansible/roles/k3s/tasks/main.yml",
+      "sha256": "8affab8fb75c1f5541eeaed443ccdfcf547a577ff51c92c439af68f892aaef0a"
+    },
+    {
+      "path": "infra/ansible/roles/node_exporter/handlers/main.yml",
+      "sha256": "20f1e3301337e2461c82eff732c9637ad98610dcc91b0c0f2a8d96960722c2ac"
+    },
+    {
+      "path": "infra/ansible/roles/node_exporter/tasks/main.yml",
+      "sha256": "3b978ceeafcb552826c4c10025602ef74ab714652e8c34d85aa4affa2cfeb815"
+    },
+    {
+      "path": "infra/ansible/roles/backup/templates/clinic-backup@.service.j2",
+      "sha256": "c2b671c931cf87b3dc00d651a86f61be16a5facc3a0c76a6a163bd67ef6d1093"
+    },
+    {
+      "path": "infra/ansible/roles/k3s/templates/config.yaml.j2",
+      "sha256": "cb6f89958253110446fa301dc079cda7587c7e1415a972fcac556f02a0ef8b5f"
+    },
+    {
+      "path": "infra/ansible/roles/k3s/templates/k3s.service.j2",
+      "sha256": "97c03d98dc0e25c8be6bdf15fad6ac7b0e9c31f640559e372722e84acfd98ad4"
+    }
+  ]
+}

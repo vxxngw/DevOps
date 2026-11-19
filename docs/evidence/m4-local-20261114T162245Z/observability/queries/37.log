@@ -1,0 +1,4 @@
+histogram_quantile(
+  0.95,
+  sum by (namespace, le) (rate(clinic_queue_delay_seconds_bucket{namespace=~"$namespace"}[5m]))
+)

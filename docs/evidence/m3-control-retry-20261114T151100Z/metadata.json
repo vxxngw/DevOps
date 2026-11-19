@@ -1,0 +1,105 @@
+{
+  "at_utc": "2026-11-14T15:11:47.509393+00:00",
+  "exit_code": 0,
+  "scope": "Retry only Ansible/Bash/local synthetic Vault checks after WSL recovered; no VM/cluster convergence",
+  "files": [
+    {
+      "path": "scripts/check-infra-control.sh",
+      "sha256": "e80788bdb037fb41ffffc366132514de1e2a1d9220672142e2cd70284f7c3b99"
+    },
+    {
+      "path": "scripts/check-vault-local.py",
+      "sha256": "105b5997d11d9ba949b6492ec439d7774e1ceeb9a1c5c3976eb366d7646f04d3"
+    },
+    {
+      "path": "infra/ansible/site.yml",
+      "sha256": "890cb1868541c225a19f6ad6c06d7120d4481b5c76b1547d6353c696f10ef6b7"
+    },
+    {
+      "path": "infra/ansible/collections/requirements.yml",
+      "sha256": "9b9358421e13ae73d57813c7698ade8be91e74b7164ad0c8d26f66dfb2420014"
+    },
+    {
+      "path": "infra/ansible/tasks/load-vault.yml",
+      "sha256": "f10dca8e9d0ceb1647be698e83378632ed1583e52e6ad83797128f6348281eab"
+    },
+    {
+      "path": "infra/ansible/inventories/lab/hosts.example.yml",
+      "sha256": "d0165c3a5bc60fe8900360d8723bd4a5bacc5e4da140ffefdcf497f5a0bdcf33"
+    },
+    {
+      "path": "infra/ansible/inventories/lab/vault.example.yml",
+      "sha256": "425f61cc7a98817e18212ee407e518a108a20d386a2f80f5b9d6085dfc2f77b5"
+    },
+    {
+      "path": "infra/ansible/inventories/lab/group_vars/all.yml",
+      "sha256": "acd4d0a1038a20944f4243ce9b843d2237b58f325bda14497c6b1f5ccb375dcc"
+    },
+    {
+      "path": "infra/ansible/roles/backup/handlers/main.yml",
+      "sha256": "a03aeb4aac847ed078a57d014975ecb68ae1a2e8353da862938e4cc49118bb64"
+    },
+    {
+      "path": "infra/ansible/roles/backup/tasks/main.yml",
+      "sha256": "7c8a28d1bd832f3562de735ceef7ce73907120aa42b9c0c14f9cba7a186fb182"
+    },
+    {
+      "path": "infra/ansible/roles/common/handlers/main.yml",
+      "sha256": "78a29c9f260f824aae2fb6affc37b4f9ebd967f8e3893b96122be60bd239bba7"
+    },
+    {
+      "path": "infra/ansible/roles/common/tasks/main.yml",
+      "sha256": "8fb38d4e6440e47624f1ec7ff96a0d9b4f987bac9165cd05525980c772b67e61"
+    },
+    {
+      "path": "infra/ansible/roles/docker/tasks/main.yml",
+      "sha256": "93ccb6d1b1d7fcf8d102e0d2b9b6772193f2f79b60d32cc1a2ecd6bb9625726f"
+    },
+    {
+      "path": "infra/ansible/roles/jenkins/tasks/main.yml",
+      "sha256": "c04a534bd6967574bc672f78fc91969bca6ecf9765e15a90093cf1557ac21216"
+    },
+    {
+      "path": "infra/ansible/roles/k3s/handlers/main.yml",
+      "sha256": "b4c668fcf498c0c0c572627f44c22e516ed523ccc1ce29636fd692d8a0e5f0df"
+    },
+    {
+      "path": "infra/ansible/roles/k3s/tasks/main.yml",
+      "sha256": "8affab8fb75c1f5541eeaed443ccdfcf547a577ff51c92c439af68f892aaef0a"
+    },
+    {
+      "path": "infra/ansible/roles/node_exporter/handlers/main.yml",
+      "sha256": "20f1e3301337e2461c82eff732c9637ad98610dcc91b0c0f2a8d96960722c2ac"
+    },
+    {
+      "path": "infra/ansible/roles/node_exporter/tasks/main.yml",
+      "sha256": "3b978ceeafcb552826c4c10025602ef74ab714652e8c34d85aa4affa2cfeb815"
+    },
+    {
+      "path": "infra/ansible/roles/backup/templates/clinic-backup@.service.j2",
+      "sha256": "c2b671c931cf87b3dc00d651a86f61be16a5facc3a0c76a6a163bd67ef6d1093"
+    },
+    {
+      "path": "infra/ansible/roles/k3s/templates/config.yaml.j2",
+      "sha256": "cb6f89958253110446fa301dc079cda7587c7e1415a972fcac556f02a0ef8b5f"
+    },
+    {
+      "path": "infra/ansible/roles/k3s/templates/k3s.service.j2",
+      "sha256": "97c03d98dc0e25c8be6bdf15fad6ac7b0e9c31f640559e372722e84acfd98ad4"
+    }
+  ],
+  "log_publication": [
+    {
+      "path": "positive.log",
+      "raw_sha256": "5e36f2cbe4509b390d779114f2f1696766a037f42c1a736f2e2db04422993c39",
+      "published_sha256": "e123c3840b9ca67592376830abe9dafe49cd3309936443393def9a010be76f80",
+      "normalization": "Trim trailing whitespace and final blank lines only; result and diagnostic text unchanged."
+    },
+    {
+      "path": "negative.log",
+      "raw_sha256": "f723f0f9137d058f1d9eee5bf8ac174c6562a3e14871f9bd6c6698af2ccff521",
+      "published_sha256": "a4dd68f2d79a46ea881e2d39b754cbfeef4903ec24bc370213847ed1f914ba0b",
+      "normalization": "Trim trailing whitespace and final blank lines only; result and diagnostic text unchanged."
+    }
+  ]
+}

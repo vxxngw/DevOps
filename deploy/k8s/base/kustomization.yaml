@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- account.yaml
+- services.yaml
+- statefulsets.yaml
+- deployments.yaml
+- migration.yaml
+- autoscaling.yaml
+- ingress.yaml
+- networkpolicy.yaml
+configMapGenerator:
+- name: app-config
+  literals:
+  - ENVIRONMENT=staging
+  - QUEUE_PREFIX=clinic.staging
+  - SMTP_HOST=mailpit
+  - SMTP_PORT=1025
+  - SMTP_FROM=clinic@example.test
+  - WORKER_DELAY_SECONDS=0
+  - LEASE_SECONDS=120
+- name: nginx-config
+  files:
+  - nginx.conf

@@ -1,0 +1,75 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: api
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: api
+  minReplicas: 2
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 60
+---
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: rabbitmq-scaler
+spec:
+  secretTargetRef:
+  - parameter: username
+    name: rabbitmq-auth
+    key: RABBITMQ_DEFAULT_USER
+  - parameter: password
+    name: rabbitmq-auth
+    key: RABBITMQ_DEFAULT_PASS
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: worker
+spec:
+  scaleTargetRef:
+    name: worker
+  pollingInterval: 10
+  cooldownPeriod: 60
+  minReplicaCount: 1
+  maxReplicaCount: 5
+  triggers:
+  - type: rabbitmq
+    metadata:
+      protocol: http
+      host: http://rabbitmq:15672
+      vhostName: clinic-staging
+      queueName: clinic.staging.notifications
+      mode: QueueLength
+      value: '20'
+      excludeUnacknowledged: 'false'
+    authenticationRef:
+      name: rabbitmq-scaler
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: api
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: api
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: frontend
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: frontend

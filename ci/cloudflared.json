@@ -1,0 +1,9 @@
+{
+  "version": "2026.11.0",
+  "platform": "windows-amd64",
+  "url": "https://github.com/cloudflare/cloudflared/releases/download/2026.11.0/cloudflared-windows-amd64.exe",
+  "sha256": "d5c1d82031da6253dcdcff64c944cd0fe063016edeb2e4fd088075fc9bd52d0a",
+  "release_url": "https://github.com/cloudflare/cloudflared/releases/tag/2026.11.0",
+  "source_api": "https://api.github.com/repos/cloudflare/cloudflared/releases/latest",
+  "asset_id": 739396410
+}

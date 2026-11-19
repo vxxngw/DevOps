@@ -1,0 +1,9 @@
+{
+  "at_utc": "2026-11-15T07:13:54.395881+00:00",
+  "_class": "hudson.slaves.SlaveComputer",
+  "displayName": "clinic-ci-linux",
+  "numExecutors": 1,
+  "offline": false,
+  "offlineCauseReason": "",
+  "temporarilyOffline": false
+}

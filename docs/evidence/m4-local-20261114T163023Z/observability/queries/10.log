@@ -1,0 +1,1 @@
+clinic:api_error_ratio5m{namespace=~"$namespace"}

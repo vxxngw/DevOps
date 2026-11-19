@@ -1,0 +1,9 @@
+{
+  "artifact": "ci-out/junit-unit.xml",
+  "raw_sha256": "ed268d45be2863e3d315cb828996ce66d49c129051f6a07ef5a2064883a1867b",
+  "tests": 89,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 8,
+  "passed": 81
+}

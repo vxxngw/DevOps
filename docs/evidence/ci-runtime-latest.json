@@ -1,0 +1,20 @@
+{
+  "path": "docs/evidence/ci-agent-20261115T064424Z",
+  "previous_recovery_path": "docs/evidence/ci-recovery-20261114T180110Z",
+  "controller": "RUNNING_AUTHENTICATED",
+  "jenkins_parser": "PASSED",
+  "agent": "ONLINE",
+  "pipeline": "VALIDATION_SUCCESS_BUILD5_PUBLISH_AND_DEPLOY_FALSE",
+  "normal_build": 5,
+  "secret_demo_build": 1,
+  "critical_demo_build": 3,
+  "webhook_push": "VERIFIED_DELIVERY202_BUILD5_SUCCESS",
+  "webhook_eligible_main_pr": "NOT_RUN_YET",
+  "sha_runtime": "VERIFIED_7_HEALTHY_NON_ROOT_SERVICES",
+  "ghcr": "BLOCKED_MISSING_CREDENTIAL",
+  "docker_data_location": "D:\\DockerData\\active\\DockerDesktopWSL",
+  "docker_storage_evidence": "docs/evidence/docker-storage-latest.json",
+  "scope": "See summary.json for exact commits, artifacts, skipped tests and remaining rubric requirements",
+  "runtime_after_recovery": "RUNNING_AGENT_ONLINE_NO_BUILD_QUEUED",
+  "latest_runtime_incident_evidence": "docs/evidence/ci-agent-20261115T064424Z/runtime-recovery-after-log-enospc.json"
+}

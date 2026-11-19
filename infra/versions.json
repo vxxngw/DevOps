@@ -1,0 +1,70 @@
+{
+  "terraform": "1.17.2",
+  "libvirt_provider": "0.9.9",
+  "k3s": "v1.36.6+k3s1",
+  "ansible_core": "2.22.0",
+  "uv": "0.13.8",
+  "cert_manager": "v1.21.3",
+  "keda": "v2.21.0",
+  "kubernetes": "1.36.6",
+  "control_python": "3.13.18",
+  "addons": {
+    "cert-manager": {
+      "version": "v1.21.3",
+      "url": "https://github.com/cert-manager/cert-manager/releases/download/v1.21.3/cert-manager.yaml",
+      "sha256": "c04a51295adda2b1a775146751f973e787190778c7f35180861d9678876e5c74"
+    },
+    "keda": {
+      "version": "v2.21.0",
+      "url": "https://github.com/kedacore/keda/releases/download/v2.21.0/keda-2.21.0.yaml",
+      "sha256": "b43c89ffeef81722d7e2dd2c079d74789767a0f89cae1336cff784994814f6d7"
+    }
+  },
+  "docker_apt_packages": {
+    "containerd.io": "2.4.2-4~ubuntu.24.04~noble",
+    "docker-buildx-plugin": "0.39.0-1~ubuntu.24.04~noble",
+    "docker-ce-cli": "5:29.9.3-1~ubuntu.24.04~noble",
+    "docker-ce": "5:29.9.3-1~ubuntu.24.04~noble",
+    "docker-compose-plugin": "5.7.1-1~ubuntu.24.04~noble"
+  },
+  "node_exporter": "1.12.1",
+  "collections": {
+    "community.general": {
+      "version": "14.0.1",
+      "sha256": "816291784a3369a888119a6a5d00593beec44d919605ac6553b0a54274470beb",
+      "url": "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-general-14.0.1.tar.gz",
+      "filename": "community-general-14.0.1.tar.gz",
+      "dependencies": {
+        "community.library_inventory_filtering_v1": ">=1.0.0"
+      }
+    },
+    "community.docker": {
+      "version": "5.4.0",
+      "sha256": "098e671822180a4170af061eca281df431e0747c7d66450bc75e9adb727abe19",
+      "url": "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-docker-5.4.0.tar.gz",
+      "filename": "community-docker-5.4.0.tar.gz",
+      "dependencies": {
+        "community.library_inventory_filtering_v1": ">=1.0.0"
+      }
+    },
+    "ansible.posix": {
+      "version": "2.2.2",
+      "sha256": "00a58c5d804c9adc99c3c3dc1b9f2246f4bb5f7337941440e0956f0e31c3b82b",
+      "url": "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/ansible-posix-2.2.2.tar.gz",
+      "filename": "ansible-posix-2.2.2.tar.gz",
+      "dependencies": {}
+    },
+    "community.library_inventory_filtering_v1": {
+      "version": "1.1.5",
+      "sha256": "cbb9e86c5b1720df21e940cedcd2f3e1226c38262623e090a883712610733851",
+      "url": "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-library_inventory_filtering_v1-1.1.5.tar.gz",
+      "filename": "community-library_inventory_filtering_v1-1.1.5.tar.gz",
+      "dependencies": {}
+    }
+  },
+  "kubernetes_schema": {
+    "url": "https://raw.githubusercontent.com/kubernetes/kubernetes/v1.36.6/api/openapi-spec/swagger.json",
+    "sha256": "dcede2063da1d7ad62ecb5af8adb6d7fabd0b52385a7fa0048afb491dac90450"
+  },
+  "docker_gpg_sha256": "1500c1f56fa9e26b9b8f42452a553675796ade0807cdce11975eb98170b3a570"
+}

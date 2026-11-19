@@ -1,0 +1,11 @@
+{
+  "path": "docs/evidence/docker-move-20261114T194003Z",
+  "status": "VERIFIED",
+  "docker_data_location": "D:\\DockerData\\active\\DockerDesktopWSL",
+  "storage": "Live D VHDX held open, old C data path absent; backend setting matches D",
+  "preservation": "14 container IDs, 14 volume names, 15 image IDs unchanged",
+  "jenkins": "Dedicated controller authenticated, anonymous API403; job folder retained",
+  "application": "7 existing dev services healthy, HTTP readiness and booking/cancellation SMTP smoke passed",
+  "scope": "Storage migration and preserved existing local runtime only; no new app images, CI build, GHCR publication or VM/cluster proof",
+  "backups": "All prior snapshots retained; fresh data+settings backup SHA256 verified. Fresh bootstrap backup blocked by Windows lock; prior verified bootstrap backups retained."
+}

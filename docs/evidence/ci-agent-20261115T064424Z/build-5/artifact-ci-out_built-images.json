@@ -1,0 +1,31 @@
+{
+  "commit": "aadcc9892b64e59e0523513968dfaefa4dd53f1a",
+  "built_at_utc": "2026-11-15T08:07:09.286112+00:00",
+  "images": {
+    "app": {
+      "tag": "ghcr.io/vxxngw/devops-app:aadcc9892b64e59e0523513968dfaefa4dd53f1a",
+      "image_id": "sha256:4c3ce477c23fb9e14dd0354d0a696a6ce72e08b2ddc399f30088374e9d42642b",
+      "source_revision": "aadcc9892b64e59e0523513968dfaefa4dd53f1a"
+    },
+    "frontend": {
+      "tag": "ghcr.io/vxxngw/devops-frontend:aadcc9892b64e59e0523513968dfaefa4dd53f1a",
+      "image_id": "sha256:267845717c3379ed61af897d4ab6ab6f20a262c582410c6d7c53ae4d4cc65947",
+      "source_revision": "aadcc9892b64e59e0523513968dfaefa4dd53f1a"
+    },
+    "postgres": {
+      "tag": "ghcr.io/vxxngw/devops-postgres:aadcc9892b64e59e0523513968dfaefa4dd53f1a",
+      "image_id": "sha256:e14646b2e5d2cd07d063223fe3e7fe07229b87f3fe0b18730ef0dfa3f415be0d",
+      "source_revision": "4a6e05647044ad8722771eb0ba8bbe763b2133b1"
+    },
+    "rabbitmq": {
+      "tag": "ghcr.io/vxxngw/devops-rabbitmq:aadcc9892b64e59e0523513968dfaefa4dd53f1a",
+      "image_id": "sha256:c6869a481814b89d19b664a27b68c14fa735f68f2cbbf35da319b03103e01ebc",
+      "source_revision": "4a6e05647044ad8722771eb0ba8bbe763b2133b1"
+    },
+    "mailpit": {
+      "tag": "ghcr.io/vxxngw/devops-mailpit:aadcc9892b64e59e0523513968dfaefa4dd53f1a",
+      "image_id": "sha256:a9b7922d034c87cb6cd9b2d899dcb1ef369d971b80ae8d7f7a09ec3e3eeb00e3",
+      "source_revision": "4a6e05647044ad8722771eb0ba8bbe763b2133b1"
+    }
+  }
+}

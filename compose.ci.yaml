@@ -43,6 +43,7 @@ services:
     privileged: true
     environment:
       DOCKER_TLS_CERTDIR: /certs
+      DOCKER_TLS_SAN: DNS:engine
     volumes:
       - engine-data:/home/rootless/.local/share/docker
       - engine-certs:/certs

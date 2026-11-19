@@ -1,0 +1,7 @@
+Checking 'D:\CODE\OOPs\Do_An\.infra-local\observability\validation\alertmanager.yml'  SUCCESS
+Found:
+ - global config
+ - route
+ - 0 inhibit rules
+ - 1 receivers
+ - 0 templates

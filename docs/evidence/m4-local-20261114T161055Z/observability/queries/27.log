@@ -1,0 +1,9 @@
+  sum by (namespace) (
+    rate(
+      clinic_events_total{namespace=~"$namespace",outcome=~"retry|failed_dlq",service="notification-worker"}[5m]
+    )
+  )
+/
+  sum by (namespace) (
+    rate(clinic_events_total{namespace=~"$namespace",service="notification-worker"}[5m])
+  )

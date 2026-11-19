@@ -1,0 +1,1 @@
+rate(rabbitmq_queue_messages_delivered_ack_total{namespace=~"$namespace"}[5m])

@@ -1,0 +1,64 @@
+{
+  "at_utc": "2026-11-14T16:17:52.262867+00:00",
+  "provider": "DigitalOcean",
+  "region_assumption": "SGP1 Singapore",
+  "currency": "USD",
+  "hours": 730,
+  "scope": "Public price lookup and local arithmetic for a proposed migration only; no account quote, purchase or deployment. Prices read from official pages, raw page hashes retained.",
+  "sources": {
+    "compute": {
+      "url": "https://www.digitalocean.com/pricing/droplets",
+      "sha256": "edef5868781d630a3335b0dcf30f2cce07533cf8175e5bb542245126381d2727",
+      "http_status": 200
+    },
+    "region": {
+      "url": "https://docs.digitalocean.com/products/droplets/details/availability/",
+      "sha256": "742ace5efa127357257912b97200a054efec96b5cab5b6116f7e43a9bdda625d",
+      "http_status": 200
+    },
+    "backup": {
+      "url": "https://docs.digitalocean.com/products/backups/details/pricing/",
+      "sha256": "9ab1848a7c2f9fa7aa33fecd96504a864fc46561d8a0840c3cbf539db829e620",
+      "http_status": 200
+    },
+    "volume": {
+      "url": "https://docs.digitalocean.com/products/volumes/details/pricing/",
+      "sha256": "e9f19d2443d46b686544f2a67545bb8007b023fc5a8dd36baaa63ebde8421d8d",
+      "http_status": 200
+    },
+    "spaces": {
+      "url": "https://docs.digitalocean.com/products/spaces/details/pricing/",
+      "sha256": "3182846304c7e7c02639d0632ce8de10c46c9e3b1fba2e0e505259cd9923bcd5",
+      "http_status": 200
+    },
+    "load_balancer": {
+      "url": "https://docs.digitalocean.com/products/networking/load-balancers/details/pricing/",
+      "sha256": "d9a5b4a394cd3090fe144cebd6d7254743633223761448e18d445f071c799048",
+      "http_status": 200
+    },
+    "ipv4": {
+      "url": "https://docs.digitalocean.com/products/networking/reserved-ips/details/pricing/",
+      "sha256": "b534a95896955bbe82dc83a3a3464aec6572b724d0dec9de7b6f4e2bb44e4f37",
+      "http_status": 200
+    },
+    "dns": {
+      "url": "https://docs.digitalocean.com/products/networking/dns/details/pricing/",
+      "sha256": "ad99a39e01337c28fa6651be643031534a53fcd6f5f4623b7bf5cc8e552bfe3d",
+      "http_status": 200
+    },
+    "egress": {
+      "url": "https://docs.digitalocean.com/platform/billing/bandwidth/",
+      "sha256": "257aa56ca09a4538f26b1f0b43fb342c3ce07069af5a097fbc80ee7ef041f7d3",
+      "http_status": 200
+    }
+  },
+  "estimate": {
+    "compute": "120.00",
+    "weekly_vm_backup": "24.00",
+    "100_gib_volume": "10.00",
+    "regional_http_lb": "12.00",
+    "spaces_standard": "5.00",
+    "monthly_infrastructure_total_before_tax": "171.00"
+  },
+  "excluded": "Domain registration, external SMTP, GitHub/GHCR account usage, taxes, excess usage and operator labor; these depend on actual account/use."
+}

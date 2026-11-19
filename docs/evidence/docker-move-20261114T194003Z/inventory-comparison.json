@@ -1,0 +1,7 @@
+{
+  "container_ids_preserved": true,
+  "volumes_preserved": true,
+  "images_preserved": true,
+  "jenkins_security_preserved": true,
+  "jenkins_jobs_preserved": true
+}

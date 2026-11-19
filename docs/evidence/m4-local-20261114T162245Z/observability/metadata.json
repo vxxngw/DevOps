@@ -1,0 +1,67 @@
+{
+  "at_utc": "2026-11-14T16:23:05.148056+00:00",
+  "head_commit": "cd941d319021365ac491fd4acb2326a7b9fe6dbb",
+  "scope": "Prometheus syntax/rules/fixture scenarios and dashboard PromQL, Alertmanager synthetic local config parser, K8s schema/policy only. No target scrape, delivery, Grafana UI, Fluentd parser or EFK ingestion claim.",
+  "runtime_status": "NOT_RUN",
+  "fluentd_parser": "NOT_RUN: Linux container/runtime required",
+  "kubernetes_objects": 51,
+  "dashboard_panels": 37,
+  "files": [
+    {
+      "path": "observability/__init__.py",
+      "sha256": "a560ecab914b6a192a6ed5d48092fee061bf484b4f70fd501a03bd113a001c07"
+    },
+    {
+      "path": "observability/config.py",
+      "sha256": "2858ee6850d5ec86742860d45068833c49f6d663a3f0d4b63b29252805a66388"
+    },
+    {
+      "path": "observability/efk/fluent.conf",
+      "sha256": "4046d895c35a71918a7bf5fd2911d123b1568bf9dca550ba5536ed463851f2d7"
+    },
+    {
+      "path": "observability/gates.py",
+      "sha256": "c7871cd2d7fd3ee4601a2827066a40a6e281445fb898f1fd454e9e0a40a408ef"
+    },
+    {
+      "path": "observability/grafana/dashboards/operations.json",
+      "sha256": "cd9b363cc7759bc01981cb52a8d0080d3bc576cad22783b5f2a8ff28c18009c4"
+    },
+    {
+      "path": "observability/grafana/datasources.yml",
+      "sha256": "33a5eeddab983579dad9d551abf6569da388341c5287764b3ea7cd0442fcc079"
+    },
+    {
+      "path": "observability/grafana/providers.yml",
+      "sha256": "c0d1d257da554ea9595e8b105d0afa9ee92f1e1df645d2166e6c8be2e141c225"
+    },
+    {
+      "path": "observability/k8s/resources.yaml",
+      "sha256": "529d8f51952e9fad20641e31ead5351db69559dc4e2504d8eb7d4807b5d60a30"
+    },
+    {
+      "path": "observability/kustomization.yaml",
+      "sha256": "6bad0c6cb300ab5f3ef6a4e2debf0541bcd59777dbd99c4508d317b4ddf01188"
+    },
+    {
+      "path": "observability/prometheus/demo/clinic-demo.yml",
+      "sha256": "b154ae905b74cb39512d50f93be3c593934aa7a42771591c9269cbb69e7a31c1"
+    },
+    {
+      "path": "observability/prometheus/prometheus.yml",
+      "sha256": "8e51e8c25fe23d4e2b4ccf22d40b790fa510f316a564cbb1fbb7464ab7b7fa2c"
+    },
+    {
+      "path": "observability/prometheus/rules/clinic.yml",
+      "sha256": "0a45ef9ad1ba4db01a718a8acafaaf938868987674d23855345adf0aeba272db"
+    },
+    {
+      "path": "observability/prometheus/tests/clinic.test.yml",
+      "sha256": "cc2cfc6cf4ebcbdef7b490d0321da1ee3ce0ba097f54b93730366f23f7fce941"
+    },
+    {
+      "path": "observability/versions.json",
+      "sha256": "3c66fd7e0082ff6b43f4133eee031a08737e442004dee46dd586372aa1e4505c"
+    }
+  ]
+}

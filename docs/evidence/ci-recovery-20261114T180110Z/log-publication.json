@@ -1,0 +1,30 @@
+{
+  "scope": "Whitespace-only publication; results and diagnostic text unchanged.",
+  "files": [
+    {
+      "path": "docker-startup-error-excerpt.log",
+      "raw_sha256": "4152e656c3edb5be4a058e6cc49e1cd0589f0b4c4f050c4a023bf73434ac8005",
+      "published_sha256": "8a725842681b2a012d98f37e58cc8e2c1185841e4d9d1c05a5813705f392c1f9"
+    },
+    {
+      "path": "jenkins-parser-after-fix.log",
+      "raw_sha256": "7dc512acc08c3753278336a967547f0bf1ff96a547ecbaa90fd1facd34811515",
+      "published_sha256": "72902e59c8c7abab8c222f5b7b11959d552fa8f8e4b01ddb134428e576cf688a"
+    },
+    {
+      "path": "jenkins-parser-before-fix.log",
+      "raw_sha256": "d45e712436224f1a75d540443e784425b1e9f47e22b8e71a45a77bc4428d4e3a",
+      "published_sha256": "2b6fa091b154991c66f54cdd14f74777569e3a3770ef0d0665df5d55211c7dcb"
+    },
+    {
+      "path": "operator-scan-retry.log",
+      "raw_sha256": "7f33f46184ddd5d4aab9d9574604ebe5a5c0dfc7cf474b38008f01771a16d298",
+      "published_sha256": "0b37537069d34c865c5beb281b831e90f64f805663c152dcb7a76c07a372653b"
+    },
+    {
+      "path": "scanner-driver-tests.log",
+      "raw_sha256": "2e987da7ad3986b2a3c2f931c58322de1a0b9ff78b7528e9cc83f96fea5109bf",
+      "published_sha256": "5661498d14ee1c9c3a20069a90265d8f6ed10a6918b3e4f6c80794ccd71dc2f5"
+    }
+  ]
+}

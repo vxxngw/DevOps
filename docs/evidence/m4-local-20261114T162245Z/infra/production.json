@@ -1,0 +1,1585 @@
+[
+  {
+    "apiVersion": "v1",
+    "automountServiceAccountToken": false,
+    "kind": "ServiceAccount",
+    "metadata": {
+      "name": "clinic-app",
+      "namespace": "production"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "data": {
+      "ENVIRONMENT": "production",
+      "LEASE_SECONDS": "120",
+      "QUEUE_PREFIX": "clinic.production",
+      "SMTP_FROM": "clinic@example.test",
+      "SMTP_HOST": "mailpit",
+      "SMTP_PORT": "1025",
+      "WORKER_DELAY_SECONDS": "0"
+    },
+    "kind": "ConfigMap",
+    "metadata": {
+      "name": "app-config-64hf4m6kt5",
+      "namespace": "production"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "data": {
+      "nginx.conf": "pid /tmp/nginx.pid;\r\nerror_log /dev/stderr warn;\r\nevents { worker_connections 1024; }\r\nhttp {\r\n  include /etc/nginx/mime.types;\r\n  # Fixed categories keep IDs, query strings and tokens out of logs/metric labels.\r\n  map $uri $clinic_category {\r\n    default static;\r\n    /health health;\r\n    ~^/api/ api;\r\n  }\r\n  map $status $clinic_level { default INFO; ~^5 ERROR; }\r\n  map $upstream_http_x_request_id $clinic_request_id {\r\n    default $upstream_http_x_request_id;\r\n    \"\" $request_id;\r\n  }\r\n  log_format clinic_json escape=json '{\"timestamp\":\"$time_iso8601\",\"level\":\"$clinic_level\",'\r\n    '\"service\":\"frontend\",\"message\":\"http_request\",\"category\":\"$clinic_category\",'\r\n    '\"status\":\"$status\",\"duration\":$request_time,\"request_id\":\"$clinic_request_id\"}';\r\n  access_log /dev/stdout clinic_json;\r\n  client_body_temp_path /tmp/client_temp;\r\n  proxy_temp_path /tmp/proxy_temp;\r\n  fastcgi_temp_path /tmp/fastcgi_temp;\r\n  uwsgi_temp_path /tmp/uwsgi_temp;\r\n  scgi_temp_path /tmp/scgi_temp;\r\n  server {\r\n    listen 8080;\r\n    root /usr/share/nginx/html;\r\n    add_header X-Content-Type-Options nosniff always;\r\n    add_header Referrer-Policy same-origin always;\r\n    location = /health { default_type application/json; return 200 '{\"status\":\"ok\"}'; }\r\n    location /api/ {\r\n      proxy_pass http://api:8000;\r\n      proxy_connect_timeout 5s;\r\n      proxy_read_timeout 20s;\r\n      proxy_set_header Host $host;\r\n      proxy_set_header X-Request-ID $http_x_request_id;\r\n    }\r\n    location / { try_files $uri $uri/ /index.html; }\r\n  }\r\n}\r\n"
+    },
+    "kind": "ConfigMap",
+    "metadata": {
+      "name": "nginx-config-8267f52g9c",
+      "namespace": "production"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "api",
+      "namespace": "production"
+    },
+    "spec": {
+      "ports": [
+        {
+          "name": "http",
+          "port": 8000,
+          "targetPort": 8000
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "api"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "frontend",
+      "namespace": "production"
+    },
+    "spec": {
+      "ports": [
+        {
+          "name": "http",
+          "port": 8080,
+          "targetPort": 8080
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "frontend"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "mailpit",
+      "namespace": "production"
+    },
+    "spec": {
+      "ports": [
+        {
+          "name": "smtp",
+          "port": 1025,
+          "targetPort": 1025
+        },
+        {
+          "name": "http",
+          "port": 8025,
+          "targetPort": 8025
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "mailpit"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "postgres",
+      "namespace": "production"
+    },
+    "spec": {
+      "ports": [
+        {
+          "name": "db",
+          "port": 5432,
+          "targetPort": 5432
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "postgres"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "postgres-headless",
+      "namespace": "production"
+    },
+    "spec": {
+      "clusterIP": "None",
+      "ports": [
+        {
+          "name": "db",
+          "port": 5432,
+          "targetPort": 5432
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "postgres"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "publisher",
+      "namespace": "production"
+    },
+    "spec": {
+      "ports": [
+        {
+          "name": "http",
+          "port": 8001,
+          "targetPort": 8001
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "publisher"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "rabbitmq",
+      "namespace": "production"
+    },
+    "spec": {
+      "ports": [
+        {
+          "name": "amqp",
+          "port": 5672,
+          "targetPort": 5672
+        },
+        {
+          "name": "management",
+          "port": 15672,
+          "targetPort": 15672
+        },
+        {
+          "name": "metrics",
+          "port": 15692,
+          "targetPort": 15692
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "rabbitmq"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "rabbitmq-headless",
+      "namespace": "production"
+    },
+    "spec": {
+      "clusterIP": "None",
+      "ports": [
+        {
+          "name": "amqp",
+          "port": 5672,
+          "targetPort": 5672
+        },
+        {
+          "name": "management",
+          "port": 15672,
+          "targetPort": 15672
+        },
+        {
+          "name": "metrics",
+          "port": 15692,
+          "targetPort": 15692
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "rabbitmq"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "worker",
+      "namespace": "production"
+    },
+    "spec": {
+      "ports": [
+        {
+          "name": "http",
+          "port": 8002,
+          "targetPort": 8002
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "worker"
+      }
+    }
+  },
+  {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "api",
+      "namespace": "production"
+    },
+    "spec": {
+      "replicas": 2,
+      "revisionHistoryLimit": 5,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "api"
+        }
+      },
+      "strategy": {
+        "rollingUpdate": {
+          "maxSurge": 1,
+          "maxUnavailable": 0
+        },
+        "type": "RollingUpdate"
+      },
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "api",
+            "app.kubernetes.io/part-of": "anuyen"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": false,
+          "containers": [
+            {
+              "command": [
+                "python",
+                "-m",
+                "uvicorn",
+                "clinic.api:app",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8000",
+                "--no-access-log",
+                "--log-config",
+                "/app/services/logging.json",
+                "--timeout-graceful-shutdown",
+                "30"
+              ],
+              "envFrom": [
+                {
+                  "configMapRef": {
+                    "name": "app-config-64hf4m6kt5"
+                  }
+                },
+                {
+                  "secretRef": {
+                    "name": "app-secrets"
+                  }
+                }
+              ],
+              "image": "ghcr.io/vxxngw/devops-app:UNRELEASED",
+              "lifecycle": {
+                "preStop": {
+                  "exec": {
+                    "command": [
+                      "python",
+                      "-c",
+                      "import time; time.sleep(5)"
+                    ]
+                  }
+                }
+              },
+              "livenessProbe": {
+                "httpGet": {
+                  "path": "/health",
+                  "port": 8000
+                },
+                "periodSeconds": 10,
+                "timeoutSeconds": 3
+              },
+              "name": "api",
+              "ports": [
+                {
+                  "containerPort": 8000,
+                  "name": "http"
+                }
+              ],
+              "readinessProbe": {
+                "httpGet": {
+                  "path": "/ready",
+                  "port": 8000
+                },
+                "periodSeconds": 5,
+                "timeoutSeconds": 3
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "384Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "128Mi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                },
+                "readOnlyRootFilesystem": true
+              },
+              "startupProbe": {
+                "failureThreshold": 36,
+                "httpGet": {
+                  "path": "/health",
+                  "port": 8000
+                },
+                "periodSeconds": 5
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/tmp",
+                  "name": "tmp"
+                }
+              ]
+            }
+          ],
+          "imagePullSecrets": [
+            {
+              "name": "registry-pull"
+            }
+          ],
+          "securityContext": {
+            "fsGroup": 10001,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "serviceAccountName": "clinic-app",
+          "terminationGracePeriodSeconds": 70,
+          "volumes": [
+            {
+              "emptyDir": {},
+              "name": "tmp"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "frontend",
+      "namespace": "production"
+    },
+    "spec": {
+      "replicas": 2,
+      "revisionHistoryLimit": 5,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "frontend"
+        }
+      },
+      "strategy": {
+        "rollingUpdate": {
+          "maxSurge": 1,
+          "maxUnavailable": 0
+        },
+        "type": "RollingUpdate"
+      },
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "frontend",
+            "app.kubernetes.io/part-of": "anuyen"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": false,
+          "containers": [
+            {
+              "image": "ghcr.io/vxxngw/devops-frontend:UNRELEASED",
+              "livenessProbe": {
+                "httpGet": {
+                  "path": "/health",
+                  "port": 8080
+                },
+                "periodSeconds": 10,
+                "timeoutSeconds": 3
+              },
+              "name": "frontend",
+              "ports": [
+                {
+                  "containerPort": 8080,
+                  "name": "http"
+                }
+              ],
+              "readinessProbe": {
+                "httpGet": {
+                  "path": "/health",
+                  "port": 8080
+                },
+                "periodSeconds": 5,
+                "timeoutSeconds": 3
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "128Mi"
+                },
+                "requests": {
+                  "cpu": "25m",
+                  "memory": "32Mi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                },
+                "readOnlyRootFilesystem": true
+              },
+              "startupProbe": {
+                "failureThreshold": 36,
+                "httpGet": {
+                  "path": "/health",
+                  "port": 8080
+                },
+                "periodSeconds": 5
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/tmp",
+                  "name": "tmp"
+                },
+                {
+                  "mountPath": "/etc/nginx/nginx.conf",
+                  "name": "nginx-config",
+                  "readOnly": true,
+                  "subPath": "nginx.conf"
+                }
+              ]
+            }
+          ],
+          "imagePullSecrets": [
+            {
+              "name": "registry-pull"
+            }
+          ],
+          "securityContext": {
+            "fsGroup": 101,
+            "runAsNonRoot": true,
+            "runAsUser": 101,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "serviceAccountName": "clinic-app",
+          "terminationGracePeriodSeconds": 70,
+          "volumes": [
+            {
+              "emptyDir": {},
+              "name": "tmp"
+            },
+            {
+              "configMap": {
+                "name": "nginx-config-8267f52g9c"
+              },
+              "name": "nginx-config"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "labels": {
+        "clinic.anuyen.io/phase": "foundation"
+      },
+      "name": "mailpit",
+      "namespace": "production"
+    },
+    "spec": {
+      "replicas": 1,
+      "revisionHistoryLimit": 5,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "mailpit"
+        }
+      },
+      "strategy": {
+        "rollingUpdate": {
+          "maxSurge": 1,
+          "maxUnavailable": 0
+        },
+        "type": "RollingUpdate"
+      },
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "mailpit",
+            "app.kubernetes.io/part-of": "anuyen"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": false,
+          "containers": [
+            {
+              "image": "ghcr.io/vxxngw/devops-mailpit:UNRELEASED",
+              "livenessProbe": {
+                "httpGet": {
+                  "path": "/readyz",
+                  "port": 8025
+                },
+                "periodSeconds": 10,
+                "timeoutSeconds": 3
+              },
+              "name": "mailpit",
+              "ports": [
+                {
+                  "containerPort": 8025,
+                  "name": "http"
+                },
+                {
+                  "containerPort": 1025,
+                  "name": "smtp"
+                }
+              ],
+              "readinessProbe": {
+                "httpGet": {
+                  "path": "/readyz",
+                  "port": 8025
+                },
+                "periodSeconds": 5,
+                "timeoutSeconds": 3
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "25m",
+                  "memory": "64Mi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                },
+                "readOnlyRootFilesystem": true
+              },
+              "startupProbe": {
+                "failureThreshold": 36,
+                "httpGet": {
+                  "path": "/readyz",
+                  "port": 8025
+                },
+                "periodSeconds": 5
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/tmp",
+                  "name": "tmp"
+                }
+              ]
+            }
+          ],
+          "imagePullSecrets": [
+            {
+              "name": "registry-pull"
+            }
+          ],
+          "securityContext": {
+            "fsGroup": 10001,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "serviceAccountName": "clinic-app",
+          "terminationGracePeriodSeconds": 70,
+          "volumes": [
+            {
+              "emptyDir": {},
+              "name": "tmp"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "publisher",
+      "namespace": "production"
+    },
+    "spec": {
+      "replicas": 1,
+      "revisionHistoryLimit": 5,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "publisher"
+        }
+      },
+      "strategy": {
+        "rollingUpdate": {
+          "maxSurge": 1,
+          "maxUnavailable": 0
+        },
+        "type": "RollingUpdate"
+      },
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "publisher",
+            "app.kubernetes.io/part-of": "anuyen"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": false,
+          "containers": [
+            {
+              "command": [
+                "python",
+                "-m",
+                "clinic.runtime",
+                "publisher",
+                "--port",
+                "8001"
+              ],
+              "envFrom": [
+                {
+                  "configMapRef": {
+                    "name": "app-config-64hf4m6kt5"
+                  }
+                },
+                {
+                  "secretRef": {
+                    "name": "app-secrets"
+                  }
+                }
+              ],
+              "image": "ghcr.io/vxxngw/devops-app:UNRELEASED",
+              "livenessProbe": {
+                "httpGet": {
+                  "path": "/health",
+                  "port": 8001
+                },
+                "periodSeconds": 10,
+                "timeoutSeconds": 3
+              },
+              "name": "publisher",
+              "ports": [
+                {
+                  "containerPort": 8001,
+                  "name": "http"
+                }
+              ],
+              "readinessProbe": {
+                "httpGet": {
+                  "path": "/ready",
+                  "port": 8001
+                },
+                "periodSeconds": 5,
+                "timeoutSeconds": 3
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "384Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "128Mi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                },
+                "readOnlyRootFilesystem": true
+              },
+              "startupProbe": {
+                "failureThreshold": 36,
+                "httpGet": {
+                  "path": "/health",
+                  "port": 8001
+                },
+                "periodSeconds": 5
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/tmp",
+                  "name": "tmp"
+                }
+              ]
+            }
+          ],
+          "imagePullSecrets": [
+            {
+              "name": "registry-pull"
+            }
+          ],
+          "securityContext": {
+            "fsGroup": 10001,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "serviceAccountName": "clinic-app",
+          "terminationGracePeriodSeconds": 70,
+          "volumes": [
+            {
+              "emptyDir": {},
+              "name": "tmp"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "worker",
+      "namespace": "production"
+    },
+    "spec": {
+      "replicas": 1,
+      "revisionHistoryLimit": 5,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "worker"
+        }
+      },
+      "strategy": {
+        "rollingUpdate": {
+          "maxSurge": 1,
+          "maxUnavailable": 0
+        },
+        "type": "RollingUpdate"
+      },
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "worker",
+            "app.kubernetes.io/part-of": "anuyen"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": false,
+          "containers": [
+            {
+              "command": [
+                "python",
+                "-m",
+                "clinic.runtime",
+                "worker",
+                "--port",
+                "8002"
+              ],
+              "envFrom": [
+                {
+                  "configMapRef": {
+                    "name": "app-config-64hf4m6kt5"
+                  }
+                },
+                {
+                  "secretRef": {
+                    "name": "app-secrets"
+                  }
+                }
+              ],
+              "image": "ghcr.io/vxxngw/devops-app:UNRELEASED",
+              "livenessProbe": {
+                "httpGet": {
+                  "path": "/health",
+                  "port": 8002
+                },
+                "periodSeconds": 10,
+                "timeoutSeconds": 3
+              },
+              "name": "worker",
+              "ports": [
+                {
+                  "containerPort": 8002,
+                  "name": "http"
+                }
+              ],
+              "readinessProbe": {
+                "httpGet": {
+                  "path": "/ready",
+                  "port": 8002
+                },
+                "periodSeconds": 5,
+                "timeoutSeconds": 3
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "384Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "128Mi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                },
+                "readOnlyRootFilesystem": true
+              },
+              "startupProbe": {
+                "failureThreshold": 36,
+                "httpGet": {
+                  "path": "/health",
+                  "port": 8002
+                },
+                "periodSeconds": 5
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/tmp",
+                  "name": "tmp"
+                }
+              ]
+            }
+          ],
+          "imagePullSecrets": [
+            {
+              "name": "registry-pull"
+            }
+          ],
+          "securityContext": {
+            "fsGroup": 10001,
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "serviceAccountName": "clinic-app",
+          "terminationGracePeriodSeconds": 70,
+          "volumes": [
+            {
+              "emptyDir": {},
+              "name": "tmp"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "apps/v1",
+    "kind": "StatefulSet",
+    "metadata": {
+      "name": "postgres",
+      "namespace": "production"
+    },
+    "spec": {
+      "replicas": 1,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "postgres"
+        }
+      },
+      "serviceName": "postgres-headless",
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "postgres",
+            "app.kubernetes.io/part-of": "anuyen"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": false,
+          "containers": [
+            {
+              "env": [
+                {
+                  "name": "PGDATA",
+                  "value": "/var/lib/postgresql/data/pgdata"
+                }
+              ],
+              "envFrom": [
+                {
+                  "secretRef": {
+                    "name": "postgres-auth"
+                  }
+                }
+              ],
+              "image": "ghcr.io/vxxngw/devops-postgres:UNRELEASED",
+              "livenessProbe": {
+                "exec": {
+                  "command": [
+                    "pg_isready",
+                    "-U",
+                    "clinic",
+                    "-d",
+                    "clinic"
+                  ]
+                },
+                "failureThreshold": 6,
+                "periodSeconds": 10,
+                "timeoutSeconds": 5
+              },
+              "name": "postgres",
+              "ports": [
+                {
+                  "containerPort": 5432,
+                  "name": "db"
+                }
+              ],
+              "readinessProbe": {
+                "exec": {
+                  "command": [
+                    "pg_isready",
+                    "-U",
+                    "clinic",
+                    "-d",
+                    "clinic"
+                  ]
+                },
+                "failureThreshold": 6,
+                "periodSeconds": 10,
+                "timeoutSeconds": 5
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "768Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "256Mi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                }
+              },
+              "startupProbe": {
+                "exec": {
+                  "command": [
+                    "pg_isready",
+                    "-U",
+                    "clinic",
+                    "-d",
+                    "clinic"
+                  ]
+                },
+                "failureThreshold": 30,
+                "periodSeconds": 10,
+                "timeoutSeconds": 5
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/lib/postgresql/data",
+                  "name": "data"
+                }
+              ]
+            }
+          ],
+          "imagePullSecrets": [
+            {
+              "name": "registry-pull"
+            }
+          ],
+          "nodeSelector": {
+            "clinic.anuyen.io/storage-node": "true"
+          },
+          "securityContext": {
+            "fsGroup": 70,
+            "runAsNonRoot": true,
+            "runAsUser": 70,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "serviceAccountName": "clinic-app",
+          "terminationGracePeriodSeconds": 70,
+          "volumes": []
+        }
+      },
+      "volumeClaimTemplates": [
+        {
+          "metadata": {
+            "name": "data"
+          },
+          "spec": {
+            "accessModes": [
+              "ReadWriteOnce"
+            ],
+            "resources": {
+              "requests": {
+                "storage": "2Gi"
+              }
+            },
+            "storageClassName": "local-path"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "apiVersion": "apps/v1",
+    "kind": "StatefulSet",
+    "metadata": {
+      "name": "rabbitmq",
+      "namespace": "production"
+    },
+    "spec": {
+      "replicas": 1,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "rabbitmq"
+        }
+      },
+      "serviceName": "rabbitmq-headless",
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "rabbitmq",
+            "app.kubernetes.io/part-of": "anuyen"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": false,
+          "containers": [
+            {
+              "envFrom": [
+                {
+                  "secretRef": {
+                    "name": "rabbitmq-auth"
+                  }
+                }
+              ],
+              "image": "ghcr.io/vxxngw/devops-rabbitmq:UNRELEASED",
+              "livenessProbe": {
+                "exec": {
+                  "command": [
+                    "rabbitmq-diagnostics",
+                    "-q",
+                    "check_running"
+                  ]
+                },
+                "failureThreshold": 6,
+                "periodSeconds": 10,
+                "timeoutSeconds": 5
+              },
+              "name": "rabbitmq",
+              "ports": [
+                {
+                  "containerPort": 5672,
+                  "name": "amqp"
+                },
+                {
+                  "containerPort": 15672,
+                  "name": "management"
+                },
+                {
+                  "containerPort": 15692,
+                  "name": "metrics"
+                }
+              ],
+              "readinessProbe": {
+                "exec": {
+                  "command": [
+                    "rabbitmq-diagnostics",
+                    "-q",
+                    "check_running"
+                  ]
+                },
+                "failureThreshold": 6,
+                "periodSeconds": 10,
+                "timeoutSeconds": 5
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "250m",
+                  "memory": "512Mi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                }
+              },
+              "startupProbe": {
+                "exec": {
+                  "command": [
+                    "rabbitmq-diagnostics",
+                    "-q",
+                    "check_running"
+                  ]
+                },
+                "failureThreshold": 30,
+                "periodSeconds": 10,
+                "timeoutSeconds": 5
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/lib/rabbitmq",
+                  "name": "data"
+                }
+              ]
+            }
+          ],
+          "imagePullSecrets": [
+            {
+              "name": "registry-pull"
+            }
+          ],
+          "nodeSelector": {
+            "clinic.anuyen.io/storage-node": "true"
+          },
+          "securityContext": {
+            "fsGroup": 999,
+            "runAsNonRoot": true,
+            "runAsUser": 999,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "serviceAccountName": "clinic-app",
+          "terminationGracePeriodSeconds": 70,
+          "volumes": []
+        }
+      },
+      "volumeClaimTemplates": [
+        {
+          "metadata": {
+            "name": "data"
+          },
+          "spec": {
+            "accessModes": [
+              "ReadWriteOnce"
+            ],
+            "resources": {
+              "requests": {
+                "storage": "2Gi"
+              }
+            },
+            "storageClassName": "local-path"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "apiVersion": "policy/v1",
+    "kind": "PodDisruptionBudget",
+    "metadata": {
+      "name": "api",
+      "namespace": "production"
+    },
+    "spec": {
+      "minAvailable": 1,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "api"
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "policy/v1",
+    "kind": "PodDisruptionBudget",
+    "metadata": {
+      "name": "frontend",
+      "namespace": "production"
+    },
+    "spec": {
+      "minAvailable": 1,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "frontend"
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "autoscaling/v2",
+    "kind": "HorizontalPodAutoscaler",
+    "metadata": {
+      "name": "api",
+      "namespace": "production"
+    },
+    "spec": {
+      "maxReplicas": 5,
+      "metrics": [
+        {
+          "resource": {
+            "name": "cpu",
+            "target": {
+              "averageUtilization": 60,
+              "type": "Utilization"
+            }
+          },
+          "type": "Resource"
+        }
+      ],
+      "minReplicas": 2,
+      "scaleTargetRef": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "api"
+      }
+    }
+  },
+  {
+    "apiVersion": "batch/v1",
+    "kind": "Job",
+    "metadata": {
+      "name": "clinic-migrate",
+      "namespace": "production"
+    },
+    "spec": {
+      "activeDeadlineSeconds": 180,
+      "backoffLimit": 0,
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "migration",
+            "app.kubernetes.io/part-of": "anuyen"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": false,
+          "containers": [
+            {
+              "command": [
+                "alembic",
+                "upgrade",
+                "head"
+              ],
+              "envFrom": [
+                {
+                  "configMapRef": {
+                    "name": "app-config-64hf4m6kt5"
+                  }
+                },
+                {
+                  "secretRef": {
+                    "name": "app-secrets"
+                  }
+                }
+              ],
+              "image": "ghcr.io/vxxngw/devops-app:UNRELEASED",
+              "name": "migration",
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "384Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "128Mi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                },
+                "readOnlyRootFilesystem": true
+              }
+            }
+          ],
+          "imagePullSecrets": [
+            {
+              "name": "registry-pull"
+            }
+          ],
+          "restartPolicy": "Never",
+          "securityContext": {
+            "runAsNonRoot": true,
+            "runAsUser": 10001,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "serviceAccountName": "clinic-app"
+        }
+      },
+      "ttlSecondsAfterFinished": 86400
+    }
+  },
+  {
+    "apiVersion": "cert-manager.io/v1",
+    "kind": "Certificate",
+    "metadata": {
+      "name": "clinic-tls",
+      "namespace": "production"
+    },
+    "spec": {
+      "dnsNames": [
+        "hospital.anuyen.test"
+      ],
+      "duration": "2160h",
+      "issuerRef": {
+        "kind": "ClusterIssuer",
+        "name": "clinic-lab-ca"
+      },
+      "renewBefore": "360h",
+      "secretName": "clinic-tls"
+    }
+  },
+  {
+    "apiVersion": "keda.sh/v1alpha1",
+    "kind": "ScaledObject",
+    "metadata": {
+      "name": "worker",
+      "namespace": "production"
+    },
+    "spec": {
+      "cooldownPeriod": 60,
+      "maxReplicaCount": 5,
+      "minReplicaCount": 1,
+      "pollingInterval": 10,
+      "scaleTargetRef": {
+        "name": "worker"
+      },
+      "triggers": [
+        {
+          "authenticationRef": {
+            "name": "rabbitmq-scaler"
+          },
+          "metadata": {
+            "excludeUnacknowledged": "false",
+            "host": "http://rabbitmq:15672",
+            "mode": "QueueLength",
+            "protocol": "http",
+            "queueName": "clinic.production.notifications",
+            "value": "20",
+            "vhostName": "clinic-production"
+          },
+          "type": "rabbitmq"
+        }
+      ]
+    }
+  },
+  {
+    "apiVersion": "keda.sh/v1alpha1",
+    "kind": "TriggerAuthentication",
+    "metadata": {
+      "name": "rabbitmq-scaler",
+      "namespace": "production"
+    },
+    "spec": {
+      "secretTargetRef": [
+        {
+          "key": "RABBITMQ_DEFAULT_USER",
+          "name": "rabbitmq-auth",
+          "parameter": "username"
+        },
+        {
+          "key": "RABBITMQ_DEFAULT_PASS",
+          "name": "rabbitmq-auth",
+          "parameter": "password"
+        }
+      ]
+    }
+  },
+  {
+    "apiVersion": "networking.k8s.io/v1",
+    "kind": "Ingress",
+    "metadata": {
+      "name": "clinic",
+      "namespace": "production"
+    },
+    "spec": {
+      "ingressClassName": "traefik",
+      "rules": [
+        {
+          "host": "hospital.anuyen.test",
+          "http": {
+            "paths": [
+              {
+                "backend": {
+                  "service": {
+                    "name": "api",
+                    "port": {
+                      "number": 8000
+                    }
+                  }
+                },
+                "path": "/api",
+                "pathType": "Prefix"
+              },
+              {
+                "backend": {
+                  "service": {
+                    "name": "frontend",
+                    "port": {
+                      "number": 8080
+                    }
+                  }
+                },
+                "path": "/",
+                "pathType": "Prefix"
+              }
+            ]
+          }
+        }
+      ],
+      "tls": [
+        {
+          "hosts": [
+            "hospital.anuyen.test"
+          ],
+          "secretName": "clinic-tls"
+        }
+      ]
+    }
+  },
+  {
+    "apiVersion": "networking.k8s.io/v1",
+    "kind": "NetworkPolicy",
+    "metadata": {
+      "name": "namespace-isolation",
+      "namespace": "production"
+    },
+    "spec": {
+      "egress": [
+        {
+          "to": [
+            {
+              "podSelector": {}
+            }
+          ]
+        },
+        {
+          "ports": [
+            {
+              "port": 53,
+              "protocol": "UDP"
+            },
+            {
+              "port": 53,
+              "protocol": "TCP"
+            }
+          ],
+          "to": [
+            {
+              "namespaceSelector": {
+                "matchLabels": {
+                  "kubernetes.io/metadata.name": "kube-system"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "ingress": [
+        {
+          "from": [
+            {
+              "podSelector": {}
+            },
+            {
+              "namespaceSelector": {
+                "matchLabels": {
+                  "kubernetes.io/metadata.name": "kube-system"
+                }
+              }
+            },
+            {
+              "namespaceSelector": {
+                "matchLabels": {
+                  "kubernetes.io/metadata.name": "monitoring"
+                }
+              }
+            },
+            {
+              "namespaceSelector": {
+                "matchLabels": {
+                  "kubernetes.io/metadata.name": "keda"
+                }
+              },
+              "podSelector": {
+                "matchLabels": {
+                  "app": "keda-operator"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "podSelector": {},
+      "policyTypes": [
+        "Ingress",
+        "Egress"
+      ]
+    }
+  }
+]

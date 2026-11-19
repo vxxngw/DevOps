@@ -1,0 +1,7 @@
+  sum by (namespace) (
+    rate(clinic_events_total{namespace=~"$namespace",outcome="failed",service="outbox-publisher"}[5m])
+  )
+/
+  sum by (namespace) (
+    rate(clinic_events_total{namespace=~"$namespace",service="outbox-publisher"}[5m])
+  )

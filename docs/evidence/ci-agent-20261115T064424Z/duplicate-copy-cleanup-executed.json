@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-11-15T07:39:38.0602944Z",
+  "user_approval": "Đồng ý xóa riêng bản tạm cũ",
+  "removed_directory": "D:\\DockerData\\DockerDesktopWSL",
+  "active_preserved": true,
+  "original_backup_preserved": true,
+  "recovery_backup_005310_preserved": true,
+  "recovery_backup_024145_preserved": true,
+  "D_free_before_bytes": 3216551936,
+  "D_free_after_bytes": 14289514496,
+  "bytes_freed": 11072962560,
+  "scope": "Only the two freshly SHA256-verified inactive duplicate VHDX files and their old temporary directory; no active disk or backup deletion"
+}

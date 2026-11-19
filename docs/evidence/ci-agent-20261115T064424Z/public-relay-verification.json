@@ -1,0 +1,35 @@
+{
+  "at_utc": "2026-11-15T08:00:28.344000+00:00",
+  "url": "https://universities-attorneys-dollar-button.trycloudflare.com",
+  "origin": "http://127.0.0.1:18085",
+  "checks": [
+    {
+      "path": "/health",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "path": "/login",
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "path": "/api/json",
+      "status": 404,
+      "expected": 404
+    },
+    {
+      "path": "/github",
+      "case": "unsigned",
+      "status": 401,
+      "expected": 401
+    },
+    {
+      "path": "/github",
+      "case": "synthetic_signed_ping",
+      "status": 200,
+      "expected": 200
+    }
+  ],
+  "scope": "Own HTTP probes through public HTTPS route; not GitHub delivery evidence"
+}

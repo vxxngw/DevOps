@@ -1,0 +1,1 @@
+rate(rabbitmq_queue_messages_published_total{namespace=~"$namespace"}[5m])

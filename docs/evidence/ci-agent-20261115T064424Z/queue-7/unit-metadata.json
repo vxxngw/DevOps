@@ -1,0 +1,7 @@
+{
+  "commit": "9347bb86b3a0a0ca54f40ddadab961f009b5393a",
+  "test_exit_code": 0,
+  "at_utc": "2026-11-15T07:41:32.540587+00:00",
+  "report_sha256": "ed268d45be2863e3d315cb828996ce66d49c129051f6a07ef5a2064883a1867b",
+  "scope": "Unit suite; dependency integration tests may skip here, never in integration stage"
+}

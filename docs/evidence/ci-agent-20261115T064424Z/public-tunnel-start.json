@@ -1,0 +1,12 @@
+{
+  "pid": 8284,
+  "started_at_utc": "2026-11-15T07:57:29.0686444Z",
+  "executable": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\bin\\cloudflared-2026.11.0.exe",
+  "version": "2026.11.0",
+  "origin": "http://127.0.0.1:18085",
+  "stdout_log": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\webhook\\tunnel-stdout.log",
+  "stderr_log": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\webhook\\tunnel-stderr.log",
+  "public_url": "https://universities-attorneys-dollar-button.trycloudflare.com",
+  "purpose": "Temporary HTTPS ingress for HMAC-validated GitHub webhook relay only; Jenkins18090 and old8080 are not tunnel origins",
+  "verified": false
+}

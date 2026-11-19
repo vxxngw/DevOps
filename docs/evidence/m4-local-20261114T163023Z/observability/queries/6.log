@@ -1,0 +1,3 @@
+sum by (namespace, pod) (
+  increase(kube_pod_container_status_restarts_total{namespace=~"$namespace"}[15m])
+)

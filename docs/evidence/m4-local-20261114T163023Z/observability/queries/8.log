@@ -1,0 +1,1 @@
+kube_horizontalpodautoscaler_status_current_replicas{namespace=~"$namespace"}

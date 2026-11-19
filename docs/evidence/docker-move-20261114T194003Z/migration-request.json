@@ -1,0 +1,25 @@
+{
+  "at_utc": "2026-11-14T19:43:01.397421+00:00",
+  "method": "Docker Desktop local backend API, same endpoint and payload used by installed frontend updateSettingsFromGUI; no manual settings-store edit, VHDX move or WSL registry mutation. API is internal, not a published CLI contract.",
+  "endpoint": "POST /app/settings/gui",
+  "setting": "vm.resources.wslDataFolder",
+  "before_value": "C:\\Users\\Acer\\AppData\\Local\\Docker\\wsl",
+  "requested_value": "D:\\DockerData\\active\\DockerDesktopWSL",
+  "preflight_needs_restart": true,
+  "source_of_protocol": {
+    "file": "C:/Program Files/Docker/Docker/frontend/resources/app.asar",
+    "sha256": "f7064b776a00b5198104f184e59f7459ded424f6c0b1d854e9ff6c135d232590",
+    "entry": "build/entry-main.main.js",
+    "functions": [
+      "updateSettingsFromGUI",
+      "doSettingsChangesNeedRestartForGUI"
+    ],
+    "request_shape": {
+      "settings": {
+        "vm.resources.wslDataFolder": "D:\\DockerData\\active\\DockerDesktopWSL"
+      }
+    }
+  },
+  "backup_verified": true,
+  "inventory_captured": true
+}

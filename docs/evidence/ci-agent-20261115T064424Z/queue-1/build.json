@@ -1,0 +1,119 @@
+{
+  "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+  "actions": [
+    {
+      "_class": "hudson.model.ParametersAction",
+      "parameters": [
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "SOURCE_REF",
+          "value": "a821dfbb907cb1abf02e66f2932dcdf51a90bec9"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "SOURCE_BRANCH",
+          "value": "codex/milestone-4"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "CLUSTER_SERVER_URL",
+          "value": "https://192.168.150.11:6443"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "STAGING_URL",
+          "value": "https://staging.anuyen.test"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "PRODUCTION_URL",
+          "value": "https://hospital.anuyen.test"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "SECURITY_DEMO",
+          "value": "secret"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "PRODUCTION_APPROVERS",
+          "value": "clinic-admin"
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "IS_PR",
+          "value": false
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "PUBLISH_IMAGES",
+          "value": false
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "DEPLOY",
+          "value": false
+        }
+      ]
+    },
+    {
+      "_class": "hudson.model.CauseAction"
+    },
+    {},
+    {
+      "_class": "hudson.plugins.git.util.BuildData",
+      "lastBuiltRevision": {
+        "SHA1": "a821dfbb907cb1abf02e66f2932dcdf51a90bec9"
+      }
+    },
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.workflow.libs.LibrariesAction"
+    },
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.workflow.cps.EnvActionImpl"
+    },
+    {},
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.displayurlapi.actions.RunDisplayAction"
+    },
+    {
+      "_class": "org.jenkinsci.plugins.pipeline.modeldefinition.actions.RestartDeclarativePipelineAction"
+    },
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.views.FlowGraphAction"
+    },
+    {},
+    {}
+  ],
+  "artifacts": [
+    {
+      "relativePath": "ci-out/secret-gate.json"
+    },
+    {
+      "relativePath": "ci-out/security/gitleaks.json"
+    },
+    {
+      "relativePath": "ci-out/security/gitleaks.log"
+    },
+    {
+      "relativePath": "ci-out/security-demo/gitleaks-result.json"
+    },
+    {
+      "relativePath": "ci-out/security-demo/gitleaks.json"
+    },
+    {
+      "relativePath": "ci-out/security-demo/gitleaks.log"
+    }
+  ],
+  "building": false,
+  "duration": 34992,
+  "number": 1,
+  "queueId": 1,
+  "result": "FAILURE",
+  "timestamp": 1794727294835,
+  "url": "http://localhost:18090/job/an-uyen/job/clinic-pipeline/1/"
+}

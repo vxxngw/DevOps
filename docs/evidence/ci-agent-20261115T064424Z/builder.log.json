@@ -1,0 +1,13 @@
+{
+  "started_at_utc": "2026-11-15T06:44:25.123462+00:00",
+  "ended_at_utc": "2026-11-15T06:44:25.392114+00:00",
+  "command": [
+    "docker",
+    "buildx",
+    "inspect"
+  ],
+  "exit_code": 0,
+  "log": "builder.log",
+  "stop_reason": null,
+  "D_free_bytes": 8078151680
+}

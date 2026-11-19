@@ -1,0 +1,646 @@
+{
+  "at_utc": "2026-11-14T16:12:00.361956+00:00",
+  "head_commit": "cd941d319021365ac491fd4acb2326a7b9fe6dbb",
+  "source_scope": "Working tree before commit, identified by source hashes",
+  "checks": [
+    {
+      "name": "ruff",
+      "command": [
+        "D:\\CODE\\OOPs\\Do_An\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "services",
+        "tests",
+        "scripts",
+        "ci",
+        "observability"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "format",
+      "command": [
+        "D:\\CODE\\OOPs\\Do_An\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "services",
+        "tests",
+        "scripts",
+        "ci",
+        "observability"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "unit",
+      "command": [
+        "D:\\CODE\\OOPs\\Do_An\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "tests",
+        "ci/tests",
+        "--tb=short",
+        "--junitxml=D:\\CODE\\OOPs\\Do_An\\docs\\evidence\\m4-local-20261114T161055Z\\junit.xml"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "observability",
+      "command": [
+        "D:\\CODE\\OOPs\\Do_An\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ci.observability"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "infrastructure",
+      "command": [
+        "D:\\CODE\\OOPs\\Do_An\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ci.infrastructure"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "dependencies",
+      "command": [
+        "D:\\CODE\\OOPs\\Do_An\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ci.security",
+        "dependencies"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "ansible-bash-vault",
+      "exit_code": 0,
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-22.04",
+        "-e",
+        "bash",
+        "/mnt/d/CODE/OOPs/Do_An/scripts/check-infra-control.sh"
+      ]
+    }
+  ],
+  "source_changed_during_checks": [],
+  "local_checks_passed": true,
+  "jenkins_parser": "BLOCKED:ConnectError",
+  "runtime_status": "NOT_RUN",
+  "fluentd_parser": "NOT_RUN",
+  "operator_image_scan": "NOT_RUN",
+  "external_alert_delivery": "BLOCKED: no configured real receiver or cluster",
+  "scope": "Local parser, schema, policy, unit and synthetic rule/Vault fixture checks only; no VM, stack, dashboard UI, external notification, HPA/KEDA, load, backup or rollback acceptance.",
+  "files": [
+    {
+      "path": ".dockerignore",
+      "sha256": "894744d2740fbcd7f2593cefe4047ce60615aead5dd8390c8a26c16756ba061d"
+    },
+    {
+      "path": "ci/__init__.py",
+      "sha256": "34ded0fd9c2154a85586a9b4301ed5c3626abe11ac35780af2ba240500a8c8fd"
+    },
+    {
+      "path": "ci/agent/Dockerfile",
+      "sha256": "42a0e3eb160b1da4729de1c4e98cbf516b6b3cd93b99783aa2230f4702eac932"
+    },
+    {
+      "path": "ci/cluster.py",
+      "sha256": "13daad39c8cd433b9d9b09aa8781b83b89ba2011fb273449e574edc55e226dd0"
+    },
+    {
+      "path": "ci/common.py",
+      "sha256": "c88ade5e6aa680de92416ca5d584c31b2b5290a7622e0787cb0f56bd271eca73"
+    },
+    {
+      "path": "ci/compose.test.yaml",
+      "sha256": "e06f32e61d3962de81dbcd0ff420ad50be56a263f4d3648c640a276b0d7a0640"
+    },
+    {
+      "path": "ci/controller/plugins-lock.json",
+      "sha256": "52d56fdd335c3b12480c681e2f07d9d58f0bb5f4b0c3b1afe646c965edba0eed"
+    },
+    {
+      "path": "ci/controller/plugins.txt",
+      "sha256": "cbb908a00af946638ea8b1b258cc2608d2fcac74609e6869747a3c8270f04fb2"
+    },
+    {
+      "path": "ci/deploy.py",
+      "sha256": "f0244ac64c88bc9a9808ebc686243bfdf29c900b90fa149f772356d43cd50463"
+    },
+    {
+      "path": "ci/infrastructure.py",
+      "sha256": "94458440d18f6ef81b6e76dee6bdbe3e4128056859fb5a6b2798b1bdcb4f7ac0"
+    },
+    {
+      "path": "ci/install-agent-tools.py",
+      "sha256": "01a9dbfc6350b404330b7c93661ee463a2475386648351a10e751b87c84deb2a"
+    },
+    {
+      "path": "ci/observability.py",
+      "sha256": "32ae8f2c523e122cda68aaacc23ce4742a1ffe96e1e4dc784561d5761650bfbc"
+    },
+    {
+      "path": "ci/pipeline.py",
+      "sha256": "ad6a2710a2768995ca0e6521c6ddec500dc0d1bcd77f1865386d60cd8dd2478a"
+    },
+    {
+      "path": "ci/release.py",
+      "sha256": "f3961c4826cdf8fa824872d5ac3d5e6f355f27ad0bf811e4efbda52f0d666e69"
+    },
+    {
+      "path": "ci/rollback.py",
+      "sha256": "4741eb60d5feca1ac4889c29fda83a6432852f381a3421541f93b75979001204"
+    },
+    {
+      "path": "ci/security.py",
+      "sha256": "565833c05e261872fc92d23443047730bca984c8bc2df9eaf51e1cfc3704afb1"
+    },
+    {
+      "path": "ci/smoke.py",
+      "sha256": "5fc0a39800e801eba5316973f6c1a29df2dd6f9662523b2bc72d9a8f7f2c08bd"
+    },
+    {
+      "path": "ci/tests/test_gates.py",
+      "sha256": "9a0b1cb2dc90df3a997f9c050b6b9517acf18200ec32276eb552f3569458413d"
+    },
+    {
+      "path": "ci/tests/test_gitleaks_config.py",
+      "sha256": "f77d6e09a094dc61c464641e579bb53bf5d3e345d5ffce38e9ba1793e31b32fc"
+    },
+    {
+      "path": "ci/tests/test_infrastructure.py",
+      "sha256": "e57879ba34ad9542d6a1436ad48c14a70768f4dc726fb904304d06d38aae061a"
+    },
+    {
+      "path": "ci/tests/test_observability_policy.py",
+      "sha256": "e4798a16f78154440403e28ab22087f8e4354da167c80c94f9a7fe98ba6952a5"
+    },
+    {
+      "path": "ci/tests/test_webhook.py",
+      "sha256": "d7abe78324f1bc44976abddce6e8f9946aa5512ebcbd92773e7c90d50333282a"
+    },
+    {
+      "path": "ci/tools.json",
+      "sha256": "3c279747200dcc381819b28461fca7d045f3cd14670b34edf54d6a28260f53d6"
+    },
+    {
+      "path": "ci/webhook/__init__.py",
+      "sha256": "0c9b6e4f45ae4d2bd1e584fbf890f926c3f008f423281c31bd2f57e926e11ab4"
+    },
+    {
+      "path": "ci/webhook/relay.py",
+      "sha256": "569dc4415cc5c301d614a655b75522eb8e62647adbf9ff68caa64d78f2fc5128"
+    },
+    {
+      "path": "deploy/k8s/base/account.yaml",
+      "sha256": "6671aad0b95fe61d6d3dd463922827063430a346d312cdf6bcad21b3f84833bd"
+    },
+    {
+      "path": "deploy/k8s/base/autoscaling.yaml",
+      "sha256": "0e830021c02e02b580c2ce41e1e5ba6fb0aadbf365ba21db1edff6540d08f2c9"
+    },
+    {
+      "path": "deploy/k8s/base/deployments.yaml",
+      "sha256": "6bee8a86daa07785e63bd1d9daf9e6c778a8d4c2e82791e9a55bad4e7f4e1119"
+    },
+    {
+      "path": "deploy/k8s/base/ingress.yaml",
+      "sha256": "86640cb708b0b02137d67bc2152c8f4e258471609bd25f671594bc8543aafc65"
+    },
+    {
+      "path": "deploy/k8s/base/kustomization.yaml",
+      "sha256": "a886a29cbf37938c3f493340ce3d054b537fab1737c5e96ba3c827c6873abd16"
+    },
+    {
+      "path": "deploy/k8s/base/migration.yaml",
+      "sha256": "5397a80971ec60d1f0144be35ddf52d4be1df9901fc4c7b3d8646954e6636b6f"
+    },
+    {
+      "path": "deploy/k8s/base/networkpolicy.yaml",
+      "sha256": "0397991c9ee86b2dd54cd3a54545a827357b5e398477a1f39a4b9d7d84750694"
+    },
+    {
+      "path": "deploy/k8s/base/nginx.conf",
+      "sha256": "f55a6a4edff7a8e019568ebb9228fdd4c0c07ae2e31a1aa95d8d439a946c5b04"
+    },
+    {
+      "path": "deploy/k8s/base/services.yaml",
+      "sha256": "2f37b3ca1d264cd5c65210e760f13f9b0488f0ab7ecd12b05f06fd2876c70493"
+    },
+    {
+      "path": "deploy/k8s/base/statefulsets.yaml",
+      "sha256": "d518aae10d345eea946f32e0a5b0541e5660dec4f511f37d0dcd0f61bdde52a3"
+    },
+    {
+      "path": "deploy/k8s/bootstrap/local-ca.yaml",
+      "sha256": "af44aee76889cab20c73b1ee1c098e5bb429ad217c698d822a4bfa72261e782d"
+    },
+    {
+      "path": "deploy/k8s/bootstrap/namespaces-rbac.yaml",
+      "sha256": "8e661f17f542a2539b6f6711c89a5f9a6e452310f89357b31043ae88f32e5717"
+    },
+    {
+      "path": "deploy/k8s/overlays/production/kustomization.yaml",
+      "sha256": "9a2b909a73c8e6822c6e51d89e7424ee9e2488867cae5a80270d7fec71b1d26c"
+    },
+    {
+      "path": "deploy/k8s/overlays/staging/kustomization.yaml",
+      "sha256": "e36dad10f2e162c39b483904c5c7c450143001330cdee14a745aad223e27d264"
+    },
+    {
+      "path": "frontend/nginx.conf",
+      "sha256": "b5ca11dea3ee9784c1d19bae0e295a3a3e36d4bfc02c26e6e11603f12dcdfe56"
+    },
+    {
+      "path": "infra/ansible/collections/requirements.yml",
+      "sha256": "9b9358421e13ae73d57813c7698ade8be91e74b7164ad0c8d26f66dfb2420014"
+    },
+    {
+      "path": "infra/ansible/inventories/lab/group_vars/all.yml",
+      "sha256": "acd4d0a1038a20944f4243ce9b843d2237b58f325bda14497c6b1f5ccb375dcc"
+    },
+    {
+      "path": "infra/ansible/inventories/lab/hosts.example.yml",
+      "sha256": "d0165c3a5bc60fe8900360d8723bd4a5bacc5e4da140ffefdcf497f5a0bdcf33"
+    },
+    {
+      "path": "infra/ansible/inventories/lab/vault.example.yml",
+      "sha256": "425f61cc7a98817e18212ee407e518a108a20d386a2f80f5b9d6085dfc2f77b5"
+    },
+    {
+      "path": "infra/ansible/roles/backup/handlers/main.yml",
+      "sha256": "a03aeb4aac847ed078a57d014975ecb68ae1a2e8353da862938e4cc49118bb64"
+    },
+    {
+      "path": "infra/ansible/roles/backup/tasks/main.yml",
+      "sha256": "7c8a28d1bd832f3562de735ceef7ce73907120aa42b9c0c14f9cba7a186fb182"
+    },
+    {
+      "path": "infra/ansible/roles/backup/templates/clinic-backup@.service.j2",
+      "sha256": "c2b671c931cf87b3dc00d651a86f61be16a5facc3a0c76a6a163bd67ef6d1093"
+    },
+    {
+      "path": "infra/ansible/roles/common/handlers/main.yml",
+      "sha256": "78a29c9f260f824aae2fb6affc37b4f9ebd967f8e3893b96122be60bd239bba7"
+    },
+    {
+      "path": "infra/ansible/roles/common/tasks/main.yml",
+      "sha256": "a7446212bb75b44dd74029bb54bec91583007a16ce3fb54cbacfb2751a5e93f9"
+    },
+    {
+      "path": "infra/ansible/roles/docker/tasks/main.yml",
+      "sha256": "93ccb6d1b1d7fcf8d102e0d2b9b6772193f2f79b60d32cc1a2ecd6bb9625726f"
+    },
+    {
+      "path": "infra/ansible/roles/jenkins/tasks/main.yml",
+      "sha256": "c04a534bd6967574bc672f78fc91969bca6ecf9765e15a90093cf1557ac21216"
+    },
+    {
+      "path": "infra/ansible/roles/k3s/handlers/main.yml",
+      "sha256": "b4c668fcf498c0c0c572627f44c22e516ed523ccc1ce29636fd692d8a0e5f0df"
+    },
+    {
+      "path": "infra/ansible/roles/k3s/tasks/main.yml",
+      "sha256": "8affab8fb75c1f5541eeaed443ccdfcf547a577ff51c92c439af68f892aaef0a"
+    },
+    {
+      "path": "infra/ansible/roles/k3s/templates/config.yaml.j2",
+      "sha256": "cb6f89958253110446fa301dc079cda7587c7e1415a972fcac556f02a0ef8b5f"
+    },
+    {
+      "path": "infra/ansible/roles/k3s/templates/k3s.service.j2",
+      "sha256": "97c03d98dc0e25c8be6bdf15fad6ac7b0e9c31f640559e372722e84acfd98ad4"
+    },
+    {
+      "path": "infra/ansible/roles/node_exporter/handlers/main.yml",
+      "sha256": "20f1e3301337e2461c82eff732c9637ad98610dcc91b0c0f2a8d96960722c2ac"
+    },
+    {
+      "path": "infra/ansible/roles/node_exporter/tasks/main.yml",
+      "sha256": "3b978ceeafcb552826c4c10025602ef74ab714652e8c34d85aa4affa2cfeb815"
+    },
+    {
+      "path": "infra/ansible/site.yml",
+      "sha256": "890cb1868541c225a19f6ad6c06d7120d4481b5c76b1547d6353c696f10ef6b7"
+    },
+    {
+      "path": "infra/ansible/tasks/load-vault.yml",
+      "sha256": "f10dca8e9d0ceb1647be698e83378632ed1583e52e6ad83797128f6348281eab"
+    },
+    {
+      "path": "infra/lab-budget.json",
+      "sha256": "c17797679887722d8cb07fd363753894282efc1506882dab65facfdbacbb85d7"
+    },
+    {
+      "path": "infra/requirements-ansible.lock",
+      "sha256": "06d169a3ec7b7dae779aeedf5b5e8430013dd7a57044973c947f1229ee1cf3b1"
+    },
+    {
+      "path": "infra/requirements-ansible.txt",
+      "sha256": "32d86677eecb63b8ffe211e49275a1bf084ead2b8bca94321f94074abcf1a2a2"
+    },
+    {
+      "path": "infra/requirements-static.txt",
+      "sha256": "0b0709dc3105d98b29f4fc6a870c15c0cf42191498384ef8a2a32d3fcf5f34ed"
+    },
+    {
+      "path": "infra/terraform/main.tf",
+      "sha256": "1f8504495d7ab705a8f3d1e47ecf3b9375a0953b99928bbc8361b140ff1ad56c"
+    },
+    {
+      "path": "infra/terraform/modules/vm/main.tf",
+      "sha256": "5b2525ac58f7740cf05dcd66b24503a02d006a71ab033cf2abe768e4cbf28571"
+    },
+    {
+      "path": "infra/terraform/outputs.tf",
+      "sha256": "09566183e3774acbdc37683a1c3574b65af0974ccb73ef08dcb109b6aaa715ac"
+    },
+    {
+      "path": "infra/terraform/variables.tf",
+      "sha256": "01eefb2ffc687e01279ddcc81e90dacfb2a606b2f7fa20cd179d3fee255854c5"
+    },
+    {
+      "path": "infra/terraform/versions.tf",
+      "sha256": "b8c37ba9842d912a881dd66373fa1221984452edc7aef173b4cdf7708082fa23"
+    },
+    {
+      "path": "infra/versions.json",
+      "sha256": "222808f439cae8a98ec3ec3bca10f579c44a15d04a12876e42fa2ac7111955f3"
+    },
+    {
+      "path": "Jenkinsfile",
+      "sha256": "8d78174dec00eb91e5d622cfd4913419db0a4330ad084c6e40f8ffc08546797a"
+    },
+    {
+      "path": "observability/__init__.py",
+      "sha256": "a560ecab914b6a192a6ed5d48092fee061bf484b4f70fd501a03bd113a001c07"
+    },
+    {
+      "path": "observability/config.py",
+      "sha256": "2858ee6850d5ec86742860d45068833c49f6d663a3f0d4b63b29252805a66388"
+    },
+    {
+      "path": "observability/efk/fluent.conf",
+      "sha256": "4046d895c35a71918a7bf5fd2911d123b1568bf9dca550ba5536ed463851f2d7"
+    },
+    {
+      "path": "observability/gates.py",
+      "sha256": "c7871cd2d7fd3ee4601a2827066a40a6e281445fb898f1fd454e9e0a40a408ef"
+    },
+    {
+      "path": "observability/grafana/dashboards/operations.json",
+      "sha256": "cd9b363cc7759bc01981cb52a8d0080d3bc576cad22783b5f2a8ff28c18009c4"
+    },
+    {
+      "path": "observability/grafana/datasources.yml",
+      "sha256": "33a5eeddab983579dad9d551abf6569da388341c5287764b3ea7cd0442fcc079"
+    },
+    {
+      "path": "observability/grafana/providers.yml",
+      "sha256": "c0d1d257da554ea9595e8b105d0afa9ee92f1e1df645d2166e6c8be2e141c225"
+    },
+    {
+      "path": "observability/k8s/resources.yaml",
+      "sha256": "278ae185f0ae7a7b3bb425c80eab33b1b05714dec3511d789511dee26fe16de7"
+    },
+    {
+      "path": "observability/kustomization.yaml",
+      "sha256": "6bad0c6cb300ab5f3ef6a4e2debf0541bcd59777dbd99c4508d317b4ddf01188"
+    },
+    {
+      "path": "observability/prometheus/demo/clinic-demo.yml",
+      "sha256": "b154ae905b74cb39512d50f93be3c593934aa7a42771591c9269cbb69e7a31c1"
+    },
+    {
+      "path": "observability/prometheus/prometheus.yml",
+      "sha256": "8e51e8c25fe23d4e2b4ccf22d40b790fa510f316a564cbb1fbb7464ab7b7fa2c"
+    },
+    {
+      "path": "observability/prometheus/rules/clinic.yml",
+      "sha256": "0a45ef9ad1ba4db01a718a8acafaaf938868987674d23855345adf0aeba272db"
+    },
+    {
+      "path": "observability/prometheus/tests/clinic.test.yml",
+      "sha256": "cc2cfc6cf4ebcbdef7b490d0321da1ee3ce0ba097f54b93730366f23f7fce941"
+    },
+    {
+      "path": "observability/versions.json",
+      "sha256": "3c66fd7e0082ff6b43f4133eee031a08737e442004dee46dd586372aa1e4505c"
+    },
+    {
+      "path": "scripts/backup.sh",
+      "sha256": "d335cf348e7094e65f00b391304e78dac69a9c486de4e08d657b12e7e14dce2d"
+    },
+    {
+      "path": "scripts/bootstrap-ci.py",
+      "sha256": "fc55e598a7eda749a08f37f5c08502fabbe5e79d6bf7acec9b4956e3c65b9e03"
+    },
+    {
+      "path": "scripts/bootstrap-cluster.py",
+      "sha256": "d5e2996d4497a00addbe0cfd89ecfef17dbea55fb4a2b25ca918772f04d47964"
+    },
+    {
+      "path": "scripts/bootstrap-observability.py",
+      "sha256": "61774f7aa300a2e7151de29f3137e8aa7cecb9c35642a6e6ffd8e398a71c48a3"
+    },
+    {
+      "path": "scripts/check-infra-control.sh",
+      "sha256": "e80788bdb037fb41ffffc366132514de1e2a1d9220672142e2cd70284f7c3b99"
+    },
+    {
+      "path": "scripts/check-vault-local.py",
+      "sha256": "105b5997d11d9ba949b6492ec439d7774e1ceeb9a1c5c3976eb366d7646f04d3"
+    },
+    {
+      "path": "scripts/collect-runtime.py",
+      "sha256": "d7b40fedb5c7ed4485be3689fe877b60ac44407ae47dfbfe6b011bf761c39846"
+    },
+    {
+      "path": "scripts/configure-observability.py",
+      "sha256": "ed9f257a308c5b8217448ee6b33289e56187d6b0432f9b0c0a45f40a46e97462"
+    },
+    {
+      "path": "scripts/host-health.sh",
+      "sha256": "986b7cfe610ccae8ab0fa05e6d70923ecd523cf6327b198a6d0d6dcaecd6505a"
+    },
+    {
+      "path": "scripts/init-env.py",
+      "sha256": "becbc9ec64f7b8b1e00bccc8ecdfb8dd48608131da173753787a1812973d1dc1"
+    },
+    {
+      "path": "scripts/install-ci-tools.py",
+      "sha256": "4917c97beff08a9c222e9d6d076da631e5e7be358dd3323a2ca2c2cbc8c44322"
+    },
+    {
+      "path": "scripts/install-infra-tools.py",
+      "sha256": "a4de7d3802e7622129c731f9578f7ce08b8020bc1a05ea729f543eb06c28897c"
+    },
+    {
+      "path": "scripts/install-observability-tools.py",
+      "sha256": "14ddbbc1ef8ba0bc97b02da2bbdc4929c459ac32001f890fdc6250b4a447df47"
+    },
+    {
+      "path": "scripts/issue-cluster-access.py",
+      "sha256": "e35c300e40ed1d0a85eade5d9b6c54e2c6121b8c47efbf53dc4b9a0e59d22823"
+    },
+    {
+      "path": "scripts/lab.py",
+      "sha256": "4fcbe25f6c70f129d33890d865180b4dec9834fd8e3203e557e99710988d9c81"
+    },
+    {
+      "path": "scripts/load-http.py",
+      "sha256": "d702c19aa2b342e2689d94050cf6801c2a0bf59bd641da91361d31ebc6a92333"
+    },
+    {
+      "path": "scripts/load-queue.py",
+      "sha256": "94353e245dcdb897ea9faa5b676290013a4ec894133eff0ace1021f0e0281c08"
+    },
+    {
+      "path": "scripts/pin-jenkins-plugins.py",
+      "sha256": "f2b473fbdc791257bc311d1fe94e49ebe9bec38a0b093dd0941aa66907cf0cc4"
+    },
+    {
+      "path": "scripts/preflight-infra.py",
+      "sha256": "a7f5f87c01c2573ed6300f649a852a3fe35b7f1a4382692f6238b6c232614a4a"
+    },
+    {
+      "path": "scripts/preflight.py",
+      "sha256": "e895e8f20acb6a56fc96a4a2321bb0e407f662773ce578a23bab14988a0c8ce6"
+    },
+    {
+      "path": "scripts/prepare-cluster-secrets.py",
+      "sha256": "be2f5bb266af60526cb703367e5ffbb53a1ef3975a882d064eaa990baf755283"
+    },
+    {
+      "path": "scripts/prepare-observability-secrets.py",
+      "sha256": "42e18235c59311f6fb67611eaf6ee8efda3a0b5ca7c48460700f2fd5db743edf"
+    },
+    {
+      "path": "scripts/restore.sh",
+      "sha256": "9ab59723b30ca0122ef3f9188c13dccf2a29986bc4e0ec40266dc32f95758422"
+    },
+    {
+      "path": "scripts/scan-observability.py",
+      "sha256": "8941cd66f833a8fe1c71989a3cb584837087fb97d184f5d5b4d02cd958a3389b"
+    },
+    {
+      "path": "scripts/setup-infra-control.sh",
+      "sha256": "2fc605676783feabc85370b9b2598a4334cf19c83eefe8c1cbff8b46ab9a9c6a"
+    },
+    {
+      "path": "scripts/smoke-runtime.py",
+      "sha256": "12548152b0d0821229e8e41179a9ddb26c9ed3b9c6c64b181bc02b3776f14433"
+    },
+    {
+      "path": "scripts/verify-m2-local.py",
+      "sha256": "8ab03e031680f946e65034a9ce54f241f48b5bec7f9ce6ad4e45b0c0d7cd3462"
+    },
+    {
+      "path": "scripts/verify-m3-local.py",
+      "sha256": "2ce525e7d0230a8fa85940b653b3ff30e9075bf7ca4e3f0923e0d155bbfa9b52"
+    },
+    {
+      "path": "scripts/verify-m4-local.py",
+      "sha256": "41db58507b8583c6844ca34bee0ac22e1cdfa40818cb823299f0efb02b915232"
+    },
+    {
+      "path": "scripts/verify.py",
+      "sha256": "532815c9f746c4bf28f9c9e4cf3a8a6b599c0129434a370e6425ba07d21a420c"
+    },
+    {
+      "path": "services/clinic/__init__.py",
+      "sha256": "4e87e5a76360973a9d87df6f26c4a27bea16658227e4815e530932a506308f1e"
+    },
+    {
+      "path": "services/clinic/api.py",
+      "sha256": "4f6f88d830741e0daddc8664040a5d63e79d09abe08e37d84b84e19bc5c0a417"
+    },
+    {
+      "path": "services/clinic/broker.py",
+      "sha256": "b38ae2584c65cc04d17b7b78b1b32d896acffa20324c748cbd21e91973860fc6"
+    },
+    {
+      "path": "services/clinic/config.py",
+      "sha256": "3f37106a43ed225983d9744c67b0b6bf24bbc88d36d05fcade31754f8250cb7c"
+    },
+    {
+      "path": "services/clinic/contracts.py",
+      "sha256": "43738a092027015a14320669e94fa12edfb31616f929478045a9e7833000df6f"
+    },
+    {
+      "path": "services/clinic/db.py",
+      "sha256": "52c5a85947e181463ca57f191de5977801c76f5d31da7614c9c61e39730fe506"
+    },
+    {
+      "path": "services/clinic/dlq.py",
+      "sha256": "9b59cc6f31b10c80eeefcc6e376ca48a16b4e6fca313bd971decacc904bdb7ec"
+    },
+    {
+      "path": "services/clinic/events.py",
+      "sha256": "950e5703304804e526547e46992357524e67a4fe054dfa220c537e8af81c0587"
+    },
+    {
+      "path": "services/clinic/manage_user.py",
+      "sha256": "ade3f2c9f30f78f2f120afb1259e4610d4cbd1a83d9556db7773ef7d15460893"
+    },
+    {
+      "path": "services/clinic/models.py",
+      "sha256": "39eb0e01558bf91e49576786fb6a1b0513bc2bcdbda0c2a62cd380fdf0b55153"
+    },
+    {
+      "path": "services/clinic/publisher.py",
+      "sha256": "7f710d6af80fdfb469740769f1583603da5b074d07624fb66f2632ca2781abb7"
+    },
+    {
+      "path": "services/clinic/reminders.py",
+      "sha256": "cb99c2ba4944767ec3752b1c21ffe5259486f41279bc1ac591d9207620f47b0e"
+    },
+    {
+      "path": "services/clinic/reset_password.py",
+      "sha256": "1ef93dd40150401731560daf4786d19b524ba16d4469b736441e56af37c65349"
+    },
+    {
+      "path": "services/clinic/runtime.py",
+      "sha256": "bd397d2d6f37789d2856b6b41e1abd57ea8b98a10166247e3456d8704fd145a1"
+    },
+    {
+      "path": "services/clinic/security.py",
+      "sha256": "8e3e74a7b27033ccca4d8d6c56f88043173e68cd716923b179a97d0f4095913a"
+    },
+    {
+      "path": "services/clinic/seed.py",
+      "sha256": "5af5779d45024285099d9185842def3116f1218c83f818f18d116cccde89de17"
+    },
+    {
+      "path": "services/clinic/telemetry.py",
+      "sha256": "c00b7d335a623561db9778ad6cea4cf8459ce227fa3643436996cc09bd43c96d"
+    },
+    {
+      "path": "services/clinic/worker.py",
+      "sha256": "3f6205eded2b134aa928c539276ac44f0ad3442ee0504879b0906664ecd4c56c"
+    },
+    {
+      "path": "services/logging.json",
+      "sha256": "7895fe3217b90156d22f994fed39eeb9872a660d9060524a0c66e833c8ff485c"
+    },
+    {
+      "path": "services/migrations/env.py",
+      "sha256": "22b330dbcdf60e4bdee022e2349ac5997bab5727021b121530711ace5c92f0eb"
+    },
+    {
+      "path": "services/migrations/versions/0b3e2278237d_initial_schema.py",
+      "sha256": "5d9a11ed00d1a5d1a8c7f7eda8ad207a2d3561f79f317133df4965b13670852a"
+    },
+    {
+      "path": "services/migrations/versions/20261114_01_reminders.py",
+      "sha256": "ae5cfc7adc3a0e6d4d0868c918c90046413765e9cb5031246fe285d4b41a47cb"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: production
+resources:
+- ../../base
+configMapGenerator:
+- name: app-config
+  behavior: merge
+  literals:
+  - ENVIRONMENT=production
+  - QUEUE_PREFIX=clinic.production
+patches:
+- target:
+    kind: Certificate
+    name: clinic-tls
+  patch: "- op: replace\n  path: /spec/dnsNames/0\n  value: hospital.anuyen.test\n"
+- target:
+    kind: Ingress
+    name: clinic
+  patch: "- op: replace\n  path: /spec/rules/0/host\n  value: hospital.anuyen.test\n- op: replace\n  path: /spec/tls/0/hosts/0\n\
+    \  value: hospital.anuyen.test\n"
+- target:
+    kind: ScaledObject
+    name: worker
+  patch: "- op: replace\n  path: /spec/triggers/0/metadata/vhostName\n  value: clinic-production\n- op: replace\n\
+    \  path: /spec/triggers/0/metadata/queueName\n  value: clinic.production.notifications\n"

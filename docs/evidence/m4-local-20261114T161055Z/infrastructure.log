@@ -1,0 +1,11 @@
+Running: D:\CODE\OOPs\Do_An\.infra-local\bin\windows\terraform.exe version -json
+Running: D:\CODE\OOPs\Do_An\.infra-local\bin\windows\terraform.exe -chdir=D:\CODE\OOPs\Do_An\infra\terraform fmt -check -recursive
+Exit0; log:ci-out\infra\terraform-fmt.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\bin\windows\terraform.exe -chdir=D:\CODE\OOPs\Do_An\infra\terraform init -backend=false -input=false -lockfile=readonly
+Exit0; log:ci-out\infra\terraform-init.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\bin\windows\terraform.exe -chdir=D:\CODE\OOPs\Do_An\infra\terraform validate -json
+Exit0; log:ci-out\infra\terraform-validate.json
+Running: kubectl kustomize D:\CODE\OOPs\Do_An\deploy\k8s\overlays\staging
+Running: kubectl kustomize D:\CODE\OOPs\Do_An\deploy\k8s\overlays\production
+Running: git -c safe.directory=D:/CODE/OOPs/Do_An rev-parse HEAD
+Infrastructure static checks passed; runtime remains separate

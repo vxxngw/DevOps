@@ -44,7 +44,26 @@ async def observe(request: Request, call_next):
         supplied if re.fullmatch(r"[A-Za-z0-9_.-]{1,64}", supplied) else str(uuid.uuid4())
     )
     start = time.monotonic()
-    response = await call_next(request)
+    try:
+        response = await call_next(request)
+    except Exception as exc:
+        # Unexpected application errors still need a safe, observable 5xx response.
+        log(
+            "appointment-api",
+            "unhandled_error",
+            level="ERROR",
+            request_id=request.state.request_id,
+            error_type=type(exc).__name__,
+        )
+        response = JSONResponse(
+            {
+                "error": {
+                    "message": "Có lỗi xử lý. Vui lòng thử lại.",
+                    "request_id": request.state.request_id,
+                }
+            },
+            status_code=500,
+        )
     route = getattr(request.scope.get("route"), "path", "unmatched")
     if route not in {"/health", "/ready", "/metrics"}:
         HTTP_COUNT.labels(route, request.method, str(response.status_code)).inc()
@@ -52,6 +71,7 @@ async def observe(request: Request, call_next):
         log(
             "appointment-api",
             "http_request",
+            level="ERROR" if response.status_code >= 500 else "INFO",
             request_id=request.state.request_id,
             route=route,
             method=request.method,

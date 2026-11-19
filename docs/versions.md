@@ -1,6 +1,6 @@
 # Phiên bản, nguồn kỹ thuật và phạm vi xác nhận
 
-Cập nhật 14/11/2026 (Asia/Ho_Chi_Minh). Không dùng tag latest. Pin không thay security scan. `requirements.in` là phạm vi đầu vào, **requirements.lock** ghim toàn bộ Python đã resolve; frontend package-lock.json có phiên bản và integrity. Chưa có Terraform/provider/chart lock vì chưa chọn host/provider hoặc cài cluster.
+Cập nhật 14/11/2026 (Asia/Ho_Chi_Minh). Không dùng tag latest. Pin không thay security scan. `requirements.in` là phạm vi đầu vào, **requirements.lock** ghim toàn bộ Python đã resolve; frontend package-lock.json có phiên bản và integrity. Terraform/libvirt đã có lock Windows/Linux ở Mốc 3; chưa cài cluster. Monitoring dùng manifest/Kustomize riêng, không dùng chart chưa ghim.
 
 | Thành phần | Phiên bản chọn / môi trường quan sát | Lý do / giới hạn |
 |---|---|---|
@@ -34,3 +34,26 @@ Tài liệu chính thức đã đọc để chọn cách triển khai:
 - [PostgreSQL official image](https://hub.docker.com/_/postgres), [RabbitMQ official image](https://hub.docker.com/_/rabbitmq): tag/variant và upstream source. Digest thực cùng inspect output phải lưu trong evidence.
 
 Nguồn trong brief cần kiểm tra lại khi đến Mốc 3–4, chưa xem là cấu hình đã chạy: [KEDA RabbitMQ 2.21](https://keda.sh/docs/2.21/scalers/rabbitmq-queue/), [Kubernetes HPA](https://kubernetes.io/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/), [Promtail lifecycle](https://grafana.com/docs/loki/latest/send-data/promtail/), [libvirt provider](https://registry.terraform.io/providers/dmacvicar/libvirt/latest/docs/resources/domain). Không ghim KEDA/libvirt chỉ từ liên kết khi chưa chọn nền tảng và kiểm tra tương thích thực.
+
+## Toolchain Mốc3 – ghim14/11/2026
+
+| Thành phần | Phiên bản | Phạm vi |
+|---|---|---|
+| Terraform / libvirt | 1.17.2 /0.9.9 | BinarySHA256, providerlockWindows/Linux; fmt/init/validate đã chạy, chưa VM |
+| Pythoncontrol / Ansible-core | 3.13.18 /2.22.0 | WSLvenv, fulltransitivelock; syntax/Vaultlocal theo evidence, không máy trắng |
+| Collections | community.general14.0.1, community.docker5.4.0, ansible.posix2.2.2, community.library_inventory_filtering_v1 1.1.5 | GalaxyartifactSHA256, offlineinstall; inventoryVM chưa chạy |
+| k3s / Kubernetes | v1.36.6+k3s1 /1.36.6 | Cố ý không lấy stablechannel1.37 để phù hợp KEDA2.21tested1.34–1.36; chưa cài node |
+| KEDA / cert-manager | 2.21.0 /1.21.3 | Releaseassets/SHA256/CRDschema thật, chưaoperator |
+| Nodeexporter | 1.12.1 | Rolepin/checksumupstream, chưa tải/chạy trênVM |
+| kubectl local / Kustomize | 1.36.1 /5.8.1 | Đã render; agentDockerfile chuẩn bị kubectl1.36.6 có checksum, chưabuild |
+| Docker VM packages | infra/versions.json | DockerCE29.9.3/Compose5.7.1 và packages đã chọn từ officialUbuntuAPTindex, chưa càiVM |
+
+Sources: [libvirt0.9.9 schema](https://github.com/dmacvicar/terraform-provider-libvirt/tree/v0.9.9/docs), [HashiCorpreleases](https://releases.hashicorp.com/terraform/1.17.2/), [K3srequirements](https://docs.k3s.io/installation/requirements), [Ansibleinstall](https://docs.ansible.com/projects/ansible/latest/installation_guide/intro_installation.html), [KEDAcompatibility](https://keda.sh/docs/2.21/deploy/), [KubernetesOpenAPI1.36.6](https://raw.githubusercontent.com/kubernetes/kubernetes/v1.36.6/api/openapi-spec/swagger.json). ManifestURL/SHA đầy đủ ở infra/versions.json. Pin/version/schema không thay runtime hoặc scan image.
+
+## Mốc 4 – nguồn kiểm tra14/11/2026
+
+observability/versions.json lưu SHA256 archive và OCI manifest digest đã lấy từ registry: Prometheus3.16.0, Alertmanager0.35.0, Grafana13.3.1, kube-state-metrics2.20.0 (client-go1.36), postgres_exporter0.20.1, Elasticsearch/Kibana9.5.6 và Fluentd1.20.1-debian-elasticsearch9-1.0. Release Fluentd có fluent-plugin-elasticsearch6.0.0/client9.5.0 và prometheus2.2.2 trong Gemfile.lock. Catalog Elastic có9.5.7 nhưng registry trả404, nên chỉ chọn9.5.6 đã xác minh tồn tại; không suy image đã phát hành từ catalog. Kubernetes registry redirect lỗi DNS trên máy, manifest KSM được đối chiếu qua mirror chính thức us-central1-docker.pkg.dev/k8s-artifacts-prod/images.
+
+Promtool/amtool native thực sự đã chạy parser/rule fixture. Cập nhật15/11: 8 image này đã remote scan0CRITICAL, chưa chạy; digest không thay CVE gate và phải scan mới theo freshness khi bootstrap. Nginx mới có JSON access log cần build/nginx -t trên image ghim trước nghiệm thu; Fluentd parser/runtime cũng chưa chạy.
+
+Nguồn: [Prometheus3.16.0](https://github.com/prometheus/prometheus/releases/tag/v3.16.0), [Alertmanager0.35.0](https://github.com/prometheus/alertmanager/releases/tag/v0.35.0), [Grafana provisioning](https://grafana.com/docs/grafana/latest/administration/provisioning/), [KSM2.20](https://github.com/kubernetes/kube-state-metrics/tree/v2.20.0), [RabbitMQ4.2 collector](https://github.com/rabbitmq/rabbitmq-server/blob/v4.2.9/deps/rabbitmq_prometheus/src/collectors/prometheus_rabbitmq_core_metrics_collector.erl), [Fluentd Gemfile.lock](https://github.com/fluent/fluentd-kubernetes-daemonset/blob/v1.20.1-1.0/docker-image/v1.20/debian-elasticsearch9/Gemfile.lock), [Elastic Docker](https://www.elastic.co/docs/deploy-manage/deploy/self-managed/install-elasticsearch-docker-configure). Giá cloud có nguồn/ngày riêng trong cloud-cost-estimate.md; không có tài nguyên cloud đã mua.

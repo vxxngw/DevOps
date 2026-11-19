@@ -1,0 +1,7 @@
+{
+  "path": "docs/evidence/ci-recovery-20261114T180110Z/operator-scan-final/metadata.json",
+  "images": 8,
+  "critical": 0,
+  "gate_verified_against_raw_reports": true,
+  "scope": "Actual remote Trivy vulnerability scans only, not image runtime/EFK/monitoring acceptance. Published checksum-sanitized audit copies are not bootstrap inputs; use original ci-out reports."
+}

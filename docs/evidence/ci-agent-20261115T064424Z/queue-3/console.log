@@ -1,0 +1,182 @@
+Started by user clinic-admin
+Checking out git https://github.com/vxxngw/DevOps.git into /var/jenkins_home/workspace/an-uyen/clinic-pipeline@script/5701d6c1faf1f85e57b0e039d04ed928958fedb65048dcfb62f7acf4f5660f3a to read Jenkinsfile
+The recommended git tool is: NONE
+using credential clinic-github
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/an-uyen/clinic-pipeline@script/5701d6c1faf1f85e57b0e039d04ed928958fedb65048dcfb62f7acf4f5660f3a/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/vxxngw/DevOps.git # timeout=10
+Fetching upstream changes from https://github.com/vxxngw/DevOps.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials Managed by scripts/bootstrap-ci.py for vxxngw/DevOps
+ > git fetch --tags --force --progress -- https://github.com/vxxngw/DevOps.git +refs/heads/*:refs/remotes/origin/* +refs/pull/*/head:refs/remotes/origin/pr/* # timeout=10
+ > git rev-parse a821dfbb907cb1abf02e66f2932dcdf51a90bec9^{commit} # timeout=10
+Checking out Revision a821dfbb907cb1abf02e66f2932dcdf51a90bec9 (detached)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f a821dfbb907cb1abf02e66f2932dcdf51a90bec9 # timeout=10
+Commit message: "docs(ops): verify Docker storage migration to D"
+ > git rev-list --no-walk a821dfbb907cb1abf02e66f2932dcdf51a90bec9 # timeout=10
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on clinic-ci-linux in /home/jenkins/agent/workspace/an-uyen/clinic-pipeline
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timeout
+Timeout set to expire in 1 hr 0 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] deleteDir
+[Pipeline] checkout
+The recommended git tool is: NONE
+using credential clinic-github
+Cloning the remote Git repository
+Cloning repository https://github.com/vxxngw/DevOps.git
+ > git init /home/jenkins/agent/workspace/an-uyen/clinic-pipeline # timeout=10
+Fetching upstream changes from https://github.com/vxxngw/DevOps.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+using GIT_ASKPASS to set credentials Managed by scripts/bootstrap-ci.py for vxxngw/DevOps
+ > git fetch --tags --force --progress -- https://github.com/vxxngw/DevOps.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/vxxngw/DevOps.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/vxxngw/DevOps.git # timeout=10
+Fetching upstream changes from https://github.com/vxxngw/DevOps.git
+using GIT_ASKPASS to set credentials Managed by scripts/bootstrap-ci.py for vxxngw/DevOps
+ > git fetch --tags --force --progress -- https://github.com/vxxngw/DevOps.git +refs/heads/*:refs/remotes/origin/* +refs/pull/*/head:refs/remotes/origin/pr/* # timeout=10
+Checking out Revision a821dfbb907cb1abf02e66f2932dcdf51a90bec9 (detached)
+Commit message: "docs(ops): verify Docker storage migration to D"
+[Pipeline] sh
++ git rev-parse HEAD
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Secret scan)
+[Pipeline] sh
+ > git rev-parse a821dfbb907cb1abf02e66f2932dcdf51a90bec9^{commit} # timeout=10
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f a821dfbb907cb1abf02e66f2932dcdf51a90bec9 # timeout=10
++ python3 -m ci.security secrets
+Running: /usr/local/bin/gitleaks version
+Running: /usr/local/bin/gitleaks git /home/jenkins/agent/workspace/an-uyen/clinic-pipeline --log-opts=--all --config /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.gitleaks.toml --redact --no-banner --report-format json --report-path /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci-out/security/gitleaks.json
+Exit0; log:ci-out/security/gitleaks.log
+Running: git -c safe.directory=/home/jenkins/agent/workspace/an-uyen/clinic-pipeline rev-parse HEAD
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Security failure demonstration)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ python3 -m ci.security demo-critical
+Running: /usr/local/bin/trivy --version
+Running: /usr/local/bin/trivy image --cache-dir /home/jenkins/.cache/trivy --scanners vuln --severity CRITICAL --exit-code 1 --ignorefile /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/.ci-local/empty-trivy-ignore --format json --output /home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci-out/security-demo/trivy.json --image-src remote docker.io/library/alpine:3.12.0
+Exit1; log:ci-out/security-demo/trivy.log
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci/security.py", line 287, in <module>
+    main()
+  File "/home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci/security.py", line 277, in main
+    {
+  File "/home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci/security.py", line 253, in demo_critical
+    result, _, findings = trivy("docker.io/library/alpine:3.12.0", report, remote=True)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jenkins/agent/workspace/an-uyen/clinic-pipeline/ci/security.py", line 129, in trivy
+    raise RuntimeError("Trivy produced no report; inspect the scanner log. Gate is BLOCKED")
+RuntimeError: Trivy produced no report; inspect the scanner log. Gate is BLOCKED
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Lint and typecheck)
+Stage "Lint and typecheck" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Unit tests)
+Stage "Unit tests" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Infrastructure configuration checks)
+Stage "Infrastructure configuration checks" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Observability configuration checks)
+Stage "Observability configuration checks" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build images)
+Stage "Build images" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Integration tests)
+Stage "Integration tests" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Image and dependency security scan)
+Stage "Image and dependency security scan" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push SHA images and record digests)
+Stage "Push SHA images and record digests" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy staging)
+Stage "Deploy staging" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Approve production)
+Stage "Approve production" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy production)
+Stage "Deploy production" skipped due to earlier failure(s)
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] junit
+Recording test results
+[Checks API] No suitable checks publisher found.
+[Pipeline] archiveArtifacts
+Archiving artifacts
+[Pipeline] sh
++ python3 -m ci.release cleanup
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE

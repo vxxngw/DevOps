@@ -1,0 +1,5 @@
+# VM profile: 6GiB VM, container hard limits total5GiB plus OS/daemon reserve.
+services:
+  controller: {mem_limit: 1g}
+  engine: {mem_limit: 3g}
+  agent: {mem_limit: 1g}

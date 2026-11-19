@@ -1,0 +1,7 @@
+{
+  "kind": "generated synthetic token, never a real credential",
+  "scanner_exit": 1,
+  "findings": 1,
+  "at_utc": "2026-11-15T07:22:06.899404+00:00",
+  "scope": "Scanner invocation; Jenkins failed-build evidence is separate"
+}

@@ -1,0 +1,29 @@
+{
+  "at_utc": "2026-11-15T08:46:08.882519+00:00",
+  "verified": true,
+  "checks": [
+    {
+      "number": 6,
+      "source_commit": "aadcc9892b64e59e0523513968dfaefa4dd53f1a",
+      "result": "FAILURE",
+      "publish_requested": true,
+      "deploy_requested": false,
+      "scanner_exit": 1,
+      "findings": 1,
+      "push_deploy_stages": "SKIPPED_FOR_FAILURE",
+      "evidence_directory": "docs/evidence/ci-agent-20261115T064424Z/build-6"
+    },
+    {
+      "number": 7,
+      "source_commit": "aadcc9892b64e59e0523513968dfaefa4dd53f1a",
+      "result": "FAILURE",
+      "publish_requested": true,
+      "deploy_requested": false,
+      "scanner_exit": 1,
+      "critical": 4,
+      "push_deploy_stages": "SKIPPED_FOR_FAILURE",
+      "evidence_directory": "docs/evidence/ci-agent-20261115T064424Z/queue-13"
+    }
+  ],
+  "scope": "Publish flag true demonstrates push skipped due to failed gate rather than merely disabled parameter; deploy remains false. No registry credentials were bound or image pushed."
+}

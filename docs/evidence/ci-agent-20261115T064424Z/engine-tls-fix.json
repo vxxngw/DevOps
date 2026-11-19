@@ -1,0 +1,82 @@
+{
+  "at_utc": "2026-11-15T07:21:26.572780+00:00",
+  "problem": "TLS certificate lacked DNS:engine; agent correctly rejected server name",
+  "fix": "Set DOCKER_TLS_SAN=DNS:engine, rebuild existing engine Dockerfile and recreate only dedicated CI engine; TLS verification remains enabled",
+  "before_id": "188da079285eaf99d617a414d81005083365ea6e00dce59e549de2206323de5c",
+  "after_id": "54a4949f6927d885517008ad5837044bc9d908191635cc7585f7d3d62092bb5c",
+  "named_volume_mounts_preserved": [
+    [
+      "clinic-ci_agent-workspace",
+      "/home/jenkins/agent"
+    ],
+    [
+      "clinic-ci_engine-certs",
+      "/certs"
+    ],
+    [
+      "clinic-ci_engine-client-certs",
+      "/certs/client"
+    ],
+    [
+      "clinic-ci_engine-data",
+      "/home/rootless/.local/share/docker"
+    ],
+    [
+      "fc883b3b99a0eed2361ca9b8d83c7b9bdaf32bec2fed27369531363b26cad98e",
+      "/var/lib/docker"
+    ]
+  ],
+  "commands": [
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        ".env.ci",
+        "-f",
+        "compose.ci.yaml",
+        "config",
+        "--quiet"
+      ],
+      "exit_code": 0,
+      "log": "engine-tls-compose-check.log"
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--progress",
+        "plain",
+        "--env-file",
+        ".env.ci",
+        "-f",
+        "compose.ci.yaml",
+        "build",
+        "engine"
+      ],
+      "exit_code": 0,
+      "log": "engine-build.log"
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        ".env.ci",
+        "-f",
+        "compose.ci.yaml",
+        "up",
+        "-d",
+        "--no-deps",
+        "--no-build",
+        "--wait",
+        "engine"
+      ],
+      "exit_code": 0,
+      "log": "engine-tls-recreate.log"
+    }
+  ],
+  "public_server_certificate_san": "X509v3 Subject Alternative Name: \n    DNS:54a4949f6927, DNS:docker, DNS:engine, DNS:localhost, IP Address:127.0.0.1, IP Address:172.21.0.2, IP Address:0:0:0:0:0:0:0:1\n",
+  "compose_sha256": "d73a7d0b6cb5ff8d483dcde8cea2675d015fc491c7c938829e020fca6010071e",
+  "no_dev_controller_or_volume_deletion": true
+}

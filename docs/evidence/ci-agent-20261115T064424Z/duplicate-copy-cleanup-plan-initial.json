@@ -1,0 +1,35 @@
+{
+  "at_utc": "2026-11-15T07:35:12.008273+00:00",
+  "status": "PROPOSED_ONLY_NOT_EXECUTED",
+  "user_approval_required": true,
+  "delete_candidate_directory": "D:\\DockerData\\DockerDesktopWSL",
+  "active_directory_preserved": "D:\\DockerData\\active\\DockerDesktopWSL",
+  "active_data_file_held_open": true,
+  "backend_setting_matches_active": true,
+  "retained_backup_directory": "D:\\DockerBackup\\before-m2-20261114",
+  "all_recovery_backups_preserved": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\recovery-backups",
+  "files": [
+    {
+      "temporary_copy": "D:\\DockerData\\DockerDesktopWSL\\disk\\docker_data.vhdx",
+      "retained_backup": "D:\\DockerBackup\\before-m2-20261114\\disk\\docker_data.vhdx",
+      "bytes": 10972299264,
+      "sha256": "36b65a65f79b44564e438acceb76024764cfb1a7419d2edfe32d5d13fce3ed04",
+      "sha256_match": true,
+      "exclusive_read_verified_not_active": true
+    },
+    {
+      "temporary_copy": "D:\\DockerData\\DockerDesktopWSL\\main\\ext4.vhdx",
+      "retained_backup": "D:\\DockerBackup\\before-m2-20261114\\main\\ext4.vhdx",
+      "bytes": 100663296,
+      "sha256": "8dbb2d3c3edb1a13453ddac607807422939aa9e4fdedd59eee0da3bee310eeb1",
+      "sha256_match": true,
+      "exclusive_read_verified_not_active": true
+    }
+  ],
+  "bytes_recoverable": 11072962560,
+  "D_free_bytes": 3216564224,
+  "projected_D_free_bytes": 14289526784,
+  "positive_pipeline": "NOT_STARTED: local trigger preflight required >3GiB and failed before queue creation",
+  "positive_trigger_minimum_bytes": 3221225472,
+  "no_deletion_performed": true
+}

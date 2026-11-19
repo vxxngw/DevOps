@@ -1,0 +1,26 @@
+{
+  "at_utc": "2026-11-15T08:00:33.040314+00:00",
+  "repository": "vxxngw/DevOps",
+  "id": 712106312,
+  "active": true,
+  "events": [
+    "pull_request",
+    "push"
+  ],
+  "public_endpoint": "https://universities-attorneys-dollar-button.trycloudflare.com/github",
+  "insecure_ssl": "0",
+  "deliveries": [
+    {
+      "id": 3854152537814859776,
+      "guid": "a0419d8c-e0ca-11f1-854c-278c8c04bf9a",
+      "delivered_at": "2026-11-15T08:00:32.184Z",
+      "duration": 1.26,
+      "status": "OK",
+      "status_code": 200,
+      "event": "ping",
+      "action": null,
+      "redelivery": false
+    }
+  ],
+  "scope": "Actual GitHub hook created with TLS verification; ping delivery only. Push/PR queue/build evidence still separate."
+}

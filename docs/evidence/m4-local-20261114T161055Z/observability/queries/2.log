@@ -1,0 +1,1 @@
+clinic:container_memory_bytes{namespace=~"$namespace"}

@@ -1,0 +1,5 @@
+Checking D:\CODE\OOPs\Do_An\observability\prometheus\rules\clinic.yml
+  SUCCESS: 27 rules found
+
+Checking D:\CODE\OOPs\Do_An\observability\prometheus\demo\clinic-demo.yml
+  SUCCESS: 1 rules found

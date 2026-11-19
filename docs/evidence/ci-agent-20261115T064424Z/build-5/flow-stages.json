@@ -1,0 +1,89 @@
+[
+  {
+    "id": "86",
+    "label": "Declarative: Post Actions",
+    "tags": {
+      "SYNTHETIC_STAGE": "POST"
+    }
+  },
+  {
+    "id": "81",
+    "label": "Deploy production",
+    "tags": {
+      "STAGE_STATUS": "SKIPPED_FOR_CONDITIONAL"
+    }
+  },
+  {
+    "id": "76",
+    "label": "Approve production",
+    "tags": {
+      "STAGE_STATUS": "SKIPPED_FOR_CONDITIONAL"
+    }
+  },
+  {
+    "id": "71",
+    "label": "Deploy staging",
+    "tags": {
+      "STAGE_STATUS": "SKIPPED_FOR_CONDITIONAL"
+    }
+  },
+  {
+    "id": "66",
+    "label": "Push SHA images and record digests",
+    "tags": {
+      "STAGE_STATUS": "SKIPPED_FOR_CONDITIONAL"
+    }
+  },
+  {
+    "id": "61",
+    "label": "Image and dependency security scan",
+    "tags": null
+  },
+  {
+    "id": "56",
+    "label": "Integration tests",
+    "tags": null
+  },
+  {
+    "id": "51",
+    "label": "Build images",
+    "tags": null
+  },
+  {
+    "id": "46",
+    "label": "Observability configuration checks",
+    "tags": null
+  },
+  {
+    "id": "41",
+    "label": "Infrastructure configuration checks",
+    "tags": null
+  },
+  {
+    "id": "36",
+    "label": "Unit tests",
+    "tags": null
+  },
+  {
+    "id": "31",
+    "label": "Lint and typecheck",
+    "tags": null
+  },
+  {
+    "id": "26",
+    "label": "Security failure demonstration",
+    "tags": {
+      "STAGE_STATUS": "SKIPPED_FOR_CONDITIONAL"
+    }
+  },
+  {
+    "id": "21",
+    "label": "Secret scan",
+    "tags": null
+  },
+  {
+    "id": "10",
+    "label": "Checkout",
+    "tags": null
+  }
+]

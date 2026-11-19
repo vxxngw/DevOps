@@ -1,0 +1,7 @@
+{
+  "status": "NOT_VERIFIED",
+  "response_chars": 53,
+  "is_null": false,
+  "exception_types": [],
+  "scope": "Early verifier expected a String but Git client returned ObjectId; not an authentication failure. Superseded by scm-head.json using explicit branch and ObjectId.name()."
+}

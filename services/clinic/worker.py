@@ -24,7 +24,7 @@ from clinic.models import (
     uid,
     utc,
 )
-from clinic.telemetry import DEPENDENCY, EVENT_COUNT, EVENT_TIME, log
+from clinic.telemetry import DEPENDENCY, EVENT_COUNT, EVENT_TIME, QUEUE_WAIT, log
 
 
 def send_email(data):
@@ -116,10 +116,19 @@ def finish(event_id, token, status, error=None):
         delivery.lease_until, delivery.lease_token, delivery.updated_at = None, None, now()
 
 
+def observe_queue_delay(properties):
+    published = getattr(properties, "timestamp", None)
+    current = time.time()
+    # Legacy messages and clocks ahead of this consumer do not produce a fake zero.
+    if isinstance(published, int) and not isinstance(published, bool) and 0 < published <= current:
+        QUEUE_WAIT.observe(current - published)
+
+
 def process(channel, method, properties, body, sender=send_email):
     start = time.monotonic()
     event = json.loads(body)
     validate(event)
+    observe_queue_delay(properties)
     event_id = event.get("event_id")
     outcome, data = claim_event(event)
     if outcome in {"done", "stale"}:

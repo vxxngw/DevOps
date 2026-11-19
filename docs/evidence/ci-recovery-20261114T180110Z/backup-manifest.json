@@ -1,0 +1,27 @@
+{
+  "at_utc": "2026-11-14T17:53:38.905456+00:00",
+  "scope": "Fresh byte-for-byte backup while both original Docker VHDX files were held exclusively read-only; no source removed or rewritten. Existing old snapshots retained.",
+  "records": [
+    {
+      "source": "C:\\Users\\Acer\\AppData\\Local\\Docker\\wsl\\disk\\docker_data.vhdx",
+      "backup": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\recovery-backups\\before-recovery-20261115T005310\\disk\\docker_data.vhdx",
+      "bytes": 13645119488,
+      "sha256": "7f21999183aa37b8cc7c239b9d6493d9846872b247c7b42d76d2a2cce9f140c4",
+      "verified": true
+    },
+    {
+      "source": "C:\\Users\\Acer\\AppData\\Local\\Docker\\wsl\\main\\ext4.vhdx",
+      "backup": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\recovery-backups\\before-recovery-20261115T005310\\main\\ext4.vhdx",
+      "bytes": 100663296,
+      "sha256": "76551270e2608b0a141ae1613415434b3161d3c6dda0e97fabb1fc3f615fafd9",
+      "verified": true
+    },
+    {
+      "source": "C:\\Users\\Acer\\AppData\\Roaming\\Docker\\settings-store.json",
+      "backup": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\recovery-backups\\before-recovery-20261115T005310\\settings-store.json",
+      "bytes": 453,
+      "sha256": "c64a935d6f9de9a519a88e297173d592cbc6176970bd875825e861e8781fda18",
+      "verified": true
+    }
+  ]
+}

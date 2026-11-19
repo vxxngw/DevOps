@@ -1,0 +1,374 @@
+{
+  "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+  "actions": [
+    {
+      "_class": "hudson.model.ParametersAction",
+      "parameters": [
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "SOURCE_REF",
+          "value": "9347bb86b3a0a0ca54f40ddadab961f009b5393a"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "SOURCE_BRANCH",
+          "value": "codex/milestone-4"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "CLUSTER_SERVER_URL",
+          "value": "https://192.168.150.11:6443"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "STAGING_URL",
+          "value": "https://staging.anuyen.test"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "PRODUCTION_URL",
+          "value": "https://hospital.anuyen.test"
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "IS_PR",
+          "value": false
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "PUBLISH_IMAGES",
+          "value": false
+        },
+        {
+          "_class": "hudson.model.BooleanParameterValue",
+          "name": "DEPLOY",
+          "value": false
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "SECURITY_DEMO",
+          "value": "none"
+        },
+        {
+          "_class": "hudson.model.StringParameterValue",
+          "name": "PRODUCTION_APPROVERS",
+          "value": "clinic-admin"
+        }
+      ]
+    },
+    {
+      "_class": "hudson.model.CauseAction"
+    },
+    {},
+    {
+      "_class": "hudson.plugins.git.util.BuildData",
+      "lastBuiltRevision": {
+        "SHA1": "9347bb86b3a0a0ca54f40ddadab961f009b5393a"
+      }
+    },
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.workflow.libs.LibrariesAction"
+    },
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.workflow.cps.EnvActionImpl"
+    },
+    {
+      "_class": "hudson.tasks.junit.TestResultAction"
+    },
+    {},
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.displayurlapi.actions.RunDisplayAction"
+    },
+    {
+      "_class": "org.jenkinsci.plugins.pipeline.modeldefinition.actions.RestartDeclarativePipelineAction"
+    },
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.views.FlowGraphAction"
+    },
+    {},
+    {}
+  ],
+  "artifacts": [
+    {
+      "relativePath": "ci-out/build/app.log"
+    },
+    {
+      "relativePath": "ci-out/build/frontend.log"
+    },
+    {
+      "relativePath": "ci-out/build/mailpit.log"
+    },
+    {
+      "relativePath": "ci-out/build/postgres.log"
+    },
+    {
+      "relativePath": "ci-out/build/rabbitmq.log"
+    },
+    {
+      "relativePath": "ci-out/built-images.json"
+    },
+    {
+      "relativePath": "ci-out/dependency-gate.json"
+    },
+    {
+      "relativePath": "ci-out/eslint.log"
+    },
+    {
+      "relativePath": "ci-out/format.log"
+    },
+    {
+      "relativePath": "ci-out/frontend-build.log"
+    },
+    {
+      "relativePath": "ci-out/infra/bash-syntax.log"
+    },
+    {
+      "relativePath": "ci-out/infra/metadata.json"
+    },
+    {
+      "relativePath": "ci-out/infra/production.json"
+    },
+    {
+      "relativePath": "ci-out/infra/staging.json"
+    },
+    {
+      "relativePath": "ci-out/infra/terraform-fmt.log"
+    },
+    {
+      "relativePath": "ci-out/infra/terraform-init.log"
+    },
+    {
+      "relativePath": "ci-out/infra/terraform-validate.json"
+    },
+    {
+      "relativePath": "ci-out/install-infra-python.log"
+    },
+    {
+      "relativePath": "ci-out/install-node.log"
+    },
+    {
+      "relativePath": "ci-out/install-python.log"
+    },
+    {
+      "relativePath": "ci-out/integration-cleanup.log"
+    },
+    {
+      "relativePath": "ci-out/integration-copy.log"
+    },
+    {
+      "relativePath": "ci-out/integration-metadata.json"
+    },
+    {
+      "relativePath": "ci-out/integration-remove-test.log"
+    },
+    {
+      "relativePath": "ci-out/integration-up.log"
+    },
+    {
+      "relativePath": "ci-out/integration.log"
+    },
+    {
+      "relativePath": "ci-out/junit-integration.xml"
+    },
+    {
+      "relativePath": "ci-out/junit-unit.xml"
+    },
+    {
+      "relativePath": "ci-out/observability/alertmanager-config.log"
+    },
+    {
+      "relativePath": "ci-out/observability/metadata.json"
+    },
+    {
+      "relativePath": "ci-out/observability/prometheus-config.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/1.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/10.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/11.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/12.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/13.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/14.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/15.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/16.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/17.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/18.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/19.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/2.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/20.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/21.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/22.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/23.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/24.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/25.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/26.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/27.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/28.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/29.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/3.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/30.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/31.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/32.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/33.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/34.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/35.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/36.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/37.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/4.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/5.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/6.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/7.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/8.log"
+    },
+    {
+      "relativePath": "ci-out/observability/queries/9.log"
+    },
+    {
+      "relativePath": "ci-out/observability/rendered.json"
+    },
+    {
+      "relativePath": "ci-out/observability/rules-check.log"
+    },
+    {
+      "relativePath": "ci-out/observability/rules-test.log"
+    },
+    {
+      "relativePath": "ci-out/ruff.log"
+    },
+    {
+      "relativePath": "ci-out/secret-gate.json"
+    },
+    {
+      "relativePath": "ci-out/security/gitleaks.json"
+    },
+    {
+      "relativePath": "ci-out/security/gitleaks.log"
+    },
+    {
+      "relativePath": "ci-out/security/trivy-app.json"
+    },
+    {
+      "relativePath": "ci-out/security/trivy-app.log"
+    },
+    {
+      "relativePath": "ci-out/security/trivy-dependencies.json"
+    },
+    {
+      "relativePath": "ci-out/security/trivy-dependencies.log"
+    },
+    {
+      "relativePath": "ci-out/security/trivy-frontend.json"
+    },
+    {
+      "relativePath": "ci-out/security/trivy-frontend.log"
+    },
+    {
+      "relativePath": "ci-out/security/trivy-mailpit.json"
+    },
+    {
+      "relativePath": "ci-out/security/trivy-mailpit.log"
+    },
+    {
+      "relativePath": "ci-out/security/trivy-postgres.json"
+    },
+    {
+      "relativePath": "ci-out/security/trivy-postgres.log"
+    },
+    {
+      "relativePath": "ci-out/security/trivy-rabbitmq.json"
+    },
+    {
+      "relativePath": "ci-out/security/trivy-rabbitmq.log"
+    },
+    {
+      "relativePath": "ci-out/security-summary.json"
+    },
+    {
+      "relativePath": "ci-out/unit-metadata.json"
+    },
+    {
+      "relativePath": "ci-out/unit.log"
+    }
+  ],
+  "building": false,
+  "duration": 452433,
+  "number": 4,
+  "queueId": 7,
+  "result": "SUCCESS",
+  "timestamp": 1794728388244,
+  "url": "http://localhost:18090/job/an-uyen/job/clinic-pipeline/4/"
+}

@@ -1,0 +1,357 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.09kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#2 DONE 2.8s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 280B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 71.69kB 0.0s done
+#4 DONE 0.0s
+
+#5 [dependencies 1/4] FROM docker.io/library/python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#5 resolve docker.io/library/python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b 0.0s done
+#5 sha256:05e0eee5572e9c9f50408a2132590133b830a668a1cf2ff2b150f19c57707e2b 0B / 248B 0.2s
+#5 sha256:68bced9e0afa4479df17c3646e27c7c7e9ce9ba70c0e6c73b6826487b89037d9 0B / 1.29MB 0.2s
+#5 sha256:05e0eee5572e9c9f50408a2132590133b830a668a1cf2ff2b150f19c57707e2b 248B / 248B 0.3s done
+#5 sha256:2dc99d2d0a39fce31e37615eb4c932e16dcc4c2b0ce9993714280081b5dbe085 0B / 12.12MB 0.2s
+#5 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 0B / 29.86MB 0.2s
+#5 sha256:68bced9e0afa4479df17c3646e27c7c7e9ce9ba70c0e6c73b6826487b89037d9 1.05MB / 1.29MB 0.8s
+#5 sha256:68bced9e0afa4479df17c3646e27c7c7e9ce9ba70c0e6c73b6826487b89037d9 1.29MB / 1.29MB 0.8s done
+#5 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 2.10MB / 29.86MB 1.5s
+#5 sha256:2dc99d2d0a39fce31e37615eb4c932e16dcc4c2b0ce9993714280081b5dbe085 1.05MB / 12.12MB 2.0s
+#5 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 4.19MB / 29.86MB 2.1s
+#5 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 6.29MB / 29.86MB 2.7s
+#5 sha256:2dc99d2d0a39fce31e37615eb4c932e16dcc4c2b0ce9993714280081b5dbe085 2.10MB / 12.12MB 3.0s
+#5 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 8.39MB / 29.86MB 3.3s
+#5 sha256:2dc99d2d0a39fce31e37615eb4c932e16dcc4c2b0ce9993714280081b5dbe085 3.15MB / 12.12MB 3.8s
+#5 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 10.49MB / 29.86MB 4.1s
+#5 sha256:2dc99d2d0a39fce31e37615eb4c932e16dcc4c2b0ce9993714280081b5dbe085 4.19MB / 12.12MB 4.7s
+#5 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 12.58MB / 29.86MB 4.7s
+#5 sha256:2dc99d2d0a39fce31e37615eb4c932e16dcc4c2b0ce9993714280081b5dbe085 5.24MB / 12.12MB 5.4s
+#5 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 14.68MB / 29.86MB 5.3s
+#5 sha256:2dc99d2d0a39fce31e37615eb4c932e16dcc4c2b0ce9993714280081b5dbe085 6.29MB / 12.12MB 6.0s
+#5 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 16.78MB / 29.86MB 5.9s
+#5 sha256:2dc99d2d0a39fce31e37615eb4c932e16dcc4c2b0ce9993714280081b5dbe085 7.34MB / 12.12MB 6.6s
+#5 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 18.87MB / 29.86MB 6.5s
+#5 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 20.97MB / 29.86MB 7.1s
+#5 sha256:2dc99d2d0a39fce31e37615eb4c932e16dcc4c2b0ce9993714280081b5dbe085 8.39MB / 12.12MB 7.4s
+#5 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 23.07MB / 29.86MB 7.8s
+#5 sha256:2dc99d2d0a39fce31e37615eb4c932e16dcc4c2b0ce9993714280081b5dbe085 9.44MB / 12.12MB 8.4s
+#5 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 25.17MB / 29.86MB 8.7s
+#5 sha256:2dc99d2d0a39fce31e37615eb4c932e16dcc4c2b0ce9993714280081b5dbe085 10.49MB / 12.12MB 9.0s
+#5 sha256:2dc99d2d0a39fce31e37615eb4c932e16dcc4c2b0ce9993714280081b5dbe085 11.53MB / 12.12MB 9.6s
+#5 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 27.26MB / 29.86MB 9.5s
+#5 sha256:2dc99d2d0a39fce31e37615eb4c932e16dcc4c2b0ce9993714280081b5dbe085 12.12MB / 12.12MB 9.8s done
+#5 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 29.36MB / 29.86MB 10.2s
+#5 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 29.86MB / 29.86MB 10.3s done
+#5 extracting sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41
+#5 extracting sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 0.9s done
+#5 DONE 11.3s
+
+#5 [dependencies 1/4] FROM docker.io/library/python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#5 extracting sha256:68bced9e0afa4479df17c3646e27c7c7e9ce9ba70c0e6c73b6826487b89037d9
+#5 extracting sha256:68bced9e0afa4479df17c3646e27c7c7e9ce9ba70c0e6c73b6826487b89037d9 0.3s done
+#5 extracting sha256:2dc99d2d0a39fce31e37615eb4c932e16dcc4c2b0ce9993714280081b5dbe085
+#5 extracting sha256:2dc99d2d0a39fce31e37615eb4c932e16dcc4c2b0ce9993714280081b5dbe085 1.0s done
+#5 DONE 12.5s
+
+#5 [dependencies 1/4] FROM docker.io/library/python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#5 extracting sha256:05e0eee5572e9c9f50408a2132590133b830a668a1cf2ff2b150f19c57707e2b 0.1s done
+#5 DONE 12.6s
+
+#6 [runtime 2/8] WORKDIR /app
+#6 DONE 0.0s
+
+#7 [dependencies 2/4] WORKDIR /build
+#7 DONE 0.0s
+
+#8 [dependencies 3/4] COPY requirements.lock .
+#8 DONE 0.0s
+
+#9 [dependencies 4/4] RUN pip wheel --no-cache-dir --wheel-dir /wheels -r requirements.lock
+#9 2.123 Collecting alembic==1.20.1 (from -r requirements.lock (line 1))
+#9 2.280   Downloading alembic-1.20.1-py3-none-any.whl.metadata (7.3 kB)
+#9 2.323 Collecting annotated-doc==0.0.6 (from -r requirements.lock (line 2))
+#9 2.375   Downloading annotated_doc-0.0.6-py3-none-any.whl.metadata (6.5 kB)
+#9 2.420 Collecting annotated-types==0.8.0 (from -r requirements.lock (line 3))
+#9 2.467   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+#9 2.540 Collecting anyio==4.16.0 (from -r requirements.lock (line 4))
+#9 2.589   Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+#9 2.649 Collecting argon2-cffi==25.1.0 (from -r requirements.lock (line 5))
+#9 2.700   Downloading argon2_cffi-25.1.0-py3-none-any.whl.metadata (4.1 kB)
+#9 2.751 Collecting argon2-cffi-bindings==26.2.0 (from -r requirements.lock (line 6))
+#9 2.797   Downloading argon2_cffi_bindings-26.2.0-cp310-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl.metadata (7.6 kB)
+#9 2.848 Collecting attrs==26.1.0 (from -r requirements.lock (line 7))
+#9 2.893   Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+#9 2.952 Collecting certifi==2026.10.23 (from -r requirements.lock (line 8))
+#9 2.999   Downloading certifi-2026.10.23-py3-none-any.whl.metadata (2.5 kB)
+#9 3.189 Collecting cffi==2.1.1 (from -r requirements.lock (line 9))
+#9 3.237   Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+#9 3.290 Collecting click==8.5.1 (from -r requirements.lock (line 10))
+#9 3.337   Downloading click-8.5.1-py3-none-any.whl.metadata (2.6 kB)
+#9 3.414 Collecting colorama==0.4.6 (from -r requirements.lock (line 11))
+#9 3.467   Downloading colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+#9 3.563 Collecting fastapi==0.162.6 (from -r requirements.lock (line 12))
+#9 3.619   Downloading fastapi-0.162.6-py3-none-any.whl.metadata (27 kB)
+#9 3.856 Collecting greenlet==3.5.6 (from -r requirements.lock (line 13))
+#9 3.905   Downloading greenlet-3.5.6-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+#9 3.948 Collecting h11==0.16.0 (from -r requirements.lock (line 14))
+#9 3.994   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+#9 4.048 Collecting httpcore==1.0.9 (from -r requirements.lock (line 15))
+#9 4.094   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+#9 4.174 Collecting httpx==0.28.1 (from -r requirements.lock (line 16))
+#9 4.219   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+#9 4.267 Collecting idna==3.20 (from -r requirements.lock (line 17))
+#9 4.314   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+#9 4.358 Collecting iniconfig==2.3.1 (from -r requirements.lock (line 18))
+#9 4.404   Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+#9 4.457 Collecting jsonschema==4.26.0 (from -r requirements.lock (line 19))
+#9 4.504   Downloading jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+#9 4.553 Collecting jsonschema-specifications==2025.9.1 (from -r requirements.lock (line 20))
+#9 4.600   Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+#9 4.653 Collecting Mako==1.4.3 (from -r requirements.lock (line 21))
+#9 4.699   Downloading mako-1.4.3-py3-none-any.whl.metadata (2.9 kB)
+#9 4.788 Collecting MarkupSafe==3.0.4 (from -r requirements.lock (line 22))
+#9 4.835   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+#9 4.896 Collecting opentelemetry-api==1.45.2 (from -r requirements.lock (line 23))
+#9 4.944   Downloading opentelemetry_api-1.45.2-py3-none-any.whl.metadata (1.4 kB)
+#9 4.995 Collecting packaging==26.3 (from -r requirements.lock (line 24))
+#9 5.040   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+#9 5.094 Collecting pika==1.4.4 (from -r requirements.lock (line 25))
+#9 5.140   Downloading pika-1.4.4-py3-none-any.whl.metadata (13 kB)
+#9 5.191 Collecting pluggy==1.7.0 (from -r requirements.lock (line 26))
+#9 5.238   Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+#9 5.300 Collecting prometheus_client==0.26.0 (from -r requirements.lock (line 27))
+#9 5.349   Downloading prometheus_client-0.26.0-py3-none-any.whl.metadata (2.1 kB)
+#9 5.400 Collecting psycopg==3.3.9 (from -r requirements.lock (line 28))
+#9 5.451   Downloading psycopg-3.3.9-py3-none-any.whl.metadata (4.4 kB)
+#9 5.834 Collecting psycopg-binary==3.3.9 (from -r requirements.lock (line 29))
+#9 5.883   Downloading psycopg_binary-3.3.9-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.7 kB)
+#9 5.928 Collecting pwdlib==0.3.1 (from -r requirements.lock (line 30))
+#9 5.975   Downloading pwdlib-0.3.1-py3-none-any.whl.metadata (5.6 kB)
+#9 6.020 Collecting pycparser==3.12 (from -r requirements.lock (line 31))
+#9 6.071   Downloading pycparser-3.12-py3-none-any.whl.metadata (9.7 kB)
+#9 6.237 Collecting pydantic==2.14.3 (from -r requirements.lock (line 32))
+#9 6.285   Downloading pydantic-2.14.3-py3-none-any.whl.metadata (141 kB)
+#9 6.409 Collecting pydantic-settings==2.16.3 (from -r requirements.lock (line 33))
+#9 6.456   Downloading pydantic_settings-2.16.3-py3-none-any.whl.metadata (4.0 kB)
+#9 7.397 Collecting pydantic_core==2.50.4 (from -r requirements.lock (line 34))
+#9 7.444   Downloading pydantic_core-2.50.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.6 kB)
+#9 7.495 Collecting Pygments==2.21.0 (from -r requirements.lock (line 35))
+#9 7.542   Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+#9 7.593 Collecting PyJWT==2.15.1 (from -r requirements.lock (line 36))
+#9 7.639   Downloading pyjwt-2.15.1-py3-none-any.whl.metadata (3.5 kB)
+#9 7.711 Collecting pytest==9.2.0 (from -r requirements.lock (line 37))
+#9 7.758   Downloading pytest-9.2.0-py3-none-any.whl.metadata (7.9 kB)
+#9 7.815 Collecting python-dotenv==1.2.4 (from -r requirements.lock (line 38))
+#9 7.876   Downloading python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
+#9 7.941 Collecting referencing==0.37.0 (from -r requirements.lock (line 39))
+#9 7.990   Downloading referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+#9 8.438 Collecting rpds-py==2026.9.1 (from -r requirements.lock (line 40))
+#9 8.488   Downloading rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+#9 9.109 Collecting ruff==0.17.5 (from -r requirements.lock (line 41))
+#9 9.154   Downloading ruff-0.17.5-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (20 kB)
+#9 9.638 Collecting SQLAlchemy==2.0.57 (from -r requirements.lock (line 42))
+#9 9.688   Downloading sqlalchemy-2.0.57-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.6 kB)
+#9 9.770 Collecting starlette==1.10.0 (from -r requirements.lock (line 43))
+#9 9.818   Downloading starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
+#9 9.868 Collecting typing-inspection==0.4.5 (from -r requirements.lock (line 44))
+#9 9.915   Downloading typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+#9 9.972 Collecting typing_extensions==4.16.0 (from -r requirements.lock (line 45))
+#9 10.02   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+#9 10.08 Collecting tzdata==2026.6 (from -r requirements.lock (line 46))
+#9 10.12   Downloading tzdata-2026.6-py2.py3-none-any.whl.metadata (1.4 kB)
+#9 10.19 Collecting uvicorn==0.54.0 (from -r requirements.lock (line 47))
+#9 10.23   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+#9 10.45 Downloading alembic-1.20.1-py3-none-any.whl (270 kB)
+#9 10.59 Downloading annotated_doc-0.0.6-py3-none-any.whl (5.3 kB)
+#9 10.64 Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+#9 10.70 Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+#9 10.78 Downloading argon2_cffi-25.1.0-py3-none-any.whl (14 kB)
+#9 10.83 Downloading argon2_cffi_bindings-26.2.0-cp310-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (26 kB)
+#9 10.88 Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+#9 10.94 Downloading certifi-2026.10.23-py3-none-any.whl (135 kB)
+#9 11.03 Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (221 kB)
+#9 11.13 Downloading click-8.5.1-py3-none-any.whl (126 kB)
+#9 11.20 Downloading colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+#9 11.25 Downloading fastapi-0.162.6-py3-none-any.whl (151 kB)
+#9 11.33 Downloading greenlet-3.5.6-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (621 kB)
+#9 11.46    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 621.4/621.4 kB 7.3 MB/s eta 0:00:00
+#9 11.51 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+#9 11.58 Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+#9 11.64 Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+#9 11.69 Downloading idna-3.20-py3-none-any.whl (69 kB)
+#9 11.76 Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+#9 11.80 Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)
+#9 11.87 Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+#9 11.93 Downloading mako-1.4.3-py3-none-any.whl (80 kB)
+#9 12.00 Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+#9 12.06 Downloading opentelemetry_api-1.45.2-py3-none-any.whl (60 kB)
+#9 12.11 Downloading packaging-26.3-py3-none-any.whl (129 kB)
+#9 12.20 Downloading pika-1.4.4-py3-none-any.whl (165 kB)
+#9 12.30 Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+#9 12.34 Downloading prometheus_client-0.26.0-py3-none-any.whl (64 kB)
+#9 12.41 Downloading psycopg-3.3.9-py3-none-any.whl (219 kB)
+#9 12.56 Downloading psycopg_binary-3.3.9-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (3.9 MB)
+#9 13.60    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.9/3.9 MB 3.8 MB/s eta 0:00:00
+#9 13.64 Downloading pwdlib-0.3.1-py3-none-any.whl (9.3 kB)
+#9 13.69 Downloading pycparser-3.12-py3-none-any.whl (62 kB)
+#9 13.75 Downloading pydantic-2.14.3-py3-none-any.whl (494 kB)
+#9 13.95 Downloading pydantic_settings-2.16.3-py3-none-any.whl (82 kB)
+#9 14.04 Downloading pydantic_core-2.50.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.3 MB)
+#9 14.75    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 3.3 MB/s eta 0:00:00
+#9 14.81 Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+#9 15.20    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 3.4 MB/s eta 0:00:00
+#9 15.25 Downloading pyjwt-2.15.1-py3-none-any.whl (33 kB)
+#9 15.32 Downloading pytest-9.2.0-py3-none-any.whl (411 kB)
+#9 15.52 Downloading python_dotenv-1.2.4-py3-none-any.whl (23 kB)
+#9 15.58 Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+#9 15.63 Downloading rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (371 kB)
+#9 15.77 Downloading ruff-0.17.5-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (10.6 MB)
+#9 18.45    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.6/10.6 MB 4.0 MB/s eta 0:00:00
+#9 18.50 Downloading sqlalchemy-2.0.57-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (3.5 MB)
+#9 19.68    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.5/3.5 MB 2.9 MB/s eta 0:00:00
+#9 19.73 Downloading starlette-1.10.0-py3-none-any.whl (80 kB)
+#9 19.81 Downloading typing_inspection-0.4.5-py3-none-any.whl (14 kB)
+#9 19.86 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+#9 19.92 Downloading tzdata-2026.6-py2.py3-none-any.whl (348 kB)
+#9 20.07 Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+#9 20.17 Saved /wheels/alembic-1.20.1-py3-none-any.whl
+#9 20.17 Saved /wheels/annotated_doc-0.0.6-py3-none-any.whl
+#9 20.17 Saved /wheels/annotated_types-0.8.0-py3-none-any.whl
+#9 20.17 Saved /wheels/anyio-4.16.0-py3-none-any.whl
+#9 20.18 Saved /wheels/argon2_cffi-25.1.0-py3-none-any.whl
+#9 20.18 Saved /wheels/argon2_cffi_bindings-26.2.0-cp310-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl
+#9 20.18 Saved /wheels/attrs-26.1.0-py3-none-any.whl
+#9 20.18 Saved /wheels/certifi-2026.10.23-py3-none-any.whl
+#9 20.18 Saved /wheels/cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+#9 20.18 Saved /wheels/click-8.5.1-py3-none-any.whl
+#9 20.18 Saved /wheels/colorama-0.4.6-py2.py3-none-any.whl
+#9 20.18 Saved /wheels/fastapi-0.162.6-py3-none-any.whl
+#9 20.18 Saved /wheels/greenlet-3.5.6-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl
+#9 20.18 Saved /wheels/h11-0.16.0-py3-none-any.whl
+#9 20.18 Saved /wheels/httpcore-1.0.9-py3-none-any.whl
+#9 20.19 Saved /wheels/httpx-0.28.1-py3-none-any.whl
+#9 20.19 Saved /wheels/idna-3.20-py3-none-any.whl
+#9 20.19 Saved /wheels/iniconfig-2.3.1-py3-none-any.whl
+#9 20.19 Saved /wheels/jsonschema-4.26.0-py3-none-any.whl
+#9 20.20 Saved /wheels/jsonschema_specifications-2025.9.1-py3-none-any.whl
+#9 20.20 Saved /wheels/mako-1.4.3-py3-none-any.whl
+#9 20.20 Saved /wheels/markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+#9 20.20 Saved /wheels/opentelemetry_api-1.45.2-py3-none-any.whl
+#9 20.20 Saved /wheels/packaging-26.3-py3-none-any.whl
+#9 20.20 Saved /wheels/pika-1.4.4-py3-none-any.whl
+#9 20.20 Saved /wheels/pluggy-1.7.0-py3-none-any.whl
+#9 20.21 Saved /wheels/prometheus_client-0.26.0-py3-none-any.whl
+#9 20.21 Saved /wheels/psycopg-3.3.9-py3-none-any.whl
+#9 20.22 Saved /wheels/psycopg_binary-3.3.9-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+#9 20.22 Saved /wheels/pwdlib-0.3.1-py3-none-any.whl
+#9 20.22 Saved /wheels/pycparser-3.12-py3-none-any.whl
+#9 20.22 Saved /wheels/pydantic-2.14.3-py3-none-any.whl
+#9 20.22 Saved /wheels/pydantic_settings-2.16.3-py3-none-any.whl
+#9 20.23 Saved /wheels/pydantic_core-2.50.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+#9 20.23 Saved /wheels/pygments-2.21.0-py3-none-any.whl
+#9 20.23 Saved /wheels/pyjwt-2.15.1-py3-none-any.whl
+#9 20.23 Saved /wheels/pytest-9.2.0-py3-none-any.whl
+#9 20.23 Saved /wheels/python_dotenv-1.2.4-py3-none-any.whl
+#9 20.23 Saved /wheels/referencing-0.37.0-py3-none-any.whl
+#9 20.24 Saved /wheels/rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+#9 20.25 Saved /wheels/ruff-0.17.5-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+#9 20.25 Saved /wheels/sqlalchemy-2.0.57-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl
+#9 20.25 Saved /wheels/starlette-1.10.0-py3-none-any.whl
+#9 20.25 Saved /wheels/typing_inspection-0.4.5-py3-none-any.whl
+#9 20.25 Saved /wheels/typing_extensions-4.16.0-py3-none-any.whl
+#9 20.25 Saved /wheels/tzdata-2026.6-py2.py3-none-any.whl
+#9 20.26 Saved /wheels/uvicorn-0.54.0-py3-none-any.whl
+#9 20.49 
+#9 20.49 [notice] A new release of pip is available: 25.0.1 -> 26.3
+#9 20.49 [notice] To update, run: pip install --upgrade pip
+#9 DONE 21.0s
+
+#10 [runtime 3/8] COPY --from=dependencies /wheels /wheels
+#10 DONE 0.1s
+
+#11 [runtime 4/8] COPY requirements.lock .
+#11 DONE 0.0s
+
+#12 [runtime 5/8] RUN pip install --no-cache-dir --no-index --find-links=/wheels -r requirements.lock     && rm -rf /wheels && groupadd -g 10001 clinic && useradd -u 10001 -g clinic -M clinic
+#12 1.490 Looking in links: /wheels
+#12 1.509 Processing /wheels/alembic-1.20.1-py3-none-any.whl (from -r requirements.lock (line 1))
+#12 1.518 Processing /wheels/annotated_doc-0.0.6-py3-none-any.whl (from -r requirements.lock (line 2))
+#12 1.526 Processing /wheels/annotated_types-0.8.0-py3-none-any.whl (from -r requirements.lock (line 3))
+#12 1.531 Processing /wheels/anyio-4.16.0-py3-none-any.whl (from -r requirements.lock (line 4))
+#12 1.537 Processing /wheels/argon2_cffi-25.1.0-py3-none-any.whl (from -r requirements.lock (line 5))
+#12 1.539 Processing /wheels/argon2_cffi_bindings-26.2.0-cp310-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (from -r requirements.lock (line 6))
+#12 1.542 Processing /wheels/attrs-26.1.0-py3-none-any.whl (from -r requirements.lock (line 7))
+#12 1.544 Processing /wheels/certifi-2026.10.23-py3-none-any.whl (from -r requirements.lock (line 8))
+#12 1.547 Processing /wheels/cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r requirements.lock (line 9))
+#12 1.549 Processing /wheels/click-8.5.1-py3-none-any.whl (from -r requirements.lock (line 10))
+#12 1.552 Processing /wheels/colorama-0.4.6-py2.py3-none-any.whl (from -r requirements.lock (line 11))
+#12 1.555 Processing /wheels/fastapi-0.162.6-py3-none-any.whl (from -r requirements.lock (line 12))
+#12 1.566 Processing /wheels/greenlet-3.5.6-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (from -r requirements.lock (line 13))
+#12 1.570 Processing /wheels/h11-0.16.0-py3-none-any.whl (from -r requirements.lock (line 14))
+#12 1.572 Processing /wheels/httpcore-1.0.9-py3-none-any.whl (from -r requirements.lock (line 15))
+#12 1.576 Processing /wheels/httpx-0.28.1-py3-none-any.whl (from -r requirements.lock (line 16))
+#12 1.579 Processing /wheels/idna-3.20-py3-none-any.whl (from -r requirements.lock (line 17))
+#12 1.581 Processing /wheels/iniconfig-2.3.1-py3-none-any.whl (from -r requirements.lock (line 18))
+#12 1.583 Processing /wheels/jsonschema-4.26.0-py3-none-any.whl (from -r requirements.lock (line 19))
+#12 1.589 Processing /wheels/jsonschema_specifications-2025.9.1-py3-none-any.whl (from -r requirements.lock (line 20))
+#12 1.592 Processing /wheels/mako-1.4.3-py3-none-any.whl (from -r requirements.lock (line 21))
+#12 1.594 Processing /wheels/markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from -r requirements.lock (line 22))
+#12 1.596 Processing /wheels/opentelemetry_api-1.45.2-py3-none-any.whl (from -r requirements.lock (line 23))
+#12 1.598 Processing /wheels/packaging-26.3-py3-none-any.whl (from -r requirements.lock (line 24))
+#12 1.600 Processing /wheels/pika-1.4.4-py3-none-any.whl (from -r requirements.lock (line 25))
+#12 1.603 Processing /wheels/pluggy-1.7.0-py3-none-any.whl (from -r requirements.lock (line 26))
+#12 1.605 Processing /wheels/prometheus_client-0.26.0-py3-none-any.whl (from -r requirements.lock (line 27))
+#12 1.607 Processing /wheels/psycopg-3.3.9-py3-none-any.whl (from -r requirements.lock (line 28))
+#12 1.613 Processing /wheels/psycopg_binary-3.3.9-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r requirements.lock (line 29))
+#12 1.619 Processing /wheels/pwdlib-0.3.1-py3-none-any.whl (from -r requirements.lock (line 30))
+#12 1.621 Processing /wheels/pycparser-3.12-py3-none-any.whl (from -r requirements.lock (line 31))
+#12 1.623 Processing /wheels/pydantic-2.14.3-py3-none-any.whl (from -r requirements.lock (line 32))
+#12 1.630 Processing /wheels/pydantic_settings-2.16.3-py3-none-any.whl (from -r requirements.lock (line 33))
+#12 1.633 Processing /wheels/pydantic_core-2.50.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (from -r requirements.lock (line 34))
+#12 1.639 Processing /wheels/pygments-2.21.0-py3-none-any.whl (from -r requirements.lock (line 35))
+#12 1.644 Processing /wheels/pyjwt-2.15.1-py3-none-any.whl (from -r requirements.lock (line 36))
+#12 1.646 Processing /wheels/pytest-9.2.0-py3-none-any.whl (from -r requirements.lock (line 37))
+#12 1.651 Processing /wheels/python_dotenv-1.2.4-py3-none-any.whl (from -r requirements.lock (line 38))
+#12 1.654 Processing /wheels/referencing-0.37.0-py3-none-any.whl (from -r requirements.lock (line 39))
+#12 1.656 Processing /wheels/rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r requirements.lock (line 40))
+#12 1.659 Processing /wheels/ruff-0.17.5-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (from -r requirements.lock (line 41))
+#12 1.671 Processing /wheels/sqlalchemy-2.0.57-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (from -r requirements.lock (line 42))
+#12 1.682 Processing /wheels/starlette-1.10.0-py3-none-any.whl (from -r requirements.lock (line 43))
+#12 1.685 Processing /wheels/typing_inspection-0.4.5-py3-none-any.whl (from -r requirements.lock (line 44))
+#12 1.687 Processing /wheels/typing_extensions-4.16.0-py3-none-any.whl (from -r requirements.lock (line 45))
+#12 1.688 Processing /wheels/tzdata-2026.6-py2.py3-none-any.whl (from -r requirements.lock (line 46))
+#12 1.693 Processing /wheels/uvicorn-0.54.0-py3-none-any.whl (from -r requirements.lock (line 47))
+#12 1.823 Installing collected packages: tzdata, typing_extensions, ruff, rpds-py, python-dotenv, PyJWT, Pygments, pycparser, pwdlib, psycopg-binary, prometheus_client, pluggy, pika, packaging, MarkupSafe, iniconfig, idna, h11, greenlet, colorama, click, certifi, attrs, annotated-types, annotated-doc, uvicorn, typing-inspection, SQLAlchemy, referencing, pytest, pydantic_core, psycopg, opentelemetry-api, Mako, httpcore, cffi, anyio, starlette, pydantic, jsonschema-specifications, httpx, argon2-cffi-bindings, alembic, pydantic-settings, jsonschema, fastapi, argon2-cffi
+#12 8.790 Successfully installed Mako-1.4.3 MarkupSafe-3.0.4 PyJWT-2.15.1 Pygments-2.21.0 SQLAlchemy-2.0.57 alembic-1.20.1 annotated-doc-0.0.6 annotated-types-0.8.0 anyio-4.16.0 argon2-cffi-25.1.0 argon2-cffi-bindings-26.2.0 attrs-26.1.0 certifi-2026.10.23 cffi-2.1.1 click-8.5.1 colorama-0.4.6 fastapi-0.162.6 greenlet-3.5.6 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.20 iniconfig-2.3.1 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 opentelemetry-api-1.45.2 packaging-26.3 pika-1.4.4 pluggy-1.7.0 prometheus_client-0.26.0 psycopg-3.3.9 psycopg-binary-3.3.9 pwdlib-0.3.1 pycparser-3.12 pydantic-2.14.3 pydantic-settings-2.16.3 pydantic_core-2.50.4 pytest-9.2.0 python-dotenv-1.2.4 referencing-0.37.0 rpds-py-2026.9.1 ruff-0.17.5 starlette-1.10.0 typing-inspection-0.4.5 typing_extensions-4.16.0 tzdata-2026.6 uvicorn-0.54.0
+#12 8.791 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#12 DONE 9.1s
+
+#13 [runtime 6/8] COPY services services
+#13 DONE 0.1s
+
+#14 [runtime 7/8] COPY contracts contracts
+#14 DONE 0.1s
+
+#15 [runtime 8/8] COPY alembic.ini .
+#15 DONE 0.0s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 4.3s done
+#16 exporting manifest sha256:43fe76419a409c73f5078f736c98cf7e89100ccfa688293ccc8b3b0021052415 done
+#16 exporting config sha256:f6cda836614cefbc020a4b0fd60e110fd3e1a0e6a164dd8fc072c9f94d2103e3 0.0s done
+#16 exporting attestation manifest sha256:57cab249ead2c488a4748761c742fcef69c960ded7b85d0fc787b715baef72c5 0.0s done
+#16 exporting manifest list sha256:0f77303b7e3c8c0e4067936b6e39aa38697d2503d535fa02580badc25bf1b33d done
+#16 naming to ghcr.io/vxxngw/devops-app:9347bb86b3a0a0ca54f40ddadab961f009b5393a done
+#16 unpacking to ghcr.io/vxxngw/devops-app:9347bb86b3a0a0ca54f40ddadab961f009b5393a
+#16 unpacking to ghcr.io/vxxngw/devops-app:9347bb86b3a0a0ca54f40ddadab961f009b5393a 4.5s done
+#16 DONE 8.9s

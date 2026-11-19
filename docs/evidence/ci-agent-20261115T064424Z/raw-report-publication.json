@@ -1,0 +1,152 @@
+{
+  "at_utc": "2026-11-15T08:29:14.149630+00:00",
+  "status": "PUBLIC_GPG_FINGERPRINT_FIELDS_REDACTED_RAW_ORIGINALS_RETAINED",
+  "records": [
+    {
+      "build_number": 1,
+      "artifact": "ci-out/security-demo/gitleaks.json",
+      "private_raw": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\submission\\ci-build-1\\gitleaks.json",
+      "public_copy": "docs/evidence/ci-agent-20261115T064424Z/build-1/reports/gitleaks.json",
+      "raw_sha256": "a450f8267c1d9f3be970e2f891d8e196a5018248b25d0ae6a1e66a806494fe50",
+      "public_sha256": "a450f8267c1d9f3be970e2f891d8e196a5018248b25d0ae6a1e66a806494fe50",
+      "bytes": 489,
+      "gate_hash_matched": null,
+      "raw_bytes": 489,
+      "public_bytes": 489
+    },
+    {
+      "build_number": 3,
+      "artifact": "ci-out/security-demo/trivy.json",
+      "private_raw": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\submission\\ci-build-3\\trivy.json",
+      "public_copy": "docs/evidence/ci-agent-20261115T064424Z/build-3/reports/trivy.json",
+      "raw_sha256": "5faeff9c582e7f0f53e2047ac4ad5505dfad06b531a0a86034360f0483765b1f",
+      "public_sha256": "5faeff9c582e7f0f53e2047ac4ad5505dfad06b531a0a86034360f0483765b1f",
+      "bytes": 41229,
+      "gate_hash_matched": null,
+      "raw_bytes": 41229,
+      "public_bytes": 41229
+    },
+    {
+      "build_number": 5,
+      "artifact": "ci-out/security/gitleaks.json",
+      "private_raw": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\submission\\ci-build-5\\gitleaks.json",
+      "public_copy": "docs/evidence/ci-agent-20261115T064424Z/build-5/reports/gitleaks.json",
+      "raw_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "public_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "bytes": 3,
+      "gate_hash_matched": true,
+      "raw_bytes": 3,
+      "public_bytes": 3
+    },
+    {
+      "build_number": 5,
+      "artifact": "ci-out/security/trivy-app.json",
+      "private_raw": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\submission\\ci-build-5\\trivy-app.json",
+      "public_copy": "docs/evidence/ci-agent-20261115T064424Z/build-5/reports/trivy-app.json",
+      "raw_sha256": "11de0680dd2dd7a8abf5feebfcfa0f3020543b0ed7ad3077a54652b7555e03a0",
+      "public_sha256": "6ebdd1fe4962f5e38aa774dc0eb155085c677a4b654721cc9beaeabc6c0ee65b",
+      "bytes": 403220,
+      "gate_hash_matched": true,
+      "public_only_replacements": [
+        {
+          "kind": "Public Docker Python GPG signing fingerprint, not private key or credential",
+          "paths": [
+            "$.Metadata.ImageConfig.history[4].created_by",
+            "$.Metadata.ImageConfig.config.Env[2]"
+          ],
+          "source_url": "https://raw.githubusercontent.com/docker-library/python/master/3.12/slim-trixie/Dockerfile",
+          "source_content_sha256": "2a40fb4db33a3b136ced0600587c66493d27a449d218e1643033bd586982fec4",
+          "value_digest": "6c3b7674b58d9f7266cd8b823ecf469b0a03d1bf2c8c24df1d0121d8e818f1fa",
+          "count": 2
+        }
+      ],
+      "raw_bytes": 403220,
+      "public_bytes": 401761
+    },
+    {
+      "build_number": 5,
+      "artifact": "ci-out/security/trivy-frontend.json",
+      "private_raw": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\submission\\ci-build-5\\trivy-frontend.json",
+      "public_copy": "docs/evidence/ci-agent-20261115T064424Z/build-5/reports/trivy-frontend.json",
+      "raw_sha256": "fc8377c8be86146f831c8015ef3c117fb092d864d79dfef64f69a0cc8616bd32",
+      "public_sha256": "fc8377c8be86146f831c8015ef3c117fb092d864d79dfef64f69a0cc8616bd32",
+      "bytes": 162469,
+      "gate_hash_matched": true,
+      "raw_bytes": 162469,
+      "public_bytes": 162469
+    },
+    {
+      "build_number": 5,
+      "artifact": "ci-out/security/trivy-postgres.json",
+      "private_raw": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\submission\\ci-build-5\\trivy-postgres.json",
+      "public_copy": "docs/evidence/ci-agent-20261115T064424Z/build-5/reports/trivy-postgres.json",
+      "raw_sha256": "3ecb843416202a3d84085bd79a59c7306a1ee99ba9d3fbecd4a66d12d743d123",
+      "public_sha256": "3ecb843416202a3d84085bd79a59c7306a1ee99ba9d3fbecd4a66d12d743d123",
+      "bytes": 104676,
+      "gate_hash_matched": true,
+      "raw_bytes": 104676,
+      "public_bytes": 104676
+    },
+    {
+      "build_number": 5,
+      "artifact": "ci-out/security/trivy-rabbitmq.json",
+      "private_raw": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\submission\\ci-build-5\\trivy-rabbitmq.json",
+      "public_copy": "docs/evidence/ci-agent-20261115T064424Z/build-5/reports/trivy-rabbitmq.json",
+      "raw_sha256": "23d3a4d1f905f1ab96c17309956078a63f821662b263d44578366587c583f537",
+      "public_sha256": "23d3a4d1f905f1ab96c17309956078a63f821662b263d44578366587c583f537",
+      "bytes": 375257,
+      "gate_hash_matched": true,
+      "raw_bytes": 375257,
+      "public_bytes": 375257
+    },
+    {
+      "build_number": 5,
+      "artifact": "ci-out/security/trivy-mailpit.json",
+      "private_raw": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\submission\\ci-build-5\\trivy-mailpit.json",
+      "public_copy": "docs/evidence/ci-agent-20261115T064424Z/build-5/reports/trivy-mailpit.json",
+      "raw_sha256": "0b8831b2f9839279748d3678f574e35afee92ba9e7f38b0fb30e0c27e6d51100",
+      "public_sha256": "0b8831b2f9839279748d3678f574e35afee92ba9e7f38b0fb30e0c27e6d51100",
+      "bytes": 102535,
+      "gate_hash_matched": true,
+      "raw_bytes": 102535,
+      "public_bytes": 102535
+    },
+    {
+      "build_number": 5,
+      "artifact": "ci-out/security/trivy-dependencies.json",
+      "private_raw": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\submission\\ci-build-5\\trivy-dependencies.json",
+      "public_copy": "docs/evidence/ci-agent-20261115T064424Z/build-5/reports/trivy-dependencies.json",
+      "raw_sha256": "0c4769cd2df520a8f06f02a10601dc8793d067854b850fb87e12682d66ffd6e5",
+      "public_sha256": "0c4769cd2df520a8f06f02a10601dc8793d067854b850fb87e12682d66ffd6e5",
+      "bytes": 156612,
+      "gate_hash_matched": true,
+      "raw_bytes": 156612,
+      "public_bytes": 156612
+    },
+    {
+      "build_number": 5,
+      "artifact": "ci-out/junit-unit.xml",
+      "private_raw": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\submission\\ci-build-5\\junit-unit.xml",
+      "public_copy": "docs/evidence/ci-agent-20261115T064424Z/build-5/reports/junit-unit.xml",
+      "raw_sha256": "1682224926224564094daa070cdeba8b83c7151c7d0bbee4ee53ae377893b736",
+      "public_sha256": "1682224926224564094daa070cdeba8b83c7151c7d0bbee4ee53ae377893b736",
+      "bytes": 12726,
+      "gate_hash_matched": null,
+      "raw_bytes": 12726,
+      "public_bytes": 12726
+    },
+    {
+      "build_number": 5,
+      "artifact": "ci-out/junit-integration.xml",
+      "private_raw": "D:\\CODE\\OOPs\\Do_An\\.ci-local\\submission\\ci-build-5\\junit-integration.xml",
+      "public_copy": "docs/evidence/ci-agent-20261115T064424Z/build-5/reports/junit-integration.xml",
+      "raw_sha256": "a7cb06e2fa7a76985db3c8b68ae71f924e561e82b9f484625b591595102e8dbd",
+      "public_sha256": "a7cb06e2fa7a76985db3c8b68ae71f924e561e82b9f484625b591595102e8dbd",
+      "bytes": 3655,
+      "gate_hash_matched": null,
+      "raw_bytes": 3655,
+      "public_bytes": 3655
+    }
+  ],
+  "note": "Only two public Docker Python signing-fingerprint strings caused generic-api-key false positives. Verified against official source. No finding/CVE/imageID/target changed, no Gitleaks allowlist added; original gate inputs retained byte-for-byte private and in Jenkins."
+}

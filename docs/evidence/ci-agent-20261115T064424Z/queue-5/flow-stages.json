@@ -1,0 +1,103 @@
+[
+  {
+    "id": "90",
+    "label": "Declarative: Post Actions",
+    "tags": {
+      "SYNTHETIC_STAGE": "POST"
+    }
+  },
+  {
+    "id": "85",
+    "label": "Deploy production",
+    "tags": {
+      "STAGE_STATUS": "SKIPPED_FOR_FAILURE"
+    }
+  },
+  {
+    "id": "80",
+    "label": "Approve production",
+    "tags": {
+      "STAGE_STATUS": "SKIPPED_FOR_FAILURE"
+    }
+  },
+  {
+    "id": "75",
+    "label": "Deploy staging",
+    "tags": {
+      "STAGE_STATUS": "SKIPPED_FOR_FAILURE"
+    }
+  },
+  {
+    "id": "70",
+    "label": "Push SHA images and record digests",
+    "tags": {
+      "STAGE_STATUS": "SKIPPED_FOR_FAILURE"
+    }
+  },
+  {
+    "id": "65",
+    "label": "Image and dependency security scan",
+    "tags": {
+      "STAGE_STATUS": "SKIPPED_FOR_FAILURE"
+    }
+  },
+  {
+    "id": "60",
+    "label": "Integration tests",
+    "tags": {
+      "STAGE_STATUS": "SKIPPED_FOR_FAILURE"
+    }
+  },
+  {
+    "id": "55",
+    "label": "Build images",
+    "tags": {
+      "STAGE_STATUS": "SKIPPED_FOR_FAILURE"
+    }
+  },
+  {
+    "id": "50",
+    "label": "Observability configuration checks",
+    "tags": {
+      "STAGE_STATUS": "SKIPPED_FOR_FAILURE"
+    }
+  },
+  {
+    "id": "45",
+    "label": "Infrastructure configuration checks",
+    "tags": {
+      "STAGE_STATUS": "SKIPPED_FOR_FAILURE"
+    }
+  },
+  {
+    "id": "40",
+    "label": "Unit tests",
+    "tags": {
+      "STAGE_STATUS": "SKIPPED_FOR_FAILURE"
+    }
+  },
+  {
+    "id": "35",
+    "label": "Lint and typecheck",
+    "tags": {
+      "STAGE_STATUS": "SKIPPED_FOR_FAILURE"
+    }
+  },
+  {
+    "id": "26",
+    "label": "Security failure demonstration",
+    "tags": {
+      "STAGE_STATUS": "FAILED_AND_CONTINUED"
+    }
+  },
+  {
+    "id": "21",
+    "label": "Secret scan",
+    "tags": null
+  },
+  {
+    "id": "10",
+    "label": "Checkout",
+    "tags": null
+  }
+]

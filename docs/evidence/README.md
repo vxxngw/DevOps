@@ -1,5 +1,9 @@
 # Evidence index
 
+## Mốc3 – chuẩn bị local
+
+[Bằng chứng mới nhất](m3-latest.json), [báo cáo](../milestone-3.md). Có Terraform/provider/schema/unit/scanner/controlchecks theo metadata; giữ lỗi WSL và phạm vi từng lượt. Chưa VMapply, máy trắng/idempotency, clusterdeploy, TLStrust, autoscale, backup/restore/rollbackruntime.
+
 ## Mốc 2 – phạm vi local, chưa runtime CI
 
 - [Remote base image scans](m2-base-images-20261114T085952Z/metadata.json): giữ cả nền lỗi và nền thay thế; Python/Nginx/Mailpit mới0CRITICAL, RabbitMQ0; PostgreSQL1ởgosu. Dockerfile đã sửa, custom build/scan/runtime vẫn chưa chạy.
@@ -50,3 +54,15 @@ Log lỗi user PostgreSQL và các log build/up sau được lưu trong inspecti
 ## Lỗi môi trường trong lượt rà soát DevOps14/11
 
 [Engine pipe mất kết nối](devops-review-20261114T062627Z/metadata.json), [HTTP lỗi sau engine khởi động](devops-outage-20261114T063406Z/metadata.json), [snapshot chỉ5/11HTTP200 dù7container healthy](devops-review-20261114T063627Z/metadata.json) và [probe cổng host](devops-recovery-probe-20261114T063816Z/metadata.json) được giữ nguyên. Không coi container healthy là đủ truy cập từ host. Engine đã phục hồi, recreate riêng API/publisher sửa cổng host; snapshot cuối và smoke ở đầu bảng. Một collector từng gặp WinError1455; WSL bootstrap sau đó có0xc00000fd; chưa xác định nguyên nhân gốc, không khẳng định do RAM. Phục hồi môi trường không phải demo rollback app≤120giây.
+
+
+## Chuẩn bị Mốc 4
+
+[m4-latest.json](m4-latest.json) trỏ lần chạy có source hashes, JUnit, parser Prometheus/Alertmanager, 14 ca rule fixture, 37 query dashboard, schema/policy51đối tượng và Ansible/Bash/Vault local. VMpreflight vẫn BLOCKED, Jenkins parser BLOCKED. Không có stack monitoring/EFK, external alert receipt, tải/scale/rollback/video. [cloud-cost-latest.json](cloud-cost-latest.json) là nguồn giá công khai và phép tính, không phải hóa đơn hay cloud deployment. Các lượt bằng chứng cũ giữ nguyên.
+
+Bằng chứng M4 tổng hợp ghi rõ lượt native cuối và lượt Ansible/Bash/Vault cùng source trước đó; các lượt WSL lỗi WSAENOTCONN và exit1 không có chẩn đoán được giữ lại. local_checks_passed chỉ tổng hợp các kiểm tra nguồn có bằng chứng, không có nghĩa WSL hiện tại hoặc VM/cluster đang chạy.
+
+
+[ci-runtime-latest.json](ci-runtime-latest.json) ghi lần khôi phục15/11: controller/engine thật, anonymous403, job/SCM credential đã cấu hình, agent offline và parser fail→pass. Có fresh backup manifest và WSL Ansible/Bash/Vault checks. Không có pipeline build hoặc D migration proof.
+
+[ops-security-latest.json](ops-security-latest.json): 8remote image scan0CRITICAL sau retryJavaDBtimeout, raw gate validated. Bản public chỉ che packageSHA1 false positives; source hashes/CVE giữ nguyên, gate dùng report gốc ci-out. Chưa có image runtime hoặc deploy stack.

@@ -1,0 +1,1 @@
+clinic_outbox_oldest_seconds{namespace=~"$namespace"}

@@ -1,0 +1,105 @@
+{
+  "at_utc": "2026-11-15T08:37:30.339976+00:00",
+  "status": "LOCAL_CI_AND_SHA_RUNTIME_VERIFIED_PARTIAL_M2",
+  "source_commit": "aadcc9892b64e59e0523513968dfaefa4dd53f1a",
+  "agent": "ONLINE_NON_ROOT_MUTUAL_TLS_TO_ROOTLESS_ENGINE",
+  "normal_jenkins_builds": [
+    {
+      "number": 4,
+      "result": "SUCCESS",
+      "commit": "9347bb86b3a0a0ca54f40ddadab961f009b5393a"
+    },
+    {
+      "number": 5,
+      "result": "SUCCESS",
+      "commit": "aadcc9892b64e59e0523513968dfaefa4dd53f1a",
+      "cause": "clinic-webhook",
+      "push_delivery_id": 3854152936445706240
+    }
+  ],
+  "unit": {
+    "artifact": "ci-out/junit-unit.xml",
+    "raw_sha256": "1682224926224564094daa070cdeba8b83c7151c7d0bbee4ee53ae377893b736",
+    "tests": 89,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 8,
+    "passed": 81
+  },
+  "integration": {
+    "artifact": "ci-out/junit-integration.xml",
+    "raw_sha256": "a7cb06e2fa7a76985db3c8b68ae71f924e561e82b9f484625b591595102e8dbd",
+    "tests": 33,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 33
+  },
+  "scanned_sha_images": 5,
+  "critical_in_release_images": 0,
+  "dependency_gate": "PASSED",
+  "negative_secret_build": {
+    "number": 1,
+    "scanner_exit": 1,
+    "findings": 1,
+    "result": "FAILURE",
+    "push_deploy": "SKIPPED_FOR_FAILURE"
+  },
+  "negative_critical_build": {
+    "number": 3,
+    "scanner_exit": 1,
+    "critical": 4,
+    "result": "FAILURE",
+    "push_deploy": "SKIPPED_FOR_FAILURE"
+  },
+  "negative_critical_build2": "BLOCKED_SCANNER_DNS_NO_REPORT; not counted as a successful negative finding test",
+  "negative_demo_flags": "Initial1/3 had publish/deploy=false; additional6/7 had publish=true, deploy=false and actual findings/FAILURE/push SKIPPED_FOR_FAILURE.",
+  "sha_runtime": {
+    "path": "sha-runtime-reproducible/metadata.json",
+    "seven_healthy_non_root_services": true,
+    "migration_seed_exit": 0,
+    "booking_cancellation_mail_body": true,
+    "backend_health_ready_metrics_json_logs": true,
+    "cleanup_exit": 0
+  },
+  "webhook": {
+    "ping": 200,
+    "push": 202,
+    "build5": "SUCCESS",
+    "existing_draft_non_main_pr_delivery": 200,
+    "eligible_main_pr_build": "NOT_RUN_YET",
+    "tunnel": "Temporary Cloudflare Quick Tunnel to HMAC relay18085; no Jenkins UI exposed"
+  },
+  "publication": "BLOCKED_MISSING_GHCR_CREDENTIAL",
+  "deployment": "NOT_RUN_NO_VM_CLUSTER",
+  "retained_backups": "All actual backups retained; only inactive duplicate temporary copy removed after explicit approval and fresh matching hashes",
+  "disk_free_bytes": {
+    "C": 267608064,
+    "D": 11181240320
+  },
+  "scope": "Actual local validation, isolated SHA processes and webhook push only. No GHCR push/digest, human review, VM/cluster, scaling, monitoring ingest/alert delivery or video acceptance.",
+  "publish_requested_negative_builds": [
+    {
+      "number": 6,
+      "source_commit": "aadcc9892b64e59e0523513968dfaefa4dd53f1a",
+      "result": "FAILURE",
+      "publish_requested": true,
+      "deploy_requested": false,
+      "scanner_exit": 1,
+      "findings": 1,
+      "push_deploy_stages": "SKIPPED_FOR_FAILURE",
+      "evidence_directory": "docs/evidence/ci-agent-20261115T064424Z/build-6"
+    },
+    {
+      "number": 7,
+      "source_commit": "aadcc9892b64e59e0523513968dfaefa4dd53f1a",
+      "result": "FAILURE",
+      "publish_requested": true,
+      "deploy_requested": false,
+      "scanner_exit": 1,
+      "critical": 4,
+      "push_deploy_stages": "SKIPPED_FOR_FAILURE",
+      "evidence_directory": "docs/evidence/ci-agent-20261115T064424Z/queue-13"
+    }
+  ]
+}

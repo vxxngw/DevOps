@@ -59,7 +59,7 @@ Lệnh tạo/cập nhật đúng endpoint của repo, không in HMAC/token. GitH
 
 ## Nghiệm thu pipeline
 
-Job `an-uyen/clinic-pipeline`, mặc định SOURCE_REF/SOURCE_BRANCH=codex/milestone-2, IS_PR=false, PUBLISH_IMAGES=false, DEPLOY=false. Chỉ người tin cậy có thể sửa mã trong repo private/khởi chạy pipeline có credential. Các kiểm tra PR của thiết kế local này không phải hệ thống chạy code từ fork không tin cậy.
+Job `an-uyen/clinic-pipeline`, mặc định SOURCE_REF/SOURCE_BRANCH=codex/milestone-4, IS_PR=false, PUBLISH_IMAGES=false, DEPLOY=false. Chỉ người tin cậy có thể sửa mã trong repo private/khởi chạy pipeline có credential. Các kiểm tra PR của thiết kế local này không phải hệ thống chạy code từ fork không tin cậy.
 
 1. Push nhánh/PR thật, xác nhận webhook tạo build, checkout đúng SHA. Parser validate thành công chưa đủ bước này.
 2. Build bình thường: secret scan → lint/typecheck → unit → build5images → integration PostgreSQL/RabbitMQ/Mailpit riêng → Trivy image + lockfiles. Kiểm tra JUnit không có integration skip và logs từng gate.
@@ -74,3 +74,14 @@ Mỗi build dùng checkout sạch; private file không trong build context. Inte
 Remote private https://github.com/vxxngw/DevOps. Dùng nhánh codex/, Conventional Commits, PR ≥1 review thật, ưu tiên squash với title theo Conventional Commits. Không tự approve/merge để tạo bằng chứng. Sau kiểm chứng đầy đủ và review mới tag stable semver. Bật main protection yêu cầu review/no force push/no delete khi gói repo hỗ trợ; lần gọi API thật trả403 yêu cầu Pro hoặc public. Chưa đổi visibility/gói; policy trong CONTRIBUTING không thay được enforcement.
 
 Mốc 3 bổ sung overlay/migration Job/kubeconfig namespace, trusted HTTPS smoke, staging → approval có người/thời hạn → production dùng đúng digest, rollback đo thật. Các stage hiện dự kiến, sẽ báo lỗi nếu thiếu sản phẩm Mốc 3; không được dùng DEPLOY=true để công bố đã có Kubernetes.
+
+
+Cập nhật15/11/2026: [Jenkins riêng đã khởi động và validate parser thật](ci-recovery.md); job/credential checkout đã cấu hình, agent còn offline và image agent chưa build. Tùy chọn timestamps() đã bỏ vì plugin set không có Timestamper; timeout, các gate và artifact timestamps vẫn giữ. Chưa có pipeline build/webhook/push digest. [Docker data đã chuyểnD và kiểm chứng thực](evidence/docker-storage-latest.json), Jenkins có xác thực và inventory được giữ nguyên; D còn khoảng7,55GiB do giữ toàn bộ backup, cần tính lại dung lượng trước build lớn.
+
+
+Cập nhật **15/11/2026**: [CI và image SHA đã chạy thật](evidence/ci-runtime-latest.json). Jenkins4/5SUCCESS, unit81passed/8skip; integration33passed/0skip; build/scan đủ5imageSHA và dependency không CRITICAL. Agent online/non-root, Docker rootless qua mutualTLS đã sửa SAN. Full-stack SHA riêng:7healthy/non-root, migration/seed0, health/ready/metrics/JSON và đặt/hủy lịch/email qua. GitHub push202 tự kích Jenkins5SUCCESS; gate âm1secret và4CRITICAL có FAILURE/push-deploy skipped thật. GHCR chưa có credential, PRmain phù hợp chưa chạy ở snapshot này; không staging/production/VM/cluster. Các đoạn ngày14/11 bên dưới là lịch sử, không phải trạng thái mới nhất.
+
+Engine phải có `DOCKER_TLS_SAN: DNS:engine` để chứng chỉ khớp `DOCKER_HOST=tcp://engine:2376`; kiểm thực sau recreate riêng engine đã qua, không tắt verify. [Webhook HTTPS local](runbooks/github-webhook.md) có phiên bản tunnel/SHA256 ghim trong ci/cloudflared.json.
+
+
+Kiểm chứng gate bổ sung15/11: [Jenkins6/7](evidence/ci-agent-20261115T064424Z/publish-requested-negative-checks.json) yêu cầu PUBLISH_IMAGES=true, DEPLOY=false nhưng scanner thật phát hiện1secret/4CRITICAL, buildFAILURE và push SKIPPED_FOR_FAILURE; không chỉ chứng minh stage bị tắt bởi tham số. Không đăng nhập/push registry hoặc deploy.

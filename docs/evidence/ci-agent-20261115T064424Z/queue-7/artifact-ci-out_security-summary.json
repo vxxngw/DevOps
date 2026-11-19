@@ -1,0 +1,55 @@
+{
+  "commit": "9347bb86b3a0a0ca54f40ddadab961f009b5393a",
+  "at_utc": "2026-11-15T07:47:16.650445+00:00",
+  "scanner": {
+    "version": "0.76.2",
+    "image": "aquasec/trivy:0.76.2"
+  },
+  "ignore_unfixed": false,
+  "ignorefile": "empty",
+  "images": {
+    "app": {
+      "tag": "ghcr.io/vxxngw/devops-app:9347bb86b3a0a0ca54f40ddadab961f009b5393a",
+      "image_id": "sha256:0f77303b7e3c8c0e4067936b6e39aa38697d2503d535fa02580badc25bf1b33d",
+      "source_revision": "9347bb86b3a0a0ca54f40ddadab961f009b5393a",
+      "critical": 0,
+      "report_sha256": "70d5b952ebf699fd2f2cb0c1fc0286f90fad2966969d2ae710f94e804eb4bde3"
+    },
+    "frontend": {
+      "tag": "ghcr.io/vxxngw/devops-frontend:9347bb86b3a0a0ca54f40ddadab961f009b5393a",
+      "image_id": "sha256:fc4a4be45ba35c3602d20a63d46bc2cd9542238d442914e211eefb8196a30694",
+      "source_revision": "9347bb86b3a0a0ca54f40ddadab961f009b5393a",
+      "critical": 0,
+      "report_sha256": "ed6e8eb7412d34e322f45aa5056c1d4a1b0cf2a3a07c0f8e1374b6afcd6bac7d"
+    },
+    "postgres": {
+      "tag": "ghcr.io/vxxngw/devops-postgres:9347bb86b3a0a0ca54f40ddadab961f009b5393a",
+      "image_id": "sha256:e47486fc97f46b206431a545bba5295fb1ec7171c1096a370b900e1a93493676",
+      "source_revision": "4a6e05647044ad8722771eb0ba8bbe763b2133b1",
+      "critical": 0,
+      "report_sha256": "da5cb42342bee8c75ff1926233a3830bad4bcc52818496fd0745be3d22d874dc"
+    },
+    "rabbitmq": {
+      "tag": "ghcr.io/vxxngw/devops-rabbitmq:9347bb86b3a0a0ca54f40ddadab961f009b5393a",
+      "image_id": "sha256:eac3be96c3b29b5f11124ba7e2724c454ef1a22f48e9a9204f8617912f41d49f",
+      "source_revision": "4a6e05647044ad8722771eb0ba8bbe763b2133b1",
+      "critical": 0,
+      "report_sha256": "19a766361e00b1cdbda362be1b7a041b0f05db4666eaf1e48f2c00b9c06ba5df"
+    },
+    "mailpit": {
+      "tag": "ghcr.io/vxxngw/devops-mailpit:9347bb86b3a0a0ca54f40ddadab961f009b5393a",
+      "image_id": "sha256:d20dc5d62d61f667c73715e771b604037375ac431eb648193b8bf118f818b6ea",
+      "source_revision": "4a6e05647044ad8722771eb0ba8bbe763b2133b1",
+      "critical": 0,
+      "report_sha256": "866deb69df00a9c1e1b9828f6756a49034acf340609ebcab2c1f3b74291aed8a"
+    }
+  },
+  "dependency_report_sha256": "1f25b3fda95a674b23a657249dc50a90feda40bfbfa482967a570dd67e69a15b",
+  "dependency_inputs": {
+    "requirements.lock": "b8412e1784181d9b33e17ed9bd4d3c496fe01fd0dfc64b43ed293efbe5c04228",
+    "frontend/package.json": "e89290727b0ffd86e859ecab7e0ab2b42b18ac56a30028f83bdf504536a17660",
+    "frontend/package-lock.json": "73683a1e2beeb3c1eabc94bd5b6fb7ac8f2b5e2dee6e9ba6739869787412d715",
+    "infra/requirements-ansible.lock": "06d169a3ec7b7dae779aeedf5b5e8430013dd7a57044973c947f1229ee1cf3b1",
+    "infra/requirements-static.txt": "0b0709dc3105d98b29f4fc6a870c15c0cf42191498384ef8a2a32d3fcf5f34ed"
+  }
+}

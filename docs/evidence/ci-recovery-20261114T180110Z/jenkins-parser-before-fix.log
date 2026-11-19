@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "D:\CODE\OOPs\Do_An\scripts\bootstrap-ci.py", line 373, in <module>
+    main()
+  File "D:\CODE\OOPs\Do_An\scripts\bootstrap-ci.py", line 364, in main
+    {
+  File "D:\CODE\OOPs\Do_An\scripts\bootstrap-ci.py", line 252, in validate
+    raise RuntimeError("Declarative validation failed: " + response.text[:2000])
+RuntimeError: Declarative validation failed: Errors encountered validating Jenkinsfile:
+WorkflowScript: 6: Invalid option type "timestamps". Valid option types: [authorizationMatrix, buildDiscarder, catchError, checkoutToSubdirectory, disableConcurrentBuilds, disableRestartFromStage, disableResume, durabilityHint, githubProjectProperty, overrideIndexTriggers, parallelsAlwaysFailFast, preserveStashes, quietPeriod, rateLimitBuilds, retry, script, skipDefaultCheckout, skipStagesAfterUnstable, timeout, waitUntil, warnError, withChecks, withContext, withCredentials, withEnv, wrap, ws] @ line 6, column 9.
+           timestamps()
+           ^

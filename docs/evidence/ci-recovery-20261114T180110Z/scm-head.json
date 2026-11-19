@@ -1,0 +1,9 @@
+{
+  "at_utc": "2026-11-14T18:28:45.759734+00:00",
+  "scope": "Actual Git client refs/heads/codex/milestone-4 read from dedicated Jenkins using stored project credential; not a full checkout or build",
+  "repository": "https://github.com/vxxngw/DevOps.git",
+  "reference": "refs/heads/codex/milestone-4",
+  "jenkins_remote_head": "3b2189de98ccc2843aaa560071ab75d6e77f0e98",
+  "native_remote_head": "3b2189de98ccc2843aaa560071ab75d6e77f0e98",
+  "passed": true
+}

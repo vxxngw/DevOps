@@ -1,0 +1,11 @@
+{
+  "at_utc": "2026-11-14T18:01:21.868603+00:00",
+  "scope": "Actual dedicated authenticated Jenkins Declarative parser, not a pipeline build",
+  "exit_code": 0,
+  "files": [
+    {
+      "path": "Jenkinsfile",
+      "sha256": "6955c33832bc5513279c7f02ea77e16c8a72d6aeffb7d31bc256b9aad6055dcf"
+    }
+  ]
+}

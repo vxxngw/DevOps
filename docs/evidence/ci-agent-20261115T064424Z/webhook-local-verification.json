@@ -1,0 +1,110 @@
+{
+  "at_utc": "2026-11-15T07:53:19.404729+00:00",
+  "commands": [
+    {
+      "command": [
+        "D:\\CODE\\OOPs\\Do_An\\.venv\\Scripts\\python.exe",
+        "-X",
+        "utf8",
+        "scripts/bootstrap-ci.py",
+        "configure-webhook"
+      ],
+      "exit_code": 0,
+      "log": "webhook-bootstrap.log"
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--progress",
+        "plain",
+        "--env-file",
+        ".env.ci",
+        "-f",
+        "compose.ci.yaml",
+        "--profile",
+        "webhook",
+        "build",
+        "webhook"
+      ],
+      "exit_code": 0,
+      "log": "webhook-build.log"
+    },
+    {
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        ".env.ci",
+        "-f",
+        "compose.ci.yaml",
+        "--profile",
+        "webhook",
+        "up",
+        "-d",
+        "--no-deps",
+        "--no-build",
+        "--wait",
+        "webhook"
+      ],
+      "exit_code": 0,
+      "log": "webhook-start.log"
+    }
+  ],
+  "checks": [
+    {
+      "check": "health",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "check": "missing_signature",
+      "status": 401,
+      "expected": 401
+    },
+    {
+      "check": "valid_local_signed_ping_no_build",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "check": "wrong_repository_signed",
+      "status": 400,
+      "expected": 400
+    },
+    {
+      "check": "restricted_jenkins_token",
+      "path": "/api/json",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "check": "restricted_jenkins_token",
+      "path": "/job/an-uyen/job/clinic-pipeline/api/json",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "check": "restricted_jenkins_token",
+      "path": "/script",
+      "status": 403,
+      "expected": 403
+    },
+    {
+      "check": "restricted_jenkins_token",
+      "path": "/job/an-uyen/job/clinic-pipeline/config.xml",
+      "status": 403,
+      "expected": 403
+    },
+    {
+      "check": "restricted_jenkins_token",
+      "path": "/job/an-uyen/credentials/store/folder/domain/_/api/json",
+      "status": 404,
+      "expected": 403
+    }
+  ],
+  "local_http_verification_only": true,
+  "github_delivery_status": "NOT_RUN",
+  "public_tunnel_status": "NOT_STARTED",
+  "publish_and_deploy": false
+}

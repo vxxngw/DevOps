@@ -1,0 +1,1 @@
+time() - clinic_backup_last_success_timestamp_seconds{namespace=~"$namespace"}

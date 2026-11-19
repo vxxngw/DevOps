@@ -1,0 +1,252 @@
+{
+  "at_utc": "2026-11-14T19:40:08.904229+00:00",
+  "phase": "before",
+  "engine_version": "29.9.3",
+  "containers": [
+    {
+      "id": "188da079285eaf99d617a414d81005083365ea6e00dce59e549de2206323de5c",
+      "name": "clinic-ci-engine-1",
+      "image_id": "sha256:1f84e95e991ea910243fb09eb7425c36da7a0bee18d18c6a46de3ad98f69fe02",
+      "state": "running",
+      "health": "healthy",
+      "mounts": [
+        {
+          "Type": "volume",
+          "Name": "clinic-ci_engine-certs",
+          "Source": "/var/lib/docker/volumes/clinic-ci_engine-certs/_data",
+          "Destination": "/certs"
+        },
+        {
+          "Type": "volume",
+          "Name": "clinic-ci_engine-client-certs",
+          "Source": "/var/lib/docker/volumes/clinic-ci_engine-client-certs/_data",
+          "Destination": "/certs/client"
+        },
+        {
+          "Type": "volume",
+          "Name": "clinic-ci_agent-workspace",
+          "Source": "/var/lib/docker/volumes/clinic-ci_agent-workspace/_data",
+          "Destination": "/home/jenkins/agent"
+        },
+        {
+          "Type": "volume",
+          "Name": "fc883b3b99a0eed2361ca9b8d83c7b9bdaf32bec2fed27369531363b26cad98e",
+          "Source": "/var/lib/docker/volumes/fc883b3b99a0eed2361ca9b8d83c7b9bdaf32bec2fed27369531363b26cad98e/_data",
+          "Destination": "/var/lib/docker"
+        },
+        {
+          "Type": "volume",
+          "Name": "clinic-ci_engine-data",
+          "Source": "/var/lib/docker/volumes/clinic-ci_engine-data/_data",
+          "Destination": "/home/rootless/.local/share/docker"
+        }
+      ]
+    },
+    {
+      "id": "d854f70cc6164304c0e7d882ce659576c3f0d61a92c4d5074d51832a879b7efa",
+      "name": "clinic-ci-controller-1",
+      "image_id": "sha256:b7c3598d8746ad60a25aefe00b174c0644195b0370ff4c239a3cb6ca38f633fa",
+      "state": "running",
+      "health": "healthy",
+      "mounts": [
+        {
+          "Type": "volume",
+          "Name": "clinic-ci_controller-home",
+          "Source": "/var/lib/docker/volumes/clinic-ci_controller-home/_data",
+          "Destination": "/var/jenkins_home"
+        }
+      ]
+    },
+    {
+      "id": "e83cd7dacec1da31aa4a46c4e8cc2d783482c7fe57acb95445a76ad15925d4a7",
+      "name": "clinic-dev-publisher-1",
+      "image_id": "sha256:b2ca1da3bf1fd0d9b23459efcaf7736861e1534784e2716f0e77c23d3f60f035",
+      "state": "running",
+      "health": "healthy",
+      "mounts": []
+    },
+    {
+      "id": "7bedbc126b918f766f2970f60c845b38bea817558303c8fa8028095748c1c744",
+      "name": "clinic-dev-api-1",
+      "image_id": "sha256:b2ca1da3bf1fd0d9b23459efcaf7736861e1534784e2716f0e77c23d3f60f035",
+      "state": "running",
+      "health": "healthy",
+      "mounts": []
+    },
+    {
+      "id": "0856a1d27e7f99541b460f99820b55445f0b9ee1045e607375ce98d32ec497fb",
+      "name": "clinic-dev-frontend-1",
+      "image_id": "sha256:95a6e7ab077ca7d1a3f4baecb7414b7402ccf53380e22c8b076bdac98d633b31",
+      "state": "exited",
+      "health": "starting",
+      "mounts": []
+    },
+    {
+      "id": "1e01c92bfb251fc9ba5a3009dc744a2edeca4f61c7b9009fe2f4ddba8ef6a935",
+      "name": "clinic-dev-worker-1",
+      "image_id": "sha256:b2ca1da3bf1fd0d9b23459efcaf7736861e1534784e2716f0e77c23d3f60f035",
+      "state": "running",
+      "health": "healthy",
+      "mounts": []
+    },
+    {
+      "id": "df39074254d358f079408e96ab479abcedf7364528256b88348567059888a2f2",
+      "name": "clinic-dev-seed-1",
+      "image_id": "sha256:b2ca1da3bf1fd0d9b23459efcaf7736861e1534784e2716f0e77c23d3f60f035",
+      "state": "exited",
+      "health": null,
+      "mounts": []
+    },
+    {
+      "id": "05cc2bf32cff28b31b1394eb8288b7ad2897b13e8fa38f77ab7aeb3a6a2d90a0",
+      "name": "clinic-dev-migrate-1",
+      "image_id": "sha256:b2ca1da3bf1fd0d9b23459efcaf7736861e1534784e2716f0e77c23d3f60f035",
+      "state": "exited",
+      "health": null,
+      "mounts": []
+    },
+    {
+      "id": "f2026bcc753430ebdf30f6ce2b1cc55e3c73e22d8226be1abfca6607e6dd61a2",
+      "name": "clinic-dev-postgres-1",
+      "image_id": "sha256:f7c623bbf514a3f7f7118f2104d2f40175cbcb92505ef4e3e9ef172de6118b1f",
+      "state": "exited",
+      "health": "starting",
+      "mounts": [
+        {
+          "Type": "volume",
+          "Name": "clinic-dev_postgres-data-alpine",
+          "Source": "/var/lib/docker/volumes/clinic-dev_postgres-data-alpine/_data",
+          "Destination": "/var/lib/postgresql/data"
+        }
+      ]
+    },
+    {
+      "id": "3bd1b6e097225ffed9331f2f4f81138e00dba6281f44c0f3da2449a87b827d21",
+      "name": "clinic-dev-rabbitmq-1",
+      "image_id": "sha256:28e9ed1bb3285d572e88a4d770158de6a51cda7a2be3a69f792756439b1f1688",
+      "state": "exited",
+      "health": "starting",
+      "mounts": [
+        {
+          "Type": "volume",
+          "Name": "clinic-dev_rabbitmq-data",
+          "Source": "/var/lib/docker/volumes/clinic-dev_rabbitmq-data/_data",
+          "Destination": "/var/lib/rabbitmq"
+        }
+      ]
+    },
+    {
+      "id": "9981491e21a39dbcaa0824d52e7a5ebdff245f9a00874c20dc16ed06167c8a70",
+      "name": "clinic-dev-mailpit-1",
+      "image_id": "sha256:b1f1be18af530d939a11ee8820b379e0c88eeec204d904bfad68862adced3a5a",
+      "state": "exited",
+      "health": "starting",
+      "mounts": []
+    },
+    {
+      "id": "6bf5c097318709f226c588bad2a28f1c5f71b269792e93648da0b60e0202eb4d",
+      "name": "my-jenkins",
+      "image_id": "sha256:1cd928b902c74cdb2e11fea8935af94fc6c14d0e7493e7592e0ba99f7e0afc7b",
+      "state": "running",
+      "health": null,
+      "mounts": [
+        {
+          "Type": "volume",
+          "Name": "install-jenkins-docker_jenkins-docker-certs",
+          "Source": "/var/lib/docker/volumes/install-jenkins-docker_jenkins-docker-certs/_data",
+          "Destination": "/certs/client"
+        },
+        {
+          "Type": "volume",
+          "Name": "install-jenkins-docker_jenkins-data",
+          "Source": "/var/lib/docker/volumes/install-jenkins-docker_jenkins-data/_data",
+          "Destination": "/var/jenkins_home"
+        }
+      ]
+    },
+    {
+      "id": "290a94c458110d441761cd2f28e18629fde79810501764c00c79c618dd9dcdb1",
+      "name": "stoic_shannon",
+      "image_id": "sha256:5e23090353324d887c48ad5e5c56d294eab81588df9605b07d1afe895f9cc8f8",
+      "state": "exited",
+      "health": null,
+      "mounts": []
+    },
+    {
+      "id": "78407130c56770e7154c9f7b29449572db1d733e98effa31280a4a9946e2054d",
+      "name": "jenkins-docker",
+      "image_id": "sha256:3f3c01aaaebf7cce837356b688b7c059a4749f10bd7660dec7c58fc454a283f0",
+      "state": "exited",
+      "health": null,
+      "mounts": [
+        {
+          "Type": "volume",
+          "Name": "install-jenkins-docker_jenkins-docker-certs",
+          "Source": "/var/lib/docker/volumes/install-jenkins-docker_jenkins-docker-certs/_data",
+          "Destination": "/certs/client"
+        },
+        {
+          "Type": "volume",
+          "Name": "install-jenkins-docker_jenkins-data",
+          "Source": "/var/lib/docker/volumes/install-jenkins-docker_jenkins-data/_data",
+          "Destination": "/var/jenkins_home"
+        },
+        {
+          "Type": "volume",
+          "Name": "9402ee669d1a94f9f3ee16dc72392315b5ef1a6831956e24be3efb46e15960f3",
+          "Source": "/var/lib/docker/volumes/9402ee669d1a94f9f3ee16dc72392315b5ef1a6831956e24be3efb46e15960f3/_data",
+          "Destination": "/var/lib/docker"
+        }
+      ]
+    }
+  ],
+  "volumes": [
+    "17f13c1b6caf4594d78314e74e32b49e346677f847fa3c46e9c4cff1d2cac9b5",
+    "9402ee669d1a94f9f3ee16dc72392315b5ef1a6831956e24be3efb46e15960f3",
+    "clinic-ci_agent-workspace",
+    "clinic-ci_controller-home",
+    "clinic-ci_engine-certs",
+    "clinic-ci_engine-client-certs",
+    "clinic-ci_engine-data",
+    "clinic-dev_postgres-data",
+    "clinic-dev_postgres-data-alpine",
+    "clinic-dev_rabbitmq-data",
+    "clinic-m2-trivy-cache",
+    "fc883b3b99a0eed2361ca9b8d83c7b9bdaf32bec2fed27369531363b26cad98e",
+    "install-jenkins-docker_jenkins-data",
+    "install-jenkins-docker_jenkins-docker-certs"
+  ],
+  "image_ids": [
+    "sha256:1bc78be4524ee87740c9a46e57af27fe73b5948d94ba0aacc0747cde4db4d40f",
+    "sha256:1cd928b902c74cdb2e11fea8935af94fc6c14d0e7493e7592e0ba99f7e0afc7b",
+    "sha256:34261f594522cf41dfcb76aefd42b9d201098b0e6b23c9c68733f169e4218b6f",
+    "sha256:3f3c01aaaebf7cce837356b688b7c059a4749f10bd7660dec7c58fc454a283f0",
+    "sha256:40865bc877a289da75963d97d72b59633f639fc5af7a4e856bfa3714cae5b536",
+    "sha256:4c5937cdde211e1b581da7a5c35e0f5580f1b81ed4941c5cf97d38762150bd1b",
+    "sha256:5e23090353324d887c48ad5e5c56d294eab81588df9605b07d1afe895f9cc8f8",
+    "sha256:8f6bb947dbc528902e11f2f5be52f7b519f6a39d5d148f41166f2040499768fb",
+    "sha256:95a6e7ab077ca7d1a3f4baecb7414b7402ccf53380e22c8b076bdac98d633b31",
+    "sha256:b1f1be18af530d939a11ee8820b379e0c88eeec204d904bfad68862adced3a5a",
+    "sha256:b2ca1da3bf1fd0d9b23459efcaf7736861e1534784e2716f0e77c23d3f60f035",
+    "sha256:bfbaeedaebeefa169b3beebffd12557a20ec9c1b8b749887ac0192b202dc9c87",
+    "sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f",
+    "sha256:c82f8de90c4e6ba59c175bfc2bb3f139ca55ef9c769d4dbc7c0453eec9c4a00e",
+    "sha256:e2fef29ed34ea89ddce6e1729bf8dfe9f96710bd0a8d79bb5c7c75638212fe22"
+  ],
+  "jenkins": {
+    "authenticated_status": 200,
+    "useSecurity": true,
+    "numExecutors": 0,
+    "jobs": [
+      {
+        "_class": "com.cloudbees.hudson.plugins.folder.Folder",
+        "name": "an-uyen"
+      }
+    ],
+    "anonymous_status": 403
+  },
+  "disk_free_bytes": {
+    "C": 2183680000,
+    "D": 35588612096
+  }
+}

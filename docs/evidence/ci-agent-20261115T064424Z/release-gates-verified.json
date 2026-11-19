@@ -1,0 +1,12 @@
+{
+  "commit": "9347bb86b3a0a0ca54f40ddadab961f009b5393a",
+  "verified": true,
+  "images": [
+    "app",
+    "frontend",
+    "postgres",
+    "rabbitmq",
+    "mailpit"
+  ],
+  "scope": "Read original workspace gate reports/JUnit and verify their hashes, commits and image IDs; no login/push/deploy"
+}

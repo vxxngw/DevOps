@@ -1,0 +1,6 @@
+{
+  "latest": "m3-preparation-20261114T151538Z/metadata.json",
+  "local_checks_passed": true,
+  "scope": "Preparation only; VM preflight and Jenkins parser remain blocked",
+  "runtime_status": "NOT_RUN"
+}

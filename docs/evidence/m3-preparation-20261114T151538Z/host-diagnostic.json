@@ -1,0 +1,25 @@
+{
+  "memory": {
+    "dwLength": 64,
+    "dwMemoryLoad": 91,
+    "ullTotalPhys": 16869548032,
+    "ullAvailPhys": 1443594240,
+    "ullTotalPageFile": 32567455744,
+    "ullAvailPageFile": 3109003264,
+    "ullTotalVirtual": 140737488224256,
+    "ullAvailVirtual": 140733078724608,
+    "ullAvailExtendedVirtual": 0
+  },
+  "disk_free": {
+    "C": 2951647232,
+    "D": 51692969984
+  },
+  "wsl-status": {
+    "exit": 0,
+    "output": "Default Distribution: Ubuntu-22.04\r\nDefault Version: 2\r\n"
+  },
+  "wsl-readonly-probe": {
+    "exit": 0,
+    "output": ""
+  }
+}

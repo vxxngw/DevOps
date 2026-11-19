@@ -1,0 +1,32 @@
+{
+  "at_utc": "2026-11-15T09:00:37.290210+00:00",
+  "source_docs_and_reports_check_exit": 0,
+  "full_check_exit": 2,
+  "verbatim_log_whitespace_warnings": 353,
+  "affected_raw_logs": [
+    "docs/evidence/ci-agent-20261115T064424Z/agent-build-attempt-2.log",
+    "docs/evidence/ci-agent-20261115T064424Z/agent-build.log",
+    "docs/evidence/ci-agent-20261115T064424Z/agent-start.log",
+    "docs/evidence/ci-agent-20261115T064424Z/build-5/artifact-ci-out_integration-cleanup.log",
+    "docs/evidence/ci-agent-20261115T064424Z/build-5/artifact-ci-out_integration-up.log",
+    "docs/evidence/ci-agent-20261115T064424Z/build-5/artifact-ci-out_integration.log",
+    "docs/evidence/ci-agent-20261115T064424Z/engine-build.log",
+    "docs/evidence/ci-agent-20261115T064424Z/engine-tls-recreate.log",
+    "docs/evidence/ci-agent-20261115T064424Z/queue-3/scanner-trivy.log",
+    "docs/evidence/ci-agent-20261115T064424Z/queue-7/artifact-ci-out_build_app.log",
+    "docs/evidence/ci-agent-20261115T064424Z/queue-7/artifact-ci-out_build_frontend.log",
+    "docs/evidence/ci-agent-20261115T064424Z/queue-7/artifact-ci-out_integration-cleanup.log",
+    "docs/evidence/ci-agent-20261115T064424Z/queue-7/artifact-ci-out_integration-up.log",
+    "docs/evidence/ci-agent-20261115T064424Z/queue-7/artifact-ci-out_integration.log",
+    "docs/evidence/ci-agent-20261115T064424Z/sha-runtime-cleanup.log",
+    "docs/evidence/ci-agent-20261115T064424Z/sha-runtime-reproducible/cleanup.log",
+    "docs/evidence/ci-agent-20261115T064424Z/sha-runtime-reproducible/up.log",
+    "docs/evidence/ci-agent-20261115T064424Z/sha-runtime-up.log",
+    "docs/evidence/ci-agent-20261115T064424Z/webhook-build.log",
+    "docs/evidence/ci-agent-20261115T064424Z/webhook-start.log"
+  ],
+  "raw_check_output_sha256": "e0893c7d053c1ec3e7d3a4727a9dd9c3fc5ad36c278620403f067619fed13312",
+  "line_endings": "Accept CR-at-EOL in byte-preserved Windows artifacts; do not rewrite captured data.",
+  "treatment": "Keep captured Docker/CLI log spacing and EOF verbatim. Exclude only *.log within this exact evidence bundle from source/doc whitespace check; no code/doc/report exclusion or stripping. Secret scan still covers every log.",
+  "artifact_bytes": "All eleven staged report hashes match publication receipts; executed verifier bytes match staged Git blob. Evidence -text attribute prevents future CRLF conversion."
+}

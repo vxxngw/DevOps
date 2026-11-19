@@ -1,12 +1,18 @@
 # Phương án chuyển dữ liệu Docker sang ổ D
 
-Trạng thái: **đã được người dùng duyệt; backup đã kiểm hash; chưa xác minh chuyển ổ thành công**. Người dùng đã duyệt tạm dừng Docker ngày14/11/2026 và đang thực hiện đổi location trong Docker Desktop. Việc này làm gián đoạn cả clinic-dev và my-jenkins.
+Trạng thái cập nhật **15/11/2026: VERIFIED trong phạm vi chuyển ổ và khôi phục runtime local hiện có**. Docker đang dùng `D:\DockerData\active\DockerDesktopWSL\disk\docker_data.vhdx`. [Bằng chứng mới nhất](../evidence/docker-storage-latest.json): file D đang bị giữ mở, file dữ liệu C ở vị trí cũ không còn, setting backend trỏ đúng D; 14 container ID, 14 volume và 15 image ID giữ nguyên. Jenkins riêng18090 vẫn bật security, anonymous API403. Các ghi nhận lỗi và số đo bên dưới là lịch sử trước khi chuyển thành công.
+
+Người dùng đã yêu cầu thực hiện trực tiếp. Công cụ cửa sổ tiếp tục lỗi khởi tạo, nên sau khi đọc mã tĩnh của Docker Desktop đã cài, đã dùng đúng backend endpoint mà frontend gọi khi Apply: `POST /app/settings/gui`, chỉ đổi `vm.resources.wslDataFolder`. Docker tự chuyển và khởi động lại; HTTP200 và đường dẫn thực được lưu trong evidence. Đây là API nội bộ theo phiên bản đang cài, không phải giao diện CLI công khai. Không tự sửa settings-store, registry WSL, tạo junction hay di chuyển/xóa VHDX bằng tay. Không unregister/reset distro hoặc shutdown toàn bộ WSL.
+
+Ngay trước chuyển đã giữ data VHDX nguồn mở chỉ đọc độc quyền, sao lưu **13.668.188.160byte** và kiểm SHA256 bản sao: `D:\CODE\OOPs\Do_An\.ci-local\recovery-backups\before-recovery-20261115T024145`. Settings cũng được sao lưu; bootstrap vẫn bị Windows giữ sau khi terminate riêng docker-desktop nên không nằm trong bản sao mới này. Những bản bootstrap đã kiểm hash trước đó và mọi backup cũ vẫn được giữ. Dữ liệu C được Docker tự chuyển đi trong thao tác Apply, không phải một bước xóa nguồn thủ công.
+
+Sau chuyển, C trống **15.941.672.960byte (~14,85GiB)**, D trống **8.110.608.384byte (~7,55GiB)** tại thời điểm probe. Bốn container dependency/frontend cũ được khởi động lại bằng `docker start`; không rebuild/recreate hay chạy lại migration/seed. Luồng đặt lịch → email Mailpit và hủy lịch → notification SENT đã chạy thật trên **image dev có sẵn**, không thay nghiệm thu image M2/M4 mới. Đây không phải backup/restore PostgreSQL theo rubric hoặc một build Jenkins.
 
 [Backup thực tế](../evidence/docker-storage-20261114T073814Z/backup-manifest.json) khớp SHA256 cả data disk, bootstrap disk và settings khi Desktop đã dừng. [Bản sao D và thử cấu hình](../evidence/docker-migration-20261114T074728Z/copy-and-settings.json) chỉ là COPIED_AND_CONFIGURED_NOT_VERIFIED. Kiểm tra live sau khi engine phục hồi cho thấy data disk C bị giữ mở, bản D mở độc quyền được: **Docker vẫn dùng C**. Trường WslDataFolder thêm thủ công chưa có hiệu lực; không dùng nó làm cách chuyển được hỗ trợ. Script thử này đã rút khỏi repo, không chạy lại.
 
-Công cụ điều khiển cửa sổ lỗi khởi tạo; người dùng đã nhận hướng dẫn dùng Settings chọn **D:\DockerData\active** (Docker tự thêm thư mục con tùy phiên bản) rồi Apply, tránh bản sao cũ trong D:\DockerData\DockerDesktopWSL. Cần kiểm tra đường dẫn thực sau thao tác. Bản D cũ là snapshot, không dùng thay dữ liệu C đã chạy lại.
+Trước khi thực hiện trực tiếp: công cụ điều khiển cửa sổ lỗi khởi tạo; người dùng đã nhận hướng dẫn dùng Settings chọn **D:\DockerData\active** (Docker tự thêm thư mục con tùy phiên bản) rồi Apply, tránh bản sao cũ trong D:\DockerData\DockerDesktopWSL. Bản D cũ là snapshot; lần chuyển thành công đã dùng dữ liệu C mới nhất, không kích hoạt snapshot cũ.
 
-Automatic approval review đã từ chối đề xuất xóa data disk C trước khi chứng minh Docker đọc D vì rủi ro mất dữ liệu. Không có disk gốc nào bị xóa; không lách bước kiểm chứng. Giữ backup trên D. Việc dọn nguồn chỉ xét sau khi cơ chế chuyển của Desktop hoàn tất và dữ liệu được kiểm tra thực.
+Ở lần thử cũ, automatic approval review đã từ chối đề xuất xóa data disk C trước khi chứng minh Docker đọc D vì rủi ro mất dữ liệu. Không có disk gốc nào bị xóa thủ công; giữ backup trên D. Ở lần thành công mới, chính cơ chế chuyển của Docker đã chuyển source sangD; đã kiểm VHD active và dữ liệu sau chuyển, không chạy bước dọn nguồn riêng.
 
 ## Dữ liệu đo trên máy
 
@@ -40,6 +46,12 @@ D còn đủ cho một bản backup khoảng10,32GiB, dữ liệu chạy khoản
 - Dùng vị trí cũ qua Settings khi còn khả dụng, hoặc phục hồi đúng settings/data disk từ backup đã kiểm hash theo quy trình hỗ trợ của Docker. Kiểm tra đủ dung lượng C trước khi phục hồi; không copy mù vào ổ đầy.
 - Nếu Desktop không cho đổi location trong trạng thái lỗi hiện tại, dừng ở backup đã kiểm chứng và báo blocker để chọn cách di chuyển được hỗ trợ; không thử unregister/factory reset hoặc di chuyển distro khác.
 
-Giới hạn: chuyển vị trí không sửa mọi lỗi ext4/containerd đã phát sinh do ghi dở. Backup/copy đã có bằng chứng, chuyển active disk và kiểm tra stack mới còn chờ. Cần ghi rõ Docker dùng D, volume cũ còn đủ và luồng nghiệp vụ chạy thật trước khi công bố hoàn tất.
+Giới hạn: chuyển vị trí không chứng minh mọi image/cache đều không lỗi hoặc stack từ source mới đã đạt. Phạm vi đã kiểm là active disk D, giữ nguyên inventory, Jenkins có xác thực và luồng nghiệp vụ trên image dev cũ. Không suy thành CI build, image release, Kubernetes hoặc monitoring đã chạy. Ổ D còn khoảng7,55GiB sau khi giữ các backup; cần tính lại dung lượng trước build lớn. Không xóa backup trong phiên này.
 
 Nguồn chính thức: [Docker Desktop WSL2 – nơi lưu dữ liệu và đổi location](https://docs.docker.com/desktop/features/wsl/), [Desktop settings](https://docs.docker.com/desktop/settings-and-maintenance/settings/). Phiên bản máy: Desktop4.99.0, engine29.9.3.
+
+
+Khôi phục sớm15/11/2026 (trước lần chuyển thành công): Docker engine đã chạy lại nhưng probe thực vẫn thấy VHD C bị giữ mở, bản D cũ mở độc quyền được, D:\DockerData\active chưa tồn tại. Có bản sao tại `D:\CODE\OOPs\Do_An\.ci-local\recovery-backups\before-recovery-20261115T005310\disk\docker_data.vhdx` và manifest trong evidence CI recovery, SHA256/bytes đã đối chiếu khi source giữ read-only độc quyền. Bản sao này tiếp tục được giữ; xem trạng thái mới ở đầu tài liệu.
+
+
+Cập nhật dung lượng sau CI15/11: người dùng đã duyệt xóa riêng `D:\DockerData\DockerDesktopWSL`. Cả2VHD đã kiểm lại SHA256 với `D:\DockerBackup\before-m2-20261114`, mở độc quyền được và không phải active disk; kiểm backend/path/reparse trước xóa bằng Remove-Item đúng đường dẫn cố định. Đã lấy lại10,31GiB, D tăng từ~3 lên~13,31GiB trước build tiếp. Mọi backup thật và `D:\DockerData\active` giữ nguyên. [Manifest duyệt/thực thi](../evidence/ci-agent-20261115T064424Z/duplicate-copy-cleanup-executed.json); mọi phát biểu giữ bản tạmD cũ phía trên là lịch sử trước lần duyệt mới.

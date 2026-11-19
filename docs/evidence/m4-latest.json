@@ -1,0 +1,7 @@
+{
+  "path": "docs/evidence/m4-preparation-20261114T163206Z",
+  "local_checks_passed": true,
+  "runtime_status": "NOT_RUN",
+  "current_wsl_check": "BLOCKED:WSL process error 1",
+  "jenkins_parser": "BLOCKED:ConnectError"
+}

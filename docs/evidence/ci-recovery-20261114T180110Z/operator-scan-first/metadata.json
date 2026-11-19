@@ -1,0 +1,70 @@
+{
+  "at_utc": "2026-11-14T18:19:42.564031+00:00",
+  "versions_sha256": "3c66fd7e0082ff6b43f4133eee031a08737e442004dee46dd586372aa1e4505c",
+  "passed": false,
+  "images": {
+    "prometheus": {
+      "reference": "quay.io/prometheus/prometheus@sha256:9332054523223e2ddc18d8101799d54a4a8d823b030c53216f063a6c117773cd",
+      "exit_code": 0,
+      "critical": 0,
+      "report_valid": true,
+      "report_sha256": "ba6f81eaecdd640beff29e13e0804408d1f3b13a74f097694ae54947ba716f4e"
+    },
+    "alertmanager": {
+      "reference": "quay.io/prometheus/alertmanager@sha256:5f6e66c01bd610aef6dd671642a52eee775fd3a89bd8788ebada33efaf373d10",
+      "exit_code": 0,
+      "critical": 0,
+      "report_valid": true,
+      "report_sha256": "93f8fc6a2f9ac86fc42a67ec88c6a3bba5bb901161a9f82b957af8402d10214e"
+    },
+    "grafana": {
+      "reference": "docker.io/grafana/grafana@sha256:0615ec4fbd4072004b7d86b46ded63013a74b7d6eb1119273dd89e8fa25c13cf",
+      "exit_code": 0,
+      "critical": 0,
+      "report_valid": true,
+      "report_sha256": "a5899423c70aa862f12242789e569fb673e8aa57ec515ca6e03a5f718e843d21"
+    },
+    "kube-state-metrics": {
+      "reference": "registry.k8s.io/kube-state-metrics/kube-state-metrics@sha256:42cfe3723a5f058171c627537fb57a3ea0f26e4380fa18555a95cb1a1b4cfc5b",
+      "exit_code": 0,
+      "critical": 0,
+      "report_valid": true,
+      "report_sha256": "54bd0d831a51c44f3463db088c3f8595147403e50522fbed916aef0cca998613"
+    },
+    "postgres-exporter": {
+      "reference": "quay.io/prometheuscommunity/postgres-exporter@sha256:ac5ec343104fae0e2d84a27bb8d69b38430a11910c5382cad85d478d2bab713e",
+      "exit_code": 0,
+      "critical": 0,
+      "report_valid": true,
+      "report_sha256": "871bcc75f9a716770f9c0f986298e16a9771797fcb5aeacfb30aa707396dd5a2"
+    },
+    "elasticsearch": {
+      "reference": "docker.elastic.co/elasticsearch/elasticsearch@sha256:79b4f1de4c15e6eca824723086a51e5934406d614d410cc11be77748cafac537",
+      "exit_code": null,
+      "critical": null,
+      "report_valid": false,
+      "report_sha256": null,
+      "status": "BLOCKED",
+      "error_type": "RuntimeError"
+    },
+    "kibana": {
+      "reference": "docker.elastic.co/kibana/kibana@sha256:c7ed45da5c3cfea020fc6c99ce027f4d21d19dab330379c5115d5eb95f6ecebc",
+      "exit_code": 0,
+      "critical": 0,
+      "report_valid": true,
+      "report_sha256": "14dce3282b177d2c051ff801c61d6a9ac79583e1fd27f108679741dc6691bc59"
+    },
+    "fluentd": {
+      "reference": "docker.io/fluent/fluentd-kubernetes-daemonset@sha256:11e174a0a158d4a575a948921a89cbd1bd292277f23948bbfaba3bb2e7304d04",
+      "exit_code": 0,
+      "critical": 0,
+      "report_valid": true,
+      "report_sha256": "96ef7de8a7b8b3ef7285cdce3083901aa4cac714e06cfca144369d42235aaa2a"
+    }
+  },
+  "policy": {
+    "ignore_unfixed": false,
+    "ignorefile": "empty",
+    "source": "remote"
+  }
+}

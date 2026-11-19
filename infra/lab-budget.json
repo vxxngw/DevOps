@@ -1,0 +1,28 @@
+{
+  "nodes": {
+    "jenkins": {
+      "memory_mib": 6144,
+      "vcpus": 2,
+      "disk_gib": 32,
+      "address": 10,
+      "mac": "52:54:00:15:00:10"
+    },
+    "server": {
+      "memory_mib": 4096,
+      "vcpus": 2,
+      "disk_gib": 48,
+      "address": 11,
+      "mac": "52:54:00:15:00:11"
+    },
+    "agent": {
+      "memory_mib": 8192,
+      "vcpus": 4,
+      "disk_gib": 48,
+      "address": 12,
+      "mac": "52:54:00:15:00:12"
+    }
+  },
+  "minimum_free_storage_gib": 160,
+  "host_memory_recommended_mib": 32768,
+  "notes": "Design estimates, not measurements. VM RAM18GiB plus host reserve. Jenkins VM uses5GiB container limits. Current WSL8GiB cannot run this profile. PostgreSQL lab PVC2GiB per namespace; backup storage is on the k3s server, separate from DB node."
+}

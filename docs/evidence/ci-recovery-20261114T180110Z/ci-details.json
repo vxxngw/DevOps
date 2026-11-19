@@ -1,0 +1,35 @@
+{
+  "at_utc": "2026-11-14T18:19:10.895067+00:00",
+  "scope": "Actual source-credential remote HEAD validation, direct plugin version checks and rootless engine runtime; no pipeline execution.",
+  "scm_remote_head_check_passed": true,
+  "direct_plugin_matches": {
+    "workflow-aggregator": true,
+    "git": true,
+    "github": true,
+    "credentials-binding": true,
+    "cloudbees-folder": true,
+    "junit": true,
+    "ws-cleanup": true,
+    "matrix-auth": true
+  },
+  "controller": {
+    "_class": "hudson.model.Hudson",
+    "mode": "NORMAL",
+    "numExecutors": 0,
+    "useSecurity": true
+  },
+  "engine_id": {
+    "exit_code": 0,
+    "output": "uid=1000(rootless) gid=1000(rootless) groups=1000(rootless)"
+  },
+  "engine_security": {
+    "exit_code": 0,
+    "output": "[\"name=seccomp,profile=builtin\",\"name=rootless\",\"name=cgroupns\"]"
+  },
+  "controller_security_source": {
+    "exit_code": 0,
+    "output": "5b413eabe26db9f60969db35104591b9377c510b71ab21ffee900079d09fee6c  /usr/share/jenkins/ref/init.groovy.d/01-clinic-security.groovy"
+  },
+  "security_source_sha256": "5b413eabe26db9f60969db35104591b9377c510b71ab21ffee900079d09fee6c",
+  "scm_proof": "scm-head.json: actual refs/heads/codex/milestone-4 SHA from Jenkins Git client matches native Git"
+}

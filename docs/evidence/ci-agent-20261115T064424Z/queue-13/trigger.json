@@ -1,0 +1,11 @@
+{
+  "at_utc": "2026-11-15T08:41:03.750531+00:00",
+  "queue_path": "/queue/item/13/",
+  "source_commit": "aadcc9892b64e59e0523513968dfaefa4dd53f1a",
+  "security_demo": "critical",
+  "publish": true,
+  "deploy": false,
+  "trigger_http_status": 201,
+  "build_number": 7,
+  "build_url": "http://localhost:18090/job/an-uyen/job/clinic-pipeline/7/"
+}

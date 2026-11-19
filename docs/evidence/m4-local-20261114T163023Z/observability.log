@@ -1,0 +1,87 @@
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --version
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\amtool.exe --version
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe check config --syntax-only D:\CODE\OOPs\Do_An\observability\prometheus\prometheus.yml
+Exit0; log:ci-out\observability\prometheus-config.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe check rules --lint-fatal D:\CODE\OOPs\Do_An\observability\prometheus\rules\clinic.yml D:\CODE\OOPs\Do_An\observability\prometheus\demo\clinic-demo.yml
+Exit0; log:ci-out\observability\rules-check.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe test rules D:\CODE\OOPs\Do_An\observability\prometheus\tests\clinic.test.yml
+Exit0; log:ci-out\observability\rules-test.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format clinic:container_cpu_cores5m{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\1.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format clinic:container_memory_bytes{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\2.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format up{job="clinic",namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\3.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format kube_deployment_status_replicas_available{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\4.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format kube_deployment_spec_replicas{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\5.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format sum by(namespace,pod) (increase(kube_pod_container_status_restarts_total{namespace=~"$namespace"}[15m]))
+Exit0; log:ci-out\observability\queries\6.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format kube_horizontalpodautoscaler_status_desired_replicas{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\7.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format kube_horizontalpodautoscaler_status_current_replicas{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\8.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format clinic:api_request_rate5m{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\9.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format clinic:api_error_ratio5m{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\10.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format clinic:api_p95_seconds5m{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\11.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format sum by(namespace,category) (rate(clinic_frontend_requests_total{namespace=~"$namespace",category!="health"}[5m]))
+Exit0; log:ci-out\observability\queries\12.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format sum by(namespace) (rate(clinic_frontend_requests_total{namespace=~"$namespace",status=~"5..",category!="health"}[5m])) / sum by(namespace) (rate(clinic_frontend_requests_total{namespace=~"$namespace",category!="health"}[5m]))
+Exit0; log:ci-out\observability\queries\13.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format histogram_quantile(0.95,sum by(namespace,le) (rate(clinic_frontend_duration_seconds_bucket{namespace=~"$namespace",category!="health"}[5m])))
+Exit0; log:ci-out\observability\queries\14.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format rabbitmq_queue_messages_ready{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\15.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format rabbitmq_queue_messages_unacked{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\16.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format rabbitmq_queue_messages{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\17.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format rabbitmq_queue_consumers{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\18.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format rate(rabbitmq_queue_messages_published_total{namespace=~"$namespace"}[5m])
+Exit0; log:ci-out\observability\queries\19.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format rate(rabbitmq_queue_messages_delivered_ack_total{namespace=~"$namespace"}[5m])
+Exit0; log:ci-out\observability\queries\20.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format rate(rabbitmq_queue_messages_acked_total{namespace=~"$namespace"}[5m])
+Exit0; log:ci-out\observability\queries\21.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format rabbitmq_queue_messages{namespace=~"$namespace",queue=~".*[.]dlq"}
+Exit0; log:ci-out\observability\queries\22.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format clinic_outbox_pending{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\23.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format clinic_outbox_oldest_seconds{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\24.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format sum by(namespace,service,outcome) (rate(clinic_events_total{namespace=~"$namespace"}[5m]))
+Exit0; log:ci-out\observability\queries\25.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format sum by(namespace) (rate(clinic_events_total{namespace=~"$namespace",service="outbox-publisher",outcome="failed"}[5m])) / sum by(namespace) (rate(clinic_events_total{namespace=~"$namespace",service="outbox-publisher"}[5m]))
+Exit0; log:ci-out\observability\queries\26.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format sum by(namespace) (rate(clinic_events_total{namespace=~"$namespace",service="notification-worker",outcome=~"retry|failed_dlq"}[5m])) / sum by(namespace) (rate(clinic_events_total{namespace=~"$namespace",service="notification-worker"}[5m]))
+Exit0; log:ci-out\observability\queries\27.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format histogram_quantile(0.95,sum by(namespace,service,le) (rate(clinic_event_duration_seconds_bucket{namespace=~"$namespace"}[5m])))
+Exit0; log:ci-out\observability\queries\28.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format pg_up{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\29.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format sum by(namespace,state) (pg_stat_activity_count{namespace=~"$namespace"})
+Exit0; log:ci-out\observability\queries\30.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format pg_database_size_bytes{namespace=~"$namespace",datname="clinic"}
+Exit0; log:ci-out\observability\queries\31.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format time()-clinic_backup_last_success_timestamp_seconds{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\32.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format clinic_backup_last_run_success{namespace=~"$namespace"}
+Exit0; log:ci-out\observability\queries\33.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format 1-avg by(node) (rate(node_cpu_seconds_total{mode="idle"}[5m]))
+Exit0; log:ci-out\observability\queries\34.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format 1-node_memory_MemAvailable_bytes/node_memory_MemTotal_bytes
+Exit0; log:ci-out\observability\queries\35.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format fluentd_output_status_buffer_queue_length
+Exit0; log:ci-out\observability\queries\36.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\promtool.exe --experimental promql format histogram_quantile(0.95,sum by(namespace,le) (rate(clinic_queue_delay_seconds_bucket{namespace=~"$namespace"}[5m])))
+Exit0; log:ci-out\observability\queries\37.log
+Running: D:\CODE\OOPs\Do_An\.infra-local\observability\windows\amtool.exe check-config D:\CODE\OOPs\Do_An\.infra-local\observability\validation\alertmanager.yml
+Exit0; log:ci-out\observability\alertmanager-config.log
+Running: kubectl kustomize D:\CODE\OOPs\Do_An\observability
+Running: git -c safe.directory=D:/CODE/OOPs/Do_An rev-parse HEAD
+Observability preparation checks passed; cluster/delivery/log ingestion still NOT_RUN

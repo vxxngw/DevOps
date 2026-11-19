@@ -1,0 +1,1 @@
+clinic_outbox_pending{namespace=~"$namespace"}

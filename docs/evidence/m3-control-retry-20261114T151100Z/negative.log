@@ -1,0 +1,19 @@
+
+PLAY [localhost] ***************************************************************
+
+TASK [Read raw Vault envelope without loader auto-decryption] ******************
+ok: [localhost]
+
+TASK [Refuse plaintext secrets input] ******************************************
+[ERROR]: Task failed: Action failed: Supply an encrypted vault.yml and --ask-vault-pass or --vault-password-file
+Origin: /mnt/d/CODE/OOPs/Do_An/infra/ansible/tasks/load-vault.yml:11:3
+
+ 9   register: clinic_vault_raw
+10   no_log: true
+11 - name: Refuse plaintext secrets input
+     ^ column 3
+
+fatal: [localhost]: FAILED! => {"censored": "the output has been hidden due to the fact that 'no_log: true' was specified for this result", "changed": false}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=1    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0

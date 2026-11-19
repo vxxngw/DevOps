@@ -1,0 +1,1 @@
+sum by (namespace, state) (pg_stat_activity_count{namespace=~"$namespace"})

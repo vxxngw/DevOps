@@ -1,0 +1,1 @@
+clinic:api_request_rate5m{namespace=~"$namespace"}

@@ -1,0 +1,2313 @@
+[
+  {
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": {
+      "labels": {
+        "pod-security.kubernetes.io/enforce": "privileged",
+        "pod-security.kubernetes.io/enforce-version": "v1.36"
+      },
+      "name": "logging"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Namespace",
+    "metadata": {
+      "labels": {
+        "pod-security.kubernetes.io/enforce": "restricted",
+        "pod-security.kubernetes.io/enforce-version": "v1.36"
+      },
+      "name": "monitoring"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "automountServiceAccountToken": false,
+    "kind": "ServiceAccount",
+    "metadata": {
+      "name": "default",
+      "namespace": "logging"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "automountServiceAccountToken": false,
+    "kind": "ServiceAccount",
+    "metadata": {
+      "name": "default",
+      "namespace": "monitoring"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "automountServiceAccountToken": true,
+    "kind": "ServiceAccount",
+    "metadata": {
+      "name": "kube-state-metrics",
+      "namespace": "monitoring"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "automountServiceAccountToken": true,
+    "kind": "ServiceAccount",
+    "metadata": {
+      "name": "prometheus",
+      "namespace": "monitoring"
+    }
+  },
+  {
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "Role",
+    "metadata": {
+      "name": "clinic-metric-discovery",
+      "namespace": "logging"
+    },
+    "rules": [
+      {
+        "apiGroups": [
+          ""
+        ],
+        "resources": [
+          "pods"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch"
+        ]
+      }
+    ]
+  },
+  {
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "Role",
+    "metadata": {
+      "name": "clinic-metric-discovery",
+      "namespace": "production"
+    },
+    "rules": [
+      {
+        "apiGroups": [
+          ""
+        ],
+        "resources": [
+          "pods"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch"
+        ]
+      }
+    ]
+  },
+  {
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "Role",
+    "metadata": {
+      "name": "clinic-metric-discovery",
+      "namespace": "staging"
+    },
+    "rules": [
+      {
+        "apiGroups": [
+          ""
+        ],
+        "resources": [
+          "pods"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch"
+        ]
+      }
+    ]
+  },
+  {
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "ClusterRole",
+    "metadata": {
+      "name": "clinic-monitor-nodes"
+    },
+    "rules": [
+      {
+        "apiGroups": [
+          ""
+        ],
+        "resources": [
+          "nodes"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch"
+        ]
+      },
+      {
+        "apiGroups": [
+          ""
+        ],
+        "resources": [
+          "nodes/metrics"
+        ],
+        "verbs": [
+          "get"
+        ]
+      }
+    ]
+  },
+  {
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "ClusterRole",
+    "metadata": {
+      "name": "clinic-state-read"
+    },
+    "rules": [
+      {
+        "apiGroups": [
+          ""
+        ],
+        "resources": [
+          "pods",
+          "nodes",
+          "namespaces"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch"
+        ]
+      },
+      {
+        "apiGroups": [
+          "apps"
+        ],
+        "resources": [
+          "deployments",
+          "replicasets",
+          "statefulsets"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch"
+        ]
+      },
+      {
+        "apiGroups": [
+          "autoscaling"
+        ],
+        "resources": [
+          "horizontalpodautoscalers"
+        ],
+        "verbs": [
+          "get",
+          "list",
+          "watch"
+        ]
+      }
+    ]
+  },
+  {
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "RoleBinding",
+    "metadata": {
+      "name": "clinic-metric-discovery",
+      "namespace": "logging"
+    },
+    "roleRef": {
+      "apiGroup": "rbac.authorization.k8s.io",
+      "kind": "Role",
+      "name": "clinic-metric-discovery"
+    },
+    "subjects": [
+      {
+        "kind": "ServiceAccount",
+        "name": "prometheus",
+        "namespace": "monitoring"
+      }
+    ]
+  },
+  {
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "RoleBinding",
+    "metadata": {
+      "name": "clinic-metric-discovery",
+      "namespace": "production"
+    },
+    "roleRef": {
+      "apiGroup": "rbac.authorization.k8s.io",
+      "kind": "Role",
+      "name": "clinic-metric-discovery"
+    },
+    "subjects": [
+      {
+        "kind": "ServiceAccount",
+        "name": "prometheus",
+        "namespace": "monitoring"
+      }
+    ]
+  },
+  {
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "RoleBinding",
+    "metadata": {
+      "name": "clinic-metric-discovery",
+      "namespace": "staging"
+    },
+    "roleRef": {
+      "apiGroup": "rbac.authorization.k8s.io",
+      "kind": "Role",
+      "name": "clinic-metric-discovery"
+    },
+    "subjects": [
+      {
+        "kind": "ServiceAccount",
+        "name": "prometheus",
+        "namespace": "monitoring"
+      }
+    ]
+  },
+  {
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "ClusterRoleBinding",
+    "metadata": {
+      "name": "clinic-monitor-nodes"
+    },
+    "roleRef": {
+      "apiGroup": "rbac.authorization.k8s.io",
+      "kind": "ClusterRole",
+      "name": "clinic-monitor-nodes"
+    },
+    "subjects": [
+      {
+        "kind": "ServiceAccount",
+        "name": "prometheus",
+        "namespace": "monitoring"
+      }
+    ]
+  },
+  {
+    "apiVersion": "rbac.authorization.k8s.io/v1",
+    "kind": "ClusterRoleBinding",
+    "metadata": {
+      "name": "clinic-state-read"
+    },
+    "roleRef": {
+      "apiGroup": "rbac.authorization.k8s.io",
+      "kind": "ClusterRole",
+      "name": "clinic-state-read"
+    },
+    "subjects": [
+      {
+        "kind": "ServiceAccount",
+        "name": "kube-state-metrics",
+        "namespace": "monitoring"
+      }
+    ]
+  },
+  {
+    "apiVersion": "v1",
+    "data": {
+      "fluent.conf": "<system>\n  log_level warn\n</system>\n<source>\n  @type tail\n  @id clinic_container_logs\n  path /var/log/pods/staging_*/*/*.log,/var/log/pods/production_*/*/*.log\n  pos_file /buffers/clinic-tail.pos\n  tag clinic.logs\n  read_from_head true\n  path_key source_path\n  <parse>\n    @type regexp\n    expression /^(?<cri_time>[^ ]+) (?<stream>stdout|stderr) (?<flag>[FP]) (?<log>.*)$/\n  </parse>\n</source>\n<filter clinic.logs>\n  @type parser\n  key_name log\n  reserve_data true\n  remove_key_name_field true\n  emit_invalid_record_to_error false\n  <parse>\n    @type json\n    time_key timestamp\n    keep_time_key true\n  </parse>\n</filter>\n<filter clinic.logs>\n  @type grep\n  <regexp>\n    key timestamp\n    pattern /^\\d{4}-\\d{2}-\\d{2}T/\n  </regexp>\n</filter>\n<filter clinic.logs>\n  @type record_transformer\n  enable_ruby true\n  <record>\n    namespace ${record['source_path'].split('/')[4].split('_')[0]}\n    pod ${record['source_path'].split('/')[4].split('_')[1]}\n    container ${record['source_path'].split('/')[5]}\n    environment ${record['source_path'].split('/')[4].split('_')[0]}\n    service ${record['service'] || record['source_path'].split('/')[5]}\n    level ${record['level'] || 'UNKNOWN'}\n    message ${record['message'] || record['log'] || 'container_log'}\n  </record>\n  remove_keys source_path,flag,cri_time\n</filter>\n<filter clinic.logs>\n  @type record_transformer\n  remove_keys password,token,authorization,Authorization,email,recipient\n</filter>\n# A separate branch instruments only structured frontend access logs.\n<match clinic.logs>\n  @type copy\n  <store>\n    @type relabel\n    @label @ELASTIC\n  </store>\n  <store>\n    @type relabel\n    @label @FRONTEND_METRICS\n  </store>\n</match>\n<label @FRONTEND_METRICS>\n  <filter clinic.logs>\n    @type grep\n    <regexp>\n      key service\n      pattern /^frontend$/\n    </regexp>\n    <regexp>\n      key category\n      pattern /^(api|static|health)$/\n    </regexp>\n  </filter>\n  <filter clinic.logs>\n    @type prometheus\n    <labels>\n      namespace $.namespace\n      service frontend\n      category $.category\n    </labels>\n    <metric>\n      name clinic_frontend_requests_total\n      type counter\n      desc Structured frontend access requests\n      <labels>\n        status $.status\n      </labels>\n    </metric>\n    <metric>\n      name clinic_frontend_duration_seconds\n      type histogram\n      desc End to end frontend request duration including API proxy\n      key duration\n      buckets 0.005,0.025,0.1,0.5,1,2.5,5,10,30\n    </metric>\n  </filter>\n  <match **>\n    @type null\n  </match>\n</label>\n<label @ELASTIC>\n  <match clinic.logs>\n    @type elasticsearch\n    host elasticsearch.logging.svc\n    port 9200\n    scheme https\n    ssl_verify true\n    ca_file /tls/ca.crt\n    user fluentd_writer\n    password \"#{ENV.fetch('ELASTIC_WRITER_PASSWORD')}\"\n    logstash_format true\n    logstash_prefix clinic-logs\n    suppress_type_name true\n    verify_es_version_at_startup true\n    default_elasticsearch_version 9\n    reconnect_on_error true\n    reload_connections false\n    request_timeout 10s\n    <buffer>\n      @type file\n      path /buffers/elastic\n      flush_interval 5s\n      chunk_limit_size 2m\n      total_limit_size 64m\n      retry_type exponential_backoff\n      retry_max_interval 30s\n      retry_timeout 24h\n      overflow_action block\n    </buffer>\n  </match>\n</label>\n<source>\n  @type prometheus\n  bind 0.0.0.0\n  port 24231\n</source>\n<source>\n  @type prometheus_output_monitor\n  interval 10\n</source>\n"
+    },
+    "kind": "ConfigMap",
+    "metadata": {
+      "name": "fluentd-config-4t9m9b49k9",
+      "namespace": "logging"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "data": {
+      "operations.json": "{\r\n  \"uid\": \"anuyen-operations\",\r\n  \"title\": \"An Uyên Hospital · Vận hành\",\r\n  \"schemaVersion\": 40,\r\n  \"version\": 1,\r\n  \"tags\": [\r\n    \"anuyen\",\r\n    \"preparation-not-runtime-proof\"\r\n  ],\r\n  \"timezone\": \"Asia/Ho_Chi_Minh\",\r\n  \"refresh\": \"15s\",\r\n  \"time\": {\r\n    \"from\": \"now-30m\",\r\n    \"to\": \"now\"\r\n  },\r\n  \"templating\": {\r\n    \"list\": [\r\n      {\r\n        \"name\": \"namespace\",\r\n        \"type\": \"custom\",\r\n        \"query\": \"staging,production\",\r\n        \"current\": {\r\n          \"text\": \"staging\",\r\n          \"value\": \"staging\"\r\n        },\r\n        \"multi\": true,\r\n        \"includeAll\": false\r\n      }\r\n    ]\r\n  },\r\n  \"panels\": [\r\n    {\r\n      \"id\": 1,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"CPU container (cores)\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 0\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"clinic:container_cpu_cores5m{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 2,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"RAM container\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 0\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"clinic:container_memory_bytes{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"bytes\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 3,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Backend up\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 8\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"up{job=\\\"clinic\\\",namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 4,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Replicas Ready\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 8\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"kube_deployment_status_replicas_available{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 5,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Replicas desired\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 16\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"kube_deployment_spec_replicas{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 6,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Pod restarts\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 16\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"sum by(namespace,pod) (increase(kube_pod_container_status_restarts_total{namespace=~\\\"$namespace\\\"}[15m]))\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 7,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"HPA/KEDA desired\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 24\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"kube_horizontalpodautoscaler_status_desired_replicas{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 8,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"HPA/KEDA current\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 24\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"kube_horizontalpodautoscaler_status_current_replicas{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 9,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"API business requests/s\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 32\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"clinic:api_request_rate5m{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"reqps\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 10,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"API business 5xx ratio\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 32\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"clinic:api_error_ratio5m{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"percentunit\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 11,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"API business p95\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 40\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"clinic:api_p95_seconds5m{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"s\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 12,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Frontend requests/s\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 40\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"sum by(namespace,category) (rate(clinic_frontend_requests_total{namespace=~\\\"$namespace\\\",category!=\\\"health\\\"}[5m]))\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"reqps\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 13,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Frontend 5xx ratio\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 48\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"sum by(namespace) (rate(clinic_frontend_requests_total{namespace=~\\\"$namespace\\\",status=~\\\"5..\\\",category!=\\\"health\\\"}[5m])) / sum by(namespace) (rate(clinic_frontend_requests_total{namespace=~\\\"$namespace\\\",category!=\\\"health\\\"}[5m]))\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"percentunit\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 14,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Frontend p95\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 48\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"histogram_quantile(0.95,sum by(namespace,le) (rate(clinic_frontend_duration_seconds_bucket{namespace=~\\\"$namespace\\\",category!=\\\"health\\\"}[5m])))\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"s\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 15,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"RabbitMQ ready\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 56\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"rabbitmq_queue_messages_ready{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 16,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"RabbitMQ unacked\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 56\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"rabbitmq_queue_messages_unacked{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 17,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"RabbitMQ backlog\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 64\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"rabbitmq_queue_messages{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 18,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"RabbitMQ consumers\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 64\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"rabbitmq_queue_consumers{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 19,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"RabbitMQ publish/s\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 72\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"rate(rabbitmq_queue_messages_published_total{namespace=~\\\"$namespace\\\"}[5m])\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"ops\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 20,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"RabbitMQ delivered/s\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 72\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"rate(rabbitmq_queue_messages_delivered_ack_total{namespace=~\\\"$namespace\\\"}[5m])\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"ops\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 21,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"RabbitMQ ack/s\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 80\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"rate(rabbitmq_queue_messages_acked_total{namespace=~\\\"$namespace\\\"}[5m])\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"ops\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 22,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"DLQ depth\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 80\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"rabbitmq_queue_messages{namespace=~\\\"$namespace\\\",queue=~\\\".*[.]dlq\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 23,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Outbox pending\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 88\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"clinic_outbox_pending{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 24,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Oldest outbox age\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 88\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"clinic_outbox_oldest_seconds{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"s\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 25,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Event outcomes/s\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 96\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"sum by(namespace,service,outcome) (rate(clinic_events_total{namespace=~\\\"$namespace\\\"}[5m]))\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"ops\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 26,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Publisher failure ratio\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 96\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"sum by(namespace) (rate(clinic_events_total{namespace=~\\\"$namespace\\\",service=\\\"outbox-publisher\\\",outcome=\\\"failed\\\"}[5m])) / sum by(namespace) (rate(clinic_events_total{namespace=~\\\"$namespace\\\",service=\\\"outbox-publisher\\\"}[5m]))\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"percentunit\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 27,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Worker failure/retry ratio\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 104\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"sum by(namespace) (rate(clinic_events_total{namespace=~\\\"$namespace\\\",service=\\\"notification-worker\\\",outcome=~\\\"retry|failed_dlq\\\"}[5m])) / sum by(namespace) (rate(clinic_events_total{namespace=~\\\"$namespace\\\",service=\\\"notification-worker\\\"}[5m]))\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"percentunit\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 28,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Publisher / worker processing p95\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 104\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"histogram_quantile(0.95,sum by(namespace,service,le) (rate(clinic_event_duration_seconds_bucket{namespace=~\\\"$namespace\\\"}[5m])))\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"s\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 29,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"PostgreSQL exporter up\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 112\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"pg_up{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 30,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"PostgreSQL connections\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 112\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"sum by(namespace,state) (pg_stat_activity_count{namespace=~\\\"$namespace\\\"})\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 31,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"PostgreSQL database size\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 120\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"pg_database_size_bytes{namespace=~\\\"$namespace\\\",datname=\\\"clinic\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"bytes\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 32,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Backup age\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 120\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"time()-clinic_backup_last_success_timestamp_seconds{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"s\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 33,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Backup last run\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 128\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"clinic_backup_last_run_success{namespace=~\\\"$namespace\\\"}\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 34,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Node CPU\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 128\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"1-avg by(node) (rate(node_cpu_seconds_total{mode=\\\"idle\\\"}[5m]))\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"percentunit\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 35,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Node RAM\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 136\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"1-node_memory_MemAvailable_bytes/node_memory_MemTotal_bytes\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"percentunit\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 36,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Fluentd buffer queue\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 12,\r\n        \"y\": 136\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"fluentd_output_status_buffer_queue_length\",\r\n          \"legendFormat\": \"{{namespace}} {{service}} {{container}} {{queue}} {{outcome}} {{node}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"short\"\r\n        },\r\n        \"overrides\": []\r\n      },\r\n      \"options\": {\r\n        \"legend\": {\r\n          \"displayMode\": \"list\",\r\n          \"placement\": \"bottom\"\r\n        }\r\n      }\r\n    },\r\n    {\r\n      \"id\": 37,\r\n      \"type\": \"timeseries\",\r\n      \"title\": \"Queue wait p95 (gồm retry TTL; timestamp AMQP độ phân giải giây)\",\r\n      \"datasource\": {\r\n        \"type\": \"prometheus\",\r\n        \"uid\": \"clinic-prometheus\"\r\n      },\r\n      \"gridPos\": {\r\n        \"h\": 8,\r\n        \"w\": 12,\r\n        \"x\": 0,\r\n        \"y\": 144\r\n      },\r\n      \"targets\": [\r\n        {\r\n          \"refId\": \"A\",\r\n          \"expr\": \"histogram_quantile(0.95,sum by(namespace,le) (rate(clinic_queue_delay_seconds_bucket{namespace=~\\\"$namespace\\\"}[5m])))\",\r\n          \"legendFormat\": \"{{namespace}}\"\r\n        }\r\n      ],\r\n      \"fieldConfig\": {\r\n        \"defaults\": {\r\n          \"unit\": \"s\"\r\n        },\r\n        \"overrides\": []\r\n      }\r\n    }\r\n  ]\r\n}\r\n"
+    },
+    "kind": "ConfigMap",
+    "metadata": {
+      "name": "grafana-dashboards-857d7tk9kg",
+      "namespace": "monitoring"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "data": {
+      "datasources.yml": "apiVersion: 1\r\ndatasources:\r\n- name: Prometheus\r\n  uid: clinic-prometheus\r\n  type: prometheus\r\n  access: proxy\r\n  url: http://prometheus.monitoring.svc:9090\r\n  isDefault: true\r\n  editable: false\r\n"
+    },
+    "kind": "ConfigMap",
+    "metadata": {
+      "name": "grafana-datasources-c4t2mm45bf",
+      "namespace": "monitoring"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "data": {
+      "providers.yml": "apiVersion: 1\r\nproviders:\r\n- name: clinic\r\n  orgId: 1\r\n  folder: An Uyên Hospital\r\n  type: file\r\n  disableDeletion: false\r\n  editable: false\r\n  updateIntervalSeconds: 30\r\n  options:\r\n    path: /var/lib/grafana/dashboards\r\n"
+    },
+    "kind": "ConfigMap",
+    "metadata": {
+      "name": "grafana-providers-89chd8kgf9",
+      "namespace": "monitoring"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "data": {
+      "prometheus.yml": "global:\r\n  scrape_interval: 15s\r\n  evaluation_interval: 15s\r\n  external_labels:\r\n    cluster: anuyen-lab\r\nrule_files:\r\n- /etc/prometheus/rules/*.yml\r\nalerting:\r\n  alertmanagers:\r\n  - static_configs:\r\n    - targets:\r\n      - alertmanager.monitoring.svc:9093\r\nscrape_configs:\r\n- job_name: prometheus\r\n  static_configs:\r\n  - targets:\r\n    - localhost:9090\r\n- job_name: clinic\r\n  kubernetes_sd_configs:\r\n  - role: pod\r\n    namespaces:\r\n      names:\r\n      - staging\r\n      - production\r\n  relabel_configs:\r\n  - source_labels:\r\n    - __meta_kubernetes_pod_label_app_kubernetes_io_name\r\n    regex: api|publisher|worker\r\n    action: keep\r\n  - source_labels:\r\n    - __meta_kubernetes_pod_container_port_number\r\n    regex: 8000|8001|8002\r\n    action: keep\r\n  - source_labels:\r\n    - __meta_kubernetes_namespace\r\n    target_label: namespace\r\n  - source_labels:\r\n    - __meta_kubernetes_pod_name\r\n    target_label: pod\r\n  - source_labels:\r\n    - __meta_kubernetes_pod_label_app_kubernetes_io_name\r\n    target_label: service\r\n  metric_relabel_configs:\r\n  - regex: event_id|request_id|correlation_id|email|appointment_id\r\n    action: labeldrop\r\n  honor_labels: true\r\n- job_name: rabbitmq-staging\r\n  metrics_path: /metrics/per-object\r\n  static_configs:\r\n  - targets:\r\n    - rabbitmq.staging.svc:15692\r\n    labels:\r\n      namespace: staging\r\n      service: rabbitmq\r\n- job_name: postgres-staging\r\n  static_configs:\r\n  - targets:\r\n    - postgres-exporter.staging.svc:9187\r\n    labels:\r\n      namespace: staging\r\n      service: postgres\r\n- job_name: rabbitmq-production\r\n  metrics_path: /metrics/per-object\r\n  static_configs:\r\n  - targets:\r\n    - rabbitmq.production.svc:15692\r\n    labels:\r\n      namespace: production\r\n      service: rabbitmq\r\n- job_name: postgres-production\r\n  static_configs:\r\n  - targets:\r\n    - postgres-exporter.production.svc:9187\r\n    labels:\r\n      namespace: production\r\n      service: postgres\r\n- job_name: node\r\n  static_configs:\r\n  - targets:\r\n    - 192.168.150.10:9100\r\n    labels:\r\n      node: anuyen-jenkins\r\n  - targets:\r\n    - 192.168.150.11:9100\r\n    labels:\r\n      node: anuyen-k3s-server\r\n  - targets:\r\n    - 192.168.150.12:9100\r\n    labels:\r\n      node: anuyen-k3s-agent\r\n- job_name: kube-state-metrics\r\n  static_configs:\r\n  - targets:\r\n    - kube-state-metrics.monitoring.svc:8080\r\n- job_name: kubelet\r\n  scheme: https\r\n  authorization:\r\n    credentials_file: /var/run/secrets/kubernetes.io/serviceaccount/token\r\n  tls_config:\r\n    ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt\r\n  metrics_path: /metrics/cadvisor\r\n  kubernetes_sd_configs:\r\n  - role: node\r\n  relabel_configs:\r\n  - source_labels:\r\n    - __meta_kubernetes_node_address_InternalIP\r\n    regex: (.+)\r\n    target_label: __address__\r\n    replacement: ${1}:10250\r\n  - source_labels:\r\n    - __meta_kubernetes_node_name\r\n    target_label: node\r\n- job_name: fluentd\r\n  kubernetes_sd_configs:\r\n  - role: pod\r\n    namespaces:\r\n      names:\r\n      - logging\r\n  relabel_configs:\r\n  - source_labels:\r\n    - __meta_kubernetes_pod_label_app_kubernetes_io_name\r\n    regex: fluentd\r\n    action: keep\r\n  - source_labels:\r\n    - __meta_kubernetes_pod_container_port_number\r\n    regex: '24231'\r\n    action: keep\r\n  - source_labels:\r\n    - __meta_kubernetes_pod_node_name\r\n    target_label: node\r\n- job_name: alertmanager\r\n  static_configs:\r\n  - targets:\r\n    - alertmanager.monitoring.svc:9093\r\n"
+    },
+    "kind": "ConfigMap",
+    "metadata": {
+      "name": "prometheus-config-k75g44h546",
+      "namespace": "monitoring"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "data": {
+      "clinic.yml": "groups:\r\n- name: clinic-recording\r\n  rules:\r\n  - record: clinic:service_expected\r\n    expr: vector(1)\r\n    labels:\r\n      namespace: staging\r\n      service: api\r\n  - record: clinic:service_expected\r\n    expr: vector(1)\r\n    labels:\r\n      namespace: staging\r\n      service: publisher\r\n  - record: clinic:service_expected\r\n    expr: vector(1)\r\n    labels:\r\n      namespace: staging\r\n      service: worker\r\n  - record: clinic:backup_expected\r\n    expr: vector(1)\r\n    labels:\r\n      namespace: staging\r\n      service: postgres\r\n  - record: clinic:service_expected\r\n    expr: vector(1)\r\n    labels:\r\n      namespace: production\r\n      service: api\r\n  - record: clinic:service_expected\r\n    expr: vector(1)\r\n    labels:\r\n      namespace: production\r\n      service: publisher\r\n  - record: clinic:service_expected\r\n    expr: vector(1)\r\n    labels:\r\n      namespace: production\r\n      service: worker\r\n  - record: clinic:backup_expected\r\n    expr: vector(1)\r\n    labels:\r\n      namespace: production\r\n      service: postgres\r\n  - record: clinic:api_request_rate5m\r\n    expr: sum by(namespace) (rate(clinic_http_requests_total{route=~\"/api/.*\"}[5m]))\r\n  - record: clinic:api_error_ratio5m\r\n    expr: sum by(namespace) (rate(clinic_http_requests_total{route=~\"/api/.*\",status=~\"5..\"}[5m])) / clamp_min(clinic:api_request_rate5m,\r\n      0.000001)\r\n  - record: clinic:api_p95_seconds5m\r\n    expr: histogram_quantile(0.95, sum by(namespace,le) (rate(clinic_http_duration_seconds_bucket{route=~\"/api/.*\"}[5m])))\r\n  - record: clinic:container_cpu_cores5m\r\n    expr: sum by(namespace,container) (rate(container_cpu_usage_seconds_total{namespace=~\"staging|production\",container!=\"\",container!=\"POD\"}[5m]))\r\n  - record: clinic:container_memory_bytes\r\n    expr: sum by(namespace,container) (container_memory_working_set_bytes{namespace=~\"staging|production\",container!=\"\",container!=\"POD\"})\r\n- name: clinic-alerts\r\n  rules:\r\n  - alert: ClinicServiceDown\r\n    expr: clinic:service_expected unless on(namespace,service) (max by(namespace,service) (up{job=\"clinic\"}) ==\r\n      1)\r\n    for: 30s\r\n    labels:\r\n      severity: critical\r\n    annotations:\r\n      summary: Không có instance backend được scrape thành công\r\n      description: namespace={{ $labels.namespace }} service={{ $labels.service }} value={{ $value }}\r\n      runbook_url: https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#service-down\r\n  - alert: ClinicScrapeFailed\r\n    expr: up{job=~\"rabbitmq-.*|postgres-.*|node|kubelet|fluentd|kube-state-metrics\"} == 0\r\n    for: 1m\r\n    labels:\r\n      severity: warning\r\n      service: monitoring\r\n    annotations:\r\n      summary: Mất nguồn metric\r\n      description: namespace={{ $labels.namespace }} service={{ $labels.service }} value={{ $value }}\r\n      runbook_url: https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#scrape-failed\r\n  - alert: ClinicHighHttpErrors\r\n    expr: clinic:api_error_ratio5m > 0.05 and on(namespace) clinic:api_request_rate5m > 0.016\r\n    for: 2m\r\n    labels:\r\n      severity: critical\r\n      service: api\r\n    annotations:\r\n      summary: Tỷ lệ lỗi HTTP nghiệp vụ trên 5%\r\n      description: namespace={{ $labels.namespace }} service={{ $labels.service }} value={{ $value }}\r\n      runbook_url: https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#http-errors\r\n  - alert: ClinicHighHttpLatency\r\n    expr: clinic:api_p95_seconds5m > 1 and on(namespace) clinic:api_request_rate5m > 0.016\r\n    for: 2m\r\n    labels:\r\n      severity: warning\r\n      service: api\r\n    annotations:\r\n      summary: HTTP nghiệp vụ p95 trên 1 giây\r\n      description: namespace={{ $labels.namespace }} service={{ $labels.service }} value={{ $value }}\r\n      runbook_url: https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#latency\r\n  - alert: ClinicQueueBacklog\r\n    expr: sum by(namespace,vhost,queue) (rabbitmq_queue_messages{queue=~\"clinic[.].*[.]notifications\"}) > 100\r\n    for: 2m\r\n    labels:\r\n      severity: warning\r\n      service: worker\r\n    annotations:\r\n      summary: Backlog thông báo kéo dài\r\n      description: namespace={{ $labels.namespace }} service={{ $labels.service }} value={{ $value }}\r\n      runbook_url: https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#queue-backlog\r\n  - alert: ClinicQueueNoConsumer\r\n    expr: (rabbitmq_queue_messages{queue=~\"clinic[.].*[.]notifications\"} > 0) and on(namespace,vhost,queue) (rabbitmq_queue_consumers\r\n      == 0)\r\n    for: 30s\r\n    labels:\r\n      severity: critical\r\n      service: worker\r\n    annotations:\r\n      summary: Có thông báo nhưng không có consumer\r\n      description: namespace={{ $labels.namespace }} service={{ $labels.service }} value={{ $value }}\r\n      runbook_url: https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#no-consumer\r\n  - alert: ClinicDlqNotEmpty\r\n    expr: rabbitmq_queue_messages{queue=~\"clinic[.].*[.]dlq\"} > 0\r\n    for: 30s\r\n    labels:\r\n      severity: critical\r\n      service: worker\r\n    annotations:\r\n      summary: DLQ đang giữ sự kiện thất bại\r\n      description: namespace={{ $labels.namespace }} service={{ $labels.service }} value={{ $value }}\r\n      runbook_url: https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#dlq\r\n  - alert: ClinicOutboxOld\r\n    expr: clinic_outbox_oldest_seconds > 120 and on(namespace,pod) clinic_outbox_pending > 0\r\n    for: 1m\r\n    labels:\r\n      severity: warning\r\n      service: publisher\r\n    annotations:\r\n      summary: Outbox có sự kiện chờ quá 120 giây\r\n      description: namespace={{ $labels.namespace }} service={{ $labels.service }} value={{ $value }}\r\n      runbook_url: https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#outbox\r\n  - alert: ClinicHighNodeCpu\r\n    expr: (1 - avg by(node) (rate(node_cpu_seconds_total{mode=\"idle\"}[5m]))) > 0.85\r\n    for: 5m\r\n    labels:\r\n      severity: warning\r\n      service: node\r\n    annotations:\r\n      summary: CPU node trên 85%\r\n      description: namespace={{ $labels.namespace }} service={{ $labels.service }} value={{ $value }}\r\n      runbook_url: https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#cpu\r\n  - alert: ClinicHighNodeMemory\r\n    expr: 1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes > 0.9\r\n    for: 5m\r\n    labels:\r\n      severity: warning\r\n      service: node\r\n    annotations:\r\n      summary: RAM node trên 90%\r\n      description: namespace={{ $labels.namespace }} service={{ $labels.service }} value={{ $value }}\r\n      runbook_url: https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#memory\r\n  - alert: ClinicBackupStale\r\n    expr: (time() - max by(namespace) (clinic_backup_last_success_timestamp_seconds) > 90000) or (clinic:backup_expected\r\n      unless on(namespace) clinic_backup_last_success_timestamp_seconds)\r\n    for: 5m\r\n    labels:\r\n      severity: critical\r\n      service: postgres\r\n    annotations:\r\n      summary: Backup quá 25 giờ hoặc chưa có metric thành công\r\n      description: namespace={{ $labels.namespace }} service={{ $labels.service }} value={{ $value }}\r\n      runbook_url: https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#backup\r\n  - alert: ClinicBackupFailed\r\n    expr: clinic_backup_last_run_success == 0\r\n    for: 30s\r\n    labels:\r\n      severity: critical\r\n      service: postgres\r\n    annotations:\r\n      summary: Lần chạy backup gần nhất thất bại\r\n      description: namespace={{ $labels.namespace }} service={{ $labels.service }} value={{ $value }}\r\n      runbook_url: https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#backup\r\n  - alert: ClinicDatabaseDown\r\n    expr: pg_up == 0\r\n    for: 30s\r\n    labels:\r\n      severity: critical\r\n      service: postgres\r\n    annotations:\r\n      summary: PostgreSQL không trả lời exporter\r\n      description: namespace={{ $labels.namespace }} dependency={{ $labels.dependency }}\r\n      runbook_url: https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#service-down\r\n  - alert: ClinicDependencyDown\r\n    expr: clinic_dependency_ready == 0\r\n    for: 30s\r\n    labels:\r\n      severity: critical\r\n      service: backend\r\n    annotations:\r\n      summary: Dependency của backend chưa sẵn sàng\r\n      description: namespace={{ $labels.namespace }} dependency={{ $labels.dependency }}\r\n      runbook_url: https://github.com/vxxngw/DevOps/blob/codex/milestone-4/docs/runbooks/alerts.md#service-down\r\n"
+    },
+    "kind": "ConfigMap",
+    "metadata": {
+      "name": "prometheus-rules-bcbb6gb8f8",
+      "namespace": "monitoring"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "elasticsearch",
+      "namespace": "logging"
+    },
+    "spec": {
+      "ports": [
+        {
+          "name": "http",
+          "port": 9200,
+          "targetPort": 9200
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "elasticsearch"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "fluentd",
+      "namespace": "logging"
+    },
+    "spec": {
+      "ports": [
+        {
+          "name": "http",
+          "port": 24231,
+          "targetPort": 24231
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "fluentd"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "kibana",
+      "namespace": "logging"
+    },
+    "spec": {
+      "ports": [
+        {
+          "name": "http",
+          "port": 5601,
+          "targetPort": 5601
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "kibana"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "alertmanager",
+      "namespace": "monitoring"
+    },
+    "spec": {
+      "ports": [
+        {
+          "name": "http",
+          "port": 9093,
+          "targetPort": 9093
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "alertmanager"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "grafana",
+      "namespace": "monitoring"
+    },
+    "spec": {
+      "ports": [
+        {
+          "name": "http",
+          "port": 3000,
+          "targetPort": 3000
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "grafana"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "kube-state-metrics",
+      "namespace": "monitoring"
+    },
+    "spec": {
+      "ports": [
+        {
+          "name": "http",
+          "port": 8080,
+          "targetPort": 8080
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "kube-state-metrics"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "prometheus",
+      "namespace": "monitoring"
+    },
+    "spec": {
+      "ports": [
+        {
+          "name": "http",
+          "port": 9090,
+          "targetPort": 9090
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "prometheus"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "postgres-exporter",
+      "namespace": "production"
+    },
+    "spec": {
+      "ports": [
+        {
+          "name": "http",
+          "port": 9187,
+          "targetPort": 9187
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "postgres-exporter"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "postgres-exporter",
+      "namespace": "staging"
+    },
+    "spec": {
+      "ports": [
+        {
+          "name": "http",
+          "port": 9187,
+          "targetPort": 9187
+        }
+      ],
+      "selector": {
+        "app.kubernetes.io/name": "postgres-exporter"
+      }
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": {
+      "name": "elasticsearch-data",
+      "namespace": "logging"
+    },
+    "spec": {
+      "accessModes": [
+        "ReadWriteOnce"
+      ],
+      "resources": {
+        "requests": {
+          "storage": "6Gi"
+        }
+      },
+      "storageClassName": "local-path"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": {
+      "name": "alertmanager-data",
+      "namespace": "monitoring"
+    },
+    "spec": {
+      "accessModes": [
+        "ReadWriteOnce"
+      ],
+      "resources": {
+        "requests": {
+          "storage": "1Gi"
+        }
+      },
+      "storageClassName": "local-path"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": {
+      "name": "grafana-data",
+      "namespace": "monitoring"
+    },
+    "spec": {
+      "accessModes": [
+        "ReadWriteOnce"
+      ],
+      "resources": {
+        "requests": {
+          "storage": "1Gi"
+        }
+      },
+      "storageClassName": "local-path"
+    }
+  },
+  {
+    "apiVersion": "v1",
+    "kind": "PersistentVolumeClaim",
+    "metadata": {
+      "name": "prometheus-data",
+      "namespace": "monitoring"
+    },
+    "spec": {
+      "accessModes": [
+        "ReadWriteOnce"
+      ],
+      "resources": {
+        "requests": {
+          "storage": "4Gi"
+        }
+      },
+      "storageClassName": "local-path"
+    }
+  },
+  {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "kibana",
+      "namespace": "logging"
+    },
+    "spec": {
+      "replicas": 1,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "kibana"
+        }
+      },
+      "strategy": {
+        "type": "Recreate"
+      },
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "kibana"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": false,
+          "containers": [
+            {
+              "env": [
+                {
+                  "name": "ELASTICSEARCH_HOSTS",
+                  "value": "[\"https://elasticsearch.logging.svc:9200\"]"
+                },
+                {
+                  "name": "ELASTICSEARCH_USERNAME",
+                  "value": "kibana_system"
+                },
+                {
+                  "name": "ELASTICSEARCH_PASSWORD",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "password",
+                      "name": "kibana-auth"
+                    }
+                  }
+                },
+                {
+                  "name": "ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES",
+                  "value": "[\"/tls/ca.crt\"]"
+                },
+                {
+                  "name": "XPACK_SECURITY_ENCRYPTIONKEY",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "encryption-key",
+                      "name": "kibana-auth"
+                    }
+                  }
+                },
+                {
+                  "name": "TELEMETRY_ENABLED",
+                  "value": "false"
+                },
+                {
+                  "name": "NODE_OPTIONS",
+                  "value": "--max-old-space-size=512"
+                }
+              ],
+              "image": "docker.elastic.co/kibana/kibana@sha256:c7ed45da5c3cfea020fc6c99ce027f4d21d19dab330379c5115d5eb95f6ecebc",
+              "livenessProbe": {
+                "failureThreshold": 5,
+                "httpGet": {
+                  "path": "/api/status",
+                  "port": 5601
+                },
+                "periodSeconds": 20
+              },
+              "name": "kibana",
+              "ports": [
+                {
+                  "containerPort": 5601,
+                  "name": "http"
+                }
+              ],
+              "readinessProbe": {
+                "httpGet": {
+                  "path": "/api/status",
+                  "port": 5601
+                },
+                "periodSeconds": 10
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1000m",
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 90,
+                "httpGet": {
+                  "path": "/api/status",
+                  "port": 5601
+                },
+                "periodSeconds": 5
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/tls",
+                  "name": "elasticsearch-tls",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "securityContext": {
+            "fsGroup": 1000,
+            "runAsGroup": 1000,
+            "runAsNonRoot": true,
+            "runAsUser": 1000,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "terminationGracePeriodSeconds": 60,
+          "volumes": [
+            {
+              "name": "elasticsearch-tls",
+              "secret": {
+                "defaultMode": 288,
+                "items": [
+                  {
+                    "key": "ca.crt",
+                    "path": "ca.crt"
+                  }
+                ],
+                "secretName": "elasticsearch-tls"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "alertmanager",
+      "namespace": "monitoring"
+    },
+    "spec": {
+      "replicas": 1,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "alertmanager"
+        }
+      },
+      "strategy": {
+        "type": "Recreate"
+      },
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "alertmanager"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": false,
+          "containers": [
+            {
+              "args": [
+                "--config.file=/etc/alertmanager/alertmanager.yml",
+                "--storage.path=/alertmanager",
+                "--cluster.listen-address="
+              ],
+              "image": "quay.io/prometheus/alertmanager@sha256:5f6e66c01bd610aef6dd671642a52eee775fd3a89bd8788ebada33efaf373d10",
+              "livenessProbe": {
+                "failureThreshold": 5,
+                "httpGet": {
+                  "path": "/-/ready",
+                  "port": 9093
+                },
+                "periodSeconds": 20
+              },
+              "name": "alertmanager",
+              "ports": [
+                {
+                  "containerPort": 9093,
+                  "name": "http"
+                }
+              ],
+              "readinessProbe": {
+                "httpGet": {
+                  "path": "/-/ready",
+                  "port": 9093
+                },
+                "periodSeconds": 10
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1000m",
+                  "memory": "192Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "64Mi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 90,
+                "httpGet": {
+                  "path": "/-/ready",
+                  "port": 9093
+                },
+                "periodSeconds": 5
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/etc/alertmanager",
+                  "name": "alertmanager-config",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/alertmanager",
+                  "name": "alertmanager-data"
+                }
+              ]
+            }
+          ],
+          "nodeSelector": {
+            "clinic.anuyen.io/storage": "true"
+          },
+          "securityContext": {
+            "fsGroup": 65534,
+            "runAsGroup": 65534,
+            "runAsNonRoot": true,
+            "runAsUser": 65534,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "terminationGracePeriodSeconds": 60,
+          "volumes": [
+            {
+              "name": "alertmanager-data",
+              "persistentVolumeClaim": {
+                "claimName": "alertmanager-data"
+              }
+            },
+            {
+              "name": "alertmanager-config",
+              "secret": {
+                "defaultMode": 288,
+                "secretName": "alertmanager-config"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "grafana",
+      "namespace": "monitoring"
+    },
+    "spec": {
+      "replicas": 1,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "grafana"
+        }
+      },
+      "strategy": {
+        "type": "Recreate"
+      },
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "grafana"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": false,
+          "containers": [
+            {
+              "env": [
+                {
+                  "name": "GF_SECURITY_ADMIN_PASSWORD",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "password",
+                      "name": "grafana-admin"
+                    }
+                  }
+                },
+                {
+                  "name": "GF_SECURITY_ADMIN_USER",
+                  "value": "clinicops"
+                },
+                {
+                  "name": "GF_USERS_ALLOW_SIGN_UP",
+                  "value": "false"
+                },
+                {
+                  "name": "GF_AUTH_ANONYMOUS_ENABLED",
+                  "value": "false"
+                },
+                {
+                  "name": "GF_ANALYTICS_REPORTING_ENABLED",
+                  "value": "false"
+                },
+                {
+                  "name": "GF_ANALYTICS_CHECK_FOR_UPDATES",
+                  "value": "false"
+                }
+              ],
+              "image": "docker.io/grafana/grafana@sha256:0615ec4fbd4072004b7d86b46ded63013a74b7d6eb1119273dd89e8fa25c13cf",
+              "livenessProbe": {
+                "failureThreshold": 5,
+                "httpGet": {
+                  "path": "/api/health",
+                  "port": 3000
+                },
+                "periodSeconds": 20
+              },
+              "name": "grafana",
+              "ports": [
+                {
+                  "containerPort": 3000,
+                  "name": "http"
+                }
+              ],
+              "readinessProbe": {
+                "httpGet": {
+                  "path": "/api/health",
+                  "port": 3000
+                },
+                "periodSeconds": 10
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1000m",
+                  "memory": "512Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "256Mi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 90,
+                "httpGet": {
+                  "path": "/api/health",
+                  "port": 3000
+                },
+                "periodSeconds": 5
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/etc/grafana/provisioning/datasources",
+                  "name": "datasources",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/etc/grafana/provisioning/dashboards",
+                  "name": "providers",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/var/lib/grafana/dashboards",
+                  "name": "dashboards",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/var/lib/grafana",
+                  "name": "grafana-data"
+                }
+              ]
+            }
+          ],
+          "nodeSelector": {
+            "clinic.anuyen.io/storage": "true"
+          },
+          "securityContext": {
+            "fsGroup": 472,
+            "runAsGroup": 472,
+            "runAsNonRoot": true,
+            "runAsUser": 472,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "terminationGracePeriodSeconds": 60,
+          "volumes": [
+            {
+              "configMap": {
+                "name": "grafana-datasources-c4t2mm45bf"
+              },
+              "name": "datasources"
+            },
+            {
+              "configMap": {
+                "name": "grafana-providers-89chd8kgf9"
+              },
+              "name": "providers"
+            },
+            {
+              "configMap": {
+                "name": "grafana-dashboards-857d7tk9kg"
+              },
+              "name": "dashboards"
+            },
+            {
+              "name": "grafana-data",
+              "persistentVolumeClaim": {
+                "claimName": "grafana-data"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "kube-state-metrics",
+      "namespace": "monitoring"
+    },
+    "spec": {
+      "replicas": 1,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "kube-state-metrics"
+        }
+      },
+      "strategy": {
+        "type": "Recreate"
+      },
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "kube-state-metrics"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": true,
+          "containers": [
+            {
+              "args": [
+                "--resources=pods,nodes,namespaces,deployments,replicasets,statefulsets,horizontalpodautoscalers"
+              ],
+              "image": "registry.k8s.io/kube-state-metrics/kube-state-metrics@sha256:42cfe3723a5f058171c627537fb57a3ea0f26e4380fa18555a95cb1a1b4cfc5b",
+              "livenessProbe": {
+                "failureThreshold": 5,
+                "httpGet": {
+                  "path": "/metrics",
+                  "port": 8080
+                },
+                "periodSeconds": 20
+              },
+              "name": "kube-state-metrics",
+              "ports": [
+                {
+                  "containerPort": 8080,
+                  "name": "http"
+                }
+              ],
+              "readinessProbe": {
+                "httpGet": {
+                  "path": "/metrics",
+                  "port": 8080
+                },
+                "periodSeconds": 10
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1000m",
+                  "memory": "256Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "96Mi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 90,
+                "httpGet": {
+                  "path": "/metrics",
+                  "port": 8080
+                },
+                "periodSeconds": 5
+              }
+            }
+          ],
+          "securityContext": {
+            "fsGroup": 65534,
+            "runAsGroup": 65534,
+            "runAsNonRoot": true,
+            "runAsUser": 65534,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "serviceAccountName": "kube-state-metrics",
+          "terminationGracePeriodSeconds": 60
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "prometheus",
+      "namespace": "monitoring"
+    },
+    "spec": {
+      "replicas": 1,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "prometheus"
+        }
+      },
+      "strategy": {
+        "type": "Recreate"
+      },
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "prometheus"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": true,
+          "containers": [
+            {
+              "args": [
+                "--config.file=/etc/prometheus/prometheus.yml",
+                "--storage.tsdb.path=/prometheus",
+                "--storage.tsdb.retention.time=7d",
+                "--storage.tsdb.retention.size=3GB"
+              ],
+              "image": "quay.io/prometheus/prometheus@sha256:9332054523223e2ddc18d8101799d54a4a8d823b030c53216f063a6c117773cd",
+              "livenessProbe": {
+                "failureThreshold": 5,
+                "httpGet": {
+                  "path": "/-/ready",
+                  "port": 9090
+                },
+                "periodSeconds": 20
+              },
+              "name": "prometheus",
+              "ports": [
+                {
+                  "containerPort": 9090,
+                  "name": "http"
+                }
+              ],
+              "readinessProbe": {
+                "httpGet": {
+                  "path": "/-/ready",
+                  "port": 9090
+                },
+                "periodSeconds": 10
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1000m",
+                  "memory": "768Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "384Mi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 90,
+                "httpGet": {
+                  "path": "/-/ready",
+                  "port": 9090
+                },
+                "periodSeconds": 5
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/etc/prometheus",
+                  "name": "config",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/etc/prometheus/rules",
+                  "name": "rules",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/prometheus",
+                  "name": "prometheus-data"
+                }
+              ]
+            }
+          ],
+          "nodeSelector": {
+            "clinic.anuyen.io/storage": "true"
+          },
+          "securityContext": {
+            "fsGroup": 65534,
+            "runAsGroup": 65534,
+            "runAsNonRoot": true,
+            "runAsUser": 65534,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "serviceAccountName": "prometheus",
+          "terminationGracePeriodSeconds": 60,
+          "volumes": [
+            {
+              "configMap": {
+                "name": "prometheus-config-k75g44h546"
+              },
+              "name": "config"
+            },
+            {
+              "configMap": {
+                "name": "prometheus-rules-bcbb6gb8f8"
+              },
+              "name": "rules"
+            },
+            {
+              "name": "prometheus-data",
+              "persistentVolumeClaim": {
+                "claimName": "prometheus-data"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "postgres-exporter",
+      "namespace": "production"
+    },
+    "spec": {
+      "replicas": 1,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "postgres-exporter"
+        }
+      },
+      "strategy": {
+        "type": "Recreate"
+      },
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "postgres-exporter"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": false,
+          "containers": [
+            {
+              "args": [
+                "--collector.database",
+                "--collector.stat_activity"
+              ],
+              "env": [
+                {
+                  "name": "DATA_SOURCE_URI",
+                  "value": "postgres:5432/clinic?sslmode=disable"
+                },
+                {
+                  "name": "DATA_SOURCE_USER",
+                  "value": "clinic_metrics"
+                },
+                {
+                  "name": "DATA_SOURCE_PASS",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "password",
+                      "name": "postgres-metrics"
+                    }
+                  }
+                }
+              ],
+              "image": "quay.io/prometheuscommunity/postgres-exporter@sha256:ac5ec343104fae0e2d84a27bb8d69b38430a11910c5382cad85d478d2bab713e",
+              "livenessProbe": {
+                "failureThreshold": 5,
+                "httpGet": {
+                  "path": "/metrics",
+                  "port": 9187
+                },
+                "periodSeconds": 20
+              },
+              "name": "postgres-exporter",
+              "ports": [
+                {
+                  "containerPort": 9187,
+                  "name": "http"
+                }
+              ],
+              "readinessProbe": {
+                "httpGet": {
+                  "path": "/metrics",
+                  "port": 9187
+                },
+                "periodSeconds": 10
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1000m",
+                  "memory": "128Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "64Mi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 90,
+                "httpGet": {
+                  "path": "/metrics",
+                  "port": 9187
+                },
+                "periodSeconds": 5
+              }
+            }
+          ],
+          "securityContext": {
+            "fsGroup": 65534,
+            "runAsGroup": 65534,
+            "runAsNonRoot": true,
+            "runAsUser": 65534,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "terminationGracePeriodSeconds": 60
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "apps/v1",
+    "kind": "Deployment",
+    "metadata": {
+      "name": "postgres-exporter",
+      "namespace": "staging"
+    },
+    "spec": {
+      "replicas": 1,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "postgres-exporter"
+        }
+      },
+      "strategy": {
+        "type": "Recreate"
+      },
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "postgres-exporter"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": false,
+          "containers": [
+            {
+              "args": [
+                "--collector.database",
+                "--collector.stat_activity"
+              ],
+              "env": [
+                {
+                  "name": "DATA_SOURCE_URI",
+                  "value": "postgres:5432/clinic?sslmode=disable"
+                },
+                {
+                  "name": "DATA_SOURCE_USER",
+                  "value": "clinic_metrics"
+                },
+                {
+                  "name": "DATA_SOURCE_PASS",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "password",
+                      "name": "postgres-metrics"
+                    }
+                  }
+                }
+              ],
+              "image": "quay.io/prometheuscommunity/postgres-exporter@sha256:ac5ec343104fae0e2d84a27bb8d69b38430a11910c5382cad85d478d2bab713e",
+              "livenessProbe": {
+                "failureThreshold": 5,
+                "httpGet": {
+                  "path": "/metrics",
+                  "port": 9187
+                },
+                "periodSeconds": 20
+              },
+              "name": "postgres-exporter",
+              "ports": [
+                {
+                  "containerPort": 9187,
+                  "name": "http"
+                }
+              ],
+              "readinessProbe": {
+                "httpGet": {
+                  "path": "/metrics",
+                  "port": 9187
+                },
+                "periodSeconds": 10
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1000m",
+                  "memory": "128Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "64Mi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 90,
+                "httpGet": {
+                  "path": "/metrics",
+                  "port": 9187
+                },
+                "periodSeconds": 5
+              }
+            }
+          ],
+          "securityContext": {
+            "fsGroup": 65534,
+            "runAsGroup": 65534,
+            "runAsNonRoot": true,
+            "runAsUser": 65534,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "terminationGracePeriodSeconds": 60
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "apps/v1",
+    "kind": "StatefulSet",
+    "metadata": {
+      "name": "elasticsearch",
+      "namespace": "logging"
+    },
+    "spec": {
+      "replicas": 1,
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "elasticsearch"
+        }
+      },
+      "serviceName": "elasticsearch",
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "elasticsearch"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": false,
+          "containers": [
+            {
+              "env": [
+                {
+                  "name": "discovery.type",
+                  "value": "single-node"
+                },
+                {
+                  "name": "ES_JAVA_OPTS",
+                  "value": "-Xms512m -Xmx512m"
+                },
+                {
+                  "name": "ELASTIC_PASSWORD",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "password",
+                      "name": "elastic-admin"
+                    }
+                  }
+                },
+                {
+                  "name": "xpack.security.enabled",
+                  "value": "true"
+                },
+                {
+                  "name": "xpack.security.enrollment.enabled",
+                  "value": "false"
+                },
+                {
+                  "name": "xpack.security.http.ssl.enabled",
+                  "value": "true"
+                },
+                {
+                  "name": "xpack.security.http.ssl.key",
+                  "value": "tls/tls.key"
+                },
+                {
+                  "name": "xpack.security.http.ssl.certificate",
+                  "value": "tls/tls.crt"
+                },
+                {
+                  "name": "xpack.security.http.ssl.certificate_authorities",
+                  "value": "tls/ca.crt"
+                },
+                {
+                  "name": "xpack.security.transport.ssl.enabled",
+                  "value": "true"
+                },
+                {
+                  "name": "xpack.security.transport.ssl.key",
+                  "value": "tls/tls.key"
+                },
+                {
+                  "name": "xpack.security.transport.ssl.certificate",
+                  "value": "tls/tls.crt"
+                },
+                {
+                  "name": "xpack.security.transport.ssl.certificate_authorities",
+                  "value": "tls/ca.crt"
+                },
+                {
+                  "name": "xpack.security.transport.ssl.verification_mode",
+                  "value": "certificate"
+                }
+              ],
+              "image": "docker.elastic.co/elasticsearch/elasticsearch@sha256:79b4f1de4c15e6eca824723086a51e5934406d614d410cc11be77748cafac537",
+              "livenessProbe": {
+                "failureThreshold": 5,
+                "periodSeconds": 20,
+                "tcpSocket": {
+                  "port": 9200
+                }
+              },
+              "name": "elasticsearch",
+              "ports": [
+                {
+                  "containerPort": 9200,
+                  "name": "http"
+                }
+              ],
+              "readinessProbe": {
+                "periodSeconds": 10,
+                "tcpSocket": {
+                  "port": 9200
+                }
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1000m",
+                  "memory": "1536Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "1Gi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 90,
+                "periodSeconds": 5,
+                "tcpSocket": {
+                  "port": 9200
+                }
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/usr/share/elasticsearch/config/tls",
+                  "name": "elasticsearch-tls",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/usr/share/elasticsearch/data",
+                  "name": "elasticsearch-data"
+                }
+              ]
+            }
+          ],
+          "nodeSelector": {
+            "clinic.anuyen.io/storage": "true"
+          },
+          "securityContext": {
+            "fsGroup": 1000,
+            "runAsGroup": 1000,
+            "runAsNonRoot": true,
+            "runAsUser": 1000,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "terminationGracePeriodSeconds": 60,
+          "volumes": [
+            {
+              "name": "elasticsearch-data",
+              "persistentVolumeClaim": {
+                "claimName": "elasticsearch-data"
+              }
+            },
+            {
+              "name": "elasticsearch-tls",
+              "secret": {
+                "defaultMode": 288,
+                "secretName": "elasticsearch-tls"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "apps/v1",
+    "kind": "DaemonSet",
+    "metadata": {
+      "name": "fluentd",
+      "namespace": "logging"
+    },
+    "spec": {
+      "selector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "fluentd"
+        }
+      },
+      "template": {
+        "metadata": {
+          "labels": {
+            "app.kubernetes.io/name": "fluentd"
+          }
+        },
+        "spec": {
+          "automountServiceAccountToken": false,
+          "containers": [
+            {
+              "env": [
+                {
+                  "name": "ELASTIC_WRITER_PASSWORD",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "password",
+                      "name": "fluentd-auth"
+                    }
+                  }
+                }
+              ],
+              "image": "docker.io/fluent/fluentd-kubernetes-daemonset@sha256:11e174a0a158d4a575a948921a89cbd1bd292277f23948bbfaba3bb2e7304d04",
+              "livenessProbe": {
+                "failureThreshold": 5,
+                "periodSeconds": 20,
+                "tcpSocket": {
+                  "port": 24231
+                }
+              },
+              "name": "fluentd",
+              "ports": [
+                {
+                  "containerPort": 24231,
+                  "name": "http"
+                }
+              ],
+              "readinessProbe": {
+                "periodSeconds": 10,
+                "tcpSocket": {
+                  "port": 24231
+                }
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1000m",
+                  "memory": "384Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "128Mi"
+                }
+              },
+              "securityContext": {
+                "allowPrivilegeEscalation": false,
+                "capabilities": {
+                  "drop": [
+                    "ALL"
+                  ]
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 90,
+                "periodSeconds": 5,
+                "tcpSocket": {
+                  "port": 24231
+                }
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/tls",
+                  "name": "elasticsearch-tls",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/fluentd/etc",
+                  "name": "config",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/var/log/pods",
+                  "name": "logs",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/buffers",
+                  "name": "buffer"
+                }
+              ]
+            }
+          ],
+          "nodeSelector": {
+            "kubernetes.io/os": "linux"
+          },
+          "securityContext": {
+            "fsGroup": 0,
+            "runAsGroup": 0,
+            "runAsNonRoot": false,
+            "runAsUser": 0,
+            "seccompProfile": {
+              "type": "RuntimeDefault"
+            }
+          },
+          "terminationGracePeriodSeconds": 60,
+          "tolerations": [
+            {
+              "effect": "NoSchedule",
+              "operator": "Exists"
+            }
+          ],
+          "volumes": [
+            {
+              "name": "elasticsearch-tls",
+              "secret": {
+                "defaultMode": 288,
+                "items": [
+                  {
+                    "key": "ca.crt",
+                    "path": "ca.crt"
+                  }
+                ],
+                "secretName": "elasticsearch-tls"
+              }
+            },
+            {
+              "configMap": {
+                "name": "fluentd-config-4t9m9b49k9"
+              },
+              "name": "config"
+            },
+            {
+              "hostPath": {
+                "path": "/var/log/pods",
+                "type": "Directory"
+              },
+              "name": "logs"
+            },
+            {
+              "hostPath": {
+                "path": "/var/lib/anuyen-fluentd",
+                "type": "Directory"
+              },
+              "name": "buffer"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "apiVersion": "cert-manager.io/v1",
+    "kind": "Certificate",
+    "metadata": {
+      "name": "elasticsearch-tls",
+      "namespace": "logging"
+    },
+    "spec": {
+      "dnsNames": [
+        "elasticsearch",
+        "elasticsearch.logging.svc",
+        "elasticsearch.logging.svc.cluster.local"
+      ],
+      "issuerRef": {
+        "kind": "ClusterIssuer",
+        "name": "clinic-lab-ca"
+      },
+      "secretName": "elasticsearch-tls",
+      "usages": [
+        "server auth",
+        "client auth"
+      ]
+    }
+  },
+  {
+    "apiVersion": "networking.k8s.io/v1",
+    "kind": "NetworkPolicy",
+    "metadata": {
+      "name": "isolate",
+      "namespace": "logging"
+    },
+    "spec": {
+      "egress": [
+        {
+          "to": [
+            {
+              "podSelector": {}
+            }
+          ]
+        },
+        {
+          "ports": [
+            {
+              "port": 53,
+              "protocol": "UDP"
+            },
+            {
+              "port": 53,
+              "protocol": "TCP"
+            }
+          ],
+          "to": [
+            {
+              "namespaceSelector": {
+                "matchLabels": {
+                  "kubernetes.io/metadata.name": "kube-system"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "ingress": [
+        {
+          "from": [
+            {
+              "podSelector": {}
+            }
+          ]
+        }
+      ],
+      "podSelector": {},
+      "policyTypes": [
+        "Ingress",
+        "Egress"
+      ]
+    }
+  },
+  {
+    "apiVersion": "networking.k8s.io/v1",
+    "kind": "NetworkPolicy",
+    "metadata": {
+      "name": "monitor-fluentd",
+      "namespace": "logging"
+    },
+    "spec": {
+      "ingress": [
+        {
+          "from": [
+            {
+              "namespaceSelector": {
+                "matchLabels": {
+                  "kubernetes.io/metadata.name": "monitoring"
+                }
+              },
+              "podSelector": {
+                "matchLabels": {
+                  "app.kubernetes.io/name": "prometheus"
+                }
+              }
+            }
+          ],
+          "ports": [
+            {
+              "port": 24231,
+              "protocol": "TCP"
+            }
+          ]
+        }
+      ],
+      "podSelector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "fluentd"
+        }
+      },
+      "policyTypes": [
+        "Ingress"
+      ]
+    }
+  },
+  {
+    "apiVersion": "networking.k8s.io/v1",
+    "kind": "NetworkPolicy",
+    "metadata": {
+      "name": "alert-channel-egress",
+      "namespace": "monitoring"
+    },
+    "spec": {
+      "egress": [
+        {
+          "ports": [
+            {
+              "port": 443,
+              "protocol": "TCP"
+            }
+          ],
+          "to": [
+            {
+              "ipBlock": {
+                "cidr": "0.0.0.0/0",
+                "except": [
+                  "10.0.0.0/8",
+                  "172.16.0.0/12",
+                  "192.168.0.0/16",
+                  "169.254.0.0/16"
+                ]
+              }
+            }
+          ]
+        }
+      ],
+      "podSelector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "alertmanager"
+        }
+      },
+      "policyTypes": [
+        "Egress"
+      ]
+    }
+  },
+  {
+    "apiVersion": "networking.k8s.io/v1",
+    "kind": "NetworkPolicy",
+    "metadata": {
+      "name": "isolate",
+      "namespace": "monitoring"
+    },
+    "spec": {
+      "egress": [
+        {
+          "to": [
+            {
+              "podSelector": {}
+            }
+          ]
+        },
+        {
+          "ports": [
+            {
+              "port": 53,
+              "protocol": "UDP"
+            },
+            {
+              "port": 53,
+              "protocol": "TCP"
+            }
+          ],
+          "to": [
+            {
+              "namespaceSelector": {
+                "matchLabels": {
+                  "kubernetes.io/metadata.name": "kube-system"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "ingress": [
+        {
+          "from": [
+            {
+              "podSelector": {}
+            }
+          ]
+        }
+      ],
+      "podSelector": {},
+      "policyTypes": [
+        "Ingress",
+        "Egress"
+      ]
+    }
+  },
+  {
+    "apiVersion": "networking.k8s.io/v1",
+    "kind": "NetworkPolicy",
+    "metadata": {
+      "name": "metric-api-egress",
+      "namespace": "monitoring"
+    },
+    "spec": {
+      "egress": [
+        {
+          "ports": [
+            {
+              "port": 443,
+              "protocol": "TCP"
+            },
+            {
+              "port": 6443,
+              "protocol": "TCP"
+            }
+          ],
+          "to": [
+            {
+              "ipBlock": {
+                "cidr": "192.168.150.0/24"
+              }
+            },
+            {
+              "ipBlock": {
+                "cidr": "10.43.0.1/32"
+              }
+            }
+          ]
+        }
+      ],
+      "podSelector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "kube-state-metrics"
+        }
+      },
+      "policyTypes": [
+        "Egress"
+      ]
+    }
+  },
+  {
+    "apiVersion": "networking.k8s.io/v1",
+    "kind": "NetworkPolicy",
+    "metadata": {
+      "name": "prometheus-egress",
+      "namespace": "monitoring"
+    },
+    "spec": {
+      "egress": [
+        {
+          "ports": [
+            {
+              "port": 8000,
+              "protocol": "TCP"
+            },
+            {
+              "port": 8001,
+              "protocol": "TCP"
+            },
+            {
+              "port": 8002,
+              "protocol": "TCP"
+            },
+            {
+              "port": 15692,
+              "protocol": "TCP"
+            },
+            {
+              "port": 9187,
+              "protocol": "TCP"
+            },
+            {
+              "port": 24231,
+              "protocol": "TCP"
+            }
+          ],
+          "to": [
+            {
+              "namespaceSelector": {
+                "matchLabels": {
+                  "kubernetes.io/metadata.name": "staging"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ports": [
+            {
+              "port": 8000,
+              "protocol": "TCP"
+            },
+            {
+              "port": 8001,
+              "protocol": "TCP"
+            },
+            {
+              "port": 8002,
+              "protocol": "TCP"
+            },
+            {
+              "port": 15692,
+              "protocol": "TCP"
+            },
+            {
+              "port": 9187,
+              "protocol": "TCP"
+            },
+            {
+              "port": 24231,
+              "protocol": "TCP"
+            }
+          ],
+          "to": [
+            {
+              "namespaceSelector": {
+                "matchLabels": {
+                  "kubernetes.io/metadata.name": "production"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ports": [
+            {
+              "port": 8000,
+              "protocol": "TCP"
+            },
+            {
+              "port": 8001,
+              "protocol": "TCP"
+            },
+            {
+              "port": 8002,
+              "protocol": "TCP"
+            },
+            {
+              "port": 15692,
+              "protocol": "TCP"
+            },
+            {
+              "port": 9187,
+              "protocol": "TCP"
+            },
+            {
+              "port": 24231,
+              "protocol": "TCP"
+            }
+          ],
+          "to": [
+            {
+              "namespaceSelector": {
+                "matchLabels": {
+                  "kubernetes.io/metadata.name": "logging"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ports": [
+            {
+              "port": 443,
+              "protocol": "TCP"
+            },
+            {
+              "port": 6443,
+              "protocol": "TCP"
+            },
+            {
+              "port": 9100,
+              "protocol": "TCP"
+            },
+            {
+              "port": 10250,
+              "protocol": "TCP"
+            }
+          ],
+          "to": [
+            {
+              "ipBlock": {
+                "cidr": "192.168.150.0/24"
+              }
+            },
+            {
+              "ipBlock": {
+                "cidr": "10.43.0.1/32"
+              }
+            }
+          ]
+        }
+      ],
+      "podSelector": {
+        "matchLabels": {
+          "app.kubernetes.io/name": "prometheus"
+        }
+      },
+      "policyTypes": [
+        "Egress"
+      ]
+    }
+  }
+]

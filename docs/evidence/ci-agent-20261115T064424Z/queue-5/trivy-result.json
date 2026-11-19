@@ -1,0 +1,7 @@
+{
+  "kind": "Known old upstream Alpine image, remote scan; never a release image",
+  "scanner_exit": 1,
+  "critical": 4,
+  "at_utc": "2026-11-15T07:31:18.625314+00:00",
+  "scope": "Scanner invocation; Jenkins failed-build evidence is separate"
+}

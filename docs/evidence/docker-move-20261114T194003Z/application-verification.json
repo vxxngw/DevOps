@@ -1,0 +1,140 @@
+{
+  "at_utc": "2026-11-14T19:47:41.564222+00:00",
+  "http_checks": [
+    {
+      "url": "http://localhost:8000/health",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:8000/ready",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:8000/metrics",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:8001/health",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:8001/ready",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:8001/metrics",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:8002/health",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:8002/ready",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:8002/metrics",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:18080/",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:8025/",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:18090/login",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:8080/login",
+      "status": 200
+    }
+  ],
+  "compose_services": [
+    {
+      "Name": "clinic-dev-api-1",
+      "Service": "api",
+      "State": "running",
+      "Health": "healthy",
+      "ExitCode": 0
+    },
+    {
+      "Name": "clinic-dev-frontend-1",
+      "Service": "frontend",
+      "State": "running",
+      "Health": "healthy",
+      "ExitCode": 0
+    },
+    {
+      "Name": "clinic-dev-mailpit-1",
+      "Service": "mailpit",
+      "State": "running",
+      "Health": "healthy",
+      "ExitCode": 0
+    },
+    {
+      "Name": "clinic-dev-migrate-1",
+      "Service": "migrate",
+      "State": "exited",
+      "Health": "",
+      "ExitCode": 0
+    },
+    {
+      "Name": "clinic-dev-postgres-1",
+      "Service": "postgres",
+      "State": "running",
+      "Health": "healthy",
+      "ExitCode": 0
+    },
+    {
+      "Name": "clinic-dev-publisher-1",
+      "Service": "publisher",
+      "State": "running",
+      "Health": "healthy",
+      "ExitCode": 0
+    },
+    {
+      "Name": "clinic-dev-rabbitmq-1",
+      "Service": "rabbitmq",
+      "State": "running",
+      "Health": "healthy",
+      "ExitCode": 0
+    },
+    {
+      "Name": "clinic-dev-seed-1",
+      "Service": "seed",
+      "State": "exited",
+      "Health": "",
+      "ExitCode": 0
+    },
+    {
+      "Name": "clinic-dev-worker-1",
+      "Service": "worker",
+      "State": "running",
+      "Health": "healthy",
+      "ExitCode": 0
+    }
+  ],
+  "smoke": {
+    "metadata": "docs/evidence/runtime-20261114T194613Z/metadata.json",
+    "sha256": "f1cb18193ce669180a40177e8351b06e9cb53803fe4d458ce1a78f9cce505284",
+    "exit_code": 0,
+    "checks": [
+      {
+        "name": "booking_email_body_and_sent",
+        "appointment_id": "98967a19-72d9-4a97-b2d4-ffbb860babad"
+      },
+      {
+        "name": "cancellation_email_sent_and_slots_released",
+        "count": 1
+      }
+    ],
+    "scope": "Existing cached dev images preserved across migration, not a build or integration verification of current M2/M4 source."
+  },
+  "startup_action": "docker start existing postgres/rabbitmq/mailpit/frontend containers; no recreate/build/migration/seed run. The migrate and seed containers retained earlier exit 0; not rerun in this session.",
+  "verified": true
+}

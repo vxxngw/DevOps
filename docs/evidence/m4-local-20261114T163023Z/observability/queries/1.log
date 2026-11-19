@@ -1,0 +1,1 @@
+clinic:container_cpu_cores5m{namespace=~"$namespace"}

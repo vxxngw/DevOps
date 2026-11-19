@@ -1,0 +1,195 @@
+ Image clinic-ci-agent:3391 Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.35kB done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 2.46kB 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for ghcr.io/gitleaks/gitleaks:v8.30.1
+#3 DONE 0.0s
+
+#4 [internal] load metadata for docker.io/aquasec/trivy:0.76.2
+#4 DONE 0.0s
+
+#5 [internal] load metadata for docker.io/library/node:24.22.1-trixie-slim
+#5 ...
+
+#6 [auth] library/docker:pull token for registry-1.docker.io
+#6 DONE 0.0s
+
+#7 [auth] library/node:pull token for registry-1.docker.io
+#7 DONE 0.0s
+
+#8 [auth] jenkins/inbound-agent:pull token for registry-1.docker.io
+#8 DONE 0.0s
+
+#9 [auth] library/python:pull token for registry-1.docker.io
+#9 DONE 0.0s
+
+#10 [internal] load metadata for docker.io/library/docker:29.9.3-cli
+#10 DONE 1.9s
+
+#11 [internal] load metadata for docker.io/library/python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#11 DONE 1.9s
+
+#12 [internal] load metadata for docker.io/jenkins/inbound-agent:3391.va_37fa_a_305d6d-5-jdk21
+#12 DONE 1.9s
+
+#5 [internal] load metadata for docker.io/library/node:24.22.1-trixie-slim
+#5 DONE 1.9s
+
+#13 [internal] load .dockerignore
+#13 transferring context: 280B done
+#13 DONE 0.0s
+
+#14 [infra-tools 1/7] FROM docker.io/library/python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+#14 resolve docker.io/library/python:3.12.16-slim-trixie@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b 0.0s done
+#14 DONE 0.0s
+
+#15 [java 1/1] FROM docker.io/jenkins/inbound-agent:3391.va_37fa_a_305d6d-5-jdk21@sha256:64a27e807d216d527a7f5224e6ff9733b5cbd8650db3b5dfd0aea3b94949460f
+#15 resolve docker.io/jenkins/inbound-agent:3391.va_37fa_a_305d6d-5-jdk21@sha256:64a27e807d216d527a7f5224e6ff9733b5cbd8650db3b5dfd0aea3b94949460f 0.0s done
+#15 DONE 0.0s
+
+#16 [docker 1/1] FROM docker.io/library/docker:29.9.3-cli@sha256:5a7af0dcb0e46c803efe9b45371dd21cb500e5b4453250394ac6f06d49b6e6f1
+#16 resolve docker.io/library/docker:29.9.3-cli@sha256:5a7af0dcb0e46c803efe9b45371dd21cb500e5b4453250394ac6f06d49b6e6f1 0.0s done
+#16 CACHED
+
+#17 [gitleaks 1/1] FROM ghcr.io/gitleaks/gitleaks:v8.30.1@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f
+#17 resolve ghcr.io/gitleaks/gitleaks:v8.30.1@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f 0.0s done
+#17 CACHED
+
+#18 [trivy 1/1] FROM docker.io/aquasec/trivy:0.76.2@sha256:8f6bb947dbc528902e11f2f5be52f7b519f6a39d5d148f41166f2040499768fb
+#18 resolve docker.io/aquasec/trivy:0.76.2@sha256:8f6bb947dbc528902e11f2f5be52f7b519f6a39d5d148f41166f2040499768fb 0.0s done
+#18 CACHED
+
+#19 [stage-6  3/14] COPY --from=java /opt/java/openjdk/ /opt/java/openjdk/
+#19 CACHED
+
+#20 [stage-6  5/14] COPY --from=java /usr/local/bin/jenkins-agent /usr/local/bin/jenkins-agent
+#20 CACHED
+
+#21 [stage-6  4/14] COPY --from=java /usr/share/jenkins/agent.jar /usr/share/jenkins/agent.jar
+#21 CACHED
+
+#22 [stage-6  2/14] RUN apt-get update && apt-get install -y --no-install-recommends git curl openssh-client libstdc++6     && rm -rf /var/lib/apt/lists/*     && groupadd --gid 1000 jenkins && useradd --uid 1000 --gid 1000 --create-home jenkins     && mkdir -p /home/jenkins/agent /home/jenkins/.cache     && chown -R 1000:1000 /home/jenkins
+#22 CACHED
+
+#23 [node 1/1] FROM docker.io/library/node:24.22.1-trixie-slim@sha256:89c5244bc22a9bc3287d89ebc7e49b9cb5bb84cd40e6175ac3421d5a9f68b95a
+#23 resolve docker.io/library/node:24.22.1-trixie-slim@sha256:89c5244bc22a9bc3287d89ebc7e49b9cb5bb84cd40e6175ac3421d5a9f68b95a 0.0s done
+#23 CACHED
+
+#24 [stage-6  6/14] COPY --from=docker /usr/local/bin/docker /usr/local/bin/docker
+#24 CACHED
+
+#25 [internal] load build context
+#25 transferring context: 298B done
+#25 DONE 0.0s
+
+#26 [infra-tools 2/7] COPY infra/versions.json /tmp/versions.json
+#26 CACHED
+
+#27 [infra-tools 3/7] COPY ci/install-agent-tools.py /tmp/install.py
+#27 CACHED
+
+#28 [infra-tools 4/7] RUN python /tmp/install.py
+#28 ...
+
+#29 [stage-6  7/14] COPY --from=docker /usr/local/libexec/docker/cli-plugins/ /usr/local/libexec/docker/cli-plugins/
+#29 DONE 0.2s
+
+#30 [stage-6  8/14] COPY --from=node /usr/local/bin/node /usr/local/bin/node
+#30 DONE 0.3s
+
+#28 [infra-tools 4/7] RUN python /tmp/install.py
+#28 0.844 Traceback (most recent call last):
+#28 0.844   File "/usr/local/lib/python3.12/urllib/request.py", line 1357, in do_open
+#28 0.845     h.request(req.get_method(), req.selector, req.data, headers,
+#28 0.845   File "/usr/local/lib/python3.12/http/client.py", line 1386, in request
+#28 0.845     self._send_request(method, url, body, headers, encode_chunked)
+#28 0.845   File "/usr/local/lib/python3.12/http/client.py", line 1432, in _send_request
+#28 0.845     self.endheaders(body, encode_chunked=encode_chunked)
+#28 0.845   File "/usr/local/lib/python3.12/http/client.py", line 1381, in endheaders
+#28 0.845     self._send_output(message_body, encode_chunked=encode_chunked)
+#28 0.845   File "/usr/local/lib/python3.12/http/client.py", line 1141, in _send_output
+#28 0.846     self.send(msg)
+#28 0.846   File "/usr/local/lib/python3.12/http/client.py", line 1085, in send
+#28 0.846     self.connect()
+#28 0.846   File "/usr/local/lib/python3.12/http/client.py", line 1520, in connect
+#28 0.846     super().connect()
+#28 0.846   File "/usr/local/lib/python3.12/http/client.py", line 1051, in connect
+#28 0.846     self.sock = self._create_connection(
+#28 0.846                 ^^^^^^^^^^^^^^^^^^^^^^^^
+#28 0.846   File "/usr/local/lib/python3.12/socket.py", line 841, in create_connection
+#28 0.847     for res in getaddrinfo(host, port, 0, SOCK_STREAM):
+#28 0.847                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#28 0.847   File "/usr/local/lib/python3.12/socket.py", line 978, in getaddrinfo
+#28 0.847     for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+#28 0.847                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#28 0.847 socket.gaierror: [Errno -5] No address associated with hostname
+#28 0.847 
+#28 0.847 During handling of the above exception, another exception occurred:
+#28 0.847 
+#28 0.847 Traceback (most recent call last):
+#28 0.847   File "/tmp/install.py", line 24, in <module>
+#28 0.847     for line in fetch(base + f"terraform_{versions['terraform']}_SHA256SUMS").decode().splitlines()
+#28 0.847                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#28 0.847   File "/tmp/install.py", line 14, in fetch
+#28 0.847     with urllib.request.urlopen(url, timeout=120) as response:
+#28 0.847          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#28 0.847   File "/usr/local/lib/python3.12/urllib/request.py", line 215, in urlopen
+#28 0.847     return opener.open(url, data, timeout)
+#28 0.847            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#28 0.847   File "/usr/local/lib/python3.12/urllib/request.py", line 515, in open
+#28 0.848     response = self._open(req, data)
+#28 0.848                ^^^^^^^^^^^^^^^^^^^^^
+#28 0.848   File "/usr/local/lib/python3.12/urllib/request.py", line 532, in _open
+#28 0.848     result = self._call_chain(self.handle_open, protocol, protocol +
+#28 0.848              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#28 0.848   File "/usr/local/lib/python3.12/urllib/request.py", line 492, in _call_chain
+#28 0.848     result = func(*args)
+#28 0.848              ^^^^^^^^^^^
+#28 0.848   File "/usr/local/lib/python3.12/urllib/request.py", line 1405, in https_open
+#28 0.848     return self.do_open(http.client.HTTPSConnection, req,
+#28 0.848            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#28 0.848   File "/usr/local/lib/python3.12/urllib/request.py", line 1360, in do_open
+#28 0.849     raise URLError(err)
+#28 0.849 urllib.error.URLError: <urlopen error [Errno -5] No address associated with hostname>
+#28 ERROR: process "/bin/sh -c python /tmp/install.py" did not complete successfully: exit code: 1
+
+#31 [stage-6  9/14] COPY --from=node /usr/local/lib/node_modules/ /usr/local/lib/node_modules/
+#31 CANCELED
+------
+ > [infra-tools 4/7] RUN python /tmp/install.py:
+0.848              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.848   File "/usr/local/lib/python3.12/urllib/request.py", line 492, in _call_chain
+0.848     result = func(*args)
+0.848              ^^^^^^^^^^^
+0.848   File "/usr/local/lib/python3.12/urllib/request.py", line 1405, in https_open
+0.848     return self.do_open(http.client.HTTPSConnection, req,
+0.848            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+0.848   File "/usr/local/lib/python3.12/urllib/request.py", line 1360, in do_open
+0.849     raise URLError(err)
+0.849 urllib.error.URLError: <urlopen error [Errno -5] No address associated with hostname>
+------
+WARNING: current commit information was not captured by the build: failed to read current commit information with git rev-parse --is-inside-work-tree
+
+Dockerfile:9
+
+--------------------
+
+   7 |     COPY infra/versions.json /tmp/versions.json
+
+   8 |     COPY ci/install-agent-tools.py /tmp/install.py
+
+   9 | >>> RUN python /tmp/install.py
+
+  10 |     COPY observability/versions.json /tmp/observability-versions.json
+
+  11 |     COPY scripts/install-observability-tools.py /tmp/install-obs.py
+
+--------------------
+
+failed to solve: process "/bin/sh -c python /tmp/install.py" did not complete successfully: exit code: 1
+

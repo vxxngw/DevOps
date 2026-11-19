@@ -1,0 +1,6 @@
+histogram_quantile(
+  0.95,
+  sum by (namespace, le) (
+    rate(clinic_frontend_duration_seconds_bucket{category!="health",namespace=~"$namespace"}[5m])
+  )
+)

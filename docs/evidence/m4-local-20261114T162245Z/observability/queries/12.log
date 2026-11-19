@@ -1,0 +1,3 @@
+sum by (namespace, category) (
+  rate(clinic_frontend_requests_total{category!="health",namespace=~"$namespace"}[5m])
+)

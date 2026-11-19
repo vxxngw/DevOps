@@ -1,0 +1,42 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: clinic-tls
+spec:
+  secretName: clinic-tls
+  dnsNames:
+  - staging.anuyen.test
+  duration: 2160h
+  renewBefore: 360h
+  issuerRef:
+    name: clinic-lab-ca
+    kind: ClusterIssuer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: clinic
+spec:
+  ingressClassName: traefik
+  tls:
+  - hosts:
+    - staging.anuyen.test
+    secretName: clinic-tls
+  rules:
+  - host: staging.anuyen.test
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: api
+            port:
+              number: 8000
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 8080

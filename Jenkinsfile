@@ -3,13 +3,15 @@ pipeline {
     options {
         skipDefaultCheckout(true)
         disableConcurrentBuilds()
-        timestamps()
         timeout(time: 60, unit: 'MINUTES')
         buildDiscarder(logRotator(numToKeepStr: '20', artifactNumToKeepStr: '10'))
     }
     parameters {
-        string(name: 'SOURCE_REF', defaultValue: 'codex/milestone-2', description: 'Branch/ref of vxxngw/DevOps; never a repository URL')
-        string(name: 'SOURCE_BRANCH', defaultValue: 'codex/milestone-2', description: 'Webhook branch for provenance; deployment additionally checks origin/main')
+        string(name: 'SOURCE_REF', defaultValue: 'codex/milestone-4', description: 'Branch/ref of vxxngw/DevOps; never a repository URL')
+        string(name: 'SOURCE_BRANCH', defaultValue: 'codex/milestone-4', description: 'Webhook branch for provenance; deployment additionally checks origin/main')
+        string(name: 'CLUSTER_SERVER_URL', defaultValue: 'https://192.168.150.11:6443', description: 'Must match the actual dedicated Terraform k3s server and trusted kubeconfig')
+        string(name: 'STAGING_URL', defaultValue: 'https://staging.anuyen.test', description: 'Trusted HTTPS URL with DNS/hosts configured')
+        string(name: 'PRODUCTION_URL', defaultValue: 'https://hospital.anuyen.test', description: 'Trusted HTTPS URL with DNS/hosts configured')
         booleanParam(name: 'IS_PR', defaultValue: false, description: 'PR verification: no registry or deployment credentials')
         booleanParam(name: 'PUBLISH_IMAGES', defaultValue: false, description: 'Publish a SHA-tagged candidate after every gate passes; disabled for PRs')
         booleanParam(name: 'DEPLOY', defaultValue: false, description: 'Mốc3: requires Kubernetes overlays, namespace credentials and smoke accounts')
@@ -68,6 +70,12 @@ pipeline {
         stage('Unit tests') {
             steps { sh 'python3 -m ci.pipeline unit' }
         }
+        stage('Infrastructure configuration checks') {
+            steps { sh 'python3 -m ci.pipeline infrastructure' }
+        }
+        stage('Observability configuration checks') {
+            steps { sh 'python3 -m ci.pipeline observability' }
+        }
         stage('Build images') {
             steps { sh 'python3 -m ci.pipeline build' }
         }
@@ -91,24 +99,29 @@ pipeline {
                 script {
                     if (!params.PUBLISH_IMAGES) { error('Deployment requires a published, scanned release') }
                 }
-                withCredentials([file(credentialsId: 'clinic-kubeconfig-staging', variable: 'KUBECONFIG'), usernamePassword(credentialsId: 'clinic-smoke-staging', usernameVariable: 'CLINIC_SMOKE_EMAIL', passwordVariable: 'CLINIC_SMOKE_PASSWORD')]) {
-                    sh 'python3 -m ci.deploy staging'
+                withCredentials([file(credentialsId: 'clinic-kubeconfig-staging', variable: 'KUBECONFIG'), file(credentialsId: 'clinic-lab-ca', variable: 'CLINIC_SMOKE_CA_FILE'), usernamePassword(credentialsId: 'clinic-smoke-staging', usernameVariable: 'CLINIC_SMOKE_EMAIL', passwordVariable: 'CLINIC_SMOKE_PASSWORD')]) {
+                    withEnv(["CLINIC_EXPECTED_CLUSTER_SERVER=${params.CLUSTER_SERVER_URL}", "CLINIC_SMOKE_URL=${params.STAGING_URL}"]) {
+                        sh 'python3 -m ci.pipeline deploy-staging'
+                    }
                 }
+                archiveArtifacts artifacts: 'ci-out/staging-deploy-result.json,ci-out/staging-release.json,ci-out/release-manifest.json', fingerprint: true
             }
         }
         stage('Approve production') {
             when { expression { params.DEPLOY && !params.IS_PR } }
             steps {
                 timeout(time: 15, unit: 'MINUTES') {
-                    input message: 'Promote the same scanned digests from staging to production?', ok: 'Promote', submitter: params.PRODUCTION_APPROVERS
+                    input message: "Promote the same scanned digests? Staging: ${params.STAGING_URL} | Evidence: ${env.BUILD_URL}artifact/ci-out/staging-deploy-result.json | Manifest: ${env.BUILD_URL}artifact/ci-out/release-manifest.json", ok: 'Promote', submitter: params.PRODUCTION_APPROVERS
                 }
             }
         }
         stage('Deploy production') {
             when { expression { params.DEPLOY && !params.IS_PR } }
             steps {
-                withCredentials([file(credentialsId: 'clinic-kubeconfig-production', variable: 'KUBECONFIG'), usernamePassword(credentialsId: 'clinic-smoke-production', usernameVariable: 'CLINIC_SMOKE_EMAIL', passwordVariable: 'CLINIC_SMOKE_PASSWORD')]) {
-                    sh 'python3 -m ci.deploy production'
+                withCredentials([file(credentialsId: 'clinic-kubeconfig-production', variable: 'KUBECONFIG'), file(credentialsId: 'clinic-lab-ca', variable: 'CLINIC_SMOKE_CA_FILE'), usernamePassword(credentialsId: 'clinic-smoke-production', usernameVariable: 'CLINIC_SMOKE_EMAIL', passwordVariable: 'CLINIC_SMOKE_PASSWORD')]) {
+                    withEnv(["CLINIC_EXPECTED_CLUSTER_SERVER=${params.CLUSTER_SERVER_URL}", "CLINIC_SMOKE_URL=${params.PRODUCTION_URL}"]) {
+                        sh 'python3 -m ci.pipeline deploy-production'
+                    }
                 }
             }
         }

@@ -1,0 +1,11 @@
+{
+  "at_utc": "2026-11-15T06:44:24.921930+00:00",
+  "source_commit": "a821dfbb907cb1abf02e66f2932dcdf51a90bec9",
+  "free_bytes": {
+    "C": 10942279680,
+    "D": 8078159872
+  },
+  "registry_token_file_exists": false,
+  "scope": "CI continuation; no backup deletion, global prune or dev recreation",
+  "script_sha256": "4cfc9c0709edf90996237505a6c7bbc48309babfb66f54f58a3af6938d5e671c"
+}
