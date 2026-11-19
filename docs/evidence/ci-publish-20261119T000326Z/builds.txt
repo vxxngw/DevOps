@@ -8,5 +8,5 @@
     push: 5/5 images pushed and pulled back by digest (release-manifest.json)
     FAILURE at "Deploy staging": Could not find credentials entry with ID 'clinic-kubeconfig-staging'; "Approve production" and "Deploy production" skipped
 #23 2026-11-19T00:04:11Z by=clinic-webhook commit 1753510a (push to release-please--branches--main) IS_PR=false PUBLISH_IMAGES=false DEPLOY=false
-#24 2026-11-19T00:1xZ by=clinic-webhook commit 1753510a (Release PR #32, pull_request event) IS_PR=true PUBLISH_IMAGES=false DEPLOY=false
+#24 2026-11-19T00:06:51Z by=clinic-webhook commit 1753510a (Release PR #32, pull_request event) IS_PR=true PUBLISH_IMAGES=false DEPLOY=false
     checkout -> secret scan -> lint -> unit -> config checks: passed; FAILURE at "Build images": engine DNS could not resolve registry-1.docker.io for the node base image (transient network, same commit built fine in #22)
