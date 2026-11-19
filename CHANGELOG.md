@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/vxxngw/DevOps/compare/v0.4.0...v0.4.1) (2026-11-19)
+
+
+### Bug Fixes
+
+* **ci:** retry verify pull while GHCR propagates a new digest ([#31](https://github.com/vxxngw/DevOps/issues/31)) ([269519e](https://github.com/vxxngw/DevOps/commit/269519ee0301c15b032178ff3f1403566b851dcd))
+
 ## [0.4.0](https://github.com/vxxngw/DevOps/compare/v0.3.0...v0.4.0) (2026-11-18)
 
 
