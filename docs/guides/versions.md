@@ -13,7 +13,7 @@ Cập nhật 14/11/2026 (Asia/Ho_Chi_Minh). Không dùng tag latest. Pin không 
 | RabbitMQ | 4.2.9-management | Quorum retry + at-least-once DLX; bật management/Prometheus plugins; broker dev một node không HA |
 | Mailpit | v1.33.1 ghim digest, binary sang Alpine3.24 | Nguồn cũ1.27.10 có3CRITICAL; nguồn mới remote scan0CRITICAL. Custom image/SMTP test sau upgrade chưa chạy |
 | Node / React / TypeScript / Vite | Host/build Node24.22.1; React19.2.0; TS5.9.3; Vite7.2.2 | Node build dùng Alpine3.24; agent dùng trixie-slim; native build đã chạy, build image mới chưa chạy |
-| Nginx / Playwright | 1.30.6-alpine3.24 ghim digest / 1.65.0 | Nền cũ1.28.0 có3CRITICAL/EOL Alpine; nền mới remote scan0CRITICAL. Frontend image mới chưa chạy |
+| Nginx / Playwright | 1.30.7-alpine3.24 ghim digest / 1.65.0 | Nền cũ1.28.0 có3CRITICAL/EOL Alpine; nền mới remote scan0CRITICAL. Frontend image mới chưa chạy |
 | Inter / Fontsource | @fontsource/inter 5.3.0, lockfile npm | Font Inter tự phục vụ, gồm tiếng Việt và weight400/500/600; SIL OFL1.1 |
 | Docker | Đầu phiên CLI 29.4.0/Desktop 4.69.0; sau phục hồi CLI/engine 29.9.3, Desktop 4.99.0, Compose v5.7.0 | Ghi đúng môi trường thay đổi trong phiên; không ghim phiên bản Docker của máy thay người dùng |
 | ESLint / TypeScript ESLint / React Hooks | 10.15.0 / 8.72.2 / 7.1.1; @eslint/js10.0.1, globals17.14.0 | Exact versions/lockfile; nguồn npm registry chính thức; lint native đạt. ESLint9 đã EOL nên không giữ bộ cài thử9.39.1 |
