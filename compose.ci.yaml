@@ -9,6 +9,7 @@ services:
     environment:
       CLINIC_WEBHOOK_SECRET_FILE: /run/clinic/webhook-secret
       CLINIC_WEBHOOK_CONFIG: /run/clinic/webhook-config.json
+      CLINIC_CLUSTER_SERVER_URL: ${CLINIC_CLUSTER_SERVER_URL:-}
     ports: ["127.0.0.1:18085:8085"]
     volumes:
       - ./.ci-local/webhook:/run/clinic:ro

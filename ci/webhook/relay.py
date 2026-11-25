@@ -56,7 +56,7 @@ def parameters(event, payload):
     # Only a push to main is a release candidate: it publishes the scanned SHA images,
     # deploys staging and then waits at the Jenkins manual approval before production.
     release = branch == "main" and not is_pr
-    return {
+    result = {
         "SOURCE_REF": revision,
         "SOURCE_BRANCH": branch,
         "IS_PR": str(is_pr).lower(),
@@ -64,6 +64,13 @@ def parameters(event, payload):
         "DEPLOY": str(release).lower(),
         "SECURITY_DEMO": "none",
     }
+    # A Jenkins outside the VirtualBox host reaches k3s at another address than the Jenkinsfile default.
+    cluster = os.environ.get("CLINIC_CLUSTER_SERVER_URL", "")
+    if release and cluster:
+        if not re.fullmatch(r"https://[A-Za-z0-9.-]+(?::\d{1,5})?", cluster):
+            raise ValueError("Invalid CLINIC_CLUSTER_SERVER_URL")
+        result["CLUSTER_SERVER_URL"] = cluster
+    return result
 
 
 class DeliveryStore:

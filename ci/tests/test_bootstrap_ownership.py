@@ -38,3 +38,14 @@ def test_moved_bootstrap_still_refuses_foreign_item():
     )
     with pytest.raises(RuntimeError, match="not owned"):
         controller.owned_item("/job/other", b"<flow-definition/>")
+
+
+def test_webhook_reuses_previous_quick_tunnel_hook():
+    managed_hook = bootstrap().managed_hook
+    old = {"id": 1, "config": {"url": "https://old-name.trycloudflare.com/github"}}
+    other = {"id": 2, "config": {"url": "https://ci.example.test/hook"}}
+    new_endpoint = "https://new-name.trycloudflare.com/github"
+    assert managed_hook([other, old], new_endpoint) is old
+    same = {"id": 3, "config": {"url": new_endpoint}}
+    assert managed_hook([old, same], new_endpoint) is same
+    assert managed_hook([other], new_endpoint) is None

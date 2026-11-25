@@ -135,3 +135,17 @@ def test_pr_head_requires_matching_repository_id():
     event["pull_request"]["head"]["repo"]["id"] = 1
     with pytest.raises(ValueError):
         parameters("pull_request", event)
+
+
+def test_release_passes_this_hosts_cluster_url(monkeypatch):
+    monkeypatch.setenv("CLINIC_CLUSTER_SERVER_URL", "https://192.168.1.102:6443")
+    assert parameters("push", push())["CLUSTER_SERVER_URL"] == "https://192.168.1.102:6443"
+    event = push()
+    event["ref"] = "refs/heads/feature"
+    assert "CLUSTER_SERVER_URL" not in parameters("push", event)
+
+
+def test_release_rejects_a_malformed_cluster_url(monkeypatch):
+    monkeypatch.setenv("CLINIC_CLUSTER_SERVER_URL", "http://192.168.1.102:6443/x")
+    with pytest.raises(ValueError):
+        parameters("push", push())
