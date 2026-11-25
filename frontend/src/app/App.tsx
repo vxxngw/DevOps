@@ -114,7 +114,6 @@ export default function App() {
       <main className="page-container">
         <div className="page-intro">
           <div>
-            <p className="eyebrow">CHĂM SÓC SỨC KHỎE, NHẸ NHÀNG HƠN</p>
             <h1>
               {!session
                 ? 'Đặt lịch khám, an tâm hơn.'

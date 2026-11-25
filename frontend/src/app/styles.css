@@ -1582,6 +1582,338 @@ select:focus {
     gap: 9px;
   }
 }
+/* Theme "phieu kham": the paper appointment slip is the one memorable shape. */
+:root {
+  --page: #e9eef6;
+  --primary: #1746a2;
+  --primary-hover: #103783;
+  --soft: #e3ebfa;
+  --text: #0f2147;
+  --secondary: #4a5a78;
+  --border: #ccd7e8;
+  --accent: #c2410c;
+  --radius: 6px;
+  color: var(--text);
+  background: var(--page);
+}
+h1 {
+  font-size: clamp(32px, 4.4vw, 52px);
+  line-height: 1.12;
+  letter-spacing: -1.6px;
+}
+.site-header {
+  border-bottom: 3px solid var(--text);
+}
+.main-nav button {
+  border-radius: var(--radius);
+}
+.main-nav button.active {
+  background: var(--text);
+  color: #fff;
+}
+.timezone {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.card {
+  border: 0;
+  box-shadow: none;
+}
+.button {
+  border-radius: var(--radius);
+  font-weight: 600;
+}
+.login-layout {
+  max-width: none;
+  gap: 0;
+  align-items: stretch;
+  background: var(--surface);
+}
+.login-card {
+  padding: 48px;
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+.card-icon {
+  display: none;
+}
+.login-guide {
+  padding: 48px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--primary);
+  color: #fff;
+}
+.login-guide p,
+.login-guide .guide-number,
+.login-guide .gentle-note,
+.login-guide .gentle-note .icon {
+  color: #dbe6ff;
+}
+.login-guide h2 {
+  font-size: 34px;
+  line-height: 1.25;
+}
+.guide-icon {
+  border-radius: 50%;
+  background: #fff;
+}
+.gentle-note {
+  border-top: 2px dashed #ffffff55;
+}
+.booking-steps {
+  gap: 0;
+  padding: 0;
+  border: 0;
+  background: var(--soft);
+}
+.booking-steps li {
+  padding: 18px 20px;
+  border-bottom: 4px solid transparent;
+}
+.booking-steps .current {
+  border-color: var(--primary);
+  background: var(--surface);
+}
+.booking-steps .complete {
+  border-color: var(--primary);
+}
+.doctor-card,
+.time-slot {
+  border-radius: var(--radius);
+}
+.doctor-card.selected {
+  background: var(--soft);
+}
+.avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary);
+}
+.avatar-tone-1 {
+  background: #0f6f63;
+}
+.avatar-tone-2 {
+  background: #5b3f94;
+}
+.avatar-tone-3 {
+  background: #9a4a10;
+}
+.avatar-tone-4 {
+  background: #9b2f55;
+}
+.time-slot strong {
+  font-size: 20px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.time-slot.selected {
+  background: var(--primary);
+  color: #fff;
+}
+.time-slot.selected > span {
+  color: #fff;
+}
+
+/* The slip: coloured head, punched notches, tear line. */
+.summary-card {
+  position: relative;
+  overflow: hidden;
+  padding: 0 24px 24px;
+}
+.summary-card h2 {
+  margin: 0 -24px 22px;
+  padding: 18px 24px;
+  background: var(--text);
+  color: #fff;
+  font-size: 20px;
+}
+.summary-card h2 .icon {
+  color: #fff;
+}
+.summary-section {
+  border-bottom: 0;
+}
+.summary-section strong {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.summary-note {
+  position: relative;
+  padding-top: 20px;
+  border-top: 2px dashed var(--border);
+}
+.summary-note::before,
+.summary-note::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--page);
+}
+.summary-note::before {
+  left: -35px;
+}
+.summary-note::after {
+  right: -35px;
+}
+
+.password-input {
+  display: flex;
+  gap: 8px;
+}
+.password-input button {
+  flex-shrink: 0;
+  min-width: 62px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--primary);
+  font-size: 14px;
+}
+.filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.filter-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--secondary);
+  font-size: 15px;
+}
+.filter-tabs button[aria-pressed='true'] {
+  border-bottom-color: var(--primary);
+  color: var(--text);
+  font-weight: 600;
+}
+.filter-tabs span {
+  font-variant-numeric: tabular-nums;
+  color: var(--primary);
+}
+
+.appointment-item {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.ticket-stub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 20px 8px;
+  border-right: 2px dashed #ffffff;
+  background: var(--primary);
+  color: #fff;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.ticket-stub strong {
+  font-size: 48px;
+  line-height: 1;
+}
+.ticket-body {
+  min-width: 0;
+  padding: 22px 24px;
+}
+.status-completed .ticket-stub {
+  background: #0f6f63;
+}
+.status-cancelled .ticket-stub {
+  background: #7a869b;
+}
+.appointment-item.is-next {
+  border: 2px solid var(--accent);
+}
+.is-next .ticket-stub {
+  background: var(--accent);
+}
+.next-label {
+  margin-bottom: 14px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* One ruled strip, not four floating cards. */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0 0 20px;
+  border-block: 3px solid var(--text);
+}
+.stat-grid > div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 4px;
+  padding: 16px 18px;
+}
+.stat-grid > div + div {
+  border-left: 1px solid var(--border);
+}
+.stat-grid dt {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--secondary);
+  font-size: 14px;
+}
+.stat-grid dd {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 800px) {
+  .login-card {
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .login-guide {
+    border-radius: 0 0 var(--radius) var(--radius);
+  }
+  .stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 540px) {
+  .login-card,
+  .login-guide {
+    padding: 28px 22px;
+  }
+  .booking-steps li {
+    padding: 14px 6px;
+  }
+  .appointment-item {
+    grid-template-columns: 82px minmax(0, 1fr);
+    padding: 0;
+  }
+  .ticket-stub strong {
+    font-size: 34px;
+  }
+  .ticket-body {
+    padding: 16px 14px;
+  }
+  .appointment-top {
+    flex-wrap: wrap;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
