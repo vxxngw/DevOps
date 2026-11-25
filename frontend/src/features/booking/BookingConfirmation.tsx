@@ -20,7 +20,6 @@ export function BookingConfirmation({
       <span className="success-icon">
         <Icon name="check" size={32} />
       </span>
-      <p className="eyebrow">THÔNG TIN ĐÃ ĐƯỢC LƯU</p>
       <h2>Đặt lịch thành công</h2>
       <p>Cảm ơn bạn đã lựa chọn An Uyên Hospital.</p>
       <div className="success-summary">

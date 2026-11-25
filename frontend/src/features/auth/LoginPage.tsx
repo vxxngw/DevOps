@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Icon } from '../../components/ui/icons';
 import { Button } from '../../components/ui';
 import { leadLabel } from '../../lib/types';
@@ -16,6 +17,7 @@ export function LoginPage({
   setEmail,
   setPassword,
 }: Props) {
+  const [visible, setVisible] = useState(false);
   return (
     <div className="login-layout">
       <section className="card login-card">
@@ -40,16 +42,21 @@ export function LoginPage({
           </div>
           <div className="field">
             <label htmlFor="login-password">Mật khẩu</label>
-            <input
-              id="login-password"
-              type="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              required
-              disabled={busy}
-              placeholder="Nhập mật khẩu"
-            />
+            <div className="password-input">
+              <input
+                id="login-password"
+                type={visible ? 'text' : 'password'}
+                autoComplete="current-password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                required
+                disabled={busy}
+                placeholder="Nhập mật khẩu"
+              />
+              <button type="button" aria-pressed={visible} onClick={() => setVisible(!visible)}>
+                {visible ? 'Ẩn' : 'Hiện'}
+              </button>
+            </div>
           </div>
           <Button type="submit" busy={pending === 'login'}>
             {pending === 'login' ? 'Đang đăng nhập…' : 'Đăng nhập'}

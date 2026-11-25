@@ -1,5 +1,6 @@
 import { Icon, Spinner } from '../../components/ui/icons';
 import { Notice, Button, Toggle } from '../../components/ui';
+import { Avatar } from '../../components/ui/Avatar';
 import { dateKey, weekday, dayLabel, timeLabel, leadLabel } from '../../lib/types';
 import type { ClinicController } from '../../app/useClinicApp';
 type Props = Pick<
@@ -99,7 +100,6 @@ export function BookingWizard({
           {step === 1 ? (
             <>
               <div className="step-heading">
-                <p className="step-caption">BƯỚC 1 / 3</p>
                 <h2>Chọn bác sĩ của bạn</h2>
                 <p>Tìm bác sĩ hoặc chọn theo chuyên khoa.</p>
               </div>
@@ -140,9 +140,7 @@ export function BookingWizard({
                     aria-pressed={doctorId === doctor.id}
                     onClick={() => chooseDoctor(doctor.id)}
                   >
-                    <span className="avatar">
-                      <Icon name="user" size={24} />
-                    </span>
+                    <Avatar name={doctor.name} />
                     <span className="doctor-details">
                       <strong>{doctor.name}</strong>
                       <span>{doctor.specialty}</span>
@@ -164,7 +162,6 @@ export function BookingWizard({
           ) : step === 2 ? (
             <>
               <div className="step-heading">
-                <p className="step-caption">BƯỚC 2 / 3</p>
                 <h2>Chọn ngày và giờ khám</h2>
                 <p>
                   {selectedDoctor?.name} · {selectedDoctor?.specialty}
@@ -272,7 +269,6 @@ export function BookingWizard({
           ) : (
             <>
               <div className="step-heading">
-                <p className="step-caption">BƯỚC 3 / 3</p>
                 <h2>Xem lại lịch hẹn</h2>
                 <p>Vui lòng kiểm tra thông tin trước khi xác nhận.</p>
               </div>
