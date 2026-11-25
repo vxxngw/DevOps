@@ -48,6 +48,8 @@ Token trong kubeconfig hết hạn sau **8 giờ**: hết hạn thì chạy lạ
    CLINIC_LAB_INGRESS_IP=192.168.1.102
    ```
 
+   Relay webhook đọc `CLINIC_CLUSTER_SERVER_URL` và truyền `CLUSTER_SERVER_URL` cho build push `main`, vì mặc định trong Jenkinsfile (`192.168.56.11`) chỉ máy giữ VM tới được. Build chạy tay vẫn phải tự điền tham số này.
+
 2. Đặt GHCR token (`write:packages`, xin chủ repo) vào `.registry-token`, rồi:
 
    ```bash

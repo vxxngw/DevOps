@@ -320,6 +320,22 @@ println(token.plainValue)
     print("Created local-only webhook HMAC and restricted Jenkins token; values withheld")
 
 
+def managed_hook(hooks, endpoint):
+    """Hook to update: same endpoint, else the previous Quick Tunnel hook (its URL changes on restart)."""
+    from urllib.parse import urlparse
+
+    def tunnel(hook):
+        url = urlparse(hook.get("config", {}).get("url", ""))
+        return (
+            bool(url.hostname)
+            and url.hostname.endswith(".trycloudflare.com")
+            and url.path == "/github"
+        )
+
+    same = [hook for hook in hooks if hook.get("config", {}).get("url") == endpoint]
+    return (same or [hook for hook in hooks if tunnel(hook)] or [None])[0]
+
+
 def github_webhook(public_url):
     from urllib.parse import urlparse
 
@@ -341,8 +357,7 @@ def github_webhook(public_url):
     base = f"https://api.github.com/repos/{REPOSITORY}"
     endpoint = public_url.rstrip("/") + "/github"
     with httpx.Client(auth=(username, token), headers=headers, timeout=30) as client:
-        hooks = client.get(base + "/hooks").raise_for_status().json()
-        existing = [hook for hook in hooks if hook.get("config", {}).get("url") == endpoint]
+        existing = managed_hook(client.get(base + "/hooks").raise_for_status().json(), endpoint)
         payload = {
             "name": "web",
             "active": True,
@@ -355,7 +370,7 @@ def github_webhook(public_url):
             },
         }
         if existing:
-            response = client.patch(base + "/hooks/" + str(existing[0]["id"]), json=payload)
+            response = client.patch(base + "/hooks/" + str(existing["id"]), json=payload)
         else:
             response = client.post(base + "/hooks", json=payload)
         response.raise_for_status()
