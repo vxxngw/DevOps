@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.5.0](https://github.com/vxxngw/DevOps/compare/v0.4.1...v0.5.0) (2026-11-26)
+
+
+### Features
+
+* **frontend:** redesign booking UI around the appointment slip ([#38](https://github.com/vxxngw/DevOps/issues/38)) ([1a700ab](https://github.com/vxxngw/DevOps/commit/1a700abedcb352eb8adfb7e7cad753a21d7ab029))
+* **frontend:** update home page headline ([#41](https://github.com/vxxngw/DevOps/issues/41)) ([c299a5f](https://github.com/vxxngw/DevOps/commit/c299a5f866d9b9218bac4477827e901ed00a55ba))
+
+
+### Bug Fixes
+
+* **ci:** send this host's cluster URL with webhook releases and reuse… ([#37](https://github.com/vxxngw/DevOps/issues/37)) ([170c850](https://github.com/vxxngw/DevOps/commit/170c85093c305933e2c4d9a11be6500698f73091))
+* **frontend:** bump nginx base to 1.30.7 to clear 4 CRITICAL CVEs ([#35](https://github.com/vxxngw/DevOps/issues/35)) ([2bbe3d8](https://github.com/vxxngw/DevOps/commit/2bbe3d8eab9dddc7c1ad48e38a0205a4a1c7fa1b))
+* **k8s:** keep RabbitMQ erlang cookie owner-only across restarts ([#39](https://github.com/vxxngw/DevOps/issues/39)) ([1fa9be7](https://github.com/vxxngw/DevOps/commit/1fa9be723442d1c3cac7cfb59ff19e329488ea0c))
+
 ## [0.4.1](https://github.com/vxxngw/DevOps/compare/v0.4.0...v0.4.1) (2026-11-19)
 
 
