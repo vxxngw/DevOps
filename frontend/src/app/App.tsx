@@ -90,7 +90,7 @@ export default function App() {
               <div className="account">
                 <span className="account-label">
                   <Icon name="user" />
-                  {session.role === 'admin' ? 'Quản trị viên' : 'Tài khoản của tôi'}
+                  {session.role === 'admin' ? 'Admin' : 'Tài khoản của tôi'}
                 </span>
                 <button
                   className="logout-button"
@@ -130,7 +130,7 @@ export default function App() {
                   ? 'Sắp xếp lịch khám và theo dõi thông báo tại một nơi.'
                   : view === 'appointments'
                     ? 'Theo dõi lịch khám và chủ động sắp xếp thời gian của bạn.'
-                    : 'Chọn bác sĩ, thời gian và xem lại thông tin trước khi xác nhận.'}
+                    : 'Chọn bác sĩ, thời gian và xem lại thông tin trước khi xác nhận nhé.'}
             </p>
           </div>
           <span className="timezone">
