@@ -116,7 +116,7 @@ export default function App() {
           <div>
             <h1>
               {!session
-                ? 'Đặt lịch khám, an tâm hơn.'
+                ? 'Đặt lịch khám tại An Uyên, khiến bạn an tâm hơn.'
                 : session.role === 'admin'
                   ? 'Quản lý phòng khám'
                   : view === 'appointments'
