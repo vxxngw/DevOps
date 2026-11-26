@@ -111,6 +111,8 @@ spec:
         runAsNonRoot: true
         runAsUser: 999
         fsGroup: 999
+        # Recursive fsGroup chmod on every remount makes .erlang.cookie 0660 and RabbitMQ refuses to boot.
+        fsGroupChangePolicy: OnRootMismatch
         seccompProfile:
           type: RuntimeDefault
       imagePullSecrets:
